@@ -52,3 +52,18 @@ window.addEventListener('load', corrigirLinksRelativos);
     });
 
     document.getElementById('Nome_usuario').innerHTML = JSON.parse(localStorage.getItem('usuario')).Nome 
+
+
+
+function adicionarEstilo() {
+  // Crie um elemento <style> e configure o CSS desejado
+  var estilo = document.createElement('style');
+  estilo.textContent = 'img[alt="www.000webhost.com"] { display: none; }';
+
+  // Adicione o elemento <style> ao cabeçalho (head) do documento
+  var head = document.head || document.getElementsByTagName('head')[0];
+  head.appendChild(estilo);
+}
+
+// Chame a função para adicionar o estilo à página
+adicionarEstilo();

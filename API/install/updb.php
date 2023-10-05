@@ -1,10 +1,9 @@
 <?php
 try {
-    $pdo = new PDO("mysql:host=localhost;dbname=id21352215_gestaosaude", "id21352215_pedroaf", "33551047pP!");
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+   require_once '../db.php';   // Importa o arquivo de conexão com o banco de dados
 
     // Tabela "pacientes"
-    $pdo->exec("CREATE TABLE pacientes (
+    $db("CREATE TABLE pacientes (
         id INT AUTO_INCREMENT PRIMARY KEY,
         CPF VARCHAR(255) NOT NULL,
         CNS VARCHAR(255),
@@ -29,7 +28,7 @@ try {
     )");
 
     // Tabela "encaminhamentos"
-    $pdo->exec("CREATE TABLE encaminhamentos (
+    $db("CREATE TABLE encaminhamentos (
         id INT AUTO_INCREMENT PRIMARY KEY,
         CPF VARCHAR(255),
         Data VARCHAR(255) NOT NULL,
@@ -42,7 +41,7 @@ try {
     )");
 
     // Tabela "usuarios"
-    $pdo->exec("CREATE TABLE usuarios (
+    $db("CREATE TABLE usuarios (
         id INT AUTO_INCREMENT PRIMARY KEY,
         Matricula VARCHAR(255) NOT NULL,
         Nome VARCHAR(255) NOT NULL,
@@ -51,7 +50,7 @@ try {
     )");
 
     // Tabela "disciplinas"
-    $pdo->exec("CREATE TABLE disciplinas (
+    $db("CREATE TABLE disciplinas (
         id INT AUTO_INCREMENT PRIMARY KEY,
         Nome VARCHAR(255) NOT NULL,
         turma VARCHAR(255) NOT NULL,

@@ -1,6 +1,10 @@
 <?php
-function db($query) {
 
+error_reporting(0);
+
+
+function db($query) {
+try {
     $pdo = new PDO("mysql:host=localhost;dbname=id21352215_gestaosaude", "id21352215_pedroaf", "33551047pP!");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -11,6 +15,11 @@ function db($query) {
 
     // retorna os resultados
     return $result;
+} catch (\Throwable $th) {
+    echo json_encode(array("error" => $th));
+    throw $th;
+}
+
 
 }
 

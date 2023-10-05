@@ -63,6 +63,7 @@ try {
         datadecadastro VARCHAR(255) NOT NULL
     )");
 
+
     echo "Tabelas criadas com sucesso!";
 } catch (PDOException $e) {
     echo "Erro ao criar tabelas: " . $e->getMessage();

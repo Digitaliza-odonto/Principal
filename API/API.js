@@ -1,6 +1,6 @@
 const getApiUrl = () => {
   const storedApiUrl = localStorage.getItem('api');
-  return storedApiUrl ? storedApiUrl : '/API';
+  return storedApiUrl ? storedApiUrl : 'API';
 };
 
 const sendRequest = async (url, method, data) => {

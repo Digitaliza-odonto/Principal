@@ -5,6 +5,40 @@ $origem = 'master/Unificado-main';
 
 $zipFilename = "$destPath/repo.zip";
 
+// Lista de exceções (pastas ou arquivos que não devem ser excluídos)
+$excecoes = array('master', 'pull.php');
+
+// Pasta onde o script está localizado
+$pastaAtual = dirname(__FILE__);
+
+// Função para excluir arquivos e pastas recursivamente, com exceções
+function excluirRecursivamente($diretorio, $excecoes) {
+    $itens = scandir($diretorio);
+
+    foreach ($itens as $item) {
+        if ($item != '.' && $item != '..') {
+            $caminhoItem = $diretorio . '/' . $item;
+
+            if (in_array($item, $excecoes)) {
+                continue; // Ignorar exceções
+            }
+
+            if (is_dir($caminhoItem)) {
+                excluirRecursivamente($caminhoItem, $excecoes);
+                rmdir($caminhoItem);
+            } else {
+                unlink($caminhoItem);
+            }
+        }
+    }
+}
+
+// Chama a função para excluir os arquivos e pastas recursivamente
+excluirRecursivamente($pastaAtual, $excecoes);
+
+echo 'Todos os arquivos e pastas foram excluídos, exceto as exceções.<br>';
+
+
 // Função para limpar a pasta
 function limparPasta($destPath) {
     $files = glob("$destPath/*");
@@ -18,20 +52,6 @@ function limparPasta($destPath) {
     }
 }
 
-// Função para mover os arquivos de uma pasta para outra
-function moverArquivos($src, $dst) {
-    $files = glob("$src/*");
-    foreach ($files as $file) {
-        $newLocation = "$dst/" . basename($file);
-        if (is_dir($file)) {
-            // Se for uma subpasta, mova recursivamente
-            moverArquivos($file, $newLocation);
-        } else {
-            // Se for um arquivo, mova-o
-            rename($file, $newLocation);
-        }
-    }
-}
 
 // Limpa a pasta antes de continuar
 limparPasta($destPath);
@@ -45,22 +65,14 @@ if ($zip->open($zipFilename) === TRUE) {
     $zip->extractTo($destPath);
     $zip->close();
 
-    // Move os arquivos da pasta extraída para a pasta de destino
-    $extractedFolder = glob("$destPath/*", GLOB_ONLYDIR);
-    if (count($extractedFolder) === 1) {
-        moverArquivos($extractedFolder[0], $destPath);
-        rmdir($extractedFolder[0]);
-    }
 
     // Remove o arquivo ZIP após a extração
     unlink($zipFilename);
 
-    echo "Repositório baixado e arquivos extraidos com sucesso!";
+    echo "Repositório baixado e arquivos extraidos com sucesso!<br>";
 } else {
     echo "Erro ao extrair o arquivo ZIP.";
 }
-
-// Pasta de origem
 
 // Pasta de destino (a mesma pasta onde o script está localizado)
 $destino = dirname(__FILE__);

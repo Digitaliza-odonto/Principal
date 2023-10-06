@@ -1,6 +1,8 @@
 <?php
 $destPath = 'master'; // Substitua pelo caminho da pasta no servidor
 $zipUrl = 'https://github.com/UFPEL-gestao-saude/Unificado/archive/master.zip';
+$origem = 'master/Unificado-main';
+
 $zipFilename = "$destPath/repo.zip";
 
 // Função para limpar a pasta
@@ -53,8 +55,49 @@ if ($zip->open($zipFilename) === TRUE) {
     // Remove o arquivo ZIP após a extração
     unlink($zipFilename);
 
-    echo "Repositório baixado e arquivos movidos com sucesso!";
+    echo "Repositório baixado e arquivos extraidos com sucesso!";
 } else {
     echo "Erro ao extrair o arquivo ZIP.";
 }
+
+// Pasta de origem
+
+// Pasta de destino (a mesma pasta onde o script está localizado)
+$destino = dirname(__FILE__);
+
+// Função para copiar recursivamente os arquivos e pastas
+function copiarRecursivamente($origem, $destino) {
+    // Verifica se $origem é uma pasta
+    if (is_dir($origem)) {
+        // Cria a pasta de destino se não existir
+        if (!is_dir($destino)) {
+            mkdir($destino, 0755, true);
+        }
+
+        // Lista todos os itens na pasta de origem
+        $itens = scandir($origem);
+
+        // Loop através dos itens
+        foreach ($itens as $item) {
+            if ($item != '.' && $item != '..') {
+                // Constrói os caminhos completos para o item na origem e destino
+                $origemItem = $origem . '/' . $item;
+                $destinoItem = $destino . '/' . $item;
+
+                // Se for uma pasta, chama a função recursivamente
+                if (is_dir($origemItem)) {
+                    copiarRecursivamente($origemItem, $destinoItem);
+                } else {
+                    // Se for um arquivo, copia-o para o destino
+                    copy($origemItem, $destinoItem);
+                }
+            }
+        }
+    }
+}
+
+// Chama a função para copiar os arquivos e pastas recursivamente
+copiarRecursivamente($origem, $destino);
+
+echo 'Todos os arquivos e pastas foram movidos para a pasta do script.';
 ?>

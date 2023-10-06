@@ -56,11 +56,11 @@ const encaminhamentos = {
 
 const usuarios = {
 login: async (data) => {
-  const url = `${getApiUrl()}/usuarios/login.php`;
+  const url = `${getApiUrl()}/cobalto/usuarios/login.php`;
   return sendRequest(url, 'POST', data);
 },
 criar: async (data) => {
-  const url = `${getApiUrl()}/usuarios/criar.php`;
+  const url = `${getApiUrl()}/cobalto/usuarios/criar.php`;
   return sendRequest(url, 'POST', data);
 }
 }
@@ -77,13 +77,18 @@ const alunos = {
 
 const disciplinas = {
   criar: async (data) => {
-    const url = `${getApiUrl()}/disciplinas/criar.php`;
+    const url = `${getApiUrl()}/cobalto/disciplinas/criar.php`;
     return sendRequest(url, 'POST', data);
   },
   consultar: async (data) => {
-    const url = `${getApiUrl()}/disciplinas/consultar.php`;
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultar.php`;
     return sendRequest(url, 'POST', data);
   }
+};
+
+const cobalto = {
+  disciplinas,
+  usuarios
 };
 
 window.api = {

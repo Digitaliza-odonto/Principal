@@ -33,9 +33,11 @@ $dir = 'Gestão-Saúde';
 $linha_antiga = 'https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css';
 $linha_nova = '/Gestão-Saúde/src/all.css.jquery-ui.06102023101234850017.css';
 
+
+
 // Lista de extensões de arquivo que você deseja processar
 $extensoes = array('html');
 
 // Chama a função para processar os arquivos recursivamente
-processarArquivos($dir, $linha_antiga, $linha_nova, $extensoes);
+processarArquivos($dir,$linha_nova,  $linha_antiga, $extensoes);
 ?>

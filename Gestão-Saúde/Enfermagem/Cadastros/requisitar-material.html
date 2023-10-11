@@ -257,7 +257,7 @@
                 
             <br>
                 
-            <form action="https://sistema-odonto.000webhostapp.com/request-material.php" method="post" id="myForm">
+            <form action="../../../API/materiais/request-material.php" method="post" id="myForm">
                 <div style="margin-left: 20px;">
                 
                 <label style="width: 120px; font-weight: bold; margin: 5px; font-size: larger;">Dados do pedido:</label><br>
@@ -355,7 +355,7 @@
                 function loadTableData() {
                     // Make an AJAX request to fetch data from your PHP script
                     $.ajax({
-                        url: 'https://sistema-odonto.000webhostapp.com/busca-materiais.php',
+                        url: '../../../API/materiais/busca-materiais.php',
                         method: 'GET',
                         dataType: 'json',
                         success: function (data) {

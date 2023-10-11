@@ -1,0 +1,41 @@
+.important-ui{
+    border:1px solid #f50d0d;
+    background:#FFFF00;
+    background-color:#FFFF00;
+    font-weight:bold;
+    color:#000000;
+    text-transform: uppercase;
+    border-radius:5px;
+    }
+
+.agendamento-ui{
+    background:#FFFF00;
+    background-color:#FFFF00;
+    border-style: solid;
+    border-color: #cfcf02;
+    border-width: 1px;
+    font-weight:bold;
+    color:#000000;
+    }
+
+.atendido-ui{
+    background:#09a716;
+    background-color:#09a716;
+    border-style: solid;
+    border-color: #098013;
+    border-width: 1px;
+    font-weight:bold;
+    color:#000000;
+    }
+
+
+.container {
+  height: 200px;
+  position: relative;
+  border: 3px solid green;
+}
+
+.disabled-tab {
+    background-color: #8DB8D9;
+    color: #669CC4;
+}

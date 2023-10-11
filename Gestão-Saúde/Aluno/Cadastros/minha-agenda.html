@@ -44,7 +44,7 @@
         </div>
     </div>
   </head>
-
+  
   <body>
     <!-- CONTEÚDO SUPERIOR -->
     <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
@@ -66,346 +66,285 @@
     </div>
  
     <!-- COLUNA DA ESQUERDA -->
-    <div id="agendarAtendimento" class="tabs" style="width: 40%; height: 850px; float: left; box-sizing: border-box;">
-      <div id="agendarAtendimento-0" class="ui-widget agendarAtendimento-0">
-          <ul>
-              <li class="agendarAtendimento"><a href="#agendarAtendimento-0" accessKey="agendarAtendimento-0">Cadastrar novo agendamento</a></li>
-          </ul>
-      </div>
+    <div style="width: 40%; height: 850px; float: left; box-sizing: border-box;">
+        <div id="agendarAtendimento" class="tabs" style="width: 100%; height: 20%px; float: left; box-sizing: border-box;">
+            <div id="agendarAtendimento-0" class="ui-widget agendarAtendimento-0">
+                <ul>
+                    <li class="agendarAtendimento"><a href="#agendarAtendimento-0" accessKey="agendarAtendimento-0">Cadastrar novo agendamento</a></li>
+                </ul>
+            </div>
 
-      <div style="margin: 20px;">
-        <p></p>
-        <form id="agendamentoForm">
-          <br>
-          <label style="width: 200px; margin: 5px;">ID USUÁRIO</label>
-          <input type="text" id="agendado_por" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 10%;" value="2010123" placeholder="2010123"><p style="color: red; margin: 5px;">ID HIPOTÉICO - QUANDO IMPLEMENTAR SUPRIMIR ESSE CAMPO E PEGAR ID DA URL</p>
-          <br>
+            <div style="margin: 20px;">
+                <p></p>
 
-          <label style="width: 200px; margin: 5px;">Paciente</label>
-          <input type="text" id="pacienteAgendamento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style=" width: 50%;" placeholder="BUSCAR PELO NOME OU CPF ANTES DE ENTRAR NESSA PÁGINA???">
-          <br>
+                <form method="post" action="../../../API/agenda/agendamento-insert-remove.php" id="agendamentoForm">
+                    
+                    <div>
+                    <p></p>
+                    <br>
+                    
+                    <!-- Add hidden fields for 'id_agendamento' and 'agendado_por' -->
+                    <input type="hidden" id="id_agendamento" name="id_agendamento" value="" />
+                    <input type="hidden" id="agendado_por" name="agendado_por" value="agendado-por-value-from-url-here" />
 
-          <label style="width: 200px; margin: 5px;">CPF paciente</label>
-          <input type="text" name="cpf_paciente" id="cpf_paciente" maxlength="11" class="ui-state-default ui-corner-all" style="width: 20%;" placeholder="BUSCAR PELO NOME OU CPF ANTES DE ENTRAR NESSA PÁGINA???">
-          <br>
+                    <label style="width: 200px; margin: 5px;">Paciente</label>
+                    <input type="text" id="pacienteAgendamento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style=" width: 50%;" placeholder="BUSCAR PELO NOME OU CPF ANTES DE ENTRAR NESSA PÁGINA???">
+                    <br>
 
-          <br>
-          <label style="width: 200px; margin: 5px;">Descrição do procedimento</label>
-          <input type="text" id="descricao" maxlength="" class="ui-state-default ui-corner-all mousetrap" style="width: 50%;" placeholder="Descrição do procedimento">
+                    <label style="width: 200px; margin: 5px;">CPF paciente</label>
+                    <input type="text" name="cpf_paciente" id="cpf_paciente" maxlength="11" class="ui-state-default ui-corner-all" style="width: 20%;" placeholder="BUSCAR PELO NOME OU CPF ANTES DE ENTRAR NESSA PÁGINA???">
+                    <br>
 
-          <br>
-          <label style="width: 200px; margin: 5px;">Data do agendamento</label>
-            <input type="date" id="data_agendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 15%; height: 15px;" />
-          <br>
+                    <br>
+                    <label style="width: 200px; margin: 5px;">Descrição do procedimento</label>
+                    <input type="text" id="descricao" maxlength="" class="ui-state-default ui-corner-all mousetrap" style="width: 50%;" placeholder="Descrição do procedimento">
 
-          <label style="width: 200px; margin: 5px;">Turno do agendamento</label>
-          <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px;" id="turno_agendamento">
-              <option value="Escolher">Escolher</option>
-              <option value="Manhã">Manhã</option>
-              <option value="Tarde">Tarde</option>
-              <option value="Noite">Noite</option>
-          </select>
-          <br>
+                    <br>
+                    <label style="width: 200px; margin: 5px;">Data do agendamento</label>
+                        <input type="date" id="data_agendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 15%; height: 15px;" />
+                    <br>
 
-          <label style="width: 200px; margin: 5px;">Horário</label>
-          <select class="ui-state-default ui-corner-all" style="width: 6%; height: 20px;" id="horario_agendamento_1">
-              <option value="HH">HH</option>
-              <option value="08">08</option>
-              <option value="09">09</option>
-              <option value="10">10</option>
-              <option value="11">11</option>
-              <option value="13">13</option>
-              <option value="14">14</option>
-              <option value="15">15</option>
-              <option value="16">16</option>
-              <option value="17">17</option>
-              <option value="18">18</option>
-              <option value="19">19</option>
-          </select>
-          <select class="ui-state-default ui-corner-all" style="width: 6%; height: 20px;" id="horario_agendamento_2">
-            <option value="MM">MM</option>
-            <option value="00">00</option>
-            <option value="15">15</option>
-            <option value="30">30</option>
-            <option value="45">45</option>
-          </select>
-          <br>
+                    <label style="width: 200px; margin: 5px;">Horário</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 6%; height: 20px;" id="horario_agendamento_1">
+                        <option value="HH">HH</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                    </select>
+                    <select class="ui-state-default ui-corner-all" style="width: 6%; height: 20px;" id="horario_agendamento_2">
+                        <option value="MM">MM</option>
+                        <option value="00">00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                    </select>
+                    <br>
 
-          <label style="width: 200px; margin: 5px;">Local que será realizado o atendimento</label>
-          <select class="ui-state-default ui-corner-all" style="width: 20%; height: 20px;" id="local">
-              <option value="Escolher">Escolher</option>
-              <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
-              <option value="Clínica Oeste">Clínica Oeste</option>
-              <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
-              <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
-              <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
-              <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
-              <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
-              <option value="Clínica 4º Andar">Clínica 4º Andar</option>
-              <option value="Radiologia">Clínica de Radiologia</option>
-          </select>
-          <p></p>
-    
+                    <label style="width: 200px; margin: 5px;">Local que será realizado o atendimento</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 20%; height: 20px;" id="local">
+                        <option value="Escolher">Escolher</option>
+                        <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
+                        <option value="Clínica Oeste">Clínica Oeste</option>
+                        <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
+                        <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
+                        <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
+                        <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
+                        <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
+                        <option value="Clínica 4º Andar">Clínica 4º Andar</option>
+                        <option value="Radiologia">Clínica de Radiologia</option>
+                    </select>
+                    <p></p>
+                
+                    <label style="width: 200px; margin: 5px;">Disciplina</label>
+                    <input type="text" id="atividade_curricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 50%;" placeholder="SCRIPT PARA BUSCAR DE ACORDO COM O TEXTO DIGITADO!?">
+                    <br>
+                    <p></p>
 
-          <label style="width: 200px; margin: 5px;">Disciplina</label>
-          <input type="text" id="atividade_curricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 50%;" placeholder="SCRIPT PARA BUSCAR DE ACORDO COM O TEXTO DIGITADO!?">
-          <br>
-          <p></p>
-
-          <div style="margin-top: 20px; margin-left: 20%;">
-            <button type="button" id="insertButton" value="Adicionar" class="button">Cadastrar agendamento</button>
-            <button name="btnCancelar" onClick="limparCampos()" id="btnCancelar" value="Cancelar" class="button"  >Cancelar</button>
-            <button name="btnExcluir" onClick="excluir()" id="btnExcluir" value="Excluir" class="button"  >Excluir</button>
-          </div>
-        </form>
-      </div>
-    </div>
-      
-    
-    <script>
-      function limparCampos() {
-        document.getElementById("pacienteAgendamento").value = "";
-        document.getElementById("cpf_paciente").value = "";
-        document.getElementById("descricao").value = "";
-        document.getElementById("data_agendamento").value = "";
-        document.getElementById("turno_agendamento").value = "Escolher";
-        document.getElementById("horario_agendamento_1").value = "HH";
-        document.getElementById("horario_agendamento_2").value = "MM";
-        document.getElementById("local").value = "Escolher";
-        document.getElementById("atividade_curricular").value = "";
-      }
-
-      $(document).ready(function(){
-          $("#insertButton").click(function(){
-              var agendado_por = $("#agendado_por").val();
-              var cpf_paciente = $("#cpf_paciente").val();
-              var data_agendamento = $("#data_agendamento").val();
-              var turno_agendamento = $("#turno_agendamento").val();
-              var horario_agendamento_1 = $("#horario_agendamento_1").val();
-              var horario_agendamento_2 = $("#horario_agendamento_2").val();
-              var local = $("#local").val();
-              var atividade_curricular = $("#atividade_curricular").val();
-              var descricao = $("#descricao").val();
-
-              // Concatenate horario_agendamento_1 and horario_agendamento_2
-              var horario_agendamento = horario_agendamento_1 + ':' + horario_agendamento_2;
-
-              // AJAX request
-              $.ajax({
-                  url: 'https://sistema-odonto.000webhostapp.com/agendamento-insert-remove.php',
-                  type: 'POST',
-                  data: {
-                      agendado_por: agendado_por,
-                      cpf_paciente: cpf_paciente,
-                      data_agendamento: data_agendamento,
-                      turno_agendamento: turno_agendamento,
-                      horario_agendamento: horario_agendamento,
-                      local: local,
-                      atividade_curricular: atividade_curricular,
-                      descricao: descricao
-                    },
-                      crossDomain: true, // Set this to true for cross-domain requests
-                      success: function (response) {
-                      // Handle success, if needed
-                      if (response.success) {
-                          showCustomAlert(response.message);
-                          
-                      } else {
-                          showCustomAlert("Erro: " + response.message);
-                      }
-                  },
-                  error: function (xhr, status, error) {
-                      // Handle errors, if any
-                      console.log(xhr.responseText);
-                      showCustomAlert("Erro ao enviar a requisição. Por favor, tente novamente mais tarde.");
-                  }
-              });
-          });
-      });
-      </script>
-
-  <!-- COLUNA DA DIREITA -->
-  <div id="agendaClinicas" class="tabs" class="tabs" style="width: 60%; height: 850px; float: left; box-sizing: border-box;">
-    <div id="agendaClinicas-0" class="ui-widget agendaClinicas-0">
-        <ul>
-            <li class="agendaClinicas"><a href="#agendaClinicas-0" accessKey="agendaClinicas-0">Minha agenda</a></li>
-        </ul>
-    </div>
-
-    <div style="margin: 20px;">
-      <p></p>
-
-      <br>
-      <label style="width: 200px; margin: 5px;">Filtrar por data</label>
-      <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style="width: 15%; height: 15px;">
-        
-      <br>
-      <label style="width: 200px; margin: 5px;">Filtrar por turno</label>
-      <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px;" id="filtroTurnoAgendamento">
-          <option value="Todos">Todos</option>
-          <option value="Manhã">Manhã</option>
-          <option value="Tarde">Tarde</option>
-          <option value="Noite">Noite</option>
-      </select>
-      <br>
-
-      <label style="width: 195px; margin: 5px;">Filtrar tabela pelo Local o atendimento</label>
-      <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px; margin: 5px;" id="filtroLocalAgendamento">
-          <option value="Todos">Todos</option>
-          <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
-          <option value="Clínica Oeste">Clínica Oeste</option>
-          <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
-          <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
-          <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
-          <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
-          <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
-          <option value="Clínica 4º Andar">Clínica 4º Andar</option>
-          <option value="Radiologia">Clínica de Radiologia</option>
-      </select>
-      <br>
-
-      <label style="width: 195px; margin: 5px;">Filtrar tabela pela atividade clínica</label>
-      <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px; margin: 5px;" id="filtroDisciplina">
-          <option value="Todos">Todos</option>
-          <option value="ESTÁGIO EM PRONTO ATENDIMENTO (EPA)">ESTÁGIO EM PRONTO ATENDIMENTO (EPA)</option>
-          <option value="ODONTOPEDIATRIA">ODONTOPEDIATRIA</option>
-          <option value="PERIODONTIA CLÍNICA">PERIODONTIA CLÍNICA</option>
-          <option value="PRÓTESE DENTÁRIA PARCIAL III">PRÓTESE DENTÁRIA PARCIAL III</option>
-          <option value="CIRURGIA BUCO-MAXILAR III">CIRURGIA BUCO-MAXILAR III</option>
-          <option value="RADIOLOGIA E IMAGINOLOGIA">RADIOLOGIA E IMAGINOLOGIA</option>
-      </select>
-      <br>
-      
-      
-      <label style="width: 195px; margin: 5px;">Filtrar por status do agendamento</label>
-      <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px; margin: 5px;" id="filtroStatus">
-          <option value="Todos">Todos</option>
-          <option value="No local">No local</option>
-          <option value="Agendado">Agendado</option>
-          <option value="Atendido">Atendido</option>
-      </select>
-      <br>
-      
-
-      
-      <hr class="ui-state-default">
-      <div style="margin: 5px;"></div>
-      <button id="clear" style="margin: 10px;">Limpar filtros</button>
+                    <div style="margin: 20px; margin-left: 10%;">
+                        <button type="submit" id="btnAdicionar" class="button">Cadastrar agendamento</button>
+                        <button name="deleteButton" id="deleteButton" value="deleteButton" class="button">Excluir agendamento</button>
+                        <button name="btnCancelar" onClick="limparCampos()" id="btnCancelar" value="Cancelar" class="button">Apagar campos</button>
+                    </div>
+                </form>
+                <br>
+            </div>
+        </div>
             
-      
-        <hr class="ui-state-default">
-    
-        <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
-            <thead>
-                <tr class="ui-jqgrid-labels" role="rowheader">
-                  <th class="ui-jqgrid-titlebar ui-widget-header">Selec.</th>    
-                  <th class="ui-jqgrid-titlebar ui-widget-header">Data</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header">CPF Paciente</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header">Local</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header">Turno</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header">Horário</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header">Atividade</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header">Descrição</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header">Status</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <!-- Table body rows will be populated here -->
-            </tbody>
-            <tr>
-            <td colspan="9" style="text-align: center;">
-                <div id="pagination" class="ui-state-default">
-                    <button id="prev-page">Previous</button>
-                    <span id="page-info">Pág. 1</span>
-                    <button id="next-page">Next</button>
-                </div>
-            </td>
-            </tr>
-            </table>
-    </div>
+        <!-- COLUNA DA ESQUERDA / MEUS PACIENTES-->
+        <div id="MeusPacientes" class="tabs" style="width: 100%; height: 475px; float: left; box-sizing: border-box;">
+            <div id="MeusPacientes-0" class="ui-widget MeusPacientes-0">
+                <ul>
+                    <li class="MeusPacientes"><a href="#MeusPacientes-0" accessKey="MeusPacientes-0">Meus pacientes</a></li>
+                </ul>
+            </div>
+
+            <h1 style="color: red; margin-left: 50px;">INTEGRAR COM TABELA MEUS PACIENTES</h1>
+            <h2 style="color: red; margin-left: 50px;">INSERIR FUNÇÃO DE PREENCHER 'nome' e 'cpf' DA DIV SUPERIOR AO CLICAR NO PACIENTE</h2>
+            <h2 style="color: red; margin-left: 50px;">TRANSFORMAR 'nome' e 'cpf' => READONLY</h2>
+
           
+            
+        </div>
+    </div>
+</div>
+
+
+    <!-- COLUNA DA DIREITA -->
+    <div id="agendaClinicas" class="tabs" class="tabs" style="width: 60%; height: 850px; float: left; box-sizing: border-box;">
+        <div id="agendaClinicas-0" class="ui-widget agendaClinicas-0">
+            <ul>
+                <li class="agendaClinicas"><a href="#agendaClinicas-0" accessKey="agendaClinicas-0">Minha agenda</a></li>
+            </ul>
+        </div>
+
+        <div style="margin: 20px;">
+            <p></p>
+
+            <br>
+            <label style="width: 200px; margin: 5px;">Filtrar por data</label>
+            <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style="width: 15%; height: 15px;">
+                
+            <br>
+            <label style="width: 200px; margin: 5px;">Filtrar por turno</label>
+            <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px;" id="filtroTurnoAgendamento">
+                <option value="Todos">Todos</option>
+                <option value="Manhã">Manhã</option>
+                <option value="Tarde">Tarde</option>
+                <option value="Noite">Noite</option>
+            </select>
+            <br>
+
+            <label style="width: 195px; margin: 5px;">Filtrar tabela pelo Local o atendimento</label>
+            <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px; margin: 5px;" id="filtroLocalAgendamento">
+                <option value="Todos">Todos</option>
+                <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
+                <option value="Clínica Oeste">Clínica Oeste</option>
+                <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
+                <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
+                <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
+                <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
+                <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
+                <option value="Clínica 4º Andar">Clínica 4º Andar</option>
+                <option value="Radiologia">Clínica de Radiologia</option>
+            </select>
+            <br>
+
+            <label style="width: 195px; margin: 5px;">Filtrar tabela pela atividade clínica</label>
+            <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px; margin: 5px;" id="filtroDisciplina">
+                <option value="Todos">Todos</option>
+                <option value="ESTÁGIO EM PRONTO ATENDIMENTO (EPA)">ESTÁGIO EM PRONTO ATENDIMENTO (EPA)</option>
+                <option value="ODONTOPEDIATRIA">ODONTOPEDIATRIA</option>
+                <option value="PERIODONTIA CLÍNICA">PERIODONTIA CLÍNICA</option>
+                <option value="PRÓTESE DENTÁRIA PARCIAL III">PRÓTESE DENTÁRIA PARCIAL III</option>
+                <option value="CIRURGIA BUCO-MAXILAR III">CIRURGIA BUCO-MAXILAR III</option>
+                <option value="RADIOLOGIA E IMAGINOLOGIA">RADIOLOGIA E IMAGINOLOGIA</option>
+            </select>
+            <br>
+        
+            <div style="margin: 5px;"></div>
+            <button id="clear" style="margin: 10px;">Limpar filtros</button>
+                
+        
+            <hr class="ui-state-default">
+
+            <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin-left: 50px; margin-top: 25px; margin-bottom: 15px;">
+                <thead>
+                    <tr class="ui-jqgrid-labels" role="rowheader">
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Selec.</th>    
+                        <th style="display: none;">ID</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Data</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">CPF Paciente</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Local</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Horário</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Atividade</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Descrição</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Status</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Table body rows will be populated here -->
+                </tbody>
+                <tr>
+                    <td colspan="9" style="text-align: center;">
+                        <div id="pagination" class="ui-state-default">
+                            <button id="prev-page">Previous</button>
+                            <span id="page-info">Pág. 1</span>
+                            <button id="next-page">Next</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
     <script>
         // DADOS DO BANCO PREENCHEM DA TABELA
         $(document).ready(function () {
-          var currentPage = 1;
-          var rowsPerPage = 25;
-          var tableRows = [];
-          var totalRows = 0;
-                  
-          //NEW FILTERS TEST!!
-          var filtroDataAgendamento = '';
-          var filtroTurnoAgendamento = '';
-          var filtroLocalAgendamento = '';
-          var filtroDisciplina = '';
-          var filtroStatus = '';
-          
-          
-          // Função para obter parâmetros da URL
-          function getUrlVars() {
-              var vars = {};
-              var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-                  vars[key] = value;
-              });
-              return vars;
-          }
+            var currentPage = 1;
+            var rowsPerPage = 25;
+            var tableRows = [];
+            var totalRows = 0;
+                    
+            //NEW FILTERS TEST!!
+            var filtroDataAgendamento = '';
+            var filtroTurnoAgendamento = '';
+            var filtroLocalAgendamento = '';
+            var filtroDisciplina = '';
+                                    
+            // Função para obter parâmetros da URL
+            function getUrlVars() {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
+                    vars[key] = value;
+                });
+                return vars;
+            }
 
-          function loadTableData() {
-              // Make an AJAX request to fetch data from your PHP script
-              $.ajax({
-                  url: 'https://sistema-odonto.000webhostapp.com/agenda-usuario.php?id=' + getUrlVars()["id"] + '',
-                  method: 'GET',
-                  dataType: 'json',
-                  success: function (data) {
-                      totalRows = data.length;
-                      tableRows = data;
-                      applyFilters();
-                      updateButtons();
-                  },
-                  error: function () {
-                      console.log('Error fetching data');
-                  }
-              });
-          }
+            function loadTableData() {
+                // Make an AJAX request to fetch data from your PHP script
+                $.ajax({
+                    url: '../../../API/agenda/agendados-usuario.php?id=' + getUrlVars()["id"] + '',
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        totalRows = data.length;
+                        tableRows = data;
+                        applyFilters();
+                        updateButtons();
+                    },
+                    error: function () {
+                        console.log('Error fetching data');
+                    }
+                });
+            }
       
-          function applyFilters() {
-              var filteredRows = tableRows;
+            function applyFilters() {
+                var filteredRows = tableRows;
 
-              // Apply the filtroDataAgendamento filter
-              if (filtroDataAgendamento !== '') {
-                  filteredRows = filteredRows.filter(function (item) {
-                      return item.data_agendamento === filtroDataAgendamento;
-                  });
-              }
+                // Apply the filtroDataAgendamento filter
+                if (filtroDataAgendamento !== '') {
+                    filteredRows = filteredRows.filter(function (item) {
+                        return item.data_agendamento === filtroDataAgendamento;
+                    });
+                }
 
-              // Apply the filtroTurnoAgendamento filter
-              if (filtroTurnoAgendamento !== '') {
-                  filteredRows = filteredRows.filter(function (item) {
-                      return item.turno_agendamento === filtroTurnoAgendamento;
-                  });
-              }
+                // Apply the filtroTurnoAgendamento filter
+                if (filtroTurnoAgendamento !== '') {
+                    filteredRows = filteredRows.filter(function (item) {
+                        if (filtroTurnoAgendamento === 'Manhã') {
+                            return parseInt(item.horario_agendamento) < 12;
+                        } else if (filtroTurnoAgendamento === 'Tarde') {
+                            return parseInt(item.horario_agendamento) >= 12 && parseInt(item.horario_agendamento) < 18;
+                        } else if (filtroTurnoAgendamento === 'Noite') {
+                            return parseInt(item.horario_agendamento) >= 18;
+                        }
+                        return true; // If 'Todos' selected, no filtering based on time
+                    });
+                }
 
-              // Apply the filtroLocalAgendamento filter
-              if (filtroLocalAgendamento !== '') {
-                  filteredRows = filteredRows.filter(function (item) {
-                      return item.local === filtroLocalAgendamento;
-                  });
-              }
+                // Apply the filtroLocalAgendamento filter
+                if (filtroLocalAgendamento !== '') {
+                    filteredRows = filteredRows.filter(function (item) {
+                        return item.local === filtroLocalAgendamento;
+                    });
+                }
 
-              // Apply the filtroDisciplina filter
-              if (filtroDisciplina !== '') {
-                  filteredRows = filteredRows.filter(function (item) {
-                      return item.atividade_curricular === filtroDisciplina;
-                  });
-              }
+                // Apply the filtroDisciplina filter
+                if (filtroDisciplina !== '') {
+                    filteredRows = filteredRows.filter(function (item) {
+                        return item.atividade_curricular === filtroDisciplina;
+                    });
+                }
 
-              // Apply the filtroStatus filter
-              if (filtroStatus !== '') {
-                  filteredRows = filteredRows.filter(function (item) {
-                      return item.status_agendamento === filtroStatus;
-                  });
-              }
-        
-              showPage(currentPage, filteredRows);
+                showPage(currentPage, filteredRows);
             }
 
             function getStatusClass(status) {
@@ -432,12 +371,12 @@
                     var item = data[i];
                     var row = '<tr>';
                     
-                    row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr"><input type="checkbox"></td>';
+                    row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="' + item.id_agendamento + '"></td>';
+                    row += '<td style="display: none;">' + item.id_agendamento + '</td>';
                     row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.data_agendamento + '</td>';
                     row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.cpf_paciente + '</td>';
                     row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.local + '</td>';
-                    row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.turno_agendamento + '</td>';
-                    row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.horario_agendamento + '</td>';
+                    row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.horario_agendamento + ':' + item.minuto_agendamento + '</td>';
                     row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.atividade_curricular + '</td>';
                     row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.descricao + '</td>';
                     row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.status_agendamento + '</td>';
@@ -497,27 +436,17 @@
                 updateButtons();
             });
 
-            // Listen for changes to filtroStatus filter
-            $('#filtroStatus').change(function () {
-                filtroStatus = $(this).val();
-                currentPage = 1; // Reset to the first page when the filter changes
-                applyFilters();
-                updateButtons();
-            });
-
-            // Clear button click event
-            $('#clear').click(function () {
+                // Clear button click event
+                $('#clear').click(function () {
                 $('#filtroDataAgendamento').val('');
                 $('#filtroTurnoAgendamento').val('');
                 $('#filtroLocalAgendamento').val('');
                 $('#filtroDisciplina').val('');
-                $('#filtroStatus').val('');
-
+                
                 filtroDataAgendamento = '';
                 filtroTurnoAgendamento = '';
                 filtroLocalAgendamento = '';
                 filtroDisciplina = '';
-                filtroStatus = '';
                 currentPage = 1; // Reset to the first page when clearing filters
                 applyFilters();
                 updateButtons();
@@ -539,6 +468,113 @@
                 }
             });
         });
+    </script>
+
+    
+    <script>
+        $(document).ready(function () {
+            // Extract 'agendado_por' value from the current URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const agendadoPor = urlParams.get('id');
+
+            // Set 'agendado_por' value in the hidden field
+            $('#agendado_por').val(agendadoPor);
+
+            // Submit form when "Adicionar" button is clicked
+            $('#btnAdicionar').click(function (event) {
+                event.preventDefault(); // Prevent the default form submission behavior
+
+                // Create an object with all form fields and set 'id_agendamento' to an empty string
+                var formData = {
+                    id_agendamento: '', // Set id_agendamento to an empty string
+                    cpf_paciente: $('#cpf_paciente').val(),
+                    descricao: $('#descricao').val(),
+                    data_agendamento: $('#data_agendamento').val(),
+                    horario_agendamento: $('#horario_agendamento_1').val(),
+                    minuto_agendamento: $('#horario_agendamento_2').val(),
+                    local: $('#local').val(),
+                    atividade_curricular: $('#atividade_curricular').val(),
+                    agendado_por: agendadoPor
+                };
+
+                // Perform an AJAX POST request
+                $.ajax({
+                    type: 'POST',
+                    url: '../../../API/agenda/agendamento-insert-remove.php',
+                    data: formData,
+                    success: function (response) {
+                        // Show the result using the showCustomAlert() function
+                        showCustomAlert(response);
+
+                        // Optionally, clear the form fields or perform any other actions
+                        $('#pacienteAgendamento').val('');
+                        $('#cpf_paciente').val('');
+                        $('#descricao').val('');
+                        $('#data_agendamento').val('');
+                        $('#horario_agendamento_1').val('HH');
+                        $('#horario_agendamento_2').val('MM');
+                        $('#local').val('Escolher');
+                        $('#atividade_curricular').val('');
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors if needed
+                        showCustomAlert("Error: " + xhr.responseText); // Display the error response
+                        console.error(xhr); // Log the full error object for debugging
+                    }
+                });
+            });
+    
+        // Delete selected items when "Excluir" button is clicked
+        $('#deleteButton').click(function (event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+    
+            const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
+            // Get the value (ID) from the second column of the table in the same row
+            return $(this).closest('tr').find('td:eq(1)').text();
+            }).get();
+    
+            if (selectedIds.length === 0) {
+            showCustomAlert("Por favor, selecione ao menos um agendamento para excluir.");
+            return;
+            }
+    
+            // Create the request data as an object
+            const requestData = { selectedId: selectedIds };
+    
+            // Log the requestData for debugging
+            console.log("Request Data:", requestData);
+    
+            // Send the POST request using AJAX for deletion
+            $.ajax({
+            type: 'POST',
+            url: '../../../API/agenda/agendamento-insert-remove.php',
+            data: requestData, // Send the selectedIds directly
+            success: function (data) {
+                // Log the success response for debugging
+                showCustomAlert("Success Response:", data);
+    
+                showCustomAlert(data); // Display the server response
+                
+            },
+            error: function (xhr, status, error) {
+                // Log the error for debugging
+                console.error("Error:", error);
+            }
+            });
+        });
+        });
+    
+        // FUNÇÃO PARA APAGAR CAMPOS DA PÁGINA
+        function limparCampos() {
+            document.getElementById("pacienteAgendamento").value = "";
+            document.getElementById("cpf_paciente").value = "";
+            document.getElementById("descricao").value = "";
+            document.getElementById("data_agendamento").value = "";
+            document.getElementById("horario_agendamento_1").value = "HH";
+            document.getElementById("horario_agendamento_2").value = "MM";
+            document.getElementById("local").value = "Escolher";
+            document.getElementById("atividade_curricular").value = "";
+    }
     </script>
   </body>
 </html>

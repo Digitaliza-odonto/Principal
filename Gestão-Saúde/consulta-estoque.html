@@ -64,7 +64,7 @@
             $(document).ready(function() {
                 // Make an AJAX request to fetch options from the remote URL
                 $.ajax({
-                    url: 'https://sistema-odonto.000webhostapp.com/tipo-material-options.php',
+                    url: '../API/materiais/tipo-material-options.php',
                     dataType: 'html',
                     success: function(optionsHTML) {
                         // Populate the select element with the fetched options
@@ -117,7 +117,7 @@
                 function loadTableData() {
                     // Make an AJAX request to fetch data from your PHP script
                     $.ajax({
-                        url: 'https://sistema-odonto.000webhostapp.com/busca-materiais.php',
+                        url: '../API/materiais//busca-materiais.php',
                         method: 'GET',
                         dataType: 'json',
                         success: function (data) {

@@ -95,7 +95,7 @@
             </ul>
         </div>
         
-        <form method="post" action="https://sistema-odonto.000webhostapp.com/insert-remove-material.php" id="materialForm">
+        <form method="post" action="../../../API/materiais/insert-remove-material.php" id="materialForm">
           <div style="margin: 10px;">
             <button type="submit" id="btnAdicionar" class="button">Adicionar/Atualizar</button>
             <button name="deleteButton" id="deleteButton" value="deleteButton" class="button">Excluir</button>
@@ -126,7 +126,7 @@
             $(document).ready(function() {
             // Make an AJAX request to fetch options from the remote URL
             $.ajax({
-              url: 'https://sistema-odonto.000webhostapp.com/tipo-material-options.php',
+              url: '../../../API/materiais/tipo-material-options.php',
               dataType: 'html',
               success: function(optionsHTML) {
                 // Populate the select element with the fetched options
@@ -152,7 +152,7 @@
             $(document).ready(function() {
                 // Make an AJAX request to fetch options from the remote URL
                 $.ajax({
-                    url: 'https://sistema-odonto.000webhostapp.com/apresentacao-material-options.php',
+                    url: '../../../API/materiais/apresentacao-material-options.php',
                     dataType: 'html',
                     success: function(optionsHTML) {
                         // Populate the select element with the fetched options
@@ -209,7 +209,7 @@
         function loadTableData() {
             // Make an AJAX request to fetch data from your PHP script
             $.ajax({
-                url: 'https://sistema-odonto.000webhostapp.com/busca-materiais.php',
+                url: '../../../API/materiais/busca-materiais.php',
                 method: 'GET',
                 dataType: 'json',
                 success: function (data) {
@@ -309,7 +309,7 @@
           // Perform an AJAX POST request
           $.ajax({
             type: 'POST',
-            url: 'https://sistema-odonto.000webhostapp.com/insert-remove-material.php',
+            url: '../../../API/materiais/insert-remove-material.php',
             data: formData,
             success: function (response) {
               // Show the result using the showCustomAlert() function
@@ -351,7 +351,7 @@
           // Send the POST request using AJAX for deletion
           $.ajax({
             type: 'POST',
-            url: 'https://sistema-odonto.000webhostapp.com/insert-remove-material.php',
+            url: '../../../API/materiais/insert-remove-material.php',
             data: requestData, // Send the selectedIds directly
             success: function (data) {
               // Log the success response for debugging

@@ -30,8 +30,8 @@ function processarArquivos($dir, $linha_antiga, $linha_nova, $extensoes) {
 $dir = 'Gestão-Saúde';
 
 // Linha que você deseja substituir
-$linha_antiga = 'src="Gestão-Saúde/src/';
-$linha_nova = 'src="/Gestão-Saúde/src/';
+$linha_antiga = 'https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css';
+$linha_nova = '/Gestão-Saúde/src/all.css.jquery-ui.06102023101234850017.css';
 
 // Lista de extensões de arquivo que você deseja processar
 $extensoes = array('html');

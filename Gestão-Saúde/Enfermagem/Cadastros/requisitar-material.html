@@ -63,7 +63,7 @@
 
         <!-- CONTEÚDO BOTÕES -->
         <div class="ui-widget-content ui-corner-all toolbar">
-            <button id="voltar-pagina" class="voltar-pagina ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" style="float: left;" role="button" aria-disabled="false" title="Voltar página"><span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-w"></span><span class="ui-button-text">Voltar página</span></button>
+            <button id="voltar-pagina" class="voltar-pagina ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" style="float: left;" role="button" aria-disabled="false" title="Voltar página"><span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-w"></span></button>
             
             <span style="clear: both; display: block"></span>
         </div>
@@ -257,7 +257,7 @@
                 
             <br>
                 
-            <form action="https://sistema-odonto.000webhostapp.com/request-material.php" method="post" id="myForm">
+            <form action="../../../API/materiais/request-material.php" method="post" id="myForm">
                 <div style="margin-left: 20px;">
                 
                 <label style="width: 120px; font-weight: bold; margin: 5px; font-size: larger;">Dados do pedido:</label><br>
@@ -355,7 +355,7 @@
                 function loadTableData() {
                     // Make an AJAX request to fetch data from your PHP script
                     $.ajax({
-                        url: 'https://sistema-odonto.000webhostapp.com/busca-materiais.php',
+                        url: '../../../API/materiais/busca-materiais.php',
                         method: 'GET',
                         dataType: 'json',
                         success: function (data) {

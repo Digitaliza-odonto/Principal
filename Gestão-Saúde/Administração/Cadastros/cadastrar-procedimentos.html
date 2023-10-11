@@ -97,7 +97,7 @@
         </ul>
       </div>
         
-      <form method="post" action="https://sistema-odonto.000webhostapp.com/insert-remove-procedimentos.php" id="susForm">
+      <form method="post" action="../../../API/procedimentos/insert-remove-procedimentos.php" id="susForm">
         <div style="margin: 10px;">
           <button type="submit" id="btnAdicionar" class="button">Adicionar/Atualizar</button>
           <button name="deleteButton" id="deleteButton" value="deleteButton" class="button">Excluir</button>
@@ -127,7 +127,7 @@
         $(document).ready(function() {
             // Make an AJAX request to fetch options from the remote URL
             $.ajax({
-                url: 'https://sistema-odonto.000webhostapp.com/tipo-procedimento-options.php',
+                url: '../../../API/procedimentos/tipo-procedimento-options.php',
                 dataType: 'html',
                 success: function(optionsHTML) {
                     // Populate the select element with the fetched options
@@ -176,7 +176,7 @@
   
           function loadTableData() {
               $.ajax({
-                  url: 'https://sistema-odonto.000webhostapp.com/busca-procedimentos.php',
+                  url: '../../../API/procedimentos/busca-procedimentos.php',
                   method: 'GET',
                   dataType: 'json',
                   success: function (data) {
@@ -272,7 +272,7 @@
           // Perform an AJAX POST request
           $.ajax({
               type: 'POST',
-              url: 'https://sistema-odonto.000webhostapp.com/insert-remove-procedimentos.php',
+              url: '../../../API/procedimentos/insert-remove-procedimentos.php',
               data: formData,
               success: function (response) {
                   // Show the result using the showCustomAlert() function
@@ -314,7 +314,7 @@
           // Send the POST request using AJAX for deletion
           $.ajax({
             type: 'POST',
-            url: 'https://sistema-odonto.000webhostapp.com/insert-remove-procedimentos.php',
+            url: '../../../API/procedimentos/insert-remove-procedimentos.php',
             data: requestData, // Send the selectedIds directly
             success: function (data) {
               // Log the success response for debugging

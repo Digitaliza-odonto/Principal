@@ -136,7 +136,7 @@
 
       // Make AJAX request on page load
       $.ajax({
-        url: "https://sistema-odonto.000webhostapp.com/consulta-avaliacoes-id-periodo-disciplina.php",
+        url: "../../../API/avaliacoes/consulta-avaliacoes-id-periodo-disciplina.php",
         method: "GET",
         data: {matricula: matricula, cod_disciplina: codDisciplina, periodo: periodo},
         success: function(data) {

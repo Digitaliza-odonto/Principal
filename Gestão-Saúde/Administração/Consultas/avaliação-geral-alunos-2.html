@@ -100,7 +100,7 @@
 
         // First, make an AJAX request to fetch data from consulta-avaliacoes.php
         $.ajax({
-            url: 'https://sistema-odonto.000webhostapp.com/consulta-avaliacoes-id.php?matricula=' + getUrlVars()["id"] + '',
+            url: '../../../API/avaliacoes/consulta-avaliacoes-id.php?matricula=' + getUrlVars()["id"] + '',
             method: 'GET',
             dataType: 'json',
             success: function (data) {

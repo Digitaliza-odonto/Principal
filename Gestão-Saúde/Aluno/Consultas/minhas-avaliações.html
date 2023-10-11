@@ -1,90 +1,93 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head lang="pt-br">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
-      <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-    var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-    var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-    var PATH_COOKIE = '/';
-    var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-    var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-</script>
-<link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-<link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-<script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-<link href="stylecobalto.css" type="text/css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Minhas avaliações de atendimento</title>
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+            var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+            var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+            var PATH_COOKIE = '/';
+            var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+            var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+        </script>
+        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+        <link href="stylecobalto.css" type="text/css" rel="stylesheet">
 
-<!--ALERT MESSAGES-->
-<link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
-<script src="../../../scripts/alertMessage.js"></script>
+        <!--ALERT MESSAGES-->
+        <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+        <script src="../../../scripts/alertMessage.js"></script>
 
-    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-    <div id="customAlert" class="modal">
-        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
-        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-            <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
-            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
-            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
-            </button>
+        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+        <div id="customAlert" class="modal">
+            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+                <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+                <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+                </button>
+            </div>
+            <p></p>
+            <br>
+            <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+                <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+                <p id="alertMessage"></p>
+            </div>
+            <p> </p><br>
+            <p> </p><br>
+            <p> </p><br>
+            <div><button id="okButton" class="centered-button">OK</button></div>
+            </div>
         </div>
-        <p></p>
-        <br>
-        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
-            <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
-            <p id="alertMessage"></p>
-        </div>
-        <p> </p><br>
-        <p> </p><br>
-        <p> </p><br>
-        <div><button id="okButton" class="centered-button">OK</button></div>
-        </div>
-    </div>
-    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-<!--ALERT MESSAGES-->
-</head>
+        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+    <!--ALERT MESSAGES-->
+    </head>
+
+    <body>
 
 
-<div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
-    
-
-
-<!-- CONTEÚDO SUPERIOR -->
-<div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-    <li>Aluno</li>    
-    <li>Consultas</li>
-    <li>Minhas avaliações de atendimento</li>
-    </ul>
-      
-  <div style="clear: both;"></div></div><div style="clear: both;"></div>
-  
-<!-- CONTEÚDO BOTÕES -->
-<div class="ui-widget-content ui-corner-all toolbar">
-    <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-    <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button>
-    <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-    <span style="clear: both; display: block"></span>
-</div>
-
-
-
-<div id="tabFiltroCurso" class="tabs"><ul></ul>
-    <div id="tabFiltroCurso-0" class="ui-widget tabFiltroCurso tabFiltroCurso-0 tabFiltroCurso-0">
-        <ul>
-            <li class="labeltabFiltroCurso"><a href="#tabFiltroCurso-0" accessKey="tabFiltroCurso-0">Filtro</a></li></ul>
-            
-            <h2>Lista de disciplinas com avaliação de atendimento</h2>
+        <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
             
 
-            <hr class="ui-state-default">
+        <!-- CONTEÚDO SUPERIOR -->
+        <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
+            <li>Aluno</li>    
+            <li>Consultas</li>
+            <li>Minhas avaliações de atendimento</li>
+            </ul>
             
-            <div style="margin: 20px;">
-                <h1 style="color: red;">QUANDO UNIFICAR COM BANCO DE ALUNOS - O VALOR DE MATRICULA DEVE SER OBTIDO DO USUÁRIO E INSERIDO COMO 'id' NA URL</h1>
-                
-                <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3470016&periodo=2023/1">PERIODONTIA CLÍNICA 2023/1</a></p>
-                <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3470016&periodo=2023/2">PERIODONTIA CLÍNICA 2023/2</a></p>
-                <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3500053&periodo=2023/1">ODONTOPEDIATRIA</a></p>
-                <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3490047&periodo=2023/1">CIRURGIA BUCO-MAXILAR III</a></p>
+        <div style="clear: both;"></div></div><div style="clear: both;"></div>
+        
+        <!-- CONTEÚDO BOTÕES -->
+        <div class="ui-widget-content ui-corner-all toolbar">
+            <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+            <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button>
+            <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+            <span style="clear: both; display: block"></span>
         </div>
 
+
+        <div id="tabFiltroCurso" class="tabs"><ul></ul>
+            <div id="tabFiltroCurso-0" class="ui-widget tabFiltroCurso tabFiltroCurso-0 tabFiltroCurso-0">
+                <ul>
+                    <li class="labeltabFiltroCurso"><a href="#tabFiltroCurso-0" accessKey="tabFiltroCurso-0">Filtro</a></li>
+                </ul>
+                    
+                <h2>Lista de disciplinas com avaliação de atendimento</h2>
+                    
+                <hr class="ui-state-default">
+                    
+                <div style="margin: 20px;">
+                    <h1 style="color: red;">QUANDO UNIFICAR COM BANCO DE ALUNOS - O VALOR DE MATRICULA DEVE SER OBTIDO DO USUÁRIO E INSERIDO COMO 'id' NA URL</h1>
+                    
+                    <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3470016&periodo=2023/1">PERIODONTIA CLÍNICA 2023/1</a></p>
+                    <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3470016&periodo=2023/2">PERIODONTIA CLÍNICA 2023/2</a></p>
+                    <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3500053&periodo=2023/1">ODONTOPEDIATRIA</a></p>
+                    <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3490047&periodo=2023/1">CIRURGIA BUCO-MAXILAR III</a></p>
+                </div>
+            </div>
+        </div>
 	</body>
 </html>

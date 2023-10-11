@@ -16,7 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (count($result) === 0) {
         echo json_encode(array("error" => "Usuário não encontrado."));
     } else {
-        $pacientes = json_decode($result[0]['Pacientes']);
+        
+        $pacientes = $result[0]['Pacientes'];
+
+        // Remove o primeiro caractere
+        $pacientes = substr($pacientes, 1);
+
+        // Remove o último caractere
+        $pacientes = substr($pacientes, 0, -1);
+
+        $pacientes = json_decode($pacientes, true);
 
         $patientData = array();
         $cont = 0;

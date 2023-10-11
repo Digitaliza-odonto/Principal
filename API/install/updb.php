@@ -3,7 +3,7 @@ try {
    require_once '../db.php';   // Importa o arquivo de conexão com o banco de dados
 
     // Tabela "pacientes"
-    $db("CREATE TABLE pacientes (
+    db("CREATE TABLE pacientes (
         id INT AUTO_INCREMENT PRIMARY KEY,
         CPF VARCHAR(255) NOT NULL,
         CNS VARCHAR(255),
@@ -28,7 +28,7 @@ try {
     )");
 
     // Tabela "encaminhamentos"
-    $db("CREATE TABLE encaminhamentos (
+    db("CREATE TABLE encaminhamentos (
         id INT AUTO_INCREMENT PRIMARY KEY,
         CPF VARCHAR(255),
         Data VARCHAR(255) NOT NULL,
@@ -41,7 +41,7 @@ try {
     )");
 
     // Tabela "usuarios"
-    $db("CREATE TABLE usuarios (
+    db("CREATE TABLE usuarios (
         id INT AUTO_INCREMENT PRIMARY KEY,
         Matricula VARCHAR(255) NOT NULL,
         Nome VARCHAR(255) NOT NULL,
@@ -50,7 +50,7 @@ try {
     )");
 
     // Tabela "disciplinas"
-    $db("CREATE TABLE disciplinas (
+    db("CREATE TABLE disciplinas (
         id INT AUTO_INCREMENT PRIMARY KEY,
         Nome VARCHAR(255) NOT NULL,
         turma VARCHAR(255) NOT NULL,

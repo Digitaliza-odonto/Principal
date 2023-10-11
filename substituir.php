@@ -13,9 +13,11 @@ function processarArquivos($dir, $linha_antiga, $linha_nova, $extensoes) {
                     $extensao = pathinfo($path, PATHINFO_EXTENSION);
                     if (in_array($extensao, $extensoes)) {
                         $conteudo = file_get_contents($path);
-                        $conteudo = str_replace($linha_antiga, $linha_nova, $conteudo);
-                        file_put_contents($path, $conteudo);
-                        echo "Linha substituída em $path<br>";
+                            $conteudo = str_replace($linha_antiga, $linha_nova, $conteudo);
+                            file_put_contents($path, $conteudo);
+                         echo "Linha substituída em $path<br>\n";
+                        
+                      
                     }
                 }
             }
@@ -25,11 +27,11 @@ function processarArquivos($dir, $linha_antiga, $linha_nova, $extensoes) {
 }
 
 // Diretório inicial
-$dir = '/caminho/para/sua/pasta';
+$dir = 'Gestão-Saúde';
 
 // Linha que você deseja substituir
-$linha_antiga = 'Linha antiga que deseja substituir';
-$linha_nova = 'Nova linha que deseja inserir';
+$linha_antiga = 'src="Gestão-Saúde/src/';
+$linha_nova = 'src="/Gestão-Saúde/src/';
 
 // Lista de extensões de arquivo que você deseja processar
 $extensoes = array('html');

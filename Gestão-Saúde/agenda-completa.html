@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Agenda de clínicas</title>
+        <title>Agenda completa de atendimentos</title>
         <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
         var BASE_URL = 'https://cobalto.ufpel.edu.br/';
         var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
@@ -18,120 +18,125 @@
         <link href="../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
     </head>
 
-   <body>
-    <!-- CONTEÚDO SUPERIOR -->
-    <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-        <li>Consulta</li>    
-        <li>Agenda de clínicas</li>
-        </ul>
-          
-      <div style="clear: both;"></div></div><div style="clear: both;"></div>
-      
-    <!-- CONTEÚDO BOTÕES -->
-    <div class="ui-widget-content ui-corner-all toolbar">
-        <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-        <span style="clear: both; display: block"></span>
-    </div>
+    
+    <body>
+        <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+        <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important;">
+            
+            <div class="breadCrumb module">
+                <ul>
+                    <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+                    <li>Administração</li>    
+                    <li>Consulta</li>    
+                    <li>Agenda completa de atendimentos</li>
+                </ul>
+                <div style="clear: both;"></div></div><div style="clear: both;"></div>
+                
+                <div class="ui-widget-content ui-corner-all toolbar">
+                    <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+                    <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+                    <span style="clear: both; display: block"></span>
+                </div>
 
+            <!-- CONTEÚDO TAB E BOTÕES DA FUNCIONALIDADE -->
+            <div id="agendaClinicas" class="tabs" style="height: fit-content;">
+                <div id="agendaClinicas-0" class="ui-widget agendaClinicas-0">
+                    <ul>
+                        <li class="agendaClinicas"><a href="#agendaClinicas-0" accessKey="agendaClinicas-0">Agenda de clínicas</a></li>
+                    </ul>
+                </div>
 
-    <!-- CONTEÚDO TAB E BOTÕES DA FUNCIONALIDADE -->
-    <div id="agendaClinicas" class="tabs" style="height: 750px;">
-        <div id="agendaClinicas-0" class="ui-widget agendaClinicas-0">
-            <ul>
-                <li class="agendaClinicas"><a href="#agendaClinicas-0" accessKey="agendaClinicas-0">Agenda de clínicas</a></li>
-            </ul>
+                <div style="margin: 20px;">
+                    <p></p>
+
+                    <br>
+                    <label style="width: 200px; margin: 5px;">Filtrar por data</label>
+                    <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 200px; height: 15px;">
+                    <br>
+
+                    <label style="width: 200px; margin: 5px;">Filtrar por turno</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px;" id="filtroTurnoAgendamento">
+                        <option value="Todos">Todos</option>
+                        <option value="Manhã">Manhã</option>
+                        <option value="Tarde">Tarde</option>
+                        <option value="Noite">Noite</option>
+                    </select>
+                    <br>
+
+                    <label style="width: 195px; margin: 5px;">Filtrar tabela pelo Local o atendimento</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="filtroLocalAgendamento">
+                        <option value="Todos">Todos</option>
+                        <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
+                        <option value="Clínica Oeste">Clínica Oeste</option>
+                        <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
+                        <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
+                        <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
+                        <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
+                        <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
+                        <option value="Clínica 4º Andar">Clínica 4º Andar</option>
+                        <option value="Radiologia">Clínica de Radiologia</option>
+                    </select>
+                    <br>
+
+                    <label style="width: 195px; margin: 5px;">Filtrar tabela pelo componente curricular (disciplina/estágio)</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="filtroDisciplina">
+                        <option value="Todos">Todos</option>
+                        <option value="ESTÁGIO EM PRONTO ATENDIMENTO (EPA)">ESTÁGIO EM PRONTO ATENDIMENTO (EPA)</option>
+                        <option value="ODONTOPEDIATRIA">ODONTOPEDIATRIA</option>
+                        <option value="PERIODONTIA CLÍNICA">PERIODONTIA CLÍNICA</option>
+                        <option value="PRÓTESE DENTÁRIA PARCIAL III">PRÓTESE DENTÁRIA PARCIAL III</option>
+                        <option value="CIRURGIA BUCO-MAXILAR III">CIRURGIA BUCO-MAXILAR III</option>
+                        <option value="RADIOLOGIA E IMAGINOLOGIA">RADIOLOGIA E IMAGINOLOGIA</option>
+                    </select>
+                    <p></p>
+                    
+                    <label style="width: 195px; margin: 5px;">Filtrar por status do agendamento</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="filtroStatus">
+                        <option value="Todos">Todos</option>
+                        <option value="No local">No local</option>
+                        <option value="Agendado">Agendado</option>
+                        <option value="Atendido">Atendido</option>
+                    </select>
+                    <p></p>
+
+                    
+                    <hr class="ui-state-default">
+                    <div style="margin: 5px;"></div>
+                    <button id="clear" style="margin: 10px;">Limpar filtros</button>
+                    
+            
+                    <hr class="ui-state-default">
+                
+                    <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
+                        <thead>
+                            <tr class="ui-jqgrid-labels" role="rowheader">
+                                <th class="ui-jqgrid-titlebar ui-widget-header">Data</th>
+                                <th class="ui-jqgrid-titlebar ui-widget-header">Paciente</th>
+                                <th class="ui-jqgrid-titlebar ui-widget-header">Agendado por:</th>
+                                <th class="ui-jqgrid-titlebar ui-widget-header">Local</th>
+                                <th class="ui-jqgrid-titlebar ui-widget-header">Horário</th>
+                                <th class="ui-jqgrid-titlebar ui-widget-header">Atividade</th>
+                                <th class="ui-jqgrid-titlebar ui-widget-header">Descrição</th>
+                                <th class="ui-jqgrid-titlebar ui-widget-header">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                            <!-- Table body rows will be populated here -->
+                        </tbody>
+                        <tr>
+                        <td colspan="9" style="text-align: center;">
+                            <div id="pagination" class="ui-state-default">
+                                <button id="prev-page">Previous</button>
+                                <span id="page-info">Pág. 1</span>
+                                <button id="next-page">Next</button>
+                            </div>
+                        </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </div>
 
-        <div style="margin: 20px;">
-          <p></p>
-
-          <br>
-          <label style="width: 200px; margin: 5px;">Filtrar por data</label>
-          <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 200px; height: 15px;">
-          <br>
-
-          <label style="width: 200px; margin: 5px;">Filtrar por turno</label>
-          <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px;" id="filtroTurnoAgendamento">
-              <option value="Todos">Todos</option>
-              <option value="Manhã">Manhã</option>
-              <option value="Tarde">Tarde</option>
-              <option value="Noite">Noite</option>
-          </select>
-          <br>
-
-          <label style="width: 195px; margin: 5px;">Filtrar tabela pelo Local o atendimento</label>
-          <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="filtroLocalAgendamento">
-              <option value="Todos">Todos</option>
-              <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
-              <option value="Clínica Oeste">Clínica Oeste</option>
-              <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
-              <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
-              <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
-              <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
-              <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
-              <option value="Clínica 4º Andar">Clínica 4º Andar</option>
-              <option value="Radiologia">Clínica de Radiologia</option>
-          </select>
-          <br>
-
-          <label style="width: 195px; margin: 5px;">Filtrar tabela pelo componente curricular (disciplina/estágio)</label>
-          <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="filtroDisciplina">
-              <option value="Todos">Todos</option>
-              <option value="ESTÁGIO EM PRONTO ATENDIMENTO (EPA)">ESTÁGIO EM PRONTO ATENDIMENTO (EPA)</option>
-              <option value="ODONTOPEDIATRIA">ODONTOPEDIATRIA</option>
-              <option value="PERIODONTIA CLÍNICA">PERIODONTIA CLÍNICA</option>
-              <option value="PRÓTESE DENTÁRIA PARCIAL III">PRÓTESE DENTÁRIA PARCIAL III</option>
-              <option value="CIRURGIA BUCO-MAXILAR III">CIRURGIA BUCO-MAXILAR III</option>
-              <option value="RADIOLOGIA E IMAGINOLOGIA">RADIOLOGIA E IMAGINOLOGIA</option>
-          </select>
-          <p></p>
-          
-          <label style="width: 195px; margin: 5px;">Filtrar por status do agendamento</label>
-          <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="filtroStatus">
-              <option value="Todos">Todos</option>
-              <option value="No local">No local</option>
-              <option value="Agendado">Agendado</option>
-              <option value="Atendido">Atendido</option>
-          </select>
-          <p></p>
-
-          
-          <hr class="ui-state-default">
-          <div style="margin: 5px;"></div>
-          <button id="clear" style="margin: 10px;">Limpar filtros</button>
-                
-          
-            <hr class="ui-state-default">
-        
-            <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
-                <thead>
-                    <tr class="ui-jqgrid-labels" role="rowheader">
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Data</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Paciente</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Agendado por:</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Local</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Horário</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Atividade</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Descrição</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Status</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                    <!-- Table body rows will be populated here -->
-                </tbody>
-                <tr>
-                <td colspan="9" style="text-align: center;">
-                    <div id="pagination" class="ui-state-default">
-                        <button id="prev-page">Previous</button>
-                        <span id="page-info">Pág. 1</span>
-                        <button id="next-page">Next</button>
-                    </div>
-                </td>
-                </tr>
-                </table>
-        </div>
-                
         <script>
             // DADOS DO BANCO PREENCHEM DA TABELA
             $(document).ready(function () {
@@ -148,26 +153,25 @@
                 var filtroDisciplina = '';
                 var filtroStatus = '';
 
-              
-            
                 function loadTableData() {
-                    // Make an AJAX request to fetch data from your PHP script
-                    $.ajax({
-                        url: '../API/agenda/agenda-clinicas-currentday.php',
-                        method: 'GET',
-                        dataType: 'json',
-                        success: function (data) {
-                            totalRows = data.length;
-                            tableRows = data;
-                            applyFilters();
-                            updateButtons();
-                        },
-                        error: function () {
-                            console.log('Error fetching data');
-                        }
-                    });
-                }
+                     // Make an AJAX request to fetch data from your PHP script
+                     $.ajax({
+                         url: '../API/agenda/consultar.php',
+                         method: 'GET',
+                         dataType: 'json',
+                         success: function (data) {
+                             totalRows = data.length;
+                             tableRows = data;
+                             applyFilters();
+                             updateButtons();
+                         },
+                         error: function () {
+                             console.log('Error fetching data');
+                         }
+                     });
+                 }
             
+              
                 function applyFilters() {
                     var filteredRows = tableRows;
 
@@ -224,6 +228,8 @@
                             return 'agendamento-ui';
                         case 'Atendido':
                             return 'atendido-ui';
+                        case 'Faltou':
+                            return 'faltou-ui';
                         default:
                             return '';
                     }

@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Cadastrar/Excluir procedimentos SUS</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Cadastrar procedimentos SUS</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
       var BASE_URL = 'https://cobalto.ufpel.edu.br/';
       var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
       var PATH_COOKIE = '/';
       var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
       var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-    </script>
-    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+      </script>
+      <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+      <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+      <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
 
   <!--ALERT MESSAGES-->
@@ -71,24 +74,26 @@
   </head>
 
   <body>
-    <!-- CONTEÚDO SUPERIOR -->
-    <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-        <li>Administração</li>    
-        <li>Cadastros</li>
-        <li>Cadastro/Alteração de código SUS</li>
-        </ul>
-          
-      <div style="clear: both;"></div></div>
-      <div style="clear: both;"></div>
-      
-    <!-- CONTEÚDO BOTÕES -->
-    <div class="ui-widget-content ui-corner-all toolbar">
-        <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-        <span style="clear: both; display: block"></span>
-    </div>
-
-
+    <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+    <div id="content-center" class="ui-layout-center ui-widget-content"
+        style="background: none !important; overflow: hidden !important">
+        
+        <div class="breadCrumb module">
+            <ul>
+              <li>Administração</li>    
+              <li>Cadastros</li>
+              <li>Cadastro/Alteração de código SUS</li>
+            </ul>
+            <div style="clear: both;"></div></div><div style="clear: both;"></div>
+            
+            <div class="ui-widget-content ui-corner-all toolbar">
+            <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+            <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+            <span style="clear: both; display: block"></span>
+            </div>
+         
+      <div style="clear: both;"></div></div><div style="clear: both;"></div>
+  
     <!-- CONTEÚDO TAB E BOTÕES DA FUNCIONALIDADE -->
     <div id="listaProcedimentos" class="tabs" style="height: auto;">
       <div id="listaProcedimentos-0" class="ui-widget listaProcedimentos-0">

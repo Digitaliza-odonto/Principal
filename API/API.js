@@ -133,7 +133,8 @@ window.api = {
   encaminhamentos,
   usuarios,
   alunos,
-  disciplinas
+  disciplinas,
+  materiais
 };
 
 // remove o banner do 000webhost

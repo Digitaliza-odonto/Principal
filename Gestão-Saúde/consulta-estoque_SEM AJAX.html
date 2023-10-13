@@ -107,7 +107,7 @@
             </table>
         </div>
         
-        <!-- <script src="/API/API.js"></script> -->
+        <script src="/API/API.js"></script>
         <script>
             // DADOS DO BANCO PREENCHEM DA TABELA
             $(document).ready(function () {
@@ -120,20 +120,13 @@
             
                 
                 function loadTableData() {
-                    // Make an AJAX request to fetch data from your PHP script
-                    $.ajax({
-                        url: '../API/materiais/busca-materiais.php',
-                        method: 'GET',
-                        dataType: 'json',
-                        success: function (data) {
-                            totalRows = data.length;
-                            tableRows = data;
-                            applyFilters();
-                            updateButtons();
-                        },
-                        error: function () {
-                            console.log('Error fetching data');
-                        }
+                    api.materiais.consultar().then(function(data) {
+                        totalRows = data.length;
+                        tableRows = data;
+                        applyFilters();
+                        updateButtons();
+                    }).catch(function(error) {
+                        console.log('Error fetching data');
                     });
                 }
             

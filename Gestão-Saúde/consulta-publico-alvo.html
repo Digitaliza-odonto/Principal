@@ -1,39 +1,65 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Consulta público alvo de disciplinas e estágios</title>
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+            var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+            var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+            var PATH_COOKIE = '/';
+            var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+            var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+        </script>
+        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+        <link href="stylecobalto.css" type="text/css" rel="stylesheet">
 
-<head lang="pt-br">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
-      <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-    var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-    var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-    var PATH_COOKIE = '/';
-    var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-    var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-</script>
-<link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-<link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-<script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-<link href="../stylecobalto.css" type="text/css" rel="stylesheet">
-</head>
+        <!--ALERT MESSAGES-->
+        <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+        <script src="../../../scripts/alertMessage.js"></script>
 
-<div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-      <li>Consultas</li>    
-      <li>Público-alvo de disciplinas/estágios</li>
-    </ul>
-    
-<div style="clear: both;"></div></div><div style="clear: both;"></div>
-  <div class="ui-widget-content ui-corner-all toolbar">
-    <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-    <span style="clear: both; display: block"></span></div>
-  
-    <div id="tabFiltro" class="tabs"><ul></ul>    <div id="tabFiltro-0" class="ui-widget tabFiltro tabFiltro-0 tabFiltro-0">
-      <ul><li class="labeltabFiltro"><a href="#tabFiltro-0" accessKey="tabFiltro-0">Filtro</a></li></ul>
-      <label name="areaSaúde" id="areaSaúde" style="width: 120px;">Curso</label>
+        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+        <div id="customAlert" class="modal">
+            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+                <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+                <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+                </button>
+            </div>
+            <p></p>
+            <br>
+            <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+                <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+                <p id="alertMessage"></p>
+            </div>
+            <p> </p><br>
+            <p> </p><br>
+            <p> </p><br>
+            <div><button id="okButton" class="centered-button">OK</button></div>
+            </div>
+        </div>
+    </head>
 
-      <input type="hidden" name="areaSaúde" id="areaSaúdeiD" value="" />
-      <input type="text" name="txtAtividadeCodigo" id="txtAtividadeCodigo" value="" maxlength="" class="ui-state-default ui-corner-all mousetrap " style="text-align: right;width: 100px;" onblur="openInputTextHit('https://cobalto.ufpel.edu.br/academico/processos/migrarTurma/bthDisciplina/true/returnButtonHitAtividade', returnButtonHitAtividade, 'txtAtividadeId', 'txtAtividadeCodigo', 'txtAtividadeDescricao');"  />
-      <button id="atividadeButton" style="margin: 0px 1px 0px -4px; height: 24px; display: block; float: left;" class="button-hit">Pesquisar</button>
-      <input type="text" name="txtAtividadeDescricao" id="txtAtividadeDescricao" value="" maxlength="" class="ui-state-default ui-corner-all mousetrap " style="text-align: left;width: 400px;" readonly="readonly" tabindex="-1" />
+    <body>
+        <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
+                
+            <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
+                <li>Consultas</li>
+                <li>Consulta público alvo de disciplinas e estágios</li>
+                </ul>
+                
+            <div style="clear: both;"></div></div><div style="clear: both;"></div>
+            
+            <!-- CONTEÚDO BOTÕES -->
+            <div class="ui-widget-content ui-corner-all toolbar">
+                <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+                <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button>
+                <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+                <span style="clear: both; display: block"></span>
+            </div>
       
 
       <br /></div></div>

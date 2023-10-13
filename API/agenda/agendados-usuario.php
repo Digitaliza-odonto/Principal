@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
 
     // Use prepared statement to avoid SQL injection
-    $stmt = $connection->prepare("SELECT * FROM `agenda-clinicas` WHERE `agendado_por` = ? AND `status_agendamento` = 'Agendado'");
+    $stmt = $connection->prepare("SELECT * FROM `agenda-clinicas` WHERE `agendado_por` = ? AND (`status_agendamento` = 'Agendado' OR `status_agendamento` = 'No local')");
     $stmt->bind_param("s", $id);
     $stmt->execute();
     $result = $stmt->get_result();

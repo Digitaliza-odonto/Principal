@@ -28,6 +28,16 @@
     color:#000000;
     }
 
+.faltou-ui{
+    background:#a70909;
+    background-color:#a70909;
+    border-style: solid;
+    border-color: #800909;
+    border-width: 1px;
+    font-weight:bold;
+    color:#000000;
+    }
+
 
 .container {
   height: 200px;

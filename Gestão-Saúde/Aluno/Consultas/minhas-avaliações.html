@@ -80,13 +80,36 @@
                 <hr class="ui-state-default">
                     
                 <div style="margin: 20px;">
-                    <h1 style="color: red;">QUANDO UNIFICAR COM BANCO DE ALUNOS - O VALOR DE MATRICULA DEVE SER OBTIDO DO USUÁRIO E INSERIDO COMO 'id' NA URL</h1>
+                    
                     
                     <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3470016&periodo=2023/1">PERIODONTIA CLÍNICA 2023/1</a></p>
                     <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3470016&periodo=2023/2">PERIODONTIA CLÍNICA 2023/2</a></p>
                     <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3500053&periodo=2023/1">ODONTOPEDIATRIA</a></p>
                     <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3490047&periodo=2023/1">CIRURGIA BUCO-MAXILAR III</a></p>
                 </div>
+
+
+                <h1 style="color: red;">QUANDO UNIFICAR COM BANCO DE ALUNOS - O VALOR DE MATRICULA DEVE SER OBTIDO DO USUÁRIO E INSERIDO COMO 'id' NA URL</h1>
+                <h1 style="color: red;">QUANDO UNIFICAR COM BANCO DE DISCIPLINAS - MOSTRAR APENAS AS DISCIPLINAS QUE O ALUNO TEVE AO MENOS UMA AVALIAÇÃO</h1>
+
+                <script>
+                    // Extract 'agendado_por' value from the logged-in user's Matricula
+                    const aluno = JSON.parse(localStorage.getItem('usuario'));
+                    const id = aluno.Matricula;
+
+                    // Get cod_disciplina and periodo from the user's selection or other sources
+                    const cod_disciplina = "3470016"; // Example value, replace it with the actual selected value
+                    const periodo = "2023/1"; // Example value, replace it with the actual selected value
+
+                    // Construct the link with parameters
+                    const link = `minhas-avaliacoes-2.html?id=${id}&cod_disciplina=${cod_disciplina}&periodo=${periodo}`;
+
+                    // Set the link's href attribute
+                    const linkElement = document.getElementById("avaliacoesLink");
+                    linkElement.href = link;
+                </script>
+
+
             </div>
         </div>
 	</body>

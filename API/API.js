@@ -75,6 +75,43 @@ const alunos = {
   }
 };
 
+
+const materiais = {
+  criar: async (data) => {
+    const url = `${getApiUrl()}/materiais/insert-remove-material.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultar: async (data) => {
+    const url = `${getApiUrl()}/materiais/busca-materiais.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  buscaRequisicoes: async (data) => {
+    const url = `${getApiUrl()}/materiais/busca-requisicoes.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  buscaRequisicoesID: async (data) => {
+    const url = `${getApiUrl()}/materiais/busca-requisicoes-id.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  requestMaterial: async (data) => {
+    const url = `${getApiUrl()}/materiais/request-material.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  tramitarMaterial: async (data) => {
+    const url = `${getApiUrl()}/materiais/tramitar-materiais.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  tipoMaterialOptions: async (data) => {
+    const url = `${getApiUrl()}/materiais/tipo-material-options.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  apresentacaoMaterialOptions: async (data) => {
+    const url = `${getApiUrl()}/materiais/apresentacao-material-options.php`;
+    return sendRequest(url, 'POST', data);
+  }
+};
+
+
 const disciplinas = {
   criar: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/criar.php`;
@@ -96,7 +133,8 @@ window.api = {
   encaminhamentos,
   usuarios,
   alunos,
-  disciplinas
+  disciplinas,
+  materiais
 };
 
 // remove o banner do 000webhost

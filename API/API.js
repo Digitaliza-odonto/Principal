@@ -75,9 +75,8 @@ const alunos = {
   }
 };
 
-
 const materiais = {
-  criar: async (data) => {
+  criarDeletar: async (data) => {
     const url = `${getApiUrl()}/materiais/insert-remove-material.php`;
     return sendRequest(url, 'POST', data);
   },
@@ -111,6 +110,21 @@ const materiais = {
   }
 };
 
+const procedimentos = {
+  criar: async (data) => {
+    const url = `${getApiUrl()}/procedimentos/insert-remove-procedimentos.php`;
+    
+    return sendRequest(url, 'POST', data);
+  },
+  consultar: async (data) => {
+    const url = `${getApiUrl()}/procedimentos/consultar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  options: async (data) => {
+    const url = `${getApiUrl()}/procedimentos/procedimento-options.php`;
+    return sendRequest(url, 'POST', data);
+  }
+};
 
 const disciplinas = {
   criar: async (data) => {
@@ -119,6 +133,68 @@ const disciplinas = {
   },
   consultar: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultar.php`;
+    return sendRequest(url, 'POST', data);
+  }
+};
+
+const avaliacoes = {
+  criar: async (data) => {
+    const url = `${getApiUrl()}/avaliacoes/criar-avaliacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultar: async (data) => {
+    const url = `${getApiUrl()}/avaliacoes/avaliacoes.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarId: async (data) => {
+    const url = `${getApiUrl()}/avaliacoes/avaliacoes-id.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarPeriodoDisciplina: async (data) => {
+    const url = `${getApiUrl()}/avaliacoes/avaliacoes-periodo-disciplina.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarIdPeriodoDisciplina: async (data) => {
+    const url = `${getApiUrl()}/avaliacoes/avaliacoes-id-periodo-disciplina.php`;
+    return sendRequest(url, 'POST', data);
+  }
+};
+
+const agenda = {
+  criar: async (data) => {
+    const url = `${getApiUrl()}/agenda/agendamento-insert-remove.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarGeral: async (data) => {
+    const url = `${getApiUrl()}/agenda/consultar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarUsuario: async (data) => {
+    const url = `${getApiUrl()}/agenda/agenda-usuario.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarCurrentDay: async (data) => {
+    const url = `${getApiUrl()}/agenda/agenda-clinicas-currentday.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarFutureDates: async (data) => {
+    const url = `${getApiUrl()}/agenda/consultar-futuredates.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarPaciente: async (data) => {
+    const url = `${getApiUrl()}/agenda/agenda-CPFpaciente.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarAgendadosUsuario: async (data) => {
+    const url = `${getApiUrl()}/agenda/agendados-usuario.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarNoLocalUsuario: async (data) => {
+    const url = `${getApiUrl()}/agenda/nolocal-usuario.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  admitirPaciente: async (data) => {
+    const url = `${getApiUrl()}/agenda/admitir-paciente.php`;
     return sendRequest(url, 'POST', data);
   }
 };
@@ -170,8 +246,11 @@ window.api = {
   usuarios,
   alunos,
   disciplinas,
-  materiais,
-  arquivos
+  avaliacoes,
+  materiais: materiais,
+  arquivos,
+  procedimentos,
+  agenda,
 };
 
 // remove o banner do 000webhost

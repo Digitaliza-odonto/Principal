@@ -17,14 +17,8 @@ if ($consulta) {
         $distinctValues[] = $linha['tipo_material'];
     }
 
-    // Generate the HTML options dynamically
-    $optionsHTML = '';
-    foreach ($distinctValues as $value) {
-        $optionsHTML .= '<option value="' . htmlspecialchars($value) . '">' . htmlspecialchars($value) . '</option>';
-    }
-
-    // Output the HTML options
-    echo $optionsHTML;
+    // Output the JSON response
+    echo json_encode($distinctValues);
 } else {
     // Handle the error gracefully and return an error JSON response
     $error = array("error" => "Database query error: " . mysqli_error($connection));
@@ -33,4 +27,5 @@ if ($consulta) {
 
 // Close the database connection
 mysqli_close($connection);
+
 ?>

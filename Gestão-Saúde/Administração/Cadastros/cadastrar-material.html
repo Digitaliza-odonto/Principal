@@ -4,7 +4,7 @@
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Cadastrar material de estoque</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
   <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
       var BASE_URL = 'https://cobalto.ufpel.edu.br/';
       var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
@@ -73,6 +73,70 @@
     <!-- HIDDEN DIV FOR CONFIRMATION MESSAGE -->
   </head>
 
+  <!-- Include API.js -->
+  <script src="/API/API.js"></script>
+
+  <!-- Your submitForm function -->
+  <script>
+    function submitForm() {
+      // Serialize the form data as JSON
+      var formData = {
+        idMaterial: $('#idMaterial').val(),
+        nomeMaterial: $('#nomeMaterial').val(),
+        tipoMaterial: $('#tipoMaterial').val(),
+        apresentacao: $('#apresentacao').val(),
+        qtdMaterial: $('#qtdMaterial').val()
+      };
+  
+      // Perform an AJAX POST request
+      api.materiais.criarDeletar(formData)
+        .then(function(data) {
+          console.log(data); // Check the response data in the browser console
+          showCustomAlert(data);
+          limparCampos();
+        })
+        .catch(function(error) {
+          // Handle errors if needed
+          showCustomAlert(error);
+        });
+    }
+  
+    function deleteSelectedItems() {
+      const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
+        // Get the value (ID) from the second column of the table in the same row
+        return $(this).closest('tr').find('td:eq(1)').text();
+      }).get();
+  
+      if (selectedIds.length === 0) {
+        showCustomAlert("Por favor, selecione ao menos um item para excluir.");
+        return;
+      }
+  
+      // Create the request data as an object
+      const requestData = { selectedId: selectedIds };
+  
+      // Perform an AJAX POST request for deletion
+      api.materiais.criarDeletar(requestData).then(function(data) {
+        // Handle the response data here
+        showCustomAlert(data);
+  
+        // Optionally, update the table or perform any other actions after deletion
+      }).catch(function(error) {
+        // Handle errors if needed
+        showCustomAlert(error);
+      });
+    }
+  
+    function limparCampos() {
+      document.getElementById("idMaterial").value = "";
+      document.getElementById("nomeMaterial").value = "";
+      document.getElementById("tipoMaterial").value = "Escolher";
+      document.getElementById("apresentacao").value = "Escolher";
+      document.getElementById("qtdMaterial").value = "";
+    }
+  </script>
+  
+
 
 
   <body>
@@ -104,10 +168,10 @@
             </ul>
         </div>
         
-        <form method="post" action="../../../API/materiais/insert-remove-material.php" id="materialForm">
+        <form method="post" id="materialForm">
           <div style="margin: 10px;">
-            <button type="submit" id="btnAdicionar" class="button">Adicionar/Atualizar</button>
-            <button name="deleteButton" id="deleteButton" value="deleteButton" class="button">Excluir</button>
+            <button type="button" id="btnAdicionar" class="button" onclick="submitForm()">Adicionar/Atualizar</button>
+            <button type="button" id="deleteButton" class="button" onclick="deleteSelectedItems()">Excluir</button>
             <button name="btnCancelar" onClick="limparCampos()" id="btnCancelar" value="Cancelar" class="button">Cancelar</button>
           </div>
 
@@ -124,56 +188,26 @@
             <br>
 
             <label style="width: 180px; margin: 5px;">Tipo</label>
-            <select class="ui-state-default ui-corner-all" style="width: 140px; height: 20px;" name="tipoMaterial" id="tipoMaterial" required>
-                <!-- Placeholder option -->
-                <option id="Escolher" value="">Escolher</option>
+            <select class="ui-state-default ui-corner-all" style="width: 140px; height: 20px;" name="tipoMaterial" id="tipoMaterial">
+              <option id="Escolher" value="Escolher">Escolher</option>
+              <option id="Cimento" value="Cimento">Cimento</option>
+              <option id="Hospitalar" value="Hospitalar">Hospitalar</option>
+              <option id="Moldagem" value="Moldagem">Moldagem</option>
+              <option id="Resina" value="Resina">Resina</option>
             </select>
             <br>
             
-            <script>
-            //DADOS DO BANCO PARA O SELECT DE TIPO DE MATERIAL
-            $(document).ready(function() {
-            // Make an AJAX request to fetch options from the remote URL
-            $.ajax({
-              url: '../../../API/materiais/tipo-material-options.php',
-              dataType: 'html',
-              success: function(optionsHTML) {
-                // Populate the select element with the fetched options
-                $('#tipoMaterial').html('<option value="">Escolher</option>' + optionsHTML);
-                },
-                error: function(xhr, status, error) {
-                  console.error('Error fetching options:', error);
-                }
-              });
-            });
-            </script>
-
             <label for="apresentacao" style="width: 180px; margin: 5px;">Apresentação do produto</label>
-              <select class="ui-state-default ui-corner-all" style="width: 140px; height: 20px;" name="apresentacao" id="apresentacao">
-                <option value="Escolher">Escolher</option>
-                    <!-- Placeholder option -->
-                <option id="Escolher" value="">Escolher</option>
-                </select>
+            <select class="ui-state-default ui-corner-all" style="width: 140px; height: 20px;" name="apresentacao" id="apresentacao">
+              <option value="Escolher">Escolher</option>
+              <option value="Bisnaga">Bisnaga</option>
+              <option value="Caixa">Caixa</option>
+              <option value="Frasco">Frasco</option>
+              <option value="Kit">Kit</option>
+              <option value="Pacote">Pacote</option>
+            </select>
             <br>
-        
-            <script>
-                //DADOS DO BANCO PARA O SELECT DE TIPO DE APRESENTAÇÃO
-            $(document).ready(function() {
-                // Make an AJAX request to fetch options from the remote URL
-                $.ajax({
-                    url: '../../../API/materiais/apresentacao-material-options.php',
-                    dataType: 'html',
-                    success: function(optionsHTML) {
-                        // Populate the select element with the fetched options
-                        $('#apresentacao').html('<option value="">Escolher</option>' + optionsHTML);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching options:', error);
-                    }
-                });
-            });
-            </script>
-            
+                
             <label style="width: 180px; margin: 5px;">Quantidade disponível</label>
             <input type="number" name="qtdMaterial" id="qtdMaterial" class="ui-state-default ui-corner-all mousetrap" style="width: 140px; height: 20px;" placeholder="Inserir a quantidade" required>
             <br>
@@ -208,182 +242,175 @@
           </table>
         </form>
 
+
     <script>
-      $(document).ready(function () {
-        var currentPage = 1;
-        var rowsPerPage = 25;
-        var tableRows = [];
-        var totalRows = 0;
-
-        function loadTableData() {
-            // Make an AJAX request to fetch data from your PHP script
-            $.ajax({
-                url: '../../../API/materiais/busca-materiais.php',
-                method: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    totalRows = data.length;
-                    tableRows = data;
-                    showPage(currentPage);
-                    updateButtons();
-                },
-                error: function () {
-                    console.log('Error fetching data');
-                }
-            });
-        }
-
-        function showPage(page) {
-            var startIndex = (page - 1) * rowsPerPage;
-            var endIndex = Math.min(startIndex + rowsPerPage, totalRows);
-            var tableBody = $('#table-body');
-
-            tableBody.empty(); // Clear the table body
-
-            for (var i = startIndex; i < endIndex; i++) {
-                var item = tableRows[i];
-                var row = '<tr>';
-                row += '<td class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="item.id"></td>';
-                row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.id + '</td>';
-                row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.nome + '</td>';
-                row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.tipo_material + '</td>';
-                row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.apresentacao + '</td>';
-                row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.quantidade + '</td>';
-                row += '</tr>';
-                tableBody.append(row);
-            }
-
-            $('#page-info').text('Pág. ' + page);
-        }
-
-        function updateButtons() {
-            if (currentPage === 1) {
-                $('#prev-page').prop('disabled', true);
-            } else {
-                $('#prev-page').prop('disabled', false);
-            }
-
-            if (currentPage * rowsPerPage >= totalRows) {
-                $('#next-page').prop('disabled', true);
-            } else {
-                $('#next-page').prop('disabled', false);
-            }
-        }
-
-        // Initial load of table data
-        loadTableData();
-
-        $('#prev-page').click(function () {
-            if (currentPage > 1) {
-                currentPage--;
-                showPage(currentPage);
-                updateButtons();
-            }
-        });
-
-        $('#next-page').click(function () {
-            if (currentPage * rowsPerPage < totalRows) {
-                currentPage++;
-                showPage(currentPage);
-                updateButtons();
-            }
-        });
-      
-        // Add a click event handler for table rows
-        $('#listaMaterial tbody').on('click', 'tr', function () {
-                        // Get the data from the clicked row
-                        var rowData = $(this).children('td').map(function () {
-                            return $(this).text();
-                        }).get();
-
-                        // Populate the input fields with the row data
-                        $('#idMaterial').val(rowData[1]); // Assuming the material name is in the third column (index 1)
-                        $('#nomeMaterial').val(rowData[2]); // Assuming the material name is in the third column (index 2)
-                        $('#tipoMaterial').val(rowData[3]); // Assuming the type is in the fourth column (index 3)
-                        $('#apresentacao').val(rowData[4]); // Assuming the presentation is in the fifth column (index 4)
-                        $('#qtdMaterial').val(rowData[5]); // Assuming the quantity is in the sixth column (index 5)
-                    });
-                });
+    $(document).ready(function () {
+      var currentPage = 1;
+      var rowsPerPage = 25;
+      var tableRows = [];
+      var totalRows = 0;
+  
+      function loadTableData() {
+          api.materiais.consultar().then(function(data) {
+              totalRows = data.length;
+              tableRows = data;
+              showPage(currentPage); // Call showPage function after data is loaded
+              updateButtons();
+          }).catch(function(error) {
+              console.error('Error fetching data:', error);
+          });
+      }
+  
+      function showPage(page) {
+          var startIndex = (page - 1) * rowsPerPage;
+          var endIndex = Math.min(startIndex + rowsPerPage, totalRows);
+          var tableBody = $('#table-body');
+          tableBody.empty(); // Clear the table body
+  
+          for (var i = startIndex; i < endIndex; i++) {
+              var item = tableRows[i];
+              var row = '<tr>';
+              row += '<td class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="' + item.id + '"></td>';
+              row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.id + '</td>';
+              row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.nome + '</td>';
+              row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.tipo_material + '</td>';
+              row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.apresentacao + '</td>';
+              row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.quantidade + '</td>';
+              row += '</tr>';
+              tableBody.append(row);
+          }
+  
+          $('#page-info').text('Pág. ' + page);
+      }
+  
+      function updateButtons() {
+          if (currentPage === 1) {
+              $('#prev-page').prop('disabled', true);
+          } else {
+              $('#prev-page').prop('disabled', false);
+          }
+  
+          if (currentPage * rowsPerPage >= totalRows) {
+              $('#next-page').prop('disabled', true);
+          } else {
+              $('#next-page').prop('disabled', false);
+          }
+      }
+  
+      // Initial load of table data
+      loadTableData();
+  
+      $('#prev-page').click(function () {
+          if (currentPage > 1) {
+              currentPage--;
+              showPage(currentPage);
+              updateButtons();
+          }
+      });
+  
+      $('#next-page').click(function () {
+          if (currentPage * rowsPerPage < totalRows) {
+              currentPage++;
+              showPage(currentPage);
+              updateButtons();
+          }
+      });
+  
+      // Add a click event handler for table rows
+      $('#listaMaterial tbody').on('click', 'tr', function () {
+          // Get the data from the clicked row
+          var rowData = $(this).children('td').map(function () {
+              return $(this).text();
+          }).get();
+  
+          // Populate the input fields with the row data
+          $('#idMaterial').val(rowData[1]);
+          $('#nomeMaterial').val(rowData[2]);
+          $('#tipoMaterial').val(rowData[3]);
+          $('#apresentacao').val(rowData[4]);
+          $('#qtdMaterial').val(rowData[5]);
+      });
+    });
     </script>
 
     <script>
-      $(document).ready(function () {
-        // Submit form when "Adicionar" button is clicked
-        $('#btnAdicionar').click(function (event) {
-          event.preventDefault(); // Prevent the default form submission behavior
+      //   $(document).ready(function () {
+        // // Submit form when "Adicionar" button is clicked
+        // $('#btnAdicionar').click(function (event) {
+        //   event.preventDefault(); // Prevent the default form submission behavior
     
-          // Serialize the form data
-          var formData = $('#materialForm').serialize();
+        //   // Serialize the form data
+        //   var formData = $('#materialForm').serialize();
+        //   // Perform an AJAX POST request
+        //   $.ajax({
+        //     type: 'POST',
+        //     url: '../../../API/materiais/insert-remove-material.php',
+        //     data: formData,
+        //     success: function (response) {
+        //       // Show the result using the showCustomAlert() function
+        //       showCustomAlert(response);
     
-          // Perform an AJAX POST request
-          $.ajax({
-            type: 'POST',
-            url: '../../../API/materiais/insert-remove-material.php',
-            data: formData,
-            success: function (response) {
-              // Show the result using the showCustomAlert() function
-              showCustomAlert(response);
-    
-              // Optionally, clear the form fields or perform any other actions
-              $('#nomeMaterial').val('');
-              $('#tipoMaterial').val('Escolher');
-              $('#apresentacao').val('Escolher');
-              $('#qtdMaterial').val('');
-            },
-            error: function (xhr, status, error) {
-              // Handle errors if needed
-              showCustomAlert(xhr.responseText);
-            }
-          });
-        });
+        //       // Optionally, clear the form fields or perform any other actions
+        //       $('#nomeMaterial').val('');
+        //       $('#tipoMaterial').val('Escolher');
+        //       $('#apresentacao').val('Escolher');
+        //       $('#qtdMaterial').val('');
+        //     },
+        //     error: function (xhr, status, error) {
+        //       // Handle errors if needed
+        //       showCustomAlert(xhr.responseText);
+        //     }
+        //   });
+        // });
     
         // Delete selected items when "Excluir" button is clicked
-        $('#deleteButton').click(function (event) {
-          event.preventDefault(); // Prevent the default form submission behavior
+      //   $('#deleteButton').click(function (event) {
+      //     event.preventDefault(); // Prevent the default form submission behavior
     
-          const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
-            // Get the value (ID) from the second column of the table in the same row
-            return $(this).closest('tr').find('td:eq(1)').text();
-          }).get();
+      //     const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
+      //       // Get the value (ID) from the second column of the table in the same row
+      //       return $(this).closest('tr').find('td:eq(1)').text();
+      //     }).get();
     
-          if (selectedIds.length === 0) {
-            showCustomAlert("Por favor, selecione ao menos um item para excluir.");
-            return;
-          }
+      //     if (selectedIds.length === 0) {
+      //       showCustomAlert("Por favor, selecione ao menos um item para excluir.");
+      //       return;
+      //     }
     
-          // Create the request data as an object
-          const requestData = { selectedId: selectedIds };
+      //     // Create the request data as an object
+      //     const requestData = { selectedId: selectedIds };
     
-          // Log the requestData for debugging
-          console.log("Request Data:", requestData);
+      //     // Log the requestData for debugging
+      //     console.log("Request Data:", requestData);
     
-          // Send the POST request using AJAX for deletion
-          $.ajax({
-            type: 'POST',
-            url: '../../../API/materiais/insert-remove-material.php',
-            data: requestData, // Send the selectedIds directly
-            success: function (data) {
-              // Log the success response for debugging
-              showCustomAlert("Success Response:", data);
+      //     // Send the POST request using AJAX for deletion
+      //     $.ajax({
+      //       type: 'POST',
+      //       url: '../../../API/materiais/insert-remove-material.php',
+      //       data: requestData, // Send the selectedIds directly
+      //       success: function (data) {
+      //         // Log the success response for debugging
+      //         showCustomAlert("Success Response:", data);
     
-              showCustomAlert(data); // Display the server response
+      //         showCustomAlert(data); // Display the server response
               
-            },
-            error: function (xhr, status, error) {
-              // Log the error for debugging
-              console.error("Error:", error);
-            }
-          });
-        });
-      });
+      //       },
+      //       error: function (xhr, status, error) {
+      //         // Log the error for debugging
+      //         console.error("Error:", error);
+      //       }
+      //     });
+      //   });
+      // });
     
-      // FUNÇÃO PARA APAGAR CAMPOS DA PÁGINA
-      function limparCampos() {
-        document.getElementById("nomeMaterial").value = "";
-        document.getElementById("tipoMaterial").value = "Escolher";
-        document.getElementById("apresentacao").value = "Escolher";
-        document.getElementById("qtdMaterial").value = "";
-      }
+      // // FUNÇÃO PARA APAGAR CAMPOS DA PÁGINA
+      // function limparCampos() {
+      //   document.getElementById("idMaterial").value = "";
+      //   document.getElementById("nomeMaterial").value = "";
+      //   document.getElementById("tipoMaterial").value = "Escolher";
+      //   document.getElementById("apresentacao").value = "Escolher";
+      //   document.getElementById("qtdMaterial").value = "";
+      // }
     </script>
   </body>
 </html>

@@ -138,7 +138,9 @@
         </div>
 
         
-       
+       <!-- API -->
+       <script src="../API/API.js"></script>
+
         <script>
             // DADOS DO BANCO PREENCHEM DA TABELA
             $(document).ready(function () {
@@ -154,26 +156,19 @@
                 var filtroLocalAgendamento = '';
                 var filtroDisciplina = '';
                 var filtroStatus = '';
-
-                function loadTableData() {
-                     // Make an AJAX request to fetch data from your PHP script
-                     $.ajax({
-                         url: '../API/agenda/consultar-futuredates.php',
-                         method: 'GET',
-                         dataType: 'json',
-                         success: function (data) {
-                             totalRows = data.length;
-                             tableRows = data;
-                             applyFilters();
-                             updateButtons();
-                         },
-                         error: function () {
-                             console.log('Error fetching data');
-                         }
-                     });
-                 }
-            
-                 
+           
+               function loadTableData() {
+                   api.agenda.consultarFutureDates().then(function(data) {
+                       totalRows = data.length;
+                       tableRows = data;
+                       applyFilters();
+                       updateButtons();
+                   }).catch(function(error) {
+                       console.log('Error fetching data');
+                   });
+               }
+        
+                             
                 function applyFilters() {
                     var filteredRows = tableRows;
 

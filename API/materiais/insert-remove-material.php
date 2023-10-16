@@ -6,17 +6,16 @@ header("Content-Type: application/json");
 
 include_once('../config.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['selectedId']) && is_array($_POST['selectedId'])) {
-        // Check if 'selectedId' is present; if so, it's a delete operation
-        $selectedIds = $_POST['selectedId'];
+$input = json_decode(file_get_contents('php://input'), true);
 
-        // Loop through the selected IDs and delete the corresponding records
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($input['selectedId']) && is_array($input['selectedId'])) {
+        // Delete operation
+        $selectedIds = $input['selectedId'];
         $successMessage = "";
         $errorMessage = "";
 
         foreach ($selectedIds as $idToDelete) {
-            // Perform the database deletion
             $sql = "DELETE FROM `materiais` WHERE `materiais`.`id` = ?";
             $stmt = $connection->prepare($sql);
             $stmt->bind_param("i", $idToDelete);
@@ -27,74 +26,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $errorMessage = "Erro ao deletar material: " . $stmt->error;
             }
 
-            // Close the prepared statement
             $stmt->close();
         }
 
-        // Return the response as JSON
         if ($errorMessage !== "") {
-            echo json_encode($errorMessage);
+            echo json_encode(["error" => $errorMessage]);
         } else {
-            echo json_encode($successMessage);
+            echo json_encode(["message" => $successMessage]);
         }
     } else {
-        // If 'selectedId' is not present, it's an insert or update operation
-        // Check if the form fields are set and meet the required conditions
+        // Insert or update operation
         if (
-            isset($_POST['nomeMaterial']) && 
-            isset($_POST['tipoMaterial']) && $_POST['tipoMaterial'] !== "Escolher" &&
-            isset($_POST['qtdMaterial']) && $_POST['qtdMaterial'] > 0 &&
-            isset($_POST['apresentacao']) && $_POST['apresentacao'] !== "Escolher"
+            isset($input['nomeMaterial']) &&
+            isset($input['tipoMaterial']) && $input['tipoMaterial'] !== "Escolher" &&
+            isset($input['qtdMaterial']) && $input['qtdMaterial'] > 0 &&
+            isset($input['apresentacao']) && $input['apresentacao'] !== "Escolher"
         ) {
-            // Retrieve form data
-            $nomeMaterial = $_POST['nomeMaterial'];
-            $tipoMaterial = $_POST['tipoMaterial'];
-            $qtdMaterial = $_POST['qtdMaterial'];
-            $apresentacao = $_POST['apresentacao'];
+            $nomeMaterial = $input['nomeMaterial'];
+            $tipoMaterial = $input['tipoMaterial'];
+            $qtdMaterial = $input['qtdMaterial'];
+            $apresentacao = $input['apresentacao'];
 
-            // Check if 'idMaterial' is present; if so, it's an update operation
-            if (isset($_POST['idMaterial']) && $_POST['idMaterial'] !== "") {
-                $idMaterial = $_POST['idMaterial'];
-                // Perform the database update
+            if (isset($input['idMaterial']) && $input['idMaterial'] !== "") {
+                // Update operation
+                $idMaterial = $input['idMaterial'];
                 $sql = "UPDATE `materiais` SET `nome` = ?, `quantidade` = ?, `tipo_material` = ?, `apresentacao` = ? WHERE `id` = ?";
                 $stmt = $connection->prepare($sql);
                 $stmt->bind_param("sissi", $nomeMaterial, $qtdMaterial, $tipoMaterial, $apresentacao, $idMaterial);
 
                 if ($stmt->execute()) {
-                    // Return success message as JSON
-                    echo json_encode("Material atualizado com sucesso.");
+                    echo json_encode(["message" => "Material atualizado com sucesso."]);
                 } else {
-                    // Return error message as JSON
-                    echo json_encode("Erro ao atualizar material: " . $stmt->error);
+                    echo json_encode(["error" => "Erro ao atualizar material: " . $stmt->error]);
                 }
 
-                // Close the prepared statement
                 $stmt->close();
             } else {
-                // It's an insert operation as 'idMaterial' is not present
-                // Perform the database insertion with the auto-incremented ID
+                // Insert operation
                 $sql = "INSERT INTO materiais (nome, quantidade, tipo_material, apresentacao) VALUES (?, ?, ?, ?)";
                 $stmt = $connection->prepare($sql);
                 $stmt->bind_param("siss", $nomeMaterial, $qtdMaterial, $tipoMaterial, $apresentacao);
 
                 if ($stmt->execute()) {
-                    // Return success message as JSON
-                    echo json_encode("Material inserido com sucesso.");
+                    echo json_encode(["message" => "Material inserido com sucesso."]);
                 } else {
-                    // Return error message as JSON
-                    echo json_encode("Erro ao inserir material: " . $stmt->error);
+                    echo json_encode(["error" => "Erro ao inserir material: " . $stmt->error]);
                 }
 
-                // Close the prepared statement
                 $stmt->close();
             }
         } else {
-            // Return error message as JSON
-            echo json_encode("Um ou mais campos do formulário estão faltando ou não atendem às condições necessárias.");
+            echo json_encode(["error" => "Um ou mais campos do formulário estão faltando ou não atendem às condições necessárias."]);
         }
     }
 } else {
-    // Handle the case where the form was not submitted
-    echo json_encode("Form not submitted.");
+    echo json_encode(["error" => "Form not submitted."]);
 }
 ?>

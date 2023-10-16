@@ -4,13 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Consulta de estoque</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-        var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-        var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-        var PATH_COOKIE = '/';
-        var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-        var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+            var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+            var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+            var PATH_COOKIE = '/';
+            var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+            var JS = 'https://cobalto.ufpel.edu.br/static/_js';
         </script>
         <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
         <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
@@ -61,23 +60,37 @@
                 <option id="Escolher" value="">Escolher</option>
             </select>
 
-        
+            
+            <!-- API -->
+            <script src="../API/API.js"></script>
+            
             <script>
                 //DADOS DO BANCO PARA O SELECT DE TIPO DE MATERIAL
-            $(document).ready(function() {
-                // Make an AJAX request to fetch options from the remote URL
-                $.ajax({
-                    url: '../API/materiais/tipo-material-options.php',
-                    dataType: 'html',
-                    success: function(optionsHTML) {
-                        // Populate the select element with the fetched options
-                        $('#tipoMaterial').html('<option value="">Escolher</option>' + optionsHTML);
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Error fetching options:', error);
-                    }
-                });
-            });
+                function selectOptions() {
+                    api.materiais.tipoMaterialOptions().then(function (data) {
+                        var select = document.getElementById("tipoMaterial");
+                        // Clear existing options before adding new ones
+                        select.innerHTML = '';
+
+                        // Add a placeholder option
+                        var placeholderOption = document.createElement("option");
+                        placeholderOption.value = "";
+                        placeholderOption.text = "Escolher";
+                        select.appendChild(placeholderOption);
+
+                        // Add options from the API response
+                        for (var i = 0; i < data.length; i++) {
+                            var option = document.createElement("option");
+                            option.value = data[i]; // Use the string directly
+                            option.text = data[i];  // Use the string directly
+                            select.appendChild(option);
+                        }
+                    }).catch(function (error) {
+                        console.log('Error fetching data:', error);
+                    });
+                }
+
+                selectOptions();
             </script>
                 
             <hr class="ui-state-default">
@@ -107,7 +120,7 @@
             </table>
         </div>
         
-        <script src="/API/API.js"></script>
+        
         <script>
             // DADOS DO BANCO PREENCHEM DA TABELA
             $(document).ready(function () {
@@ -118,21 +131,15 @@
                 var selectedTipoMaterial = ''; // Store the selected tipoMaterial filter
                 var nomeMaterialFilter = ''; // Store the nomeMaterial filter
             
+                
                 function loadTableData() {
-                    // Make an AJAX request to fetch data from your PHP script
-                    $.ajax({
-                        url: '../API/materiais/busca-materiais.php',
-                        method: 'GET',
-                        dataType: 'json',
-                        success: function (data) {
-                            totalRows = data.length;
-                            tableRows = data;
-                            applyFilters();
-                            updateButtons();
-                        },
-                        error: function () {
-                            console.log('Error fetching data');
-                        }
+                    api.materiais.consultar().then(function(data) {
+                        totalRows = data.length;
+                        tableRows = data;
+                        applyFilters();
+                        updateButtons();
+                    }).catch(function(error) {
+                        console.log('Error fetching data');
                     });
                 }
             

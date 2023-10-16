@@ -123,6 +123,42 @@ const disciplinas = {
   }
 };
 
+const arquivos = {
+  baixar: async (data) => {
+    const url = `${getApiUrl()}/arquivos/baixar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultar: async (data) => {
+    const url = `${getApiUrl()}/arquivos/consultar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  criar: async (data) => {
+    const url = `${getApiUrl()}/arquivos/criar.php`;
+    const formData = new FormData();
+  
+    // Adicione os campos e arquivos ao objeto FormData
+    for (const key in data) {
+      formData.append(key, data[key]);
+    }
+  
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (response.ok) {
+        const result = await response.json();
+        return result;
+      } else {
+        throw new Error('Erro no envio do arquivo');
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+};
+
 const cobalto = {
   disciplinas,
   usuarios
@@ -134,7 +170,8 @@ window.api = {
   usuarios,
   alunos,
   disciplinas,
-  materiais
+  materiais,
+  arquivos
 };
 
 // remove o banner do 000webhost

@@ -6,18 +6,17 @@ header("Content-Type: application/json");
 
 include_once('../config.php');
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['selectedId']) && is_array($_POST['selectedId'])) {
-        // Check if 'selectedId' is present; if so, it's a delete operation
-        $selectedIds = $_POST['selectedId'];
+$input = json_decode(file_get_contents('php://input'), true);
 
-        // Loop through the selected IDs and delete the corresponding records
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Delete operation
+    if (isset($input['selectedId']) && is_array($input['selectedId'])) {
+        $selectedIds = $input['selectedId'];
         $successMessage = "";
         $errorMessage = "";
 
         foreach ($selectedIds as $idToDelete) {
-            // Perform the database deletion
-            $sql = "DELETE FROM `procedimentos_sus` WHERE `cod_sus` = ?";
+            $sql = "DELETE FROM `procedimentos_sus` WHERE `procedimentos_sus`.`id_procedimento` = ?";
             $stmt = $connection->prepare($sql);
             $stmt->bind_param("i", $idToDelete);
 
@@ -27,52 +26,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $errorMessage = "Erro ao deletar procedimento: " . $stmt->error;
             }
 
-            // Close the prepared statement
             $stmt->close();
         }
 
-        // Return the response as JSON
         if ($errorMessage !== "") {
-            echo json_encode($errorMessage);
+            echo json_encode(["error" => $errorMessage]);
         } else {
-            echo json_encode($successMessage);
-        }
-    } else {
-        // If 'selectedId' is not present, it's an insert or update operation
-        // Check if the form fields are set and meet the required conditions
-        if (
-            isset($_POST['codSUS']) && 
-            isset($_POST['descricaoSUS']) && 
-            isset($_POST['tipoSUS']) && 
-            $_POST['tipoSUS'] !== "Escolher"
-        ) {
-            // Retrieve form data
-            $codSUS = $_POST['codSUS'];
-            $descricaoSUS = $_POST['descricaoSUS'];
-            $tipoSUS = $_POST['tipoSUS'];
-
-            // It's an insert operation as 'codSUS' is provided by the user
-            $sql = "INSERT INTO `procedimentos_sus` (`cod_sus`, `nome`, `tipo`) VALUES (?, ?, ?)";
-            $stmt = $connection->prepare($sql);
-            $stmt->bind_param("iss", $codSUS, $descricaoSUS, $tipoSUS);
-
-            if ($stmt->execute()) {
-                // Return success message as JSON
-                echo json_encode("Procedimento cadastrado com sucesso.");
-            } else {
-                // Return error message as JSON
-                echo json_encode("Erro ao cadastrar procedimento: " . $stmt->error);
-            }
-
-            // Close the prepared statement
-            $stmt->close();
-        } else {
-            // Return error message as JSON
-            echo json_encode("Um ou mais campos do formulário estão faltando ou não atendem às condições necessárias.");
+            echo json_encode(["message" => $successMessage]);
         }
     }
+    // Update operation
+    else if (isset($input['id_procedimento'], $input['codSUS'], $input['descricaoSUS'], $input['tipoSUS']) && !empty($input['id_procedimento'])) {
+        $id_procedimento = $input['id_procedimento'];
+        $codSUS = $input['codSUS'];
+        $descricaoSUS = $input['descricaoSUS'];
+        $tipoSUS = $input['tipoSUS'];
+
+        $sql = "UPDATE `procedimentos_sus` SET `cod_sus` = ?, `nome` = ?, `tipo` = ? WHERE `id_procedimento` = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("issi", $codSUS, $descricaoSUS, $tipoSUS, $id_procedimento);
+
+        if ($stmt->execute()) {
+            echo json_encode(["message" => "Procedimento atualizado com sucesso."]);
+        } else {
+            echo json_encode(["error" => "Erro ao atualizar procedimento: " . $stmt->error]);
+        }
+
+        $stmt->close();
+    }
+    // Insert operation
+    else if (isset($input['codSUS'], $input['descricaoSUS'], $input['tipoSUS']) && $input['tipoSUS'] !== "Escolher") {
+        $codSUS = $input['codSUS'];
+        $descricaoSUS = $input['descricaoSUS'];
+        $tipoSUS = $input['tipoSUS'];
+
+        $sql = "INSERT INTO `procedimentos_sus` (cod_sus, nome, tipo) VALUES (?, ?, ?)";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("sss", $codSUS, $descricaoSUS, $tipoSUS);
+
+        if ($stmt->execute()) {
+            echo json_encode(["message" => "Procedimento cadastrado com sucesso."]);
+        } else {
+            echo json_encode(["error" => "Erro ao cadastrar procedimento: " . $stmt->error]);
+        }
+
+        $stmt->close();
+    }
+    else {
+        echo json_encode(["error" => "Invalid request or missing required parameters."]);
+    }
 } else {
-    // Handle the case where the form was not submitted
-    echo json_encode("Formulário não submetido.");
+    echo json_encode(["error" => "Form not submitted."]);
 }
 ?>

@@ -49,31 +49,27 @@
     </tbody>
 </table>
   
+ <!-- API -->
+ <script src="../API/API.js"></script>
 
 <script>
-  // DADOS DO BANCO PREENCHEM DA TABELA
-  $(document).ready(function () {
-      var tableRows = [];
-      var totalRows = 0;
+    // DADOS DO BANCO PREENCHEM DA TABELA
+    $(document).ready(function () {
+        var tableRows = [];
+        var totalRows = 0;
   
-      function loadTableData() {
-          // Make an AJAX request to fetch data from your PHP script
-          $.ajax({
-              url: '../API/materiais/busca-materiais.php',
-              method: 'GET',
-              dataType: 'json',
-              success: function (data) {
-                  totalRows = data.length;
-                  tableRows = data;
-                  showAllRows();
-              },
-              error: function () {
-                  console.log('Error fetching data');
-              }
-          });
-      }
+        function loadTableData() {
+            api.materiais.consultar().then(function(data) {
+                totalRows = data.length;
+                tableRows = data;
+                applyFilters();
+                updateButtons();
+            }).catch(function(error) {
+                console.log('Error fetching data');
+            });
+        }
   
-      function showAllRows() {
+        function showAllRows() {
           var tableBody = $('#table-body');
           tableBody.empty(); // Clear the table body
   

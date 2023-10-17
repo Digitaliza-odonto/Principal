@@ -126,26 +126,28 @@
     </div>
   </body>
 
+  <!-- API -->
+  <script src="../../../API/API.js"></script>
+
   <script>
-    $(document).ready(function() {
-        // Get matricula, cod_disciplina, and periodo from the URL
-        var urlParams = new URLSearchParams(window.location.search);
-        var matricula = urlParams.get('id');
-        var codDisciplina = urlParams.get('cod_disciplina');
-        var periodo = urlParams.get('periodo'); // Get the value of 'periodo' parameter
-  
-        // Make AJAX request on page load
-        $.ajax({
-          url: "../../../API/avaliacoes/consulta-avaliacoes-id-periodo-disciplina.php",
-          method: "GET",
-          data: {matricula: matricula, cod_disciplina: codDisciplina, periodo: periodo},
-          success: function(data) {
+  $(document).ready(function() {
+      // Get matricula, cod_disciplina, and periodo from the URL
+      var urlParams = new URLSearchParams(window.location.search);
+      var matricula = urlParams.get('id');
+      var codDisciplina = urlParams.get('cod_disciplina');
+      var periodo = urlParams.get('periodo'); // Get the value of 'periodo' parameter
+
+      function getAvaliacoes() {
+        api.avaliacoes.consultarIdPeriodoDisciplina({
+            matricula: matricula,
+            cod_disciplina: codDisciplina,
+            periodo: periodo
+        }).then(function (data) {
           // Populate matricula
           if (data.length > 0) {
             matricula = data[0].matricula;
           }
-  
-          // Populate inputs with data from the server response
+         // Populate inputs with data from the server response
           if (data.length > 0) {
             var firstEntry = data[0];
             $("#disciplina").val(firstEntry.disciplina);
@@ -154,17 +156,17 @@
           } else {
             console.log("No data found.");
           }
-  
-          // Populate tables with data
+         // Populate tables with data
           populateTables(data);
-  
-          // Create the chart after populating the tables
+         // Create the chart after populating the tables
           createChart();
-        },
-        error: function (error) {
+        }).catch(function (error) {
           console.error('Error fetching data:', error);
-        }
-      });
+        });
+      }
+
+    getAvaliacoes();
+
   
       // Function to populate tables with data
       function populateTables(data) {

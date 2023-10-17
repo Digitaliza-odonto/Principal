@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admitir paciente</title>
-    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Admitir paciente</title>
+  
+  <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
       var BASE_URL = 'https://cobalto.ufpel.edu.br/';
       var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
       var PATH_COOKIE = '/';
       var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
       var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-    </script>
-    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
-    <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
+      </script>
+      <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+      <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+      <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
 
     <!--ALERT MESSAGES-->
     <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
@@ -45,301 +48,435 @@
   </head>
 
   <body>
-    <!-- CONTEÚDO SUPERIOR -->
-    <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-        <li>Administração</li>    
-        <li>Processos</li>    
-        <li>Admitir pacientes na portaria</li>
-        </ul>
-          
+    <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+    <div id="content-center" class="ui-layout-center ui-widget-content"
+        style="background: none !important; overflow: hidden !important">
+        
+        <div class="breadCrumb module">
+            <ul>
+              <li>Enfermagem</li>    
+              <li>Processos</li>    
+              <li>Admitir pacientes na portaria</li>
+            </ul>
+            <div style="clear: both;"></div></div><div style="clear: both;"></div>
+            
+            <div class="ui-widget-content ui-corner-all toolbar">
+            <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+            <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+            <span style="clear: both; display: block"></span>
+            </div>
+         
       <div style="clear: both;"></div></div><div style="clear: both;"></div>
-      
-    <!-- CONTEÚDO BOTÕES -->
-    <div class="ui-widget-content ui-corner-all toolbar">
-        <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Salvar</button>
-        <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-        <span style="clear: both; display: block"></span>
-    </div>
-
 
     <!-- CONTEÚDO TAB E BOTÕES DA FUNCIONALIDADE -->
     <div id="admitir-paciente" class="tabs" style="height: 750px;">
-        <div id="admitir-paciente-0" class="ui-widget admitir-paciente-0">
-            <ul>
-                <li class="admitir-paciente"><a href="#admitir-paciente-0" accessKey="admitir-paciente-0">Admitir pacientes na portaria</a></li>
-            </ul>
-        </div>
+      <div id="admitir-paciente-0" class="ui-widget admitir-paciente-0">
+          <ul>
+              <li class="admitir-paciente"><a href="#admitir-paciente-0" accessKey="admitir-paciente-0">Admitir pacientes na portaria</a></li>
+          </ul>
+      </div>
 
-        <div style="margin: 20px;">
-          <p></p>
+      <div style="margin: 20px;">
+        <p></p>
 
-          <br>
-          <label style="width: 200px; margin: 5px;">Filtrar por data</label>
-            <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 200px; height: 15px;">
-            <button id="dateButton" style="margin: 5px;">Filtrar por data</button>
-          <br>
+        <br>
+        <label style="width: 200px; margin: 5px;">Filtrar por data</label>
+        <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 200px; height: 15px;">
+        
+        <br>
 
-          <label style="width: 200px; margin: 5px;">Filtrar por turno</label>
-          <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px;" id="filtroTurnoAgendamento">
-              <option value="Escolher">Todos</option>
-              <option value="Manhã">Manhã</option>
-              <option value="Tarde">Tarde</option>
-              <option value="Noite">Noite</option>
+        <label style="width: 200px; margin: 5px;">Filtrar por turno</label>
+        <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px;" id="filtroTurnoAgendamento">
+            <option value="Todos">Todos</option>
+            <option value="Manhã">Manhã</option>
+            <option value="Tarde">Tarde</option>
+            <option value="Noite">Noite</option>
+        </select>
+        <br>
+
+        <label style="width: 195px; margin: 5px;">Filtrar tabela pelo Local o atendimento</label>
+        <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="filtroLocalAgendamento">
+            <option value="Todos">Todos</option>
+            <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
+            <option value="Clínica Oeste">Clínica Oeste</option>
+            <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
+            <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
+            <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
+            <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
+            <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
+            <option value="Clínica 4º Andar">Clínica 4º Andar</option>
+            <option value="Radiologia">Clínica de Radiologia</option>
+        </select>
+        <br>
+
+        <label style="width: 195px; margin: 5px;">Filtrar tabela pelo componente curricular (disciplina/estágio)</label>
+        <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="filtroDisciplina">
+            <option value="Todos">Todos</option>
+            <option value="ESTÁGIO EM PRONTO ATENDIMENTO (EPA)">ESTÁGIO EM PRONTO ATENDIMENTO (EPA)</option>
+            <option value="ODONTOPEDIATRIA">ODONTOPEDIATRIA</option>
+            <option value="PERIODONTIA CLÍNICA">PERIODONTIA CLÍNICA</option>
+            <option value="PRÓTESE DENTÁRIA PARCIAL III">PRÓTESE DENTÁRIA PARCIAL III</option>
+            <option value="CIRURGIA BUCO-MAXILAR III">CIRURGIA BUCO-MAXILAR III</option>
+            <option value="RADIOLOGIA E IMAGINOLOGIA">RADIOLOGIA E IMAGINOLOGIA</option>
+        </select>
+        <p></p>
+        
+        <label style="width: 195px; margin: 5px;">Filtrar por status do agendamento</label>
+        <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="filtroStatus">
+            <option value="Todos">Todos</option>
+            <option value="No local">No local</option>
+            <option value="Agendado">Agendado</option>
+            <option value="Atendido">Atendido</option>
+        </select>
+
+        <button id="clear" style="margin-left: 20px;">Limpar filtros</button>
+        <p></p>
+
+          
+        <hr class="ui-state-default">
+        <div style="margin: 5px;">
+
+          <button id="alteraStatusButton" style="margin: 10px;">Alterar status para:</button>
+          <select class="ui-state-default ui-corner-all" style="width: 120px; height: 20px; margin: 5px;" id="alteraStatus">
+            <option value="Escolher">Escolher</option>
+            <option value="No local">No local</option>
+            <option value="Agendado">Agendado</option>
+            <option value="Faltou">Faltou</option>
           </select>
-          <br>
-
-          <label style="width: 195px; margin: 5px;">Filtrar tabela pelo Local o atendimento</label>
-          <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="filtroLocalAgendamento">
-              <option value="Todos">Todos</option>
-              <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
-              <option value="Clínica Oeste">Clínica Oeste</option>
-              <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
-              <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
-              <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
-              <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
-              <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
-              <option value="Clínica 4º Andar">Clínica 4º Andar</option>
-              <option value="Radiologia">Clínica de Radiologia</option>
-          </select>
-          <p></p>
-          
-          <hr class="ui-state-default">
-          <div style="margin: 5px;"></div>
-          <button id="sortButton" style="margin: 10px;">Ordenar por data</button>
-          
-          
-          <table id="listaAgendamento" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 80%; font-size: 14px; margin: 20px;">
+                
+                    <hr class="ui-state-default">
+      
+          <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
             <thead>
               <tr class="ui-jqgrid-labels" role="rowheader">
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 7.5%;">Data</th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 22.5%;">Paciente</th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 20%;">Aluno</th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 20%;">Local</th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 7.5%;">Turno</th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 22.5%;">Disciplina/Estágio</th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">Status agendamento</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header">Selec.</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header">Data</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header">Paciente</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header">Agendado por:</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header">Local</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header">Horário</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header">Atividade</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header">Descrição</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header">Status</th>
               </tr>
             </thead>
+            <tbody id="table-body">
+                <!-- Table body rows will be populated here -->
+            </tbody>
             <tr>
-              <th>21/08/2023</th>
-              <th>João da Silva</th>
-              <th>Aluno A</th>
-              <th>Radiologia</th>
-              <th>Manhã</th>
-              <th>UDE-1</th>
-              <th><select style="width: 200px; height: 20px;" id="statusAgendamento">
-                    <option value="Agendado">Agendado</option>
-                    <option value="noLocal">Chegou para o atendimento</option>
-                    <option value="atendido">Atendimento registrado</option>
-                </select></th>
-            </tr>
-            <tr>
-                <th>29/08/2023</th>
-                <th>José Souza</th>
-                <th>Aluno B</th>
-                <th>Clínica Oeste</th>
-                <th>Manhã</th>
-                <th>UPD-3</th>
-                <th><select style="width: 200px; height: 20px;" id="statusAgendamento">
-                    <option value="Agendado">Agendado</option>
-                    <option value="noLocal">Chegou para o atendimento</option>
-                    <option value="atendido">Atendimento registrado</option>
-                </select></th>
-            </tr>
-            <tr>
-                <th>01/08/2023</th>
-                <th>Maria Silva</th>
-                <th>Aluno C</th>
-                <th>Clínica Oeste</th>
-                <th>Tarde</th>
-                <th>UCO-1</th>
-                <th><select style="width: 200px; height: 20px;" id="statusAgendamento">
-                    <option value="Agendado">Agendado</option>
-                    <option value="noLocal">Chegou para o atendimento</option>
-                    <option value="atendido">Atendimento registrado</option>
-                </select></th>
-            </tr>
-            <tr>
-                <th>21/08/2023</th>
-                <th>Sandra de Sá</th>
-                <th>Aluno D</th>
-                <th>Radiologia</th>
-                <th>Tarde</th>
-                <th>UDE-1</th>
-                <th><select style="width: 200px; height: 20px;" id="statusAgendamento">
-                    <option value="Agendado">Agendado</option>
-                    <option value="noLocal">Chegou para o atendimento</option>
-                    <option value="atendido">Atendimento registrado</option>
-                </select></th>
+              <td colspan="9" style="text-align: center;">
+                  <div id="pagination" class="ui-state-default">
+                      <button id="prev-page">Previous</button>
+                      <span id="page-info">Pág. 1</span>
+                      <button id="next-page">Next</button>
+                  </div>
+              </td>
             </tr>
           </table>
+        </div>
+      </div>  
+    </div>
           
-
-          <hr class="ui-state-default">
-          
-    <script>
-    // FILTRO POR TURNO E LOCAL
-    document.addEventListener("DOMContentLoaded", function() {
-        const filtroLocalAgendamentoSelect = document.getElementById("filtroLocalAgendamento");
-        const filtroTurnoAgendamentoSelect = document.getElementById("filtroTurnoAgendamento");
-        const listaAgendamento = document.getElementById("listaAgendamento");
-
-        const applyFilters = () => {
-        const selectedLocalOption = filtroLocalAgendamentoSelect.value;
-        const selectedTurnoOption = filtroTurnoAgendamentoSelect.value;
-                
-        const rows = listaAgendamento.getElementsByTagName("tr");
-
-        for (let i = 1; i < rows.length; i++) {
-            const row = rows[i];
-            const localCell = row.cells[3]; // Assuming the "Local" cell is at index 3
-            const turnoCell = row.cells[4]; // Assuming the "Turno" cell is at index 4
-
-            const localMatch = selectedLocalOption === "Todos" || localCell.textContent === selectedLocalOption;
-            const turnoMatch = selectedTurnoOption === "Todos" || selectedTurnoOption === "Escolher" || turnoCell.textContent === selectedTurnoOption;
-
-            if (localMatch && turnoMatch) {
-            row.style.display = ""; // Show the row
-            } else {
-            row.style.display = "none"; // Hide the row
-            }
-        }
-        };
-
-        filtroLocalAgendamentoSelect.addEventListener("change", applyFilters);
-        filtroTurnoAgendamentoSelect.addEventListener("change", applyFilters);
-
-        const sortButton = document.getElementById("sortButton");
-
-        sortButton.addEventListener("click", function() {
-        const rows = Array.from(listaAgendamento.querySelectorAll("tbody tr"));
-        rows.sort((a, b) => {
-            const dateA = new Date(a.cells[0].textContent.split('/').reverse().join('/'));
-            const dateB = new Date(b.cells[0].textContent.split('/').reverse().join('/'));
-            return dateA - dateB;
-        });
-
-        const tbody = listaAgendamento.querySelector("tbody");
-        rows.forEach(row => tbody.appendChild(row));
-        });
-    });
-    </script>
-
+    <!-- API -->
+    <script src="/API/API.js"></script>
 
     <script>
-    // FILTRO POR DATA
-    document.addEventListener("DOMContentLoaded", function() {
-        const filtroDataAgendamentoInput = document.getElementById("filtroDataAgendamento");
-        const listaAgendamento = document.getElementById("listaAgendamento");
-        const dateButton = document.getElementById("dateButton");
-
-        const formatDateForComparison = (date) => {
-        const parts = date.split('-');
-        return parts[2] + '/' + parts[1] + '/' + parts[0]; // Convert to "DD/MM/YYYY" format
-        };
-
-        const applyDateFilter = () => {
-        const selectedDate = filtroDataAgendamentoInput.value;
-        const rows = listaAgendamento.getElementsByTagName("tr");
-
-        for (let i = 1; i < rows.length; i++) {
-            const row = rows[i];
-            const dataCell = row.cells[0]; // Assuming the "Data" cell is at index 0
-            const rowDate = dataCell.textContent; // Assuming the date format is "DD/MM/YYYY"
-
-            if (selectedDate === "" || rowDate === formatDateForComparison(selectedDate)) {
-            row.style.display = "";
-            } else {
-            row.style.display = "none";
-            }
-        }
-        };
-
-        dateButton.addEventListener("click", applyDateFilter);
-
-        const sortButton = document.getElementById("sortButton");
-
-        sortButton.addEventListener("click", function() {
-        const rows = Array.from(listaAgendamento.querySelectorAll("tbody tr"));
-        rows.sort((a, b) => {
-            const dateA = formatDateForComparison(a.cells[0].textContent);
-            const dateB = formatDateForComparison(b.cells[0].textContent);
-            return dateA.localeCompare(dateB);
-        });
-
-        const tbody = listaAgendamento.querySelector("tbody");
-        rows.forEach(row => tbody.appendChild(row));
-        });
-    });
-    </script>
+      // DADOS DO BANCO PREENCHEM DA TABELA
+      $(document).ready(function () {
+      var currentPage = 1;
+      var rowsPerPage = 25;
+      var tableRows = [];
+      var totalRows = 0;
       
+      
+      //NEW FILTERS TEST!!
+      var filtroDataAgendamento = '';
+      var filtroTurnoAgendamento = '';
+      var filtroLocalAgendamento = '';
+      var filtroDisciplina = '';
+      var filtroStatus = '';
+  
+      function loadTableData() {
+        api.agenda.consultarCurrentDay().then(function(data) {
+          totalRows = data.length;
+          tableRows = data;
+          applyFilters();
+          updateButtons();
+        }).catch(function(error) {
+          console.log('Error fetching data');
+        });
+      }
+                    
+      function applyFilters() {
+          var filteredRows = tableRows;
+
+          // Apply the filtroDataAgendamento filter
+          if (filtroDataAgendamento !== '') {
+            filteredRows = filteredRows.filter(function (item) {
+              return item.data_agendamento === filtroDataAgendamento;
+            });
+          }
+
+          // Apply the filtroTurnoAgendamento filter
+          if (filtroTurnoAgendamento !== '') {
+            filteredRows = filteredRows.filter(function (item) {
+              if (filtroTurnoAgendamento === 'Manhã') {
+                return parseInt(item.horario_agendamento) < 12;
+              } else if (filtroTurnoAgendamento === 'Tarde') {
+                return parseInt(item.horario_agendamento) >= 12 && parseInt(item.horario_agendamento) < 18;
+              } else if (filtroTurnoAgendamento === 'Noite') {
+                return parseInt(item.horario_agendamento) >= 18;
+              }
+              return true; // If 'Todos' selected, no filtering based on time
+            });
+          }
+
+          // Apply the filtroLocalAgendamento filter
+          if (filtroLocalAgendamento !== '') {
+            filteredRows = filteredRows.filter(function (item) {
+              return item.local === filtroLocalAgendamento;
+            });
+          }
+
+          // Apply the filtroDisciplina filter
+          if (filtroDisciplina !== '') {
+            filteredRows = filteredRows.filter(function (item) {
+              return item.atividade_curricular === filtroDisciplina;
+            });
+          }
+
+          // Apply the filtroStatus filter
+          if (filtroStatus !== '') {
+            filteredRows = filteredRows.filter(function (item) {
+              return item.status_agendamento === filtroStatus;
+            });
+          }
+  
+          showPage(currentPage, filteredRows);
+      }
+
+      function getStatusClass(status) {
+        switch (status) {
+          case 'Agendado':
+            return 'ui-state-default';
+          case 'No local':
+            return 'agendamento-ui';
+          case 'Atendido':
+            return 'atendido-ui';
+          case 'Faltou':
+            return 'faltou-ui';
+          default:
+            return '';
+        }
+      }
+  
+      function showPage(page, data) {
+          var startIndex = (page - 1) * rowsPerPage;
+          var endIndex = Math.min(startIndex + rowsPerPage, data.length);
+          var tableBody = $('#table-body');
+  
+          tableBody.empty(); // Clear the table body
+  
+          for (var i = startIndex; i < endIndex; i++) {
+            var item = data[i];
+            var row = '<tr>';
+            row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr"><input type="checkbox" value=' + item.id_agendamento + '></input></td>';
+            row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.data_agendamento + '</td>';
+            row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.cpf_paciente + '</td>';
+            row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.agendado_por + '</td>';
+            row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.local + '</td>';
+            row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.horario_agendamento + ':' + item.minuto_agendamento + '</td>';
+            row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.atividade_curricular + '</td>';
+            row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.descricao + '</td>';
+            row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.status_agendamento + '</td>';
+            row += '</tr>';
+            tableBody.append(row);
+          }
+  
+          $('#page-info').text('Pág. ' + page);
+      }
+  
+      function updateButtons() {
+        if (currentPage === 1) {
+          $('#prev-page').prop('disabled', true);
+        } else {
+          $('#prev-page').prop('disabled', false);
+        }
+
+        if (currentPage * rowsPerPage >= totalRows) {
+          $('#next-page').prop('disabled', true);
+        } else {
+          $('#next-page').prop('disabled', false);
+        }
+      }
+  
+      // Initial load of table data
+      loadTableData();
+  
+      // Listen for changes to filtroDataAgendamento filter
+      $('#filtroDataAgendamento').change(function () {
+        filtroDataAgendamento = $(this).val();
+        currentPage = 1; // Reset to the first page when the filter changes
+        applyFilters();
+        updateButtons();
+      });
+
+      // Listen for changes to filtroTurnoAgendamento filter
+      $('#filtroTurnoAgendamento').change(function () {
+        filtroTurnoAgendamento = $(this).val();
+        currentPage = 1; // Reset to the first page when the filter changes
+        applyFilters();
+        updateButtons();
+      });
+
+      // Listen for changes to filtroLocalAgendamento filter
+      $('#filtroLocalAgendamento').change(function () {
+        filtroLocalAgendamento = $(this).val();
+        currentPage = 1; // Reset to the first page when the filter changes
+        applyFilters();
+        updateButtons();
+      });
+
+      // Listen for changes to filtroDisciplina filter
+      $('#filtroDisciplina').change(function () {
+        filtroDisciplina = $(this).val();
+        currentPage = 1; // Reset to the first page when the filter changes
+        applyFilters();
+        updateButtons();
+      });
+
+      // Listen for changes to filtroStatus filter
+      $('#filtroStatus').change(function () {
+        filtroStatus = $(this).val();
+        currentPage = 1; // Reset to the first page when the filter changes
+        applyFilters();
+        updateButtons();
+      });
+
+      // Clear button click event
+      $('#clear').click(function () {
+        $('#filtroDataAgendamento').val('');
+        $('#filtroTurnoAgendamento').val('');
+        $('#filtroLocalAgendamento').val('');
+        $('#filtroDisciplina').val('');
+        $('#filtroStatus').val('');
+
+        filtroDataAgendamento = '';
+        filtroTurnoAgendamento = '';
+        filtroLocalAgendamento = '';
+        filtroDisciplina = '';
+        filtroStatus = '';
+        currentPage = 1; // Reset to the first page when clearing filters
+        applyFilters();
+        updateButtons();
+      });
+  
+      $('#prev-page').click(function () {
+          if (currentPage > 1) {
+            currentPage--;
+            applyFilters();
+            updateButtons();
+          }
+      });
+  
+      $('#next-page').click(function () {
+          if (currentPage * rowsPerPage < totalRows) {
+            currentPage++;
+            applyFilters();
+            updateButtons();
+          }
+        });
+      });
+  </script>
 
 
     <script>
       //MUDA O STYLE DEPENDENDO DO STATUS DO AGENDAMENTO 
-    function applyStyles(selectElement) {
-      const selectedValue = selectElement.value;
-      const thElements = selectElement.parentElement.parentElement.children;
+      function applyStyles(selectElement) {
+        const selectedValue = selectElement.value;
+        const thElements = selectElement.parentElement.parentElement.children;
 
-      for (let i = 0; i < thElements.length; i++) {
+        for (let i = 0; i < thElements.length; i++) {
+          if (selectedValue === 'Agendado') {
+            thElements[i].classList.add('ui-state-default');
+            thElements[i].classList.remove('agendamento-ui', 'atendido-ui');
+          } else if (selectedValue === 'noLocal') {
+            thElements[i].classList.add('agendamento-ui');
+            thElements[i].classList.remove('ui-state-default', 'atendido-ui');
+          } else if (selectedValue === 'atendido') {
+            thElements[i].classList.add('atendido-ui');
+            thElements[i].classList.remove('ui-state-default', 'agendamento-ui');
+          }
+        }
+
+        // Apply the same styles to the select element itself
         if (selectedValue === 'Agendado') {
-          thElements[i].classList.add('ui-state-default');
-          thElements[i].classList.remove('agendamento-ui', 'atendido-ui');
+          selectElement.classList.add('ui-state-default');
+          selectElement.classList.remove('agendamento-ui', 'atendido-ui');
         } else if (selectedValue === 'noLocal') {
-          thElements[i].classList.add('agendamento-ui');
-          thElements[i].classList.remove('ui-state-default', 'atendido-ui');
+          selectElement.classList.add('agendamento-ui');
+          selectElement.classList.remove('ui-state-default', 'atendido-ui');
         } else if (selectedValue === 'atendido') {
-          thElements[i].classList.add('atendido-ui');
-          thElements[i].classList.remove('ui-state-default', 'agendamento-ui');
+          selectElement.classList.add('atendido-ui');
+          selectElement.classList.remove('ui-state-default', 'agendamento-ui');
         }
       }
 
-      // Apply the same styles to the select element itself
-      if (selectedValue === 'Agendado') {
-        selectElement.classList.add('ui-state-default');
-        selectElement.classList.remove('agendamento-ui', 'atendido-ui');
-      } else if (selectedValue === 'noLocal') {
-        selectElement.classList.add('agendamento-ui');
-        selectElement.classList.remove('ui-state-default', 'atendido-ui');
-      } else if (selectedValue === 'atendido') {
-        selectElement.classList.add('atendido-ui');
-        selectElement.classList.remove('ui-state-default', 'agendamento-ui');
-      }
-    }
+      // Add event listeners to all select elements with ID statusAgendamento
+      const selectElements = document.querySelectorAll('#statusAgendamento');
+      selectElements.forEach(selectElement => {
+        selectElement.addEventListener('change', () => {
+          applyStyles(selectElement);
+        });
 
-    // Add event listeners to all select elements with ID statusAgendamento
-    const selectElements = document.querySelectorAll('#statusAgendamento');
-    selectElements.forEach(selectElement => {
-      selectElement.addEventListener('change', () => {
+        // Initialize styles based on initial selection
         applyStyles(selectElement);
       });
-
-      // Initialize styles based on initial selection
-      applyStyles(selectElement);
-    });
     </script>
 
-
-
-
-
     <script>
-      function submitFunction() {
-        // CHAMAR ESSA MENSAGEM APENAS SE A FUNÇÃO FOR REALIZADA COM SUCESSO
-        showCustomAlert("Agenda atualizada com sucesso.")
+      function submitStatusChangeRequest() {
+        // Get the selected checkboxes' id_agendamento values
+        var selectedIds = [];
+        $('input[type="checkbox"]:checked').each(function () {
+          selectedIds.push($(this).val());
+        });
+
+        // Get the selected status value from the dropdown
+        var selectedStatus = $('#alteraStatus').val(); // Get the value directly from the select option
+
+        // Check if at least one checkbox is selected
+        if (selectedIds.length > 0) {
+          // Prepare the data object with defined keys
+          var requestData = {
+            status: selectedStatus, // Key for status property
+            ids: selectedIds         // Key for ids property
+          };
+
+          // Perform API request using api.agenda.admitirPaciente()
+          api.agenda.admitirPaciente(requestData)
+            .then(function (response) {
+              // Handle successful response
+              console.log(response); // Log the response if needed
+              // Perform any additional actions if necessary
+              showCustomAlert('Status do agendamento alterado com sucesso');
+            })
+            .catch(function (error) {
+              // Handle error response
+              console.error('Error:', error); // Log the error for debugging
+              // Display an error message to the user
+              showCustomAlert('Erro ao alterar o status do agendamento.');
+            });
+        } else {
+        // Handle invalid selection (no checkboxes selected)
+        showCustomAlert('Por favor, selecione ao menos um agendamento.');
+        }
       }
-      </script>
 
-
-    <h2 style="padding: 40px; line-height: 150%; color: rgb(211, 39, 39);">
-    FUNCIONALIDADE PREVISTA: <br>
-    1- TABELA ATUALIZA DE ACORDO COM O a 'listaAgendamento' e apresenta apenas os dados de agendamento para o  dia 'currentDay'<br>
-    2- O USUÁRIO PODE ATUALIZAR O STATUS DO AGENDAMENTO QUANDO O PACIENTE CHEGAR<br>
-    3- 'statusAgendamento' é atualizado na página agenda de clínicas (repetir o script de styling lá tbem)<br>
-    4- Status 'em atendimento??? como seria o fluxo durante o atendimento? aluno teria que abrir o cobalto só pra isso?<br>
-    </h2>
-      
-
+      // Attach the function to the button click event
+      $('#alteraStatusButton').on('click', function () {
+        submitStatusChangeRequest();
+      });
+    </script>
   </body>
 </html>

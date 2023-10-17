@@ -137,6 +137,9 @@
             </div>
         </div>
 
+        <!-- API -->
+        <script src="../API/API.js"></script>
+
         <script>
             // DADOS DO BANCO PREENCHEM DA TABELA
             $(document).ready(function () {
@@ -154,22 +157,15 @@
                 var filtroStatus = '';
 
                 function loadTableData() {
-                     // Make an AJAX request to fetch data from your PHP script
-                     $.ajax({
-                         url: '../API/agenda/consultar.php',
-                         method: 'GET',
-                         dataType: 'json',
-                         success: function (data) {
-                             totalRows = data.length;
-                             tableRows = data;
-                             applyFilters();
-                             updateButtons();
-                         },
-                         error: function () {
-                             console.log('Error fetching data');
-                         }
-                     });
-                 }
+                   api.agenda.consultarGeral().then(function(data) {
+                       totalRows = data.length;
+                       tableRows = data;
+                       applyFilters();
+                       updateButtons();
+                   }).catch(function(error) {
+                       console.log('Error fetching data');
+                   });
+               }
             
               
                 function applyFilters() {

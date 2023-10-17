@@ -1,48 +1,81 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Methods: GET, POST, PUT");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
 include_once('../config.php');
 
+$input = json_decode(file_get_contents('php://input'), true);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Read the raw POST data as JSON
-    $json_data = json_decode(file_get_contents("php://input"), true);
+    // Delete operation
+    if (isset($input['selectedId']) && is_array($input['selectedId'])) {
+        $selectedIds = $input['selectedId'];
+        $successMessage = "";
+        $errorMessage = "";
 
-    // Check if required fields are present in the JSON data
-    if (
-        isset($json_data['codSUS']) &&
-        isset($json_data['DescricaoSUS']) &&
-        isset($json_data['tipoSUS']) &&
-        $json_data['tipoSUS'] !== "Escolher"
-    ) {
-        // Retrieve data from JSON
-        $codSUS = $json_data['codSUS'];
-        $descricaoSUS = $json_data['DescricaoSUS'];
-        $tipoSUS = $json_data['tipoSUS'];
+        foreach ($selectedIds as $idToDelete) {
+            $sql = "DELETE FROM `procedimentos_sus` WHERE `procedimentos_sus`.`id_procedimento` = ?";
+            $stmt = $connection->prepare($sql);
+            $stmt->bind_param("i", $idToDelete);
 
-        // Perform database insertion
-        $sql = "INSERT INTO `procedimentos_sus` (`cod_sus`, `nome`, `tipo`) VALUES (?, ?, ?)";
-        $stmt = $connection->prepare($sql);
-        $stmt->bind_param("iss", $codSUS, $descricaoSUS, $tipoSUS);
+            if ($stmt->execute()) {
+                $successMessage = "Procedimento(s) deletado(s) com sucesso.";
+            } else {
+                $errorMessage = "Erro ao deletar procedimento: " . $stmt->error;
+            }
 
-        if ($stmt->execute()) {
-            // Return success message as JSON
-            echo json_encode("Procedimento cadastrado com sucesso.");
-        } else {
-            // Return error message as JSON
-            echo json_encode("Erro ao cadastrar procedimento: " . $stmt->error);
+            $stmt->close();
         }
 
-        // Close the prepared statement
+        if ($errorMessage !== "") {
+            echo json_encode(["error" => $errorMessage]);
+        } else {
+            echo json_encode(["message" => $successMessage]);
+        }
+    }
+    // Update operation
+    else if (isset($input['id_procedimento'], $input['codSUS'], $input['descricaoSUS'], $input['tipoSUS']) && !empty($input['id_procedimento'])) {
+        $id_procedimento = $input['id_procedimento'];
+        $codSUS = $input['codSUS'];
+        $descricaoSUS = $input['descricaoSUS'];
+        $tipoSUS = $input['tipoSUS'];
+
+        $sql = "UPDATE `procedimentos_sus` SET `cod_sus` = ?, `nome` = ?, `tipo` = ? WHERE `id_procedimento` = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("issi", $codSUS, $descricaoSUS, $tipoSUS, $id_procedimento);
+
+        if ($stmt->execute()) {
+            echo json_encode(["message" => "Procedimento atualizado com sucesso."]);
+        } else {
+            echo json_encode(["error" => "Erro ao atualizar procedimento: " . $stmt->error]);
+        }
+
         $stmt->close();
-    } else {
-        // Return error message as JSON
-        echo json_encode("Um ou mais campos do formulário estão faltando ou não atendem às condições necessárias.");
+    }
+    // Insert operation
+    else if (isset($input['codSUS'], $input['descricaoSUS'], $input['tipoSUS']) && $input['tipoSUS'] !== "Escolher") {
+        $codSUS = $input['codSUS'];
+        $descricaoSUS = $input['descricaoSUS'];
+        $tipoSUS = $input['tipoSUS'];
+
+        $sql = "INSERT INTO `procedimentos_sus` (cod_sus, nome, tipo) VALUES (?, ?, ?)";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("sss", $codSUS, $descricaoSUS, $tipoSUS);
+
+        if ($stmt->execute()) {
+            echo json_encode(["message" => "Procedimento cadastrado com sucesso."]);
+        } else {
+            echo json_encode(["error" => "Erro ao cadastrar procedimento: " . $stmt->error]);
+        }
+
+        $stmt->close();
+    }
+    else {
+        echo json_encode(["error" => "Invalid request or missing required parameters."]);
     }
 } else {
-    // Handle the case where the form was not submitted
-    echo json_encode("Formulário não submetido.");
+    echo json_encode(["error" => "Form not submitted."]);
 }
 ?>

@@ -125,7 +125,8 @@ try {
 
     // Tabela procedimentos SUS
     db("CREATE TABLE `procedimentos_sus` (
-        `cod_sus` int(6) NOT NULL PRIMARY KEY,
+        `id_procedimento` int(6) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `cod_sus` int(6) NOT NULL,
         `nome` varchar(100) CHARACTER SET latin1 COLLATE latin1_danish_ci NOT NULL,
         `tipo` varchar(3) NOT NULL
       )");

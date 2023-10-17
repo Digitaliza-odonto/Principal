@@ -121,7 +121,7 @@
       // Create the request data as an object
       const requestData = { selectedId: selectedIds };
 
-      // Perform an AJAX POST request for deletion
+      // Perform an API request for deletion
       api.materiais.criarDeletar(requestData).then(function(response) {
         // Check if the response contains a 'message' property
         if (response.message) {
@@ -134,7 +134,6 @@
         showCustomAlert(error);
       });
     }
-
   
     function limparCampos() {
       document.getElementById("idMaterial").value = "";

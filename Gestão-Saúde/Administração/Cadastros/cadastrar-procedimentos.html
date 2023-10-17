@@ -45,55 +45,9 @@
         </div>
     </div>
     <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-
-    <!-- HIDDEN DIV FOR CONFIRMATION MESSAGE -->
-    <div id="customConfirm" class="modal">
-      <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
-        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-          <span id="ui-id-12" class="ui-dialog-title">Confirmação</span>
-          <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
-            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex; float:right; margin-right: -8px; margin-top: -8px;"></span>
-          </button>
-        </div>
-        <p></p>
-        <br>
-        <div id="dialog-message-confirm" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
-          <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
-          <p id="confirmMessage"></p>
-        </div>
-              
-        <div>
-          <button id="confirmYesButton" style="margin-left: 20%;">Sim</button>
-          <button id="confirmNoButton"  style="margin-left: 20%;">Não</button>
-      </div>
-      
-      </div>
-    </div>
-    <!-- HIDDEN DIV FOR CONFIRMATION MESSAGE -->
   <!--ALERT MESSAGES-->
   </head>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+ 
   <!-- Include API.js -->
   <script src="/API/API.js"></script>
 
@@ -102,22 +56,22 @@
     function submitForm() {
       // Serialize the form data as JSON
       var formData = {
+        id_procedimento: $('#id_procedimento').val(),
         codSUS: $('#codSUS').val(),
-        DescricaoSUS: $('#descricaoSUS').val(),
+        descricaoSUS: $('#descricaoSUS').val(),
         tipoSUS: $('#tipoSUS').val(),
       };
   
       // Perform API request
       api.procedimentos.criar(formData)
         .then(function(response) {
-          // Check if the response contains a 'message' property
           if (response.message) {
-            console.log(response.message); // Log the message to the console
-            showCustomAlert(response.message); // Pass the message to showCustomAlert function
+            console.log(response.message);
+            showCustomAlert(response.message);
+            limparCampos();
           } else {
-            console.log(response); // Log the entire response object if 'message' property is not found
+            console.log(response);
           }
-          limparCampos();
         })
         .catch(function(error) {
           // Handle errors if needed
@@ -128,8 +82,8 @@
   
     function deleteSelectedItems() {
       const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
-        // Get the value (ID) from the second column of the table in the same row
-        return $(this).closest('tr').find('td:eq(1)').text();
+        // Get the value (ID) from the checkbox's 'value' attribute
+        return $(this).val();
       }).get();
 
       if (selectedIds.length === 0) {
@@ -155,118 +109,22 @@
     }
 
     function limparCampos() {
-      document.getElementById("codSus").value = "";
-      document.getElementById("descricaoSUS").value = "";
-      document.getElementById("tipoSus").value = "Escolher";
+      // Get references to the input elements by their IDs
+      var codSusInput = document.getElementById("codSUS");
+      var descricaoSusInput = document.getElementById("descricaoSUS");
+      var tipoSusSelect = document.getElementById("tipoSUS");
+
+      // Check if the elements are found in the DOM
+      if (codSusInput && descricaoSusInput && tipoSusSelect) {
+        // Clear the input values and reset the select to its default option
+        codSusInput.value = "";
+        descricaoSusInput.value = "";
+        tipoSusSelect.value = "Escolher"; // Assuming "Escolher" is the default option value
+      } else {
+        console.error("One or more elements not found in the DOM.");
+      }
     }
   </script>
-
-
-
-
-<!-- 
-<script>
-  $(document).ready(function () {
-    // Submit form when "Adicionar" button is clicked
-    $('#btnAdicionar').click(function (event) {
-        event.preventDefault(); // Prevent the default form submission behavior
-
-      // Serialize the form data
-      var formData = $('#susForm').serialize();
-
-      // Perform an AJAX POST request
-      $.ajax({
-          type: 'POST',
-          url: '../../../API/procedimentos/insert-remove-procedimentos.php',
-          data: formData,
-          success: function (response) {
-              // Show the result using the showCustomAlert() function
-              showCustomAlert(response);
-
-              // Optionally, clear the form fields or perform any other actions
-              $('#codSUS').val('');
-              $('#descricaoSUS').val('');
-              $('#tipoSUS').val('Escolher');
-          },
-          error: function (xhr, status, error) {
-              // Handle errors if needed
-              showCustomAlert("Error: " + xhr.responseText); // Display the error response
-              console.error(xhr); // Log the full error object for debugging
-          }
-      });
-  });
-
-    // Delete selected items when "Excluir" button is clicked
-    $('#deleteButton').click(function (event) {
-      event.preventDefault(); // Prevent the default form submission behavior
-
-      const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
-        // Get the value (ID) from the second column of the table in the same row
-        return $(this).closest('tr').find('td:eq(1)').text();
-      }).get();
-
-      if (selectedIds.length === 0) {
-        showCustomAlert("Por favor, selecione ao menos um procedimento para excluir.");
-        return;
-      }
-
-      // Create the request data as an object
-      const requestData = { selectedId: selectedIds };
-
-      // Log the requestData for debugging
-      console.log("Request Data:", requestData);
-
-      // Send the POST request using AJAX for deletion
-      $.ajax({
-        type: 'POST',
-        url: '../../../API/procedimentos/insert-remove-procedimentos.php',
-        data: requestData, // Send the selectedIds directly
-        success: function (data) {
-          // Log the success response for debugging
-          showCustomAlert("Success Response:", data);
-
-          showCustomAlert(data); // Display the server response
-          
-        },
-        error: function (xhr, status, error) {
-          // Log the error for debugging
-          console.error("Error:", error);
-        }
-      });
-    });
-  });
-
-  // FUNÇÃO PARA APAGAR CAMPOS DA PÁGINA
-  function limparCampos() {
-    document.getElementById("codSUS").value = "";
-    document.getElementById("descricaoSUS").value = "";
-    document.getElementById("tipoSUS").value = "Escolher";
-  }
-</script> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   <body>
     <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
@@ -298,15 +156,19 @@
       </div>
         
       <form method="post" id="susForm">
+                      
         <div style="margin: 10px;">
           <button type="submit" id="btnAdicionar" onclick="submitForm()" class="button">Adicionar/Atualizar</button>
           <button name="deleteButton" id="deleteButton" onclick="deleteSelectedItems()" value="deleteButton" class="button">Excluir</button>
-          <button name="btnCancelar" onClick="limparCampos()" id="btnCancelar" value="Cancelar" class="button">Cancelar</button>
+          <button name="btnCancelar" id="btnCancelar" onclick="limparCampos()" class="button">Cancelar</button>
+
         </div>
 
         <div>
         <p></p>
         <br>
+
+        <input type="hidden" name="id_procedimento" id="id_procedimento" value="">
 
         <label style="width: 180px; margin: 5px;">Código do procedimento </label>
         <input type="text" name="codSUS" id="codSUS" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;" placeholder="Digitar o código">
@@ -380,7 +242,7 @@
                 for (var i = startIndex; i < endIndex; i++) {
                     var item = tableRows[i];
                     var row = '<tr>';
-                    row += '<td class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="' + item.cod_sus + '"></td>';
+                    row += '<td class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="' + item.id_procedimento + '"></td>';
                     row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.cod_sus + '</td>';
                     row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.nome + '</td>';
                     row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.tipo + '</td>';
@@ -426,12 +288,13 @@
                 }
             });
 
-            // Event listener for table rows
+            // Event listener for table rows using event delegation
               $('#table-body').on('click', 'tr', function() {
                   var rowIndex = $(this).index();
-                  var selectedRow = tableRows[rowIndex];
+                  var selectedRow = tableRows[(currentPage - 1) * rowsPerPage + rowIndex];
 
                   // Populate the inputs with the selected row data
+                  $('#id_procedimento').val(selectedRow.id_procedimento);
                   $('#codSUS').val(selectedRow.cod_sus);
                   $('#descricaoSUS').val(selectedRow.nome);
                   $('#tipoSUS').val(selectedRow.tipo);

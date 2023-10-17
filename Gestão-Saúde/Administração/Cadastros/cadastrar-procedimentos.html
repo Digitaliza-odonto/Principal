@@ -73,6 +73,201 @@
   <!--ALERT MESSAGES-->
   </head>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <!-- Include API.js -->
+  <script src="/API/API.js"></script>
+
+  <!-- Your submitForm function -->
+  <script>
+    function submitForm() {
+      // Serialize the form data as JSON
+      var formData = {
+        codSUS: $('#codSUS').val(),
+        DescricaoSUS: $('#descricaoSUS').val(),
+        tipoSUS: $('#tipoSUS').val(),
+      };
+  
+      // Perform API request
+      api.procedimentos.criar(formData)
+        .then(function(response) {
+          // Check if the response contains a 'message' property
+          if (response.message) {
+            console.log(response.message); // Log the message to the console
+            showCustomAlert(response.message); // Pass the message to showCustomAlert function
+          } else {
+            console.log(response); // Log the entire response object if 'message' property is not found
+          }
+          limparCampos();
+        })
+        .catch(function(error) {
+          // Handle errors if needed
+          showCustomAlert(error);
+        });
+    }
+
+  
+    function deleteSelectedItems() {
+      const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
+        // Get the value (ID) from the second column of the table in the same row
+        return $(this).closest('tr').find('td:eq(1)').text();
+      }).get();
+
+      if (selectedIds.length === 0) {
+        showCustomAlert("Por favor, selecione ao menos um item para excluir.");
+        return;
+      }
+
+      // Create the request data as an object
+      const requestData = { selectedId: selectedIds };
+
+      // Perform an AJAX POST request for deletion
+      api.procedimentos.criar(requestData).then(function(response) {
+        // Check if the response contains a 'message' property
+        if (response.message) {
+          console.log(response.message); // Log the message to the console
+          showCustomAlert(response.message); // Pass the message to showCustomAlert function
+        } else {
+          console.log(response); // Log the entire response object if 'message' property is not found
+        }
+      }).catch(function(error) {
+        showCustomAlert(error);
+      });
+    }
+
+    function limparCampos() {
+      document.getElementById("codSus").value = "";
+      document.getElementById("descricaoSUS").value = "";
+      document.getElementById("tipoSus").value = "Escolher";
+    }
+  </script>
+
+
+
+
+<!-- 
+<script>
+  $(document).ready(function () {
+    // Submit form when "Adicionar" button is clicked
+    $('#btnAdicionar').click(function (event) {
+        event.preventDefault(); // Prevent the default form submission behavior
+
+      // Serialize the form data
+      var formData = $('#susForm').serialize();
+
+      // Perform an AJAX POST request
+      $.ajax({
+          type: 'POST',
+          url: '../../../API/procedimentos/insert-remove-procedimentos.php',
+          data: formData,
+          success: function (response) {
+              // Show the result using the showCustomAlert() function
+              showCustomAlert(response);
+
+              // Optionally, clear the form fields or perform any other actions
+              $('#codSUS').val('');
+              $('#descricaoSUS').val('');
+              $('#tipoSUS').val('Escolher');
+          },
+          error: function (xhr, status, error) {
+              // Handle errors if needed
+              showCustomAlert("Error: " + xhr.responseText); // Display the error response
+              console.error(xhr); // Log the full error object for debugging
+          }
+      });
+  });
+
+    // Delete selected items when "Excluir" button is clicked
+    $('#deleteButton').click(function (event) {
+      event.preventDefault(); // Prevent the default form submission behavior
+
+      const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
+        // Get the value (ID) from the second column of the table in the same row
+        return $(this).closest('tr').find('td:eq(1)').text();
+      }).get();
+
+      if (selectedIds.length === 0) {
+        showCustomAlert("Por favor, selecione ao menos um procedimento para excluir.");
+        return;
+      }
+
+      // Create the request data as an object
+      const requestData = { selectedId: selectedIds };
+
+      // Log the requestData for debugging
+      console.log("Request Data:", requestData);
+
+      // Send the POST request using AJAX for deletion
+      $.ajax({
+        type: 'POST',
+        url: '../../../API/procedimentos/insert-remove-procedimentos.php',
+        data: requestData, // Send the selectedIds directly
+        success: function (data) {
+          // Log the success response for debugging
+          showCustomAlert("Success Response:", data);
+
+          showCustomAlert(data); // Display the server response
+          
+        },
+        error: function (xhr, status, error) {
+          // Log the error for debugging
+          console.error("Error:", error);
+        }
+      });
+    });
+  });
+
+  // FUNÇÃO PARA APAGAR CAMPOS DA PÁGINA
+  function limparCampos() {
+    document.getElementById("codSUS").value = "";
+    document.getElementById("descricaoSUS").value = "";
+    document.getElementById("tipoSUS").value = "Escolher";
+  }
+</script> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <body>
     <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
     <div id="content-center" class="ui-layout-center ui-widget-content"
@@ -102,10 +297,10 @@
         </ul>
       </div>
         
-      <form method="post" action="../../../API/procedimentos/insert-remove-procedimentos.php" id="susForm">
+      <form method="post" id="susForm">
         <div style="margin: 10px;">
-          <button type="submit" id="btnAdicionar" class="button">Adicionar/Atualizar</button>
-          <button name="deleteButton" id="deleteButton" value="deleteButton" class="button">Excluir</button>
+          <button type="submit" id="btnAdicionar" onclick="submitForm()" class="button">Adicionar/Atualizar</button>
+          <button name="deleteButton" id="deleteButton" onclick="deleteSelectedItems()" value="deleteButton" class="button">Excluir</button>
           <button name="btnCancelar" onClick="limparCampos()" id="btnCancelar" value="Cancelar" class="button">Cancelar</button>
         </div>
 
@@ -123,27 +318,11 @@
 
         <label style="width: 180px; margin: 5px;">Tipo de procedimento</label>
         <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="tipoSUS" id="tipoSUS">
-          <!-- Placeholder option -->
-          <option id="Escolher" value="">Escolher</option>
+          <option id="Escolher" value="Escolher">Escolher</option>
+          <option id="AMB" value="AMB">AMB</option>
+          <option id="CEO" value="CEO">CEO</option>
+          <option id="PNE" value="PNE">PNE</option>
         </select>
-            
-        <script>
-        //DADOS DO BANCO PARA O SELECT DE TIPO DE MATERIAL
-        $(document).ready(function() {
-            // Make an AJAX request to fetch options from the remote URL
-            $.ajax({
-                url: '../../../API/procedimentos/tipo-procedimento-options.php',
-                dataType: 'html',
-                success: function(optionsHTML) {
-                    // Populate the select element with the fetched options
-                    $('#tipoSUS').html('<option value="">Escolher</option>' + optionsHTML);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching options:', error);
-                }
-            });
-        });
-        </script>
       </form>
     
       <hr class="ui-state-default">
@@ -172,176 +351,92 @@
         </table>
       </div>
       
-    <script>
-      $(document).ready(function () {
-          var currentPage = 1;
-          var rowsPerPage = 30;
-          var tableRows = [];
-          var totalRows = 0;
-  
-          function loadTableData() {
-              $.ajax({
-                  url: '../../../API/procedimentos/busca-procedimentos.php',
-                  method: 'GET',
-                  dataType: 'json',
-                  success: function (data) {
-                      totalRows = data.length;
-                      tableRows = data;
-                      showPage(currentPage, tableRows);
-                      updateButtons();
-                  },
-                  error: function () {
-                      console.log('Error fetching data');
-                  }
-              });
-          }
-  
-          function showPage(page, data) {
-              var startIndex = (page - 1) * rowsPerPage;
-              var endIndex = Math.min(startIndex + rowsPerPage, data.length);
-              var tableBody = $('#table-body');
-  
-              tableBody.empty(); // Clear the table body
-  
-              for (var i = startIndex; i < endIndex; i++) {
-                  var item = data[i];
-                  var row = '<tr>';
-                  row += '<td class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="' + item.cod_sus + '"></td>';
-                  row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.cod_sus + '</td>';
-                  row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.nome + '</td>';
-                  row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.tipo + '</td>';
-                  row += '</tr>';
-                  tableBody.append(row);
-              }
-  
-              $('#page-info').text('Pág. ' + page);
-          }
-  
-          function updateButtons() {
-              if (currentPage === 1) {
-                  $('#prev-page').prop('disabled', true);
-              } else {
-                  $('#prev-page').prop('disabled', false);
-              }
-  
-              if (currentPage * rowsPerPage >= totalRows) {
-                  $('#next-page').prop('disabled', true);
-              } else {
-                  $('#next-page').prop('disabled', false);
-              }
-          }
-  
-          // Initial load of table data
-          loadTableData();
-  
-          $('#prev-page').click(function () {
-              if (currentPage > 1) {
-                  currentPage--;
-                  showPage(currentPage, tableRows);
-                  updateButtons();
-              }
-          });
-  
-          $('#next-page').click(function () {
-              if (currentPage * rowsPerPage < totalRows) {
-                  currentPage++;
-                  showPage(currentPage, tableRows);
-                  updateButtons();
-              }
-          });
-
-          // Add a click event handler for table rows
-            $('#listaProcedimentos tbody').on('click', 'tr', function () {
-              // Get the data from the clicked row
-              var rowData = $(this).children('td').map(function () {
-                return $(this).text();
-              }).get();
-
-              // Populate the input fields with the row data
-              $('#codSUS').val(rowData[1]);
-              $('#descricaoSUS').val(rowData[2]);
-              $('#tipoSUS').val(rowData[3]);
-              });
-          });
-    </script>
-
-    <script>
-      $(document).ready(function () {
-        // Submit form when "Adicionar" button is clicked
-        $('#btnAdicionar').click(function (event) {
-            event.preventDefault(); // Prevent the default form submission behavior
-
-          // Serialize the form data
-          var formData = $('#susForm').serialize();
-
-          // Perform an AJAX POST request
-          $.ajax({
-              type: 'POST',
-              url: '../../../API/procedimentos/insert-remove-procedimentos.php',
-              data: formData,
-              success: function (response) {
-                  // Show the result using the showCustomAlert() function
-                  showCustomAlert(response);
-
-                  // Optionally, clear the form fields or perform any other actions
-                  $('#codSUS').val('');
-                  $('#descricaoSUS').val('');
-                  $('#tipoSUS').val('Escolher');
-              },
-              error: function (xhr, status, error) {
-                  // Handle errors if needed
-                  showCustomAlert("Error: " + xhr.responseText); // Display the error response
-                  console.error(xhr); // Log the full error object for debugging
-              }
-          });
-      });
+      <script>
+        // DADOS DO BANCO PREENCHEM DA TABELA
+        $(document).ready(function () {
+            var currentPage = 1;
+            var rowsPerPage = 30;
+            var totalRows = 0;
+            var tableRows = [];
     
-        // Delete selected items when "Excluir" button is clicked
-        $('#deleteButton').click(function (event) {
-          event.preventDefault(); // Prevent the default form submission behavior
-    
-          const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
-            // Get the value (ID) from the second column of the table in the same row
-            return $(this).closest('tr').find('td:eq(1)').text();
-          }).get();
-    
-          if (selectedIds.length === 0) {
-            showCustomAlert("Por favor, selecione ao menos um procedimento para excluir.");
-            return;
-          }
-    
-          // Create the request data as an object
-          const requestData = { selectedId: selectedIds };
-    
-          // Log the requestData for debugging
-          console.log("Request Data:", requestData);
-    
-          // Send the POST request using AJAX for deletion
-          $.ajax({
-            type: 'POST',
-            url: '../../../API/procedimentos/insert-remove-procedimentos.php',
-            data: requestData, // Send the selectedIds directly
-            success: function (data) {
-              // Log the success response for debugging
-              showCustomAlert("Success Response:", data);
-    
-              showCustomAlert(data); // Display the server response
-              
-            },
-            error: function (xhr, status, error) {
-              // Log the error for debugging
-              console.error("Error:", error);
+            function loadTableData() {
+                api.procedimentos.consultar().then(function(data) {
+                    totalRows = data.length;
+                    tableRows = data;
+                    showPage(currentPage);
+                    updateButtons();
+                }).catch(function(error) {
+                    console.log('Error fetching data');
+                });
             }
-          });
-        });
-      });
     
-      // FUNÇÃO PARA APAGAR CAMPOS DA PÁGINA
-      function limparCampos() {
-        document.getElementById("codSUS").value = "";
-        document.getElementById("descricaoSUS").value = "";
-        document.getElementById("tipoSUS").value = "Escolher";
-      }
-    </script>
-  </body>
+            function showPage(page) {
+                var startIndex = (page - 1) * rowsPerPage;
+                var endIndex = Math.min(startIndex + rowsPerPage, totalRows);
+                var tableBody = $('#table-body');
+    
+                tableBody.empty(); // Clear the table body
+    
+                for (var i = startIndex; i < endIndex; i++) {
+                    var item = tableRows[i];
+                    var row = '<tr>';
+                    row += '<td class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="' + item.cod_sus + '"></td>';
+                    row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.cod_sus + '</td>';
+                    row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.nome + '</td>';
+                    row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.tipo + '</td>';
+                    row += '</tr>';
+                    tableBody.append(row);
+                }
+    
+                $('#page-info').text('Pág. ' + page);
+            }
+    
+            function updateButtons() {
+                if (currentPage === 1) {
+                    $('#prev-page').prop('disabled', true);
+                } else {
+                    $('#prev-page').prop('disabled', false);
+                }
+    
+                if (currentPage * rowsPerPage >= totalRows) {
+                    $('#next-page').prop('disabled', true);
+                } else {
+                    $('#next-page').prop('disabled', false);
+                }
+            }
+    
+            // Initial load of table data
+            loadTableData();
+    
+            // Previous page button click event
+            $('#prev-page').click(function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    showPage(currentPage);
+                    updateButtons();
+                }
+            });
+    
+            // Next page button click event
+            $('#next-page').click(function () {
+                if (currentPage * rowsPerPage < totalRows) {
+                    currentPage++;
+                    showPage(currentPage);
+                    updateButtons();
+                }
+            });
+
+            // Event listener for table rows
+              $('#table-body').on('click', 'tr', function() {
+                  var rowIndex = $(this).index();
+                  var selectedRow = tableRows[rowIndex];
+
+                  // Populate the inputs with the selected row data
+                  $('#codSUS').val(selectedRow.cod_sus);
+                  $('#descricaoSUS').val(selectedRow.nome);
+                  $('#tipoSUS').val(selectedRow.tipo);
+              });
+            });
+        </script>
+      </body>
 </html>

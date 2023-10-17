@@ -43,11 +43,35 @@
       </div>
     </div>
       <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+          <!-- HIDDEN DIV FOR CONFIRMATION MESSAGE -->
+    <div id="customConfirm" class="modal">
+      <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+          <span id="ui-id-12" class="ui-dialog-title">Confirmação</span>
+          <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex; float:right; margin-right: -8px; margin-top: -8px;"></span>
+          </button>
+        </div>
+        <p></p>
+        <br>
+        <div id="dialog-message-confirm" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+          <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+          <p id="confirmMessage"></p>
+        </div>
+              
+        <div>
+          <button id="confirmYesButton" style="margin-left: 20%;">Sim</button>
+          <button id="confirmNoButton"  style="margin-left: 20%;">Não</button>
+      </div>
+      
+      </div>
+    </div>
+    <!-- HIDDEN DIV FOR CONFIRMATION MESSAGE -->
   </head>
 
   <body>
     <!-- CONTEÚDO DA PÁGINA/TELA PRINCIPAL COBALTO -->
-    <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
+    <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important; height: 1000px !important; width: 100% !important;">
       <div class="breadCrumb module">
         <ul>
           <li><a href="index.html"></a></li><li>Gestão Saúde</li>
@@ -244,68 +268,66 @@
           <label style="width: 120px;">Cidade</label>
           <input type="text" name="Cidade" id="Cidade" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
           <br>
-
+          <script src="/API/API.js"></script>
           <script type="text/javascript">
-            function getApiUrl() {
-              const storedApiUrl = localStorage.getItem('api');
-              return storedApiUrl ? storedApiUrl : 'https://prontuario-ufpel-backend.onrender.com';
-            }
-              const api = getApiUrl()
-
-            function getUrlVars() {
-                var vars = {};
-                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                    vars[key] = value;
-                });
-                return vars;
-            }
-
-            function buscarperfil() {
-              
-                  const xhr = new XMLHttpRequest();
-                  xhr.open('POST', `${api}/perfil-cpf/`);
-                  xhr.setRequestHeader('Content-Type', 'application/json');
-                  xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                      if (xhr.status === 200) {
-                    var body = JSON.parse(xhr.responseText)
-                        console.log(body);
-                        preencherFormulario(body[0])
-                      }
-                      } else {
-
-                      }
-                    }
-                  xhr.send(JSON.stringify({'CPF': getUrlVars()['cpf'] }));
-                }
-
-
+            // Função para preencher o formulário com os dados do perfil
             function preencherFormulario(dados) {
-              console.log(dados)
-              document.getElementById("Cpf").value = dados.CPF;
-                document.getElementById("Nome").value = dados.Nome;
-                document.getElementById("Nometab").innerText = dados.Nome;
-                document.getElementById("Rg").value = dados.Rg;
-                document.getElementById("DataNasc").value = dados.DataNasc;
-                document.getElementById("Email").value = dados.Email;
-                document.getElementById("Tel").value = dados.Tel;
-                document.getElementById("EstadoCivil").value = dados.EstadoCivil;
-                document.getElementById("Sexo").value = dados.Sexo;
-                document.getElementById("CorRaca").value = dados.CorRaca;
-                document.getElementById("NomeMae").value = dados.NomeMae;
-                document.getElementById("NomePai").value = dados.NomePai;
-                document.getElementById("PNE").value = dados.PNE;
-                document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
-                document.getElementById("Cep").value = dados.Cep;
-                document.getElementById("Rua").value = dados.Rua;
-                document.getElementById("EndNumero").value = dados.EndNumero;
-                document.getElementById("EndComplemento").value = dados.EndComplemento;
-                document.getElementById("Bairro").value = dados.Bairro;
-                document.getElementById("Cidade").value = dados.Cidade;
-
-            }
-            buscarperfil()
-          </script>
+                 console.log(dados)
+                 document.getElementById("Cpf").value = dados.CPF;
+                 document.getElementById("Nome").value = dados.Nome;
+                 document.getElementById("Nometab").innerText = dados.Nome;
+                 document.getElementById("Rg").value = dados.Rg;
+                 document.getElementById("DataNasc").value = dados.DataNasc;
+                 document.getElementById("Email").value = dados.Email;
+                 document.getElementById("Tel").value = dados.Tel;
+                 document.getElementById("EstadoCivil").value = dados.EstadoCivil;
+                 document.getElementById("Sexo").value = dados.Sexo;
+                 document.getElementById("CorRaca").value = dados.CorRaca;
+                 document.getElementById("NomeMae").value = dados.NomeMae;
+                 document.getElementById("NomePai").value = dados.NomePai;
+                 document.getElementById("PNE").value = dados.PNE;
+                 document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
+                 document.getElementById("Cep").value = dados.Cep;
+                 document.getElementById("Rua").value = dados.Rua;
+                 document.getElementById("EndNumero").value = dados.EndNumero;
+                 document.getElementById("EndComplemento").value = dados.EndComplemento;
+                 document.getElementById("Bairro").value = dados.Bairro;
+                 document.getElementById("Cidade").value = dados.Cidade;
+               }
+           
+               // Função para buscar o perfil usando a API
+               function buscarPerfil() {
+                 const cpf = getUrlVars()['cpf'];
+                 if (cpf) {
+                   api.pacientes.consultar({ CPF: cpf })
+                     .then((pacientes) => {
+                       if (pacientes.length === 0) {
+                         console.log('Nenhum paciente encontrado');
+                       } else {
+                         preencherFormulario(pacientes[0]);
+                       }
+                     })
+                     .catch((error) => {
+                       console.error('Erro ao consultar perfil:', error);
+                     });
+                 } else {
+                   console.log('CPF não encontrado na URL.');
+                 }
+               }
+           
+               // Função para obter parâmetros da URL
+               function getUrlVars() {
+                 var vars = {};
+                 var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                   vars[key] = value;
+                 });
+                 return vars;
+            
+               }
+           
+               // Chamar a função para buscar o perfil
+               buscarPerfil();
+           </script>
         </div>
       </div>
 
@@ -1035,21 +1057,21 @@
             
       
       <!--INÍCIO DA TAB ANEXAR DOCUMENTOS/EXAMES COMPLEMENTARES-->
-      <div id="tab-3" class="ui-widget tab tab-3 tab-3 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 450px;">
+      <div id="tab-3" class="ui-widget tab tab-3 tab-3 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false">
 
         <div style="margin: 10px; margin-bottom: 50px;">
           <h2>Banco de formulários/prontuários para exames específicos<spam style="font-size: 12px; margin-left: 10px;">(Preencher, salvar em PDF e anexar abaixo)</spam><br></h2>
         
-          <p style="font-size: 12px;"><a href="../../../src/termo_consentimento.docx">- Termo de consentimento</a></p>
-          <p style="font-size: 12px;"><a href="../../../src/plano_tratamento.docx">- Plano de tratamento</a></p>
-          <p style="font-size: 12px;"><a href="../../../src/exame_clinico.docx">- Exame clínico</a></p>
+          <p style="font-size: 12px;"><a href="src/termo_consentimento.docx">- Termo de consentimento</a></p>
+          <p style="font-size: 12px;"><a href="src/plano_tratamento.docx">- Plano de tratamento</a></p>
+          <p style="font-size: 12px;"><a href="src/exame_clinico.docx">- Exame clínico</a></p>
 
         </div>
 
         <hr class="ui-state-default">
         
         <label style="width: 205px; margin-top: 20px;">Selecione o tipo de documento ou exame complementar:</label>
-        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px; margin-top: 20px" id="exameTipo">
+        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px; margin-top: 20px" id="tipo">
           <option value="">Escolher</option>
           <option value="Radiografia periapical">Radiografia periapical</option>
           <option value="Radiografia panorâmica">Radiografia panorâmica</option>
@@ -1060,109 +1082,172 @@
         <p></p>
         
         <label style="width: 205px;">Descrição do exame</label>
-        <input type="text" id="exameDescrição" value="" maxlength="80" class="ui-state-default ui-corner-all mousetrap " style="width: 380;" placeholder="Descrever o exame que será anexado">
+        <input type="text" id="exameDescrição" value="" maxlength="100" class="ui-state-default ui-corner-all mousetrap " style="width: 380;" placeholder="Descrever o exame que será anexado">
         <br>
         
         <label style="width: 205px;">Data do exame</label>
-        <input type="text" id="exameData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 120px;"/>
+        <input type="text" id="data" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 120px;"/>
         
         <br>
-        <label id="anexarExame" style="width: 205px;">Anexar o exame:</label>
-        
-        <input type="hidden" id="exameFile" value="" />
+        <label for="fileInput"><label for="fileInput" id="anexarExame" style="width: 205px;">Anexar o exame:</label>
+        <input type="file" id="fileInput" style="display: none;">
         <input type="text" name="arquivoName" id="arquivoName" value="" maxlength="" class="ui-state-default ui-corner-all mousetrap" readonly="1" style="width: 380px;" />
-        <button id="btnarquivo" name="btnarquivo" onclick="openWindow(BASE_URL+'util/upload/choiceFile/arquivoId/arquivoName/finishUploadArquivo/pdf|png|jpg|jpeg', 'Selecione o arquivo que deseja enviar', 600);" style="height: 24px; margin-left:0px; margin-bottom: 5px; margin-right: 5px;" class="ui-button ui-button-text-icon-primary ui-widget ui-state-default ui-corner-all"><span class="ui-button-icon-primary ui-icon ui-icon-newwin" style="float: left;"></span>Fazer upload</button><br />
+        <button id="btnarquivo" name="btnarquivo" style="height: 24px; margin-left:0px; margin-bottom: 5px; margin-right: 5px;" class="ui-button ui-button-text-icon-primary ui-widget ui-state-default ui-corner-all"><span class="ui-button-icon-primary ui-icon ui-icon-newwin" style="float: left;"></span>Selecionar arquivo</button></label><br />
         
-        <button onClick="addExame()" id="adicionarExame" value="Adicionar" class="button">Adicionar</button>
-        <button onClick="limparCamposExame()" id="limparExame" value="Cancelar" class="button">Cancelar</button>
-        <button onClick="deleteSelectedRows()" id="removerExame" value="Excluir" class="button">Excluir</button>
+        <button onClick="upload()" id="adicionarExame" value="Adicionar" class="button">Enviar</button>
         <br />
         <hr class="ui-state-default">
-        
         <div style="margin: 10px;"></div>
-        <table id="listaExames" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
+        <table id="Exames" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
           <thead>
             <tr class="ui-jqgrid-labels" role="rowheader">
-              <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">Selec.</th>
-              <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">Data</th>
-              <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 35%;">Descrição do documento/exame</th>
-              <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 18%;">Tipo de documento/exame</th>
-              <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 17%;">Nome do arquivo</th>
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%; text-align: center;">Excluir</th>
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%; text-align: center;">Data</th>
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 35%; text-align: center;">Descrição do documento/exame</th>
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 15%; text-align: center;">Tipo de documento/exame</th>
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 35%; text-align: center;">Nome do arquivo</th>
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%; text-align: center;">Visualizar</th>
             </tr>
           </thead>
           <!-- Table body rows go here -->
         </table>
       </div>
+      
 
     <script>
-      function addExame() {
-          var exameData = document.getElementById("exameData").value;
-          var exameTipo = document.getElementById("exameTipo").value;
-          var exameDescrição = document.getElementById("exameDescrição").value;
-          var exameFile = 'criar um script para pegar o filename';
-      
-          if (exameData && exameTipo && exameDescrição) {
-              var table = document.getElementById("listaExames");
-              var newRow = table.insertRow(-1);
-      
-              var checkBoxCell = newRow.insertCell(0);
-              checkBoxCell.innerHTML = '<input type="checkbox">';
-              checkBoxCell.className = "ui-state-default ui-th-column ui-th-ltr";
-      
-              var exameDataCell = newRow.insertCell(1);
-              exameDataCell.innerHTML = exameData;
-              exameDataCell.className = "ui-state-default ui-th-column ui-th-ltr";
-      
-              var exameDescriçãoCell = newRow.insertCell(2);
-              exameDescriçãoCell.innerHTML = exameDescrição;
-              exameDescriçãoCell.className = "ui-state-default ui-th-column ui-th-ltr";
-      
-              var exameTipoCell = newRow.insertCell(3);
-              exameTipoCell.innerHTML = exameTipo;
-              exameTipoCell.className = "ui-state-default ui-th-column ui-th-ltr";
 
-              var exameFileCell = newRow.insertCell(4);
-              exameFileCell.innerHTML = exameFile;
-              exameFileCell.className = "ui-state-default ui-th-column ui-th-ltr";
-      
-              // Clear input fields after adding row
-              document.getElementById("exameData").value = "";
-              document.getElementById("exameTipo").value = "";
-              document.getElementById("exameDescrição").value = "";
-              document.getElementById("exameFile").value = "";
-          }
+        api.arquivos.consultar({CPF: getUrlVars()['cpf']}).then((arquivos)=>{
+          console.log(arquivos)
+          arquivos.forEach(arquivo => {
+            adicionarNovaLinhaArquivos(arquivo)
+          })
+          
+        })
+
+        function adicionarNovaLinhaArquivos(arquivo){
+          var table = document.getElementById("Exames");
+        // Seleciona o corpo da tabela usando o id historicoPaciente
+        const tbody = document.getElementById("Exames")
+        // Cria um novo elemento de linha (<tr>)
+        const novaLinha = document.createElement('tr');
+        novaLinha.style.alignItems = 'center';
+        novaLinha.classList.add('ui-jqgrid-labels')
+        // adiciona o atributo rowheader 
+        novaLinha.setAttribute('role', 'rowheader')
+
+        // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
+        novaLinha.innerHTML = `
+          <td style="width: 5%; text-align: center;"><input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" value="Excluir" style="margin: 2px 2px 2px 0px;" onclick="excluirExame(${arquivo.id})"></td>
+          <td style="width: 5%; text-align: center;">${arquivo.Data}</td>
+          <td style="width: 35%; text-align: center;">${arquivo.Descricao}</td>
+          <td style="width: 18%; text-align: center;">${arquivo.Tipo}</td>
+            <td style="width: 17%; text-align: center;">${arquivo.Link.substring(arquivo.Link.lastIndexOf('/') + 1)}</td>
+          <td style="width: 17%; text-align: center;"><input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" value="Visualizar exame" style="margin: 2px 2px 2px 0px;" onclick="baixarExame('${arquivo.Link}')"></td>
+        `;
+        // Adiciona a nova linha criada (<tr>) ao final do corpo da tabela
+        tbody.appendChild(novaLinha);
+
+        // Encontre todos os elementos com a classe "ui-button"
+const uiButtons = document.querySelectorAll('.ui-button');
+
+// Adicione um ouvinte de evento para cada elemento
+uiButtons.forEach(button => {
+  // Evento quando o mouse entra no elemento
+  button.addEventListener('mouseenter', () => {
+    // Adicione a classe "ui-state-hover" ao elemento
+    button.classList.add('ui-state-hover');
+  });
+
+  // Evento quando o mouse sai do elemento
+  button.addEventListener('mouseleave', () => {
+    // Remova a classe "ui-state-hover" do elemento
+    button.classList.remove('ui-state-hover');
+  });
+});
+        }
+
+
+
+
+          // Adiciona evento de clique ao botão de upload
+          document.getElementById("btnarquivo").addEventListener("click", function() {
+            document.getElementById("fileInput").click();
+          });
+          document.getElementById("arquivoName").addEventListener("click", function() {
+          document.getElementById("fileInput").click();
+          });
+          // adiciona o nome do arquivo ao input text
+          document.getElementById("fileInput").addEventListener("change", function() {
+            document.getElementById("arquivoName").value = this.files[0].name;
+          });
+
+        const dataInput = document.getElementById('data');
+        const dataAtual = new Date().toISOString().split('T')[0];
+        dataInput.value = dataAtual;
+
+        // Função para enviar exame
+        function upload() {
+          console.log('Enviando exame...');
+          const data = document.getElementById('data').value.split('-').reverse().join('/');
+          const dados = {
+                CPF: getUrlVars()['cpf'],
+                Descricao: document.getElementById('exameDescrição').value,
+                Tipo: document.getElementById('tipo').value,
+                Data: data,
+                Arquivo: document.getElementById('fileInput').files[0]
+              }; 
+          console.log(dados);
+          api.arquivos.criar(dados).then((result)=>{
+            showCustomInform(result.message)
+            limparCamposExame()
+            atualizarListaArquivos()
+            console.log(result)
+          }).catch((error)=>{
+            console.error(error)
+          })
+
+        }
+        function atualizarListaArquivos(){
+          // preserva o thead
+          const thead = document.getElementById("Exames").getElementsByTagName('thead')[0];
+          api.arquivos.consultar({CPF: getUrlVars()['cpf']}).then((arquivos)=>{
+            console.log(arquivos)
+            const tbody = document.getElementById("Exames")
+            tbody.innerHTML = ''
+            tbody.appendChild(thead)
+            arquivos.forEach(arquivo => {
+              adicionarNovaLinhaArquivos(arquivo)
+            })
+            
+          })
+        }
+        function baixarExame(Link_){
+          const link = document.createElement('a');
+          link.href = window.location.origin + '/api/arquivos/' + Link_;
+          //abre a visualização do arquivo em uma nova aba
+          link.setAttribute('target', '_blank');
+          document.body.appendChild(link);
+          link.click();
+        
       }
-      
       function limparCamposExame() {
-          document.getElementById("exameData").value = "";
-          document.getElementById("exameTipo").value = "";
+          document.getElementById("data").value = "";
+          document.getElementById("tipo").value = "";
           document.getElementById("exameDescrição").value = "";
-          document.getElementById("exameFile").value = "";
+          document.getElementById("fileInput").value = "";
       }
 
-      function deleteSelectedRows() {
-          var table = document.getElementById("listaExames");
-          var rowsToDelete = [];
-
-          // Find selected checkboxes and collect their parent row indexes
-          for (var i = 1; i < table.rows.length; i++) { // Start from 1 to skip the header row
-              var checkbox = table.rows[i].cells[0].querySelector('input[type="checkbox"]');
-              if (checkbox.checked) {
-                  rowsToDelete.push(i);
-              }
-          }
-
-          // Delete the selected rows in reverse order to avoid index shifting
-          for (var j = rowsToDelete.length - 1; j >= 0; j--) {
-              table.deleteRow(rowsToDelete[j]);
-          }
-      }
-    </script>
-       
-    <script>
-      function submitFunction() {
-        // CHAMAR ESSA MENSAGEM APENAS SE A FUNÇÃO FOR REALIZADA COM SUCESSO
-        showCustomAlert("Atendimento registrado com sucesso e encaminhado para avaliação.")
+      function excluirExame(id){
+        showCustomConfirm('Deseja realmente excluir este exame?', function(confirme){
+          if(!confirme) return
+          api.arquivos.excluir({id}).then((result)=>{
+              showCustomAlert('Exame excluído com sucesso!')
+              atualizarListaArquivos()
+            console.log(result)
+          }).catch((error)=>{
+            console.error(error)
+          })
+        })
       }
     </script>
   </body>

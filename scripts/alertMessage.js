@@ -16,7 +16,6 @@
 
     okButton.onclick = function () {
         customAlert.style.display = "none";
-        location.reload(); // Reload the page
     };
   }
 

@@ -200,12 +200,12 @@ const agenda = {
 };
 
 const arquivos = {
-  consultar: async (data) => {
-    const url = `${getApiUrl()}/arquivos/consultar.php`;
+  baixar: async (data) => {
+    const url = `${getApiUrl()}/arquivos/baixar.php`;
     return sendRequest(url, 'POST', data);
   },
-  excluir: async (data) => {
-    const url = `${getApiUrl()}/arquivos/excluir.php`;
+  consultar: async (data) => {
+    const url = `${getApiUrl()}/arquivos/consultar.php`;
     return sendRequest(url, 'POST', data);
   },
   criar: async (data) => {

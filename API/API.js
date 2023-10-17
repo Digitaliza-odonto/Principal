@@ -124,12 +124,12 @@ const disciplinas = {
 };
 
 const arquivos = {
-  baixar: async (data) => {
-    const url = `${getApiUrl()}/arquivos/baixar.php`;
-    return sendRequest(url, 'POST', data);
-  },
   consultar: async (data) => {
     const url = `${getApiUrl()}/arquivos/consultar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  excluir: async (data) => {
+    const url = `${getApiUrl()}/arquivos/excluir.php`;
     return sendRequest(url, 'POST', data);
   },
   criar: async (data) => {

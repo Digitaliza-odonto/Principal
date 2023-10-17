@@ -48,6 +48,8 @@
         <!-- HIDDEN DIV FOR ALERT MESSAGE -->
         <!--ALERT MESSAGES-->
     </head>
+
+    <script src="/API/API.js"></script>
     
     <body>
         <!-- CONTEÚDO SUPERIOR -->
@@ -353,21 +355,13 @@
                 var nomeMaterialFilter = ''; // Store the nomeMaterial filter
 
                 function loadTableData() {
-                    // Make an AJAX request to fetch data from your PHP script
-                    $.ajax({
-                        url: 'https://sistema-odonto.000webhostapp.com/busca-materiais.php',
-                        method: 'GET',
-                        dataType: 'json',
-                        success: function (data) {
-                            totalRows = data.length;
-                            tableRows = data;
-                            applyFilters();
-                            updateButtons();
-                        },
-                        error: function () {
-                            console.log('Error fetching data');
-                        }
+                    api.materiais.consultar().then(function (response) {
+                        totalRows = response.length;
+                        tableRows = response;
+                        applyFilters();
+                        updateButtons();
                     });
+
                 }
 
                 function applyFilters() {

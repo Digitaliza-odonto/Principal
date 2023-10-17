@@ -259,7 +259,7 @@
                 
             <br>
                 
-            <form action="https://sistema-odonto.000webhostapp.com/request-material.php" method="post" id="myForm">
+            <form id="myForm">
                 <div style="margin-left: 20px;">
                 
                 <label style="width: 120px; font-weight: bold; margin: 5px; font-size: larger;">Dados do pedido:</label><br>
@@ -361,7 +361,6 @@
                         applyFilters();
                         updateButtons();
                     });
-
                 }
 
                 function applyFilters() {
@@ -490,38 +489,70 @@
 
                     
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const form = document.getElementById("myForm");
+      
 
-                form.addEventListener("submit", function(event) {
-                    event.preventDefault(); // Prevent the default form submission behavior
 
-                    // Serialize form data
-                    const formData = new FormData(form);
+      document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("myForm");
 
-                    // Send a POST request to the server
-                    fetch(form.action, {
-                        method: "POST",
-                        body: formData
-                    })
-                    .then(response => response.json()) // Assuming the server responds with JSON
-                    .then(responseData => {
-                        // Check if the response message is "Records inserted successfully."
-                        if (responseData.message === "Records inserted successfully.") {
-                            showCustomAlert("Solicitação de material registrada com sucesso.");
-                        } else {
-                            showCustomAlert("Erro: " + responseData.message);
-                        }
+    form.addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the default form submission behavior
 
-                        // Optionally reload the page
-                        // location.reload();
-                    })
-                    .catch(error => {
-                        showCustomAlert("Erro ao enviar solicitação: " + error);
-                        // Handle errors here if needed
-                    });
+        // Collect form data including dynamically generated inputs
+        const formData = new FormData(form);
+
+        // Extract individual arrays from form data object
+        const qtdSolicitada = [];
+        const material = [];
+        const idMaterial = [];
+
+        // Extract values from form data object and populate arrays
+        for (const key of formData.keys()) {
+            if (key.startsWith("qtd_solicitada")) {
+                qtdSolicitada.push(formData.get(key));
+            } else if (key.startsWith("material")) {
+                material.push(formData.get(key));
+            } else if (key.startsWith("id_material")) {
+                idMaterial.push(formData.get(key));
+            }
+        }
+
+        // Check if all required data is available
+        if (formData.has("setor") && formData.has("nome_solicitante") && formData.has("id_solicitante") && qtdSolicitada.length > 0 && material.length > 0 && idMaterial.length > 0) {
+            // Prepare the data object to be sent in the API request
+            const requestData = {
+                setor: formData.get("setor"),
+                nome_solicitante: formData.get("nome_solicitante"),
+                id_solicitante: formData.get("id_solicitante"),
+                qtd_solicitada: qtdSolicitada,
+                material: material,
+                id_material: idMaterial
+            };
+
+            // Send a POST request to the server using api.materiais.requestMaterial()
+            api.materiais.requestMaterial(requestData)
+                .then(responseData => {
+                    // Check if the response message is "Records inserted successfully."
+                    if (responseData.message === "Records inserted successfully.") {
+                        showCustomAlert("Solicitação de material registrada com sucesso.");
+                    } else {
+                        showCustomAlert("Erro: " + responseData.message);
+                    }
+
+                    // Optionally reload the page
+                    // location.reload();
+                })
+                .catch(error => {
+                    showCustomAlert("Erro ao enviar solicitação: " + error);
+                    // Handle errors here if needed
                 });
-            });
+        } else {
+            // Handle missing data error
+            showCustomAlert("Erro: Dados inválidos para a solicitação de material.");
+        }
+    });
+});
+
         </script>
         
         <script>

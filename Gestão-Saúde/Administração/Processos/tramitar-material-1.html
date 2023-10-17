@@ -1,39 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tramitar requisição de material</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tramitar requisição de material</title>
+    
     <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
         var BASE_URL = 'https://cobalto.ufpel.edu.br/';
         var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
         var PATH_COOKIE = '/';
         var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
         var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-    </script>
-    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
-</head>
+        </script>
+        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    </head>        
 
     <body>
-        <!-- CONTEÚDO SUPERIOR -->
-        <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-            <li>Administração</li>    
-            <li>Processos</li>
-            <li>Tramitar requisição de material</li>
-            </ul>
-            <div style="clear: both;"></div>
-        </div>
-        <div style="clear: both;"></div>
-
-
-        <div class="ui-widget-content ui-corner-all toolbar">
-            <button id="voltar-pagina" class="voltar-pagina" style="float: left;" role="button" aria-disabled="false" title="Voltar página"><span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-w"></span></button>
-            <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-            <span style="clear: both; display: block"></span>
-        
+        <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+        <div id="content-center" class="ui-layout-center ui-widget-content"
+            style="background: none !important; overflow: hidden !important">
+            
+            <div class="breadCrumb module">
+                <ul>
+                    <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+                    <li>Administração</li>    
+                    <li>Processos</li>
+                    <li>Tramitar requisição de material</li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div><div style="clear: both;"></div>
+                
+            <div class="ui-widget-content ui-corner-all toolbar">
+                <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+                <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+                <span style="clear: both; display: block"></span>
+            </div>
+               
         <span style="clear: both; display: block"></span></div>
 
         <!-- CONTEÚDO DA PÁGINA -->
@@ -90,6 +97,8 @@
             </table>
         </div>
 
+        <script src="/API/API.js"></script>
+
         <script type="text/javascript">
             $(document).ready(function () {
                 var currentPage = 1;
@@ -112,22 +121,13 @@
                 updateButtons();
             }
 
-
+      
         function loadTableData() {
-            // Make an AJAX request to fetch data from your PHP script
-            $.ajax({
-                url: '../../../API/materiais/busca-requisicoes.php',
-                method: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    totalRows = data.length;
-                    tableRows = data;
-                    showPage(currentPage, tableRows); // Display data without applying filters
-                    updateButtons();
-                },
-                error: function () {
-                    console.log('Error fetching data');
-                }
+            api.materiais.buscaRequisicoes().then(function (data) {
+                totalRows = data.length;
+                tableRows = data;
+                showPage(currentPage, tableRows); // Display data without applying filters
+                updateButtons();
             });
         }
 

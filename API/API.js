@@ -62,8 +62,13 @@ login: async (data) => {
 criar: async (data) => {
   const url = `${getApiUrl()}/cobalto/usuarios/criar.php`;
   return sendRequest(url, 'POST', data);
-}
-}
+  },
+consultar: async (data) => {
+  const url = `${getApiUrl()}/cobalto/usuarios/consultar.php`;
+  return sendRequest(url, 'POST', data);
+  }
+};
+
 const alunos = {
   pacientes: async (data) => {
     const url = `${getApiUrl()}/alunos/pacientes.php`;

@@ -240,6 +240,18 @@ const arquivos = {
   }
 };
 
+const planoTratamento = {
+  criar: async (data) => {
+    const url = `${getApiUrl()}/planoTTO/criar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultar: async (data) => {
+    const url = `${getApiUrl()}/planoTTO/consultar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+}
+
+
 const cobalto = {
   disciplinas,
   usuarios

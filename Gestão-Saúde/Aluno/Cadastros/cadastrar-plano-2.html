@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de tratamento</title>
+    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+      var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+      var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+      var PATH_COOKIE = '/';
+      var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+      var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+    </script>
+    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+    <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
+
+    <!--ALERT MESSAGES-->
+    <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+    <script src="../../../scripts/alertMessage.js"></script>
+
+    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+    <div id="customAlert" class="modal">
+      <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+          <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+          <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+          </button>
+        </div>
+        <p></p>
+        <br>
+        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+          <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+          <p id="alertMessage"></p>
+        </div>
+        <p> </p><br>
+        <p> </p><br>
+        <p> </p><br>
+        <div><button id="okButton" class="centered-button">OK</button></div>
+      </div>
+    </div>
+      <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+  </head>
+
+  <body>
+    <!-- CONTEÚDO DA PÁGINA/TELA PRINCIPAL COBALTO -->
+    <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
+      <div class="breadCrumb module">
+        <ul>
+          <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+          <li>Aluno</li>
+          <li>Cadastro</li>
+          <li>Plano de tratamento</li>
+        </ul>
+        <div style="clear: both;"></div></div>
+        <div style="clear: both;"></div>
+        </ul>
+        
+      <!-- CONTEÚDO BOTÕES -->
+      <div class="ui-widget-content ui-corner-all toolbar">
+        <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitForm()" style="float: left;">Salvar</button>
+        <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+        <span style="clear: both; display: block"></span>
+      </div>
+
+      <!-- INÍCIO DIVISÃO EM TABS-->
+
+      <div id="tab" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+          
+          <li class="labeltab ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Dados pessoais</a></li>
+
+          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-2" aria-labelledby="ui-id-3" aria-selected="false"><a href="#tab-2" accesskey="tab-2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">Plano de tratamento</a></li>
+          
+        </ul>
+      <!--FIM DIVISÃO EM TABS-->
+
+
+      <!--TAB DADOS PESSOAIS-->
+      <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
+
+        <br>
+        <div>
+          <p></p>
+          <label style="width: 180px; margin: 5px; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
+          <input type="text" id="informacoesImportantes" maxlength="255" style="width: 340px; margin: 5px;" readonly="readonly"><br>
+        
+          <script>
+              // TROCAR STYLE SE O CAMPO 'informaçõesImportantes' for preenchido
+            document.addEventListener('DOMContentLoaded', function() {
+              const inputField = document.getElementById('informacoesImportantes');
+          
+              function applyStyles() {
+                if (inputField.value.trim() === '') {
+                  inputField.classList.add('ui-state-default');
+                  inputField.classList.remove('important-ui');
+                } else {
+                  inputField.classList.add('important-ui');
+                  inputField.classList.remove('ui-state-default');
+                }
+              }
+          
+              inputField.addEventListener('input', applyStyles);
+          
+              // Apply styles once the page loads
+              applyStyles();
+            });
+          </script>
+          <p style="margin: 10px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
+          <p></p>
+          <br>
+        
+          <p></p>
+          <br>
+          <hr class="ui-state-default">
+        </div>
+          
+        <div>
+          <p></p>
+          <br>
+          <label style="width: 120px; ;margin: 5px;">CPF</label>
+          <input type="text" name="Cpf" id="Cpf" maxlength="" class="ui-state-default ui-corner-all mousetrap cpf" onblur="pesquisaPessoa()" style="width: 100px;" readonly="readonly">
+          <br>
+        
+          <label style="width: 120px; ;margin: 5px;">Nome</label>
+          <input type="text" name="Nome" id="Nome" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+          <br>
+          
+          <label style="width: 120px; ;margin: 5px;">RG</label>
+          <input type="text" name="Rg" id="Rg" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;" readonly="readonly">
+          <br>
+        
+          <label style="width: 120px; ;margin: 5px;">Cartão SUS (CNS)</label>
+          <input type="text" name="CNS" id="CNS" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;" readonly="readonly">
+          <br>
+          
+          <label style="width: 120px; ;margin: 5px;"  >Dt. nascimento</label>
+          <input type="text" name="DataNasc" id="DataNasc" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 80px;" readonly="readonly">
+          <br>
+        
+          <label style="width: 120px; ;margin: 5px;">E-mail</label>
+          <input type="text" name="Email" id="Email" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+          <br>
+        
+          <label style="width: 120px; ;margin: 5px;">Telefone</label>
+          <input type="text" name="Tel" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
+          <br>
+        
+          <label style="width: 120px; ;margin: 5px;">Telefone 2 (Opcional)</label>
+          <input type="text" name="Tel2" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
+          <br>
+        
+          <label style="width: 120px; ;margin: 5px;">Telefone 3 (Opcional)</label>
+          <input type="text" name="Tel3" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
+          <br>
+          
+          <label style="width: 120px; ;margin: 5px;">Estado civil</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="EstadoCivil" id="EstadoCivil" disabled>
+            <option value="CASADO">CASADO</option>
+            <option value="DIVORCIADO">DIVORCIADO</option>
+            <option value="OUTROS">OUTROS</option>
+            <option value="SEPARADO">SEPARADO JUDICIALMENTE</option>
+            <option value="SOLTEIRO">SOLTEIRO</option>
+            <option value="VIUVO">VIUVO</option>
+          </select>
+          <br>
+
+          <label style="width: 120px; ;margin: 5px;">Sexo</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="Sexo" id="Sexo" disabled>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+              </select> 
+          <br>
+
+          <label style="width: 120px; ;margin: 5px;">Cor/Raça</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="CorRaca" id="CorRaca" disabled>
+            <option value="Amarelo">Amarelo</option>
+            <option value="Branca">Branca</option>
+            <option value="Indígena">Indígena</option>
+            <option value="Parda">Parda</option>
+            <option value="Não quis declarar">Não quis declarar</option>
+          </select> 
+
+          <hr class="ui-state-default">
+          <label style="font-weight:bold;width: 120px;" readonly="readonly">Filiação</label>
+          <br>
+
+          <label style="width: 120px; margin: 5px;">Nome da mãe</label>
+          <input type="text" name="NomeMae" id="NomeMae" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+
+          <br>
+          <label style="width: 120px;margin: 5px;">Nome do pai</label>
+          <input type="text" name="NomePai" id="NomePai" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+          
+          <br>
+          <hr class="ui-state-default">
+          <label style="width: 600px;">Condição sistêmica/Necessidade especial: (Segurar control para fazer seleçoes múltiplas)</label><br>
+          <select class="ui-state-default ui-corner-all" style="width: 100px;margin: 5px;" name="PNE" id="PNE" multiple disabled>
+            <option value="Hipertensão">Hipertensão</option>
+            <option value="Diabetes">Diabetes</option>
+            <option value="Hepatite B">Hepatite B</option>
+            <option value="Hepatite C">Hepatite C</option>
+            <option value="Soropositivo">Soropositivo</option>
+          </select> 
+
+          <hr class="ui-state-default"><label style="font-weight:bold;width: 120px;">Endereço:</label>
+          <br>
+          
+          <label style="width: 120px;">Tipo de endereço</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="EnderecoTipo" id="EnderecoTipo" disabled>
+            <option value="Comercial">Comercial</option>
+            <option value="Família">Família</option>
+            <option value="Residencial">Residencial</option>
+          </select> 
+          <br>
+
+          <label style="width: 120px;">CEP</label>
+          <input type="text" name="Cep" id="Cep" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap cep" style="width: 100px;" readonly="readonly">
+          <br>
+
+          <label style="width: 120px;">Endereço</label>
+          <input type="text" name="Rua" id="Rua" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
+          <br>
+
+          <label style="width: 120px;">Número</label>
+          <input type="text" name="EndNumero" id="EndNumero" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;" readonly="readonly">
+          <br>
+
+          <label style="width: 120px;">Complemento</label>
+          <input type="text" name="EndComplemento" id="EndComplemento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
+          <br>
+
+          <label style="width: 120px;">Bairro</label>
+          <input type="text" name="Bairro" id="Bairro" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
+          <br>
+
+          <label style="width: 120px;">Cidade</label>
+          <input type="text" name="Cidade" id="Cidade" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
+          <br>
+
+          <script src="/API/API.js"></script>
+
+          <script type="text/javascript">
+            // Função para preencher o formulário com os dados do perfil
+            function preencherFormulario(dados) {
+                console.log(dados)
+                document.getElementById("Cpf").value = dados.CPF;
+                document.getElementById("Nome").value = dados.Nome;
+                document.getElementById("Nometab").innerText = dados.Nome;
+                document.getElementById("Rg").value = dados.Rg;
+                document.getElementById("DataNasc").value = dados.DataNasc;
+                document.getElementById("Email").value = dados.Email;
+                document.getElementById("Tel").value = dados.Tel;
+                document.getElementById("EstadoCivil").value = dados.EstadoCivil;
+                document.getElementById("Sexo").value = dados.Sexo;
+                document.getElementById("CorRaca").value = dados.CorRaca;
+                document.getElementById("NomeMae").value = dados.NomeMae;
+                document.getElementById("NomePai").value = dados.NomePai;
+                document.getElementById("PNE").value = dados.PNE;
+                document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
+                document.getElementById("Cep").value = dados.Cep;
+                document.getElementById("Rua").value = dados.Rua;
+                document.getElementById("EndNumero").value = dados.EndNumero;
+                document.getElementById("EndComplemento").value = dados.EndComplemento;
+                document.getElementById("Bairro").value = dados.Bairro;
+                document.getElementById("Cidade").value = dados.Cidade;
+              }
+          
+              // Função para buscar o perfil usando a API
+              function buscarPerfil() {
+                const cpf = getUrlVars()['cpf'];
+                if (cpf) {
+                  api.pacientes.consultar({ CPF: cpf })
+                    .then((pacientes) => {
+                      if (pacientes.length === 0) {
+                        console.log('Nenhum paciente encontrado');
+                      } else {
+                        preencherFormulario(pacientes[0]);
+                      }
+                    })
+                    .catch((error) => {
+                      console.error('Erro ao consultar perfil:', error);
+                    });
+                } else {
+                  console.log('CPF não encontrado na URL.');
+                }
+              }
+          
+              // Função para obter parâmetros da URL
+              function getUrlVars() {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                  vars[key] = value;
+                });
+                return vars;
+            
+              }
+          
+              // Chamar a função para buscar o perfil
+              buscarPerfil();
+          </script>
+        </div>
+      </div>
+
+      <!--TAB PLANO DE TRATAMENTO-->
+      <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 1100px;">
+
+        <p></p>
+
+        <script>
+          function submitForm() {
+            var formData = {
+              especialidade: $('#especialidade').val(),
+              descricao: $('#descricao').val(),
+              responsavel: $('#responsavel').val(),
+              componente_curricular: $('#componente_curricular').val(),
+              Cpf: $('#Cpf').val()
+            };
+            
+            console.log(formData);
+          
+                 
+            // Perform API request
+            api.planoTratamento.criar(formData)
+              .then(function(response) {
+                if (response.message) {
+                  console.log(response.message);
+                  showCustomAlert(response.message);
+                } else {
+                  console.log(response);
+                }
+                limparCampos();
+              })
+              .catch(function(error) {
+                showCustomAlert(error);
+              });
+          }
+        </script>
+
+        <form id="planoForm">
+          <!-- <label style="font-weight:bold;width: 180px;">Área/Curso da saúde</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="areaSaúde" id="areaSaúde">
+            <option value="0">Escolher</option>
+            <option value="Odontologia">Odontologia</option>
+            <option value="Enfermagem">Enfermagem</option>
+            <option value="Farmácia">Farmácia</option>
+            <option value="Terapia Ocupacional">Terapia Ocupacional</option>
+          </select> -->
+          
+          <br>
+          <p></p>
+          <label style="font-weight:bold;width: 180px;">Lista de especialidades</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="especialidade" id="especialidade">
+            <option value="Escolher">Escolher</option>
+            <option value="Prótese Dentária">Prótese Dentária</option>
+            <option value="Odontopediatria">Odontopediatria</option>
+            <option value="Periodontia">Periodontia</option>
+            <option value="Dentística">Dentística</option>
+            <option value="Cirurgia">Cirurgia</option>
+          </select>
+          
+          <!-- <script>
+            const disciplinas = [
+              {codCurso: '0', nomeEspec:'Selecione uma especialidade'},
+              {codCurso: 'Odontologia', nomeEspec:'Prótese Dentária'},
+              {codCurso: 'Odontologia', nomeEspec:'Odontopediatria'},
+              {codCurso: 'Odontologia', nomeEspec:'Periodontia'},
+              {codCurso: 'Odontologia', nomeEspec:'Dentística'},
+              {codCurso: 'Odontologia', nomeEspec:'Cirurgia'},
+              {codCurso: 'Enfermagem', nomeEspec:'Pediatria e Neonatologia'},
+              {codCurso: 'Enfermagem', nomeEspec:'Terapia Intensiva e Alta Complexidade'},
+              {codCurso: 'Enfermagem', nomeEspec:'Cardiologia e Hemodinâmica'},
+              {codCurso: 'Farmácia', nomeEspec:'Análises clínicas' },
+              {codCurso: 'Farmácia', nomeEspec:'Antroposofia' },
+              {codCurso: 'Terapia Ocupacional', nomeEspec:'Contextos sociais' },
+              {codCurso: 'Terapia Ocupacional', nomeEspec:'Saúde da família' },
+              // Add more options as needed
+            ];
+            
+            const areaSelect = document.getElementById('areaSaúde');
+            const disciplinasSelect = document.getElementById('especAreaSaúde');
+            
+            areaSelect.addEventListener('change', function() {
+              const selectedCodCurso = areaSelect.value;
+            
+              // Clear existing options
+              disciplinasSelect.innerHTML = '<option value="0">Selecione uma especialidade</option>';
+            
+              // Filter and populate the second select
+              const selectedDisciplinas = disciplinas.filter(disciplina => disciplina.codCurso === selectedCodCurso);
+              selectedDisciplinas.forEach(disciplina => {
+                const option = document.createElement('option');
+                option.value = disciplina.nomeEspec;
+                option.textContent = disciplina.nomeEspec;
+                disciplinasSelect.appendChild(option);
+              });
+            });
+          </script> -->
+          
+          <hr class="ui-state-default">
+          <p></p>
+          <br>
+          
+          <label style="width: 180px;">Descrição do plano de tratamento:</label><br>
+          <textarea style="width: 40%;" id="descricao" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" ></textarea>
+          <br>
+
+          <label style="width: 120px;">Responsável técnico</label>
+          <input type="text" id="responsavel" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 32%;" placeholder="SELECT BOX OU BUSCAR O NOME?">
+          <br>
+          
+          <label style="width: 120px;">Componente curricular</label>
+          <input type="text" id="componente_curricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 32%;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO">
+          <br>
+        </form>
+        
+        
+        
+       
+    <script>
+      function submitFunction() {
+        // CHAMAR ESSA MENSAGEM APENAS SE A FUNÇÃO FOR REALIZADA COM SUCESSO
+        showCustomAlert("Atendimento registrado com sucesso e encaminhado para avaliação.")
+      }
+    </script>
+  </body>
+</html>

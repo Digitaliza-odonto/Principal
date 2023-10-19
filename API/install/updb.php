@@ -8,6 +8,7 @@ try {
         CPF VARCHAR(255) NOT NULL,
         CNS VARCHAR(255),
         Nome VARCHAR(255),
+        nomeSocial VARCHAR(255),
         Rg VARCHAR(255),
         DataNasc VARCHAR(255),
         Email VARCHAR(255),
@@ -60,21 +61,21 @@ try {
         curso VARCHAR(255) NOT NULL,
         codigo VARCHAR(255) NOT NULL,
         datadecadastro VARCHAR(255) NOT NULL
-    )");
+      )");
 
     // Tabela agenda de clínicas
     db("CREATE TABLE `agenda-clinicas` (
-            `id_agendamento` bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            `agendado_por` varchar(11) NOT NULL,
-            `cpf_paciente` varchar(11) NOT NULL,
-            `data_agendamento` date NOT NULL,
-            `horario_agendamento` varchar(2) NOT NULL,
-            `minuto_agendamento` varchar(2) NOT NULL,
-            `atividade_curricular` varchar(40) NOT NULL,
-            `local` varchar(30) CHARACTER SET latin1 COLLATE latin1_danish_ci NOT NULL,
-            `descricao` varchar(25) NOT NULL,
-            `status_agendamento` varchar(10) NOT NULL
-          )");
+        `id_agendamento` bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `agendado_por` varchar(11) NOT NULL,
+        `cpf_paciente` varchar(11) NOT NULL,
+        `data_agendamento` date NOT NULL,
+        `horario_agendamento` varchar(2) NOT NULL,
+        `minuto_agendamento` varchar(2) NOT NULL,
+        `atividade_curricular` varchar(40) NOT NULL,
+        `local` varchar(30) CHARACTER SET latin1 COLLATE latin1_danish_ci NOT NULL,
+        `descricao` varchar(25) NOT NULL,
+        `status_agendamento` varchar(10) NOT NULL
+      )");
 
     // Tabela avaliações de atendimento
     db("CREATE TABLE `avaliacoesatendimento` (
@@ -142,7 +143,7 @@ try {
       `tipoParto` varchar(12) NOT NULL,
       `doencaInfancia_YN` varchar(3) NOT NULL,
       `doencaInfancia` varchar(60) NOT NULL,
-      `internaca_YN` varchar(3) NOT NULL,
+      `internacao_YN` varchar(3) NOT NULL,
       `internacao` varchar(60) NOT NULL,
       `historicoMedicacao_YN` varchar(3) NOT NULL,
       `historicoMedicacao` varchar(60) NOT NULL,
@@ -160,8 +161,8 @@ try {
       `medicacao_Ped` varchar(60) NOT NULL,
       `pediatra` varchar(64) NOT NULL,
       `telPediatra` int(11) NOT NULL,
-      `obs_ped` varchar(120) NOT NULL    
-    ");
+      `obs_ped` varchar(120) NOT NULL
+    );");
 
     // Tabela Entrevista dialogada ADULTOS
     db("CREATE TABLE `entrevista` (
@@ -200,12 +201,12 @@ try {
       `obs` varchar(120) NOT NULL,
       `medico` varchar(64) NOT NULL,
       `medicoTEL` int(11) NOT NULL
-    )");
+    );");
 
     // Tabela plano de tratamentos
     db("CREATE TABLE plano_tto (
       id INT AUTO_INCREMENT PRIMARY KEY,
-      CPF VARCHAR(255),
+      CPF VARCHAR(11),
       data DATE,
       queixa VARCHAR(255),
       aspectoRelevante VARCHAR(255),
@@ -214,7 +215,7 @@ try {
       aluno_id VARCHAR(255),
       responsavel VARCHAR(255),
       componente_curricular VARCHAR(255)
-  )");
+    );");
 
 
     // SET EVENT PARA TROCAR STATUS DE PACIENTES QUE FALTAM

@@ -249,7 +249,18 @@ const planoTratamento = {
     const url = `${getApiUrl()}/planoTTO/consultar.php`;
     return sendRequest(url, 'POST', data);
   },
-}
+};
+
+const entrevistaDialogada = {
+  criar: async (data) => {
+    const url = `${getApiUrl()}/entrevista/criar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultar: async (data) => {
+    const url = `${getApiUrl()}/entrevista/consultar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+};
 
 
 const cobalto = {
@@ -268,7 +279,8 @@ window.api = {
   arquivos,
   procedimentos,
   agenda,
-  planoTratamento
+  planoTratamento,
+  entrevistaDialogada
 };
 
 // remove o banner do 000webhost

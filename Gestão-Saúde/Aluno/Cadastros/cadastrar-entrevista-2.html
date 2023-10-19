@@ -65,7 +65,7 @@
       <!-- CONTEÚDO BOTÕES -->
       <div class="ui-widget-content ui-corner-all toolbar">
         <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Salvar</button>
+        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitForm()" style="float: left;">Salvar</button>
         <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
         <span style="clear: both; display: block"></span>
       </div>
@@ -128,9 +128,13 @@
             <label style="width: 120px; ;margin: 5px;">CPF</label>
             <input type="text" name="Cpf" id="Cpf" maxlength="" class="ui-state-default ui-corner-all mousetrap cpf" onblur="pesquisaPessoa()" style="width: 100px;" readonly="readonly">
             <br>
-          
+
             <label style="width: 120px; ;margin: 5px;">Nome</label>
             <input type="text" name="Nome" id="Nome" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+            <br>
+
+            <label style="width: 120px; ;margin: 5px;">Nome social</label>
+            <input type="text" name="NomeSocial" id="Nome" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
             <br>
             
             <label style="width: 120px; ;margin: 5px;">RG</label>
@@ -312,404 +316,500 @@
 
         <!--INÍCIO DA TAB ENTREVISTA DIALOGADA ADULTOS-->
         <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
-          <div style="margin: 5px;">
-            <div class="question">
-              <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
-              <textarea id="queixa" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 50%; margin-top: 10px;"></textarea>
-              <br>
-            </div>
-            
-            <div class="question" style="margin-top: 20px;">
-              <label for="doenca_YN">Sofre de alguma doença?</label>
-              <label><input type="radio" name="doenca_YN" value="Não" checked> Não</label>
-              <label><input type="radio" name="doenca_YN" value="Sim"> Sim</label>
-              
-              <div id="displayNotdisplay1">
-                <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                <input type="text" id="doenca" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 515px;">
-              </div>
-              <br>
-            </div>
-
-            <div class="question">
-              <label for="tto_medico_YN">Está em tratamento médico atualmente?</label>
-              <label><input type="radio" name="tto_medico_YN" value="Não" checked> Não</label>
-              <label><input type="radio" name="tto_medico_YN" value="Sim"> Sim</label>
-              
-              <div id="displayNotdisplay2">
-                <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                <input type="text" id="tto_medico" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 450px;">
-              </div>
-              <br>
-            </div>
-              
-            <div class="question">
-              <label for="medicacao_YN">Está fazendo uso de alguma medicação?</label>
-              <label><input type="radio" name="medicacao_YN" value="Não" checked> Não</label>
-              <label><input type="radio" name="medicacao_YN" value="Sim"> Sim</label>
-              
-              <div id="displayNotdisplay3">
-                <label style="width: 180px; margin-left: 5px;">Qual(is) medicamentos e dosagens?</label>
-                <input type="text" id="medicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 310px;">
-              </div>
-              <br>
-            </div>
-
-            <div class="question">
-              <label for="alergia_YN" style="width: 70px;">Tem alergia(s)?</label>
-              <label><input type="radio" name="alergia_YN" value="Não" checked> Não</label>
-              <label><input type="radio" name="alergia_YN" value="Sim"> Sim</label>
-              
-              <div id="displayNotdisplay4">
-                <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                <input type="text" id="alergia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 570px;">
-              </div>
-              <br>
-            </div>
-
-            <div class="question">
-              <label for="fumante_YN" style="width: 70px;">É fumante?</label>
-              <label><input type="radio" name="fumante_YN" value="Não" checked> Não</label>
-              <label><input type="radio" name="fumante_YN" value="Sim"> Sim</label>
-              
-              <div id="displayNotdisplay5">
-                <label style="width: 100px; margin-left: 5px;">Há quanto tempo? </label>
-                <input type="text" id="fumante" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 520px;">
-              </div>
-              <br>
-            </div>
-
-            <div class="question">
-              <label for="etilista_YN" style="width: 70px;">É etilista?</label>
-              <label><input type="radio" name="etilista_YN" value="Não" checked> Não</label>
-              <label><input type="radio" name="etilista_YN" value="Sim"> Sim</label>
-
-              <div id="displayNotdisplay6">
-                <label style="width: 100px; margin-left: 5px;">Há quanto tempo? </label>
-                <input type="text" id="etilista" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 520px;">
-              </div>
-              <br>
-              </div>
-
-              <hr class="ui-state-default">
-
-              <p style="margin-top: 20px; font-weight: bold;">Histórico odontológico</p>
-
-              <div class="question">
-                <label for="ultimaConsulta" style="margin-top: 10px;">Última consulta odontológica</label>
-                <input type="text" name="ultimaConsulta" id="ultimaConsulta" maxlength="255" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 100px; margin-top: 10px;">
-                <br>
-              </div>
-
-              <div class="question" style="margin-bottom: 10px;">
-                <label for="ultimoTTO" style="margin-top: 10px;">Último tratamento realizado </label>
-                <input type="text" id="ultimoTTO" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 670px; margin-top: 10px;">
-                <br>
-              </div>
-
-              <hr class="ui-state-default">
-
-              <p style="margin-top: 20px; font-weight: bold;">Hábitos de higiêne</p>
-
-              <div class="question" style="margin-top: 10px;">
-                <label for="freq_higiene">Frequência da higiêne bucal</label>
-                <input type="text" name="freq_higiene" id="freq_higiene" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 665px;">
-                <br>
-              </div>
-
-              <style>
-                .container {
-                    display: flex;
-                    width: 100%;
-                }
-
-                .column {
-                    flex: 1;
-                    padding: 10px;
-                }
-
-              </style>
-
-              <div class="container">
-                <div class="column">
-                    <div class="question" style="margin-top: 10px;">
-                        <label for="instr_higiene">Instrumentos utilizados na Higiêne: (Permite seleções múltiplas)</label><br>
-                        <select class="ui-state-default ui-corner-all" style="width: 100%; height: 100px; margin: 5px;" name="instr_higiene" id="instr_higiene" multiple>
-                            <option value="Enxaguante">Enxaguante</option>
-                            <option value="Escova">Escova</option>
-                            <option value="Fio dental">Fio dental</option>
-                        </select> 
-                        <br>
-                    </div>
-                </div>
-            
-                <div class="column">
-                    <div class="question">
-                        <label for="fluor">Acesso a flúor</label>
-                        <select class="ui-state-default ui-corner-all" style="width: 100%; height: 100px; margin: 5px;" name="fluor" id="fluor" multiple>
-                            <option value="Enxaguante">Enxaguante</option>
-                            <option value="Dentifrício">Dentifrício</option>
-                            <option value="Aplicação profissional">Aplicação profissional</option>
-                        </select> 
-                        <br>
-                    </div>
-                </div>
-            </div>
-            
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-              <hr class="ui-state-default">
           
-              <p style="margin-top: 20px; font-weight: bold;">Histórico médico</p>
-              <div class="question">
-                <label for="operado_YN">Já foi operado?</label>
-                <label><input type="radio" name="operado_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="operado_YN" value="Sim"> Sim</label>
-                
-                <div id="displayNotdisplay7">
-                  <label style="width: 150px; margin-left: 5px;">Qual(is) procedimento(s)? </label>
-                  <input type="text" id="operado" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;">
-                </div>
-                <br>
-              </div>
-
-              <div class="question">
-                <label for="cicatrizacao_YN">Teve problemas com a cicatrização?</label>
-                <label><input type="radio" name="cicatrizacao_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="cicatrizacao_YN" value="Sim"> Sim</label>
-                
-                <div id="displayNotdisplay8">
-                  <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                  <input type="text" id="cicatrizacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;">
-                </div>
-                <br>
-              </div>
-
-              <div class="question">
-                <label for="anestesia_YN">Teve problemas com anestesia?</label>
-                <label><input type="radio" name="anestesia_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="anestesia_YN" value="Sim"> Sim</label>
-                
-                <div id="displayNotdisplay9">
-                  <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                  <input type="text" id="anestesia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 370px;">
-                </div>
-                <br>
-              </div>
-
-              <div class="question">
-                <label for="hemorragia_YN">Teve problemas de hemorrgia?</label>
-                <label><input type="radio" name="hemorragia_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="hemorragia_YN" value="Sim"> Sim</label>
-                
-                <div id="displayNotdisplay10">
-                  <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                  <input type="text" id="hemorragia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 380px;">
-                </div>
-                <br>
-              </div>
-
-              <div class="question">
-                <label for="gravidez_YN">Gravidez?</label>
-                <label><input type="radio" name="gravidez_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="gravidez_YN" value="Sim"> Sim</label>
-                
-                <div id="displayNotdisplay11">
-                  <label style="width: 175px; margin-left: 5px;">Quanto tempo de gestação? </label>
-                  <input type="text" id="gravidez" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;">
-                </div>
-                <br>
-              </div>
-            
-              <div class="question">
-                <label for="historicoFamiliar">Antecedentes Familiares:</label><br>
-                <textarea id="historicoFamiliar" class="ui-state-default ui-corner-all mousetrap" rows="3" cols="50" style="width: 55%"></textarea>
-                <br>
-              </div>
-
-              <div class="question">
-                  <label for="obs">Outras observações importantes:</label><br>
-                  <textarea id="obs" class="ui-state-default ui-corner-all mousetrap"  rows="5" cols="50" style="width: 55%"></textarea>
-                  <br>
-              </div>
-
-              <hr class="ui-state-default">
-          
-              <div class="question" style="margin-top: 15px;">
-                <label for="medico">Nome do médico(a):</label>
-                <input type="text" class="ui-state-default ui-corner-all mousetrap" id="medico" style="width: 200px;">
-                <br>
-
-                <label for="medicoTEL">Telefone do(a) médico(a):</label>
-                <input type="text" class="ui-state-default ui-corner-all mousetrap" id="medicoTEL" style="width: 200px;">
-                <br>
-
-              </div>
-
-              <p></p><br>
-
-              <hr class="ui-state-default">
-              <label style="width: 550px; margin: 5px; margin-top: 10px;">Observações:</label><br>
-              <textarea style="width: 55%; margin: 5px;" id="entrevistaDialogPed20" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-              <br>
-          </div>
-        </div>
+          <script>
+            function submitForm() {
+                var formData = {
+                    Cpf: $('#Cpf').val(),
+                    queixa: $('#queixa').val() || '',
+                    doenca_YN: $('#doenca_YN').val() || 'Não',
+                    doenca: $('#doenca').val() || '',
+                    tto_medico_YN: $('#tto_medico_YN').val() || 'Não',
+                    tto_medico: $('#tto_medico').val() || '',
+                    medicacao_YN: $('#medicacao_YN').val() || 'Não',
+                    medicacao: $('#medicacao').val() || '',
+                    alergia_YN: $('#alergia_YN').val() || 'Não',
+                    alergia: $('#alergia').val() || '',
+                    fumante_YN: $('#fumante_YN').val() || 'Não',
+                    fumante: $('#fumante').val() || '',
+                    etilista_YN: $('#etilista_YN').val() || 'Não',
+                    etilista: $('#etilista').val() || '',
+                    ultimaConsulta: $('#ultimaConsulta').val() || '',
+                    ultimoTTO: $('#ultimoTTO').val() || '',
+                    freq_higiene: $('#freq_higiene').val() || '',
+                    instr_higiene: $('#instr_higiene').val() || '',
+                    fluor: $('#fluor').val() || '',
+                    operado_YN: $('#operado_YN').val() || 'Não',
+                    operado: $('#operado').val() || '',
+                    cicatrizacao_YN: $('#cicatrizacao_YN').val() || 'Não',
+                    cicatrizacao: $('#cicatrizacao').val() || '',
+                    anestesia_YN: $('#anestesia_YN').val() || 'Não',
+                    anestesia: $('#anestesia').val() || '',
+                    hemorragia_YN: $('#hemorragia_YN').val() || 'Não',
+                    hemorragia: $('#hemorragia').val() || '',
+                    gravidez_YN: $('#gravidez_YN').val() || 'Não',
+                    gravidez: $('#gravidez').val() || '',
+                    historicoFamiliar: $('#historicoFamiliar').val() || '',
+                    obs: $('#obs').val() || '',
+                    medico: $('#medico').val() || '',
+                    medicoTEL: $('#medicoTEL').val() || '',
         
-        <!--INÍCIO DA TAB PEDIATRIA-->
-        <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false">
-          <div style="margin: 5px;">
-            <div class="question">
-              <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
-              <textarea id="queixaPed" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 45%; margin-top: 10px;"></textarea>
-              <br>
-            </div>
-
+                    // Pediatria
+                    queixaPed: $('#queixaPed').val() || '',
+                    probGravidez_YN: $('#probGravidez_YN').val() || 'Não',
+                    probGravidez: $('#probGravidez').val() || '',
+                    tipoParto: $('#tipoParto').val() || '',
+                    doencaInfancia_YN: $('#doencaInfancia_YN').val() || 'Não',
+                    doencaInfancia: $('#doencaInfancia').val() || '',
+                    internacao_YN: $('#internacao_YN').val() || 'Não',
+                    internacao: $('#internacao').val() || '',
+                    historicoMedicacao: $('#historicoMedicacao').val() || '',
+                    alergia_YN_Ped: $('#alergia_YN_Ped').val() || 'Não',
+                    alergia_Ped: $('#alergia_Ped').val() || '',
+                    respiratorio_YN: $('#respiratorio_YN').val() || 'Não',
+                    respiratorio: $('#respiratorio').val() || '',
+                    cardiaco_YN: $('#cardiaco_YN').val() || 'Não',
+                    cardiaco: $('#cardiaco').val() || '',
+                    sanguineo_YN: $('#sanguineo_YN').val() || 'Não',
+                    sanguineo: $('#sanguineo').val() || '',
+                    diabetes_YN: $('#diabetes_YN').val() || 'Não',
+                    diabetes: $('#diabetes').val() || '',
+                    medicacao_YN_Ped: $('#medicacao_YN_Ped').val() || 'Não',
+                    medicacao_Ped: $('#medicacao_Ped').val() || '',
+                    pediatra: $('#pediatra').val() || '',
+                    telPediatra: $('#telPediatra').val() || '',
+                    obs_ped: $('#obs_ped').val() || ''
+                };
+        
+                console.log(formData);
+        
+                // Perform API request
+                api.entrevistaDialogada.criar(formData)
+                .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Network response was not ok.');
+    })
+    .then(data => {
+        console.log(data);
+        if (data.message) {
+            console.log(data.message);
+            showCustomAlert(data.message);
+        } else {
+            console.log(data);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showCustomAlert('Error occurred while processing your request.');
+    });
+}
+          </script>
+                    
+          <form id="entrevistaForm">
             <div style="margin: 5px;">
-              <p style="margin-top: 20px; font-weight: bold; font-size: larger;">História pregressa</p>
-
-              <label for="probGravidez_YN" style="margin-top: 10px; width: 180px;">Problemas na gestação?</label>
-              <label style="margin-top: 10px;"><input type="radio" id="probGravidez_YN" value="Não" checked>Não</label>
-              <label style="margin-top: 10px;"><input type="radio" id="probGravidez_YN" value="Sim">Sim</label>
-              
-              <div id="displayNotdisplay12">
-                <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                <input type="text" id="probGravidez" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;margin-top: 10px;">
-              
+              <div class="question">
+                <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
+                <textarea id="queixa" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 49%; margin-top: 10px;"></textarea>
+                <br>
               </div>
-              <br>
-                      
-              <label for="tipParto" style="margin-top: 10px; width: 180px;">Tipo de parto?</label>
-              <label style="margin-top: 10px;"><input type="radio" id="tipParto" value="Normal" checked>Normal</label>
-              <label style="margin-top: 10px;"><input type="radio" id="tipParto" value="Cesariana">Cesariana</label>
-              <label style="margin-top: 10px;"><input type="radio" id="tipParto" value="Outro">Outro</label>
-              <p></p><br>
-
-              <label for="doencaInfancia_YN" style="margin-top: 10px; width: 180px;">Doenças da infância?</label>
-              <label style="margin-top: 10px;"><input type="radio" id="doencaInfancia_YN" value="Não" checked>Não</label>
-              <label style="margin-top: 10px;"><input type="radio" id="doencaInfancia_YN" value="Sim">Sim</label>
-
-              <div id="displayNotdisplay13">
-                <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                <input type="text" id="doencaInfancia" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;margin-top: 10px;">
-              </div>
-              <br>
               
-              <label for="internacao_YN" style="margin-top: 10px; width: 180px;">Internação hospitalar??</label>
-              <label style="margin-top: 10px;"><input type="radio" id="internacao_YN" value="Não" checked>Não</label>
-              <label style="margin-top: 10px;"><input type="radio" id="internacao_YN" value="Sim">Sim</label>
-              
-              <div id="displayNotdisplay14">
-                <label style="width: 50px; margin: 5px;margin-top: 10px; width: 150px;">Motivo(s) e idade na ocasião? </label>
-                <input type="text" id="internacao_YN" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 250px;margin-top: 10px;">
+              <div class="question" style="margin-top: 20px;">
+                <label for="doenca_YN">Sofre de alguma doença?</label>
+                <label><input type="radio" name="doenca_YN" value="Não" checked> Não</label>
+                <label><input type="radio" name="doenca_YN" value="Sim"> Sim</label>
+                
+                <div id="displayNotdisplay1">
+                  <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+                  <input type="text" id="doenca" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 515px;">
+                </div>
+                <br>
               </div>
-              <br>
 
-              <label for="historicoMedicacao_YN" style="margin-top: 10px; width: 180px;">Histórico de uso de medicamentos?</label>
-              <label style="margin-top: 10px;"><input type="radio" id="historicoMedicacao_YN" value="Não"  checked>Não</label>
-              <label style="margin-top: 10px;"><input type="radio" id="historicoMedicacao_YN" value="Sim">Sim</label>
-              <br>
-              
-              <div id="displayNotdisplay15">
-                <label for="historicoMedicacao" style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                <textarea style="width: 75%; height: 50px; margin: 5px;" id="historicoMedicacao" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
+              <div class="question">
+                <label for="tto_medico_YN">Está em tratamento médico atualmente?</label>
+                <label><input type="radio" name="tto_medico_YN" value="Não" checked> Não</label>
+                <label><input type="radio" name="tto_medico_YN" value="Sim"> Sim</label>
+                
+                <div id="displayNotdisplay2">
+                  <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+                  <input type="text" id="tto_medico" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 450px;">
+                </div>
+                <br>
               </div>
-            </div>
+                
+              <div class="question">
+                <label for="medicacao_YN">Está fazendo uso de alguma medicação?</label>
+                <label><input type="radio" name="medicacao_YN" value="Não" checked> Não</label>
+                <label><input type="radio" name="medicacao_YN" value="Sim"> Sim</label>
+                
+                <div id="displayNotdisplay3">
+                  <label style="width: 180px; margin-left: 5px;">Qual(is) medicamentos e dosagens?</label>
+                  <input type="text" id="medicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 310px;">
+                </div>
+                <br>
+              </div>
 
-            <p style="margin-top: 20px; font-weight: bold; font-size: larger;">Condição atual</p>
+              <div class="question">
+                <label for="alergia_YN" style="width: 80px;">Tem alergia(s)?</label>
+                <label><input type="radio" name="alergia_YN" value="Não" checked> Não</label>
+                <label><input type="radio" name="alergia_YN" value="Sim"> Sim</label>
+                
+                <div id="displayNotdisplay4">
+                  <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+                  <input type="text" id="alergia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 560px;">
+                </div>
+                <br>
+              </div>
 
-            <label for="alergia_YN_Ped" style="margin-top: 10px; width: 150px;">Alérgico?</label>
-            <label style="margin-top: 10px;"><input type="radio" name="alergia_YN_Ped" value="Não"  checked>Não</label>
-            <label style="margin-top: 10px;"><input type="radio" name="alergia_YN_Ped" value="Sim">Sim</label>
+              <div class="question">
+                <label for="fumante_YN" style="width: 70px;">É fumante?</label>
+                <label><input type="radio" name="fumante_YN" value="Não" checked> Não</label>
+                <label><input type="radio" name="fumante_YN" value="Sim"> Sim</label>
+                
+                <div id="displayNotdisplay5">
+                  <label style="width: 100px; margin-left: 5px;">Há quanto tempo? </label>
+                  <input type="text" id="fumante" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 520px;">
+                </div>
+                <br>
+              </div>
+
+              <div class="question">
+                <label for="etilista_YN" style="width: 70px;">É etilista?</label>
+                <label><input type="radio" name="etilista_YN" value="Não" checked> Não</label>
+                <label><input type="radio" name="etilista_YN" value="Sim"> Sim</label>
+
+                <div id="displayNotdisplay6">
+                  <label style="width: 100px; margin-left: 5px;">Há quanto tempo? </label>
+                  <input type="text" id="etilista" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 520px;">
+                </div>
+                <br>
+                </div>
+
+                <hr class="ui-state-default">
+
+                <p style="margin-top: 20px; font-weight: bold;">Histórico odontológico</p>
+
+                <div class="question">
+                  <label for="ultimaConsulta" style="margin-top: 10px;">Última consulta odontológica</label>
+                  <input type="text" name="ultimaConsulta" id="ultimaConsulta" maxlength="255" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 100px; margin-top: 10px;">
+                  <br>
+                </div>
+
+                <div class="question" style="margin-bottom: 10px;">
+                  <label for="ultimoTTO" style="margin-top: 10px;">Último tratamento realizado </label>
+                  <input type="text" id="ultimoTTO" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 470px; margin-top: 10px;">
+                  <br>
+                </div>
+
+                <hr class="ui-state-default">
+
+                <p style="margin-top: 20px; font-weight: bold;">Hábitos de higiêne</p>
+
+                <div class="question" style="margin-top: 10px;">
+                  <label for="freq_higiene">Frequência da higiêne bucal</label>
+                  <input type="text" name="freq_higiene" id="freq_higiene" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 465px;">
+                  <br>
+                </div>
+
+                <!-- Dividir em 2 colunas -->
+                <style>
+                  .dividirColunas {
+                      display: flex;
+                      width: 45%;
+                  }
+
+                  .column {
+                      flex: 1;
+                      padding: 10px;
+                  }
+
+                </style>
+
+                <div class="dividirColunas">
+                  <div class="column">
+                      <div class="question" style="margin-top: 10px;">
+                          <label for="instr_higiene">Instrumentos utilizados na Higiêne: (Permite seleções múltiplas)</label><br>
+                          <select class="ui-state-default ui-corner-all" style="width: 25%; height: 60px; margin: 5px;" name="instr_higiene" id="instr_higiene" multiple>
+                              <option value="Enxaguante">Enxaguante</option>
+                              <option value="Escova">Escova</option>
+                              <option value="Fio dental">Fio dental</option>
+                          </select> 
+                          <br>
+                      </div>
+                  </div>
+              
+                  <div class="column">
+                      <div class="question">
+                          <label for="fluor">Acesso a flúor  (Permite seleções múltiplas)</label><br>
+                          <select class="ui-state-default ui-corner-all" style="width: 40%; height:60px; margin: 5px;" name="fluor" id="fluor" multiple>
+                              <option value="Enxaguante">Enxaguante</option>
+                              <option value="Dentifrício">Dentifrício</option>
+                              <option value="Aplicação profissional">Aplicação profissional</option>
+                          </select> 
+                          <br>
+                      </div>
+                    </div>
+                </div>
+          
+                <hr class="ui-state-default">
             
-            <div id="displayNotdisplay16">
-              <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-              <input type="text" id="alergia_Ped" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 250px;margin-top: 10px;">
-            </div>
-            <br>
+                <p style="margin-top: 20px; font-weight: bold;">Histórico médico</p>
+                <div class="question">
+                  <label for="operado_YN">Já foi operado?</label>
+                  <label><input type="radio" name="operado_YN" value="Não" checked> Não</label>
+                  <label><input type="radio" name="operado_YN" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay7">
+                    <label style="width: 150px; margin-left: 5px;">Qual(is) procedimento(s)? </label>
+                    <input type="text" id="operado" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
+                  </div>
+                  <br>
+                </div>
 
-            <label for="respiratorio_YN" style="margin-top: 10px; width: 150px;">Problemas respiratórios?</label>
-            <label style="margin-top: 10px;"><input type="radio" name="respiratorio_YN" value="Não"  checked>Não</label>
-            <label style="margin-top: 10px;"><input type="radio" name="respiratorio_YN" value="Sim">Sim</label>
+                <div class="question">
+                  <label for="cicatrizacao_YN">Teve problemas com a cicatrização?</label>
+                  <label><input type="radio" name="cicatrizacao_YN" value="Não" checked> Não</label>
+                  <label><input type="radio" name="cicatrizacao_YN" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay8">
+                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+                    <input type="text" id="cicatrizacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
+                  </div>
+                  <br>
+                </div>
+
+                <div class="question">
+                  <label for="anestesia_YN">Teve problemas com anestesia?</label>
+                  <label><input type="radio" name="anestesia_YN" value="Não" checked> Não</label>
+                  <label><input type="radio" name="anestesia_YN" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay9">
+                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+                    <input type="text" id="anestesia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 480px;">
+                  </div>
+                  <br>
+                </div>
+
+                <div class="question">
+                  <label for="hemorragia_YN">Teve problemas de hemorragia?</label>
+                  <label><input type="radio" name="hemorragia_YN" value="Não" checked> Não</label>
+                  <label><input type="radio" name="hemorragia_YN" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay10">
+                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+                    <input type="text" id="hemorragia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 485px;">
+                  </div>
+                  <br>
+                </div>
+
+                <div class="question">
+                  <label for="gravidez_YN">Gravidez?</label>
+                  <label><input type="radio" name="gravidez_YN" value="Não" checked> Não</label>
+                  <label><input type="radio" name="gravidez_YN" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay11">
+                    <label style="width: 170px; margin-left: 5px;">Quanto tempo de gestação? </label>
+                    <input type="text" id="gravidez" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 465px;">
+                  </div>
+                  <br>
+                </div>
+              
+                <div class="question">
+                  <label for="historicoFamiliar">Antecedentes Familiares:</label><br>
+                  <textarea id="historicoFamiliar" class="ui-state-default ui-corner-all mousetrap" rows="3" cols="50" style="width: 49%"></textarea>
+                  <br>
+                </div>
+
+                <div class="question">
+                    <label for="obs">Outras observações importantes:</label><br>
+                    <textarea id="obs" class="ui-state-default ui-corner-all mousetrap"  rows="5" cols="50" style="width: 49%"></textarea>
+                    <br>
+                </div>
+
+                <hr class="ui-state-default">
             
-            <div id="displayNotdisplay17">
-              <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-              <input type="text" id="respiratorio" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 250px;margin-top: 10px;">
+                <div class="question" style="margin-top: 15px;">
+                  <label for="medico" style="width: 130px;">Nome do médico(a):</label>
+                  <input type="text" class="ui-state-default ui-corner-all mousetrap" id="medico" style="width: 400px;">
+                  <br>
+
+                  <label style="width: 130px;">Telefone do(a) médico(a):</label>
+                  <input type="text" id="medicoTEL" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
+                  <br>
+
+                </div>
+
+                <p></p><br>
+
+                <hr class="ui-state-default">
+                <label style="width: 550px; margin: 5px; margin-top: 10px;">Observações:</label><br>
+                <textarea style="width: 49%; margin: 5px;" id="entrevistaDialogPed20" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
+                <br>
             </div>
-            <br>
+          </div>
+          
+          <!--INÍCIO DA TAB PEDIATRIA-->
+          <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false">
+            <div style="margin: 5px;">
+              <div class="question">
+                <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
+                <textarea id="queixaPed" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 49%; margin-top: 10px;"></textarea>
+                <br>
+              </div>
 
-            <label for="cardiaco_YN" style="margin-top: 10px; width: 150px;">Problemas cardíacos?</label>
-            <label style="margin-top: 10px;"><input type="radio" name="cardiaco_YN" value="Não"  checked>Não</label>
-            <label style="margin-top: 10px;"><input type="radio" name="cardiaco_YN" value="Sim">Sim</label>
-              
-            <div id="displayNotdisplay18">
-              <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                <input type="text" id="cardiaco" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 250px;margin-top: 10px;">
+              <div style="margin: 5px;">
+                <p style="margin-top: 20px; font-weight: bold; font-size: larger;">História pregressa</p>
+
+                <div class="question">
+                  <label for="probGravidez_YN" style="width: 180px;">Problemas na gestação?</label>
+                  <label><input type="radio" name="probGravidez_YN" value="Não" checked> Não</label>
+                  <label><input type="radio" name="probGravidez_YN" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay12">
+                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+                    <input type="text" id="hemorragia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
+                  </div>
+                  <br>
+                </div>
+
+                <div class="question">
+                  <label for="tipParto" style="width: 180px;">Tipo de parto?</label>
+                  <label><input type="radio" name="tipParto" value="Normal" checked>Normal</label>
+                  <label><input type="radio" name="tipParto" value="Cesárea">Cesárea</label>
+                  <label><input type="radio" name="tipParto" value="Outro">Outro</label>
+                  <br>
+                </div>
+
+                <div class="question">
+                  <label for="doencaInfancia_YN" style="width: 180px;">Doenças da infância?</label>
+                  <label><input type="radio" name="doencaInfancia_YN" value="Não" checked> Não</label>
+                  <label><input type="radio" name="doencaInfancia_YN" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay13">
+                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+                    <input type="text" id="doencaInfancia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
+                  </div>
+                  <br>
+                </div>
+
+                <div class="question">
+                  <label for="internacao_YN" style="width: 180px;">Internação hospitalar?</label>
+                  <label><input type="radio" name="internacao_YN" value="Não" checked> Não</label>
+                  <label><input type="radio" name="internacao_YN" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay14">
+                    <label style="width: 150px; margin-left: 5px;">Motivo(s) e idade na ocasião?</label>
+                    <input type="text" id="internacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 360px;margin-top: 10px;">
+                  </div>
+                  <br>
+                </div>
+
+                <div class="question">
+                  <label for="historicoMedicacao_YN" style="width: 180px;">Histórico de uso de medicamentos?</label>
+                  <label><input type="radio" name="historicoMedicacao_YN" value="Não" checked> Não</label>
+                  <label><input type="radio" name="historicoMedicacao_YN" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay15">
+                    <label style="width: 150px; margin-left: 5px;">Motivo(s) e idade na ocasião?</label>
+                    <input type="text" id="historicoMedicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 360px;margin-top: 10px;">
+                  </div>
+                  <br>
+                </div>
+
+                <hr class="ui-state-default">
+
+                <p style="margin-top: 20px; font-weight: bold; font-size: larger;">Condição atual</p>
+
+                <div class="question">
+                  <label for="alergia_YN_Ped" style="width: 150px;">Alérgico?</label>
+                  <label><input type="radio" name="alergia_YN_Ped" value="Não" checked> Não</label>
+                  <label><input type="radio" name="alergia_YN_Ped" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay16">
+                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+                    <input type="text" id="historicoMedicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 500px;margin-top: 10px;">
+                  </div>
+                  <br>
+                </div>
+
+                <div class="question">
+                  <label for="respiratorio_YN" style="width: 150px;">Problemas respiratórios?</label>
+                  <label><input type="radio" name="respiratorio_YN" value="Não" checked> Não</label>
+                  <label><input type="radio" name="respiratorio_YN" value="Sim"> Sim</label>
+                  
+                  <div id="displayNotdisplay17">
+                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+                    <input type="text" id="respiratorio" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 500px;margin-top: 10px;">
+                  </div>
+                  <br>
+                </div>
+
+
+                <label for="cardiaco_YN" style="margin-top: 10px; width: 150px;">Problemas cardíacos?</label>
+                <label style="margin-top: 10px;"><input type="radio" name="cardiaco_YN" value="Não"  checked>Não</label>
+                <label style="margin-top: 10px;"><input type="radio" name="cardiaco_YN" value="Sim">Sim</label>
+                  
+                <div id="displayNotdisplay18">
+                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
+                    <input type="text" id="cardiaco" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 500px;margin-top: 10px;">
+                </div>
+                <br>
+
+                <label for="sanguineo_YN" style="margin-top: 10px; width: 150px;">Problemas sanguíneos?</label>
+                <label style="margin-top: 10px;"><input type="radio" name="sanguineo_YN" value="Não"  checked>Não</label>
+                <label style="margin-top: 10px;"><input type="radio" name="sanguineo_YN" value="Sim">Sim</label>
+                  
+                <div id="displayNotdisplay19">
+                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
+                  <input type="text" id="sanguineo" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 500px;margin-top: 10px;">
+                </div>
+                <br>
+
+                <label for="diabetes_YN" style="margin-top: 10px; width: 150px;">Diabetes?</label>
+                <label style="margin-top: 10px;"><input type="radio" name="diabetes_YN" value="Não"  checked>Não</label>
+                <label style="margin-top: 10px;"><input type="radio" name="diabetes_YN" value="Sim">Sim</label>
+                  
+                <div id="displayNotdisplay20">
+                  <label for="diabetes" style="margin-top: 10px; margin-left: 25px;">Está compensada?</label>
+                  <label style="margin-top: 10px;"><input type="radio" name="diabetes" value="Não"  checked>Não</label>
+                  <label style="margin-top: 10px;"><input type="radio" name="diabetes" value="Sim">Sim</label>
+                </div>
+                <br>
+
+                <label for="medicacao_YN_Ped" style="margin-top: 10px; width: 150px;">Usa medicamentos atualmente?</label>
+                <label style="margin-top: 10px;"><input type="radio" name="medicacao_YN_Ped" value="Não"  checked>Não</label>
+                <label style="margin-top: 10px;"><input type="radio" name="medicacao_YN_Ped" value="Sim">Sim</label>
+                <br>
+                  
+                <div id="displayNotdisplay21">
+                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
+                  <textarea style="width: 45%; margin: 5px;" id="medicacao_Ped" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
+                </div>
+                <br>
+                <p></p>
+
+                <hr class="ui-state-default">
+
+                <label style="width: 120px; margin-top: 25px;">Nome do(a) pediatra:</label>
+                <input type="text" id="pediatra" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;margin-top: 25px;">
+                <br>
+
+                <label style="width: 120px;">Telefone: </label>
+                <input type="text" id="telPediatra" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
+                <br>
+
+                <p></p><br>
+                <hr class="ui-state-default">
+                <label style="width: 550px; margin: 5px; margin-top: 25px;">Observações:</label><br>
+                <textarea style="width: 49%; margin: 5px;" id="obs_ped" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
+                <br>
+              </form>
             </div>
-            <br>
-
-            <label for="sanguineo_YN" style="margin-top: 10px; width: 150px;">Problemas sanguíneos?</label>
-            <label style="margin-top: 10px;"><input type="radio" name="sanguineo_YN" value="Não"  checked>Não</label>
-            <label style="margin-top: 10px;"><input type="radio" name="sanguineo_YN" value="Sim">Sim</label>
-              
-            <div id="displayNotdisplay19">
-              <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-              <input type="text" id="sanguineo" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 250px;margin-top: 10px;">
-            </div>
-            <br>
-
-            <label for="diabetes_YN" style="margin-top: 10px; width: 150px;">Diabetes?</label>
-            <label style="margin-top: 10px;"><input type="radio" name="diabetes_YN" value="Não"  checked>Não</label>
-            <label style="margin-top: 10px;"><input type="radio" name="diabetes_YN" value="Sim">Sim</label>
-              
-            <div id="displayNotdisplay20">
-              <label for="diabetes" style="margin-top: 10px; margin-left: 25px;">Está compensada?</label>
-              <label style="margin-top: 10px;"><input type="radio" name="diabetes" value="Não"  checked>Não</label>
-              <label style="margin-top: 10px;"><input type="radio" name="diabetes" value="Sim">Sim</label>
-            </div>
-            <br>
-
-            <label for="medicacao_YN_Ped" style="margin-top: 10px; width: 150px;">Usa medicamentos atualmente?</label>
-            <label style="margin-top: 10px;"><input type="radio" name="medicacao_YN_Ped" value="Não"  checked>Não</label>
-            <label style="margin-top: 10px;"><input type="radio" name="medicacao_YN_Ped" value="Sim">Sim</label>
-            <br>
-              
-            <div id="displayNotdisplay21">
-              <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-              <textarea style="width: 55%; margin: 5px;" id="medicacao_Ped" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-            </div>
-            <br>
-            <p></p>
-
-            <hr class="ui-state-default">
-            <label style="width: 120px; margin-top: 25px;">Nome do(a) pediatra:</label>
-            <input type="text" id="pediatra" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;margin-top: 25px;">
-            <br>
-
-            <label style="width: 120px;">Telefone: </label>
-            <input type="text" id="telPediatra" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
-            <br>
-
-            <p></p><br>
-            <hr class="ui-state-default">
-            <label style="width: 550px; margin: 5px; margin-top: 25px;">Observações:</label><br>
-            <textarea style="width: 55%; margin: 5px;" id="obs_ped" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-            <br>
           </div>
         </div>
       </div>
-    </div>
   </body>
   <script>
     // Function to show/hide content based on radio button selection
@@ -744,18 +844,19 @@
     toggleDisplay("displayNotdisplay6", "etilista_YN", "Sim");
     toggleDisplay("displayNotdisplay7", "operado_YN", "Sim");
     toggleDisplay("displayNotdisplay8", "cicatrizacao_YN", "Sim");
-    toggleDisplay("displayNotdisplay9", "hemorragia_YN", "Sim");
-    toggleDisplay("displayNotdisplay10", "gravidez_YN", "Sim");
-    toggleDisplay("displayNotdisplay11", "probGravidez_YN", "Sim");
-    toggleDisplay("displayNotdisplay12", "doencaInfancia_YN", "Sim");
-    toggleDisplay("displayNotdisplay13", "internacao_YN", "Sim");
-    toggleDisplay("displayNotdisplay14", "historicoMedicacao_YN", "Sim");
-    toggleDisplay("displayNotdisplay15", "alergia_YN_Ped", "Sim");
-    toggleDisplay("displayNotdisplay16", "respiratorio_YN", "Sim");
-    toggleDisplay("displayNotdisplay17", "cardiaco_YN", "Sim");
-    toggleDisplay("displayNotdisplay18", "sanguineo_YN", "Sim");
-    toggleDisplay("displayNotdisplay19", "diabetes_YN", "Sim");
-    toggleDisplay("displayNotdisplay20", "medicacao_YNPed", "Sim");
+    toggleDisplay("displayNotdisplay9", "anestesia_YN", "Sim");
+    toggleDisplay("displayNotdisplay10", "hemorragia_YN", "Sim");
+    toggleDisplay("displayNotdisplay11", "gravidez_YN", "Sim");
+    toggleDisplay("displayNotdisplay12", "probGravidez_YN", "Sim");
+    toggleDisplay("displayNotdisplay13", "doencaInfancia_YN", "Sim");
+    toggleDisplay("displayNotdisplay14", "internacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay15", "historicoMedicacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay16", "alergia_YN_Ped", "Sim");
+    toggleDisplay("displayNotdisplay17", "respiratorio_YN", "Sim");
+    toggleDisplay("displayNotdisplay18", "cardiaco_YN", "Sim");
+    toggleDisplay("displayNotdisplay19", "sanguineo_YN", "Sim");
+    toggleDisplay("displayNotdisplay20", "diabetes_YN", "Sim");
+    toggleDisplay("displayNotdisplay21", "medicacao_YN_Ped", "Sim");
               
   </script>
 </html>

@@ -203,15 +203,18 @@ try {
     )");
 
     // Tabela plano de tratamentos
-    db("CREATE TABLE `plano_tto` (
-      `id_plano` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-      `CPF` varchar(11) NOT NULL,
-      `data` date NOT NULL,
-      `especialidade` varchar(30) NOT NULL,
-      `descricao` text NOT NULL,
-      `responsavel` varchar(64) NOT NULL,
-      `componente_curricular` varchar(30) NOT NULL
-    )");
+    db("CREATE TABLE plano_tto (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      CPF VARCHAR(255),
+      data DATE,
+      queixa VARCHAR(255),
+      aspectoRelevante VARCHAR(255),
+      especialidade VARCHAR(255),
+      descricao TEXT,
+      aluno_id VARCHAR(255),
+      responsavel VARCHAR(255),
+      componente_curricular VARCHAR(255)
+  )");
 
 
     // SET EVENT PARA TROCAR STATUS DE PACIENTES QUE FALTAM

@@ -268,6 +268,7 @@ window.api = {
   arquivos,
   procedimentos,
   agenda,
+  planoTratamento
 };
 
 // remove o banner do 000webhost

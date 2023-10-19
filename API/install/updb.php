@@ -131,6 +131,89 @@ try {
         `tipo` varchar(3) NOT NULL
       )");
 
+    // Tabela Entrevista dialogada pediatria
+    db("CREATE TABLE `entrevistaped` (
+      `id_entrevista` bigint(20) PRIMARY KEY AUTO_INCREMENT,
+      `data` date NOT NULL,
+      `CPF` varchar(11) NOT NULL,
+      `queixaPed` text NOT NULL,
+      `probGravidez_YN` varchar(3) NOT NULL,
+      `probGravidez` varchar(8) NOT NULL,
+      `tipoParto` varchar(12) NOT NULL,
+      `doencaInfancia_YN` varchar(3) NOT NULL,
+      `doencaInfancia` varchar(60) NOT NULL,
+      `internaca_YN` varchar(3) NOT NULL,
+      `internacao` varchar(60) NOT NULL,
+      `historicoMedicacao_YN` varchar(3) NOT NULL,
+      `historicoMedicacao` varchar(60) NOT NULL,
+      `alergia_YN_Ped` varchar(3) NOT NULL,
+      `alergia_Ped` varchar(60) NOT NULL,
+      `respiratorio_YN` varchar(3) NOT NULL,
+      `respiratorio` varchar(60) NOT NULL,
+      `cardiaco_YN` varchar(3) NOT NULL,
+      `cardiaco` varchar(60) NOT NULL,
+      `sanguineo_YN` varchar(3) NOT NULL,
+      `sanguineo` varchar(60) NOT NULL,
+      `diabetes_YN` varchar(3) NOT NULL,
+      `diabetes` varchar(60) NOT NULL,
+      `medicacao_YN_Ped` varchar(3) NOT NULL,
+      `medicacao_Ped` varchar(60) NOT NULL,
+      `pediatra` varchar(64) NOT NULL,
+      `telPediatra` int(11) NOT NULL,
+      `obs_ped` varchar(120) NOT NULL    
+    ");
+
+    // Tabela Entrevista dialogada ADULTOS
+    db("CREATE TABLE `entrevista` (
+      `id_entrevista` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      `data` date NOT NULL,
+      `CPF` varchar(11) NOT NULL,
+      `queixa` text NOT NULL,
+      `doenca_YN` varchar(3) NOT NULL,
+      `doenca` varchar(60) NOT NULL,
+      `tto_medico_YN` varchar(3) NOT NULL,
+      `tto_medico` varchar(60) NOT NULL,
+      `medicacao_YN` varchar(3) NOT NULL,
+      `medicacao` varchar(60) NOT NULL,
+      `alergia_YN` varchar(3) NOT NULL,
+      `alergia` varchar(60) NOT NULL,
+      `fumante_YN` varchar(3) NOT NULL,
+      `fumante` varchar(60) NOT NULL,
+      `etilista_YN` varchar(3) NOT NULL,
+      `etilista` varchar(60) NOT NULL,
+      `ultimaConsulta` varchar(15) NOT NULL,
+      `ultimoTTO` varchar(60) NOT NULL,
+      `freq_Higiene` varchar(60) NOT NULL,
+      `instr_Higiene` text NOT NULL,
+      `fluor` text NOT NULL,
+      `operado_YN` varchar(3) NOT NULL,
+      `operado` varchar(60) NOT NULL,
+      `cicatrizacao_YN` varchar(3) NOT NULL,
+      `cicatrizacao` varchar(60) NOT NULL,
+      `anestesia_YN` varchar(3) NOT NULL,
+      `anestesia` varchar(60) NOT NULL,
+      `hemorragia_YN` varchar(3) NOT NULL,
+      `hemorragia` varchar(60) NOT NULL,
+      `gravidez_YN` varchar(3) NOT NULL,
+      `gravidez` varchar(8) NOT NULL,
+      `historicoFamiliar` varchar(60) NOT NULL,
+      `obs` varchar(120) NOT NULL,
+      `medico` varchar(64) NOT NULL,
+      `medicoTEL` int(11) NOT NULL
+    )");
+
+    // Tabela plano de tratamentos
+    db("CREATE TABLE `plano_tto` (
+      `id_plano` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+      `CPF` varchar(11) NOT NULL,
+      `data` date NOT NULL,
+      `especialidade` varchar(30) NOT NULL,
+      `descricao` text NOT NULL,
+      `responsavel` varchar(64) NOT NULL,
+      `componente_curricular` varchar(30) NOT NULL
+    )");
+
+
     // SET EVENT PARA TROCAR STATUS DE PACIENTES QUE FALTAM
     // SET SQL_MODE = `NO_AUTO_VALUE_ON_ZERO`;
     // START TRANSACTION;

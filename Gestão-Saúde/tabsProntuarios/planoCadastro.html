@@ -1,0 +1,38 @@
+<div id="planoCadastro"style="margin: 5px;">
+    <label for="queixa" style="margin-top: 10px;">Queixa principal e síntese diagnóstica</label><br>
+    <textarea id="queixa" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 40%; margin-top: 10px;"></textarea>
+    <br>
+
+    <label for="aspectoRelevante" style="margin-top: 20px;">Aspectos relevantes do exame clínico (anamnese + exames clínicos e complementares)</label><br>
+    <textarea id="aspectoRelevante" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 40%; margin-top: 10px;"></textarea>
+    <br>
+
+    <hr class="ui-state-default">
+    <br>
+
+    <label style="width: 600px;">Especialidades envolvidas no plano de tratamento: (Permite seleções múltiplas)</label><br>
+    <select class="ui-state-default ui-corner-all" style="width: 130px; height: 100px; margin: 5px;" name="especialidade" id="especialidade" multiple>
+    <option value="Prótese Dentária">Prótese Dentária</option>
+    <option value="Odontopediatria">Odontopediatria</option>
+    <option value="Periodontia">Periodontia</option>
+    <option value="Dentística">Dentística</option>
+    <option value="Cirurgia">Cirurgia</option>
+    </select> 
+    <br>
+
+    <hr class="ui-state-default">
+    <p></p>
+    <br>
+    
+    <label style="width: 180px;">Descrição do plano de tratamento:</label><br>
+    <textarea style="width: 40%;" id="descricao" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" ></textarea>
+    <br>
+
+    <label style="width: 120px;">Responsável técnico</label>
+    <input type="text" id="responsavel" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 32%;" placeholder="SELECT BOX OU BUSCAR O NOME?">
+    <br>
+    
+    <label style="width: 120px;">Componente curricular</label>
+    <input type="text" id="componente_curricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 32%;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO">
+    <br>
+</div>

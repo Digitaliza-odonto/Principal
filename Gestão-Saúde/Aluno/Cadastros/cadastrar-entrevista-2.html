@@ -119,200 +119,86 @@
           
             <p></p>
             <br>
-            <hr class="ui-state-default">
           </div>
             
-          <div>
-            <p></p>
-            <br>
-            <label style="width: 120px; ;margin: 5px;">CPF</label>
-            <input type="text" name="Cpf" id="Cpf" maxlength="" class="ui-state-default ui-corner-all mousetrap cpf" onblur="pesquisaPessoa()" style="width: 100px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px; ;margin: 5px;">Nome</label>
-            <input type="text" name="Nome" id="Nome" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px; ;margin: 5px;">Nome social</label>
-            <input type="text" name="NomeSocial" id="Nome" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
-            <br>
-            
-            <label style="width: 120px; ;margin: 5px;">RG</label>
-            <input type="text" name="Rg" id="Rg" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">Cartão SUS (CNS)</label>
-            <input type="text" name="CNS" id="CNS" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;" readonly="readonly">
-            <br>
-            
-            <label style="width: 120px; ;margin: 5px;"  >Dt. nascimento</label>
-            <input type="text" name="DataNasc" id="DataNasc" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 80px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">E-mail</label>
-            <input type="text" name="Email" id="Email" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">Telefone</label>
-            <input type="text" name="Tel" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">Telefone 2 (Opcional)</label>
-            <input type="text" name="Tel2" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">Telefone 3 (Opcional)</label>
-            <input type="text" name="Tel3" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
-            <br>
-            
-            <label style="width: 120px; ;margin: 5px;">Estado civil</label>
-            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="EstadoCivil" id="EstadoCivil" disabled>
-              <option value="CASADO">CASADO</option>
-              <option value="DIVORCIADO">DIVORCIADO</option>
-              <option value="OUTROS">OUTROS</option>
-              <option value="SEPARADO">SEPARADO JUDICIALMENTE</option>
-              <option value="SOLTEIRO">SOLTEIRO</option>
-              <option value="VIUVO">VIUVO</option>
-            </select>
-            <br>
-
-            <label style="width: 120px; ;margin: 5px;">Sexo</label>
-            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="Sexo" id="Sexo" disabled>
-              <option value="Masculino">Masculino</option>
-              <option value="Feminino">Feminino</option>
-                </select> 
-            <br>
-
-            <label style="width: 120px; ;margin: 5px;">Cor/Raça</label>
-            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="CorRaca" id="CorRaca" disabled>
-              <option value="Amarelo">Amarelo</option>
-              <option value="Branca">Branca</option>
-              <option value="Indígena">Indígena</option>
-              <option value="Parda">Parda</option>
-              <option value="Não quis declarar">Não quis declarar</option>
-            </select> 
-
-            <hr class="ui-state-default">
-            <label style="font-weight:bold;width: 120px;" readonly="readonly">Filiação</label>
-            <br>
-
-            <label style="width: 120px; margin: 5px;">Nome da mãe</label>
-            <input type="text" name="NomeMae" id="NomeMae" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
-
-            <br>
-            <label style="width: 120px;margin: 5px;">Nome do pai</label>
-            <input type="text" name="NomePai" id="NomePai" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
-            
-            <br>
-            <hr class="ui-state-default">
-            <label style="width: 600px;">Condição sistêmica/Necessidade especial: (Segurar control para fazer seleçoes múltiplas)</label><br>
-            <select class="ui-state-default ui-corner-all" style="width: 100px;margin: 5px;" name="PNE" id="PNE" multiple disabled>
-              <option value="Hipertensão">Hipertensão</option>
-              <option value="Diabetes">Diabetes</option>
-              <option value="Hepatite B">Hepatite B</option>
-              <option value="Hepatite C">Hepatite C</option>
-              <option value="Soropositivo">Soropositivo</option>
-            </select> 
-
-            <hr class="ui-state-default"><label style="font-weight:bold;width: 120px;">Endereço:</label>
-            <br>
-            
-            <label style="width: 120px;">Tipo de endereço</label>
-            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="EnderecoTipo" id="EnderecoTipo" disabled>
-              <option value="Comercial">Comercial</option>
-              <option value="Família">Família</option>
-              <option value="Residencial">Residencial</option>
-            </select> 
-            <br>
-
-            <label style="width: 120px;">CEP</label>
-            <input type="text" name="Cep" id="Cep" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap cep" style="width: 100px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px;">Endereço</label>
-            <input type="text" name="Rua" id="Rua" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px;">Número</label>
-            <input type="text" name="EndNumero" id="EndNumero" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px;">Complemento</label>
-            <input type="text" name="EndComplemento" id="EndComplemento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px;">Bairro</label>
-            <input type="text" name="Bairro" id="Bairro" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px;">Cidade</label>
-            <input type="text" name="Cidade" id="Cidade" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-            <br>
-
-            
-            <script src="/API/API.js"></script>
-
-            <script type="text/javascript">
-              // Função para preencher o formulário com os dados do perfil
-              function preencherFormulario(dados) {
-                  console.log(dados)
-                  document.getElementById("Cpf").value = dados.CPF;
-                  document.getElementById("Nome").value = dados.Nome;
-                  document.getElementById("Nometab").innerText = dados.Nome;
-                  document.getElementById("Rg").value = dados.Rg;
-                  document.getElementById("DataNasc").value = dados.DataNasc;
-                  document.getElementById("Email").value = dados.Email;
-                  document.getElementById("Tel").value = dados.Tel;
-                  document.getElementById("EstadoCivil").value = dados.EstadoCivil;
-                  document.getElementById("Sexo").value = dados.Sexo;
-                  document.getElementById("CorRaca").value = dados.CorRaca;
-                  document.getElementById("NomeMae").value = dados.NomeMae;
-                  document.getElementById("NomePai").value = dados.NomePai;
-                  document.getElementById("PNE").value = dados.PNE;
-                  document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
-                  document.getElementById("Cep").value = dados.Cep;
-                  document.getElementById("Rua").value = dados.Rua;
-                  document.getElementById("EndNumero").value = dados.EndNumero;
-                  document.getElementById("EndComplemento").value = dados.EndComplemento;
-                  document.getElementById("Bairro").value = dados.Bairro;
-                  document.getElementById("Cidade").value = dados.Cidade;
-                }
-            
-                // Função para buscar o perfil usando a API
-                function buscarPerfil() {
-                  const cpf = getUrlVars()['cpf'];
-                  if (cpf) {
-                    api.pacientes.consultar({ CPF: cpf })
-                      .then((pacientes) => {
-                        if (pacientes.length === 0) {
-                          console.log('Nenhum paciente encontrado');
-                        } else {
-                          preencherFormulario(pacientes[0]);
-                        }
-                      })
-                      .catch((error) => {
-                        console.error('Erro ao consultar perfil:', error);
-                      });
-                  } else {
-                    console.log('CPF não encontrado na URL.');
-                  }
-                }
-            
-                // Função para obter parâmetros da URL
-                function getUrlVars() {
-                  var vars = {};
-                  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                    vars[key] = value;
-                  });
-                  return vars;
-              
-                }
-            
-                // Chamar a função para buscar o perfil
-                buscarPerfil();
-            </script>
+          <div id="capaContent">
+            <!-- Imported content will be placed here -->
           </div>
+
+          <script>
+            fetch('/Gestão-Saúde/tabsProntuarios/capaConsulta.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('capaContent').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+          </script>
+
+          <script src="/API/API.js"></script>
+
+          <script type="text/javascript">
+            // Função para preencher o formulário com os dados do perfil
+            function preencherFormulario(dados) {
+                console.log(dados)
+                document.getElementById("Cpf").value = dados.CPF;
+                document.getElementById("Nome").value = dados.Nome;
+                document.getElementById("Nometab").innerText = dados.Nome;
+                document.getElementById("Rg").value = dados.Rg;
+                document.getElementById("DataNasc").value = dados.DataNasc;
+                document.getElementById("Email").value = dados.Email;
+                document.getElementById("Tel").value = dados.Tel;
+                document.getElementById("EstadoCivil").value = dados.EstadoCivil;
+                document.getElementById("Sexo").value = dados.Sexo;
+                document.getElementById("CorRaca").value = dados.CorRaca;
+                document.getElementById("NomeMae").value = dados.NomeMae;
+                document.getElementById("NomePai").value = dados.NomePai;
+                document.getElementById("PNE").value = dados.PNE;
+                document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
+                document.getElementById("Cep").value = dados.Cep;
+                document.getElementById("Rua").value = dados.Rua;
+                document.getElementById("EndNumero").value = dados.EndNumero;
+                document.getElementById("EndComplemento").value = dados.EndComplemento;
+                document.getElementById("Bairro").value = dados.Bairro;
+                document.getElementById("Cidade").value = dados.Cidade;
+              }
+          
+              // Função para buscar o perfil usando a API
+              function buscarPerfil() {
+                const cpf = getUrlVars()['cpf'];
+                if (cpf) {
+                  api.pacientes.consultar({ CPF: cpf })
+                    .then((pacientes) => {
+                      if (pacientes.length === 0) {
+                        console.log('Nenhum paciente encontrado');
+                      } else {
+                        preencherFormulario(pacientes[0]);
+                      }
+                    })
+                    .catch((error) => {
+                      console.error('Erro ao consultar perfil:', error);
+                    });
+                } else {
+                  console.log('CPF não encontrado na URL.');
+                }
+              }
+          
+              // Função para obter parâmetros da URL
+              function getUrlVars() {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                  vars[key] = value;
+                });
+                return vars;
+            
+              }
+          
+              // Chamar a função para buscar o perfil
+              buscarPerfil();
+          </script>
         </div>
+        
 
         <!--INÍCIO DA TAB ENTREVISTA DIALOGADA ADULTOS-->
         <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
@@ -386,431 +272,67 @@
                 // Perform API request
                 api.entrevistaDialogada.criar(formData)
                 .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Network response was not ok.');
-    })
-    .then(data => {
-        console.log(data);
-        if (data.message) {
-            console.log(data.message);
-            showCustomAlert(data.message);
-        } else {
-            console.log(data);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showCustomAlert('Error occurred while processing your request.');
-    });
-}
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                    console.log(data);
+                    if (data.message) {
+                        console.log(data.message);
+                        showCustomAlert(data.message);
+                    } else {
+                        console.log(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showCustomAlert('Error occurred while processing your request.');
+                });
+            }
           </script>
                     
           <form id="entrevistaForm">
-            <div style="margin: 5px;">
-              <div class="question">
-                <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
-                <textarea id="queixa" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 49%; margin-top: 10px;"></textarea>
-                <br>
-              </div>
-              
-              <div class="question" style="margin-top: 20px;">
-                <label for="doenca_YN">Sofre de alguma doença?</label>
-                <label><input type="radio" name="doenca_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="doenca_YN" value="Sim"> Sim</label>
-                
-                <div id="displayNotdisplay1">
-                  <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                  <input type="text" id="doenca" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 515px;">
-                </div>
-                <br>
-              </div>
-
-              <div class="question">
-                <label for="tto_medico_YN">Está em tratamento médico atualmente?</label>
-                <label><input type="radio" name="tto_medico_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="tto_medico_YN" value="Sim"> Sim</label>
-                
-                <div id="displayNotdisplay2">
-                  <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                  <input type="text" id="tto_medico" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 450px;">
-                </div>
-                <br>
-              </div>
-                
-              <div class="question">
-                <label for="medicacao_YN">Está fazendo uso de alguma medicação?</label>
-                <label><input type="radio" name="medicacao_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="medicacao_YN" value="Sim"> Sim</label>
-                
-                <div id="displayNotdisplay3">
-                  <label style="width: 180px; margin-left: 5px;">Qual(is) medicamentos e dosagens?</label>
-                  <input type="text" id="medicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 310px;">
-                </div>
-                <br>
-              </div>
-
-              <div class="question">
-                <label for="alergia_YN" style="width: 80px;">Tem alergia(s)?</label>
-                <label><input type="radio" name="alergia_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="alergia_YN" value="Sim"> Sim</label>
-                
-                <div id="displayNotdisplay4">
-                  <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                  <input type="text" id="alergia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 560px;">
-                </div>
-                <br>
-              </div>
-
-              <div class="question">
-                <label for="fumante_YN" style="width: 70px;">É fumante?</label>
-                <label><input type="radio" name="fumante_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="fumante_YN" value="Sim"> Sim</label>
-                
-                <div id="displayNotdisplay5">
-                  <label style="width: 100px; margin-left: 5px;">Há quanto tempo? </label>
-                  <input type="text" id="fumante" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 520px;">
-                </div>
-                <br>
-              </div>
-
-              <div class="question">
-                <label for="etilista_YN" style="width: 70px;">É etilista?</label>
-                <label><input type="radio" name="etilista_YN" value="Não" checked> Não</label>
-                <label><input type="radio" name="etilista_YN" value="Sim"> Sim</label>
-
-                <div id="displayNotdisplay6">
-                  <label style="width: 100px; margin-left: 5px;">Há quanto tempo? </label>
-                  <input type="text" id="etilista" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 520px;">
-                </div>
-                <br>
-                </div>
-
-                <hr class="ui-state-default">
-
-                <p style="margin-top: 20px; font-weight: bold;">Histórico odontológico</p>
-
-                <div class="question">
-                  <label for="ultimaConsulta" style="margin-top: 10px;">Última consulta odontológica</label>
-                  <input type="text" name="ultimaConsulta" id="ultimaConsulta" maxlength="255" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 100px; margin-top: 10px;">
-                  <br>
-                </div>
-
-                <div class="question" style="margin-bottom: 10px;">
-                  <label for="ultimoTTO" style="margin-top: 10px;">Último tratamento realizado </label>
-                  <input type="text" id="ultimoTTO" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 470px; margin-top: 10px;">
-                  <br>
-                </div>
-
-                <hr class="ui-state-default">
-
-                <p style="margin-top: 20px; font-weight: bold;">Hábitos de higiêne</p>
-
-                <div class="question" style="margin-top: 10px;">
-                  <label for="freq_higiene">Frequência da higiêne bucal</label>
-                  <input type="text" name="freq_higiene" id="freq_higiene" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 465px;">
-                  <br>
-                </div>
-
-                <!-- Dividir em 2 colunas -->
-                <style>
-                  .dividirColunas {
-                      display: flex;
-                      width: 45%;
-                  }
-
-                  .column {
-                      flex: 1;
-                      padding: 10px;
-                  }
-
-                </style>
-
-                <div class="dividirColunas">
-                  <div class="column">
-                      <div class="question" style="margin-top: 10px;">
-                          <label for="instr_higiene">Instrumentos utilizados na Higiêne: (Permite seleções múltiplas)</label><br>
-                          <select class="ui-state-default ui-corner-all" style="width: 25%; height: 60px; margin: 5px;" name="instr_higiene" id="instr_higiene" multiple>
-                              <option value="Enxaguante">Enxaguante</option>
-                              <option value="Escova">Escova</option>
-                              <option value="Fio dental">Fio dental</option>
-                          </select> 
-                          <br>
-                      </div>
-                  </div>
-              
-                  <div class="column">
-                      <div class="question">
-                          <label for="fluor">Acesso a flúor  (Permite seleções múltiplas)</label><br>
-                          <select class="ui-state-default ui-corner-all" style="width: 40%; height:60px; margin: 5px;" name="fluor" id="fluor" multiple>
-                              <option value="Enxaguante">Enxaguante</option>
-                              <option value="Dentifrício">Dentifrício</option>
-                              <option value="Aplicação profissional">Aplicação profissional</option>
-                          </select> 
-                          <br>
-                      </div>
-                    </div>
-                </div>
-          
-                <hr class="ui-state-default">
-            
-                <p style="margin-top: 20px; font-weight: bold;">Histórico médico</p>
-                <div class="question">
-                  <label for="operado_YN">Já foi operado?</label>
-                  <label><input type="radio" name="operado_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="operado_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay7">
-                    <label style="width: 150px; margin-left: 5px;">Qual(is) procedimento(s)? </label>
-                    <input type="text" id="operado" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="cicatrizacao_YN">Teve problemas com a cicatrização?</label>
-                  <label><input type="radio" name="cicatrizacao_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="cicatrizacao_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay8">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="cicatrizacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="anestesia_YN">Teve problemas com anestesia?</label>
-                  <label><input type="radio" name="anestesia_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="anestesia_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay9">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="anestesia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 480px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="hemorragia_YN">Teve problemas de hemorragia?</label>
-                  <label><input type="radio" name="hemorragia_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="hemorragia_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay10">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="hemorragia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 485px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="gravidez_YN">Gravidez?</label>
-                  <label><input type="radio" name="gravidez_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="gravidez_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay11">
-                    <label style="width: 170px; margin-left: 5px;">Quanto tempo de gestação? </label>
-                    <input type="text" id="gravidez" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 465px;">
-                  </div>
-                  <br>
-                </div>
-              
-                <div class="question">
-                  <label for="historicoFamiliar">Antecedentes Familiares:</label><br>
-                  <textarea id="historicoFamiliar" class="ui-state-default ui-corner-all mousetrap" rows="3" cols="50" style="width: 49%"></textarea>
-                  <br>
-                </div>
-
-                <div class="question">
-                    <label for="obs">Outras observações importantes:</label><br>
-                    <textarea id="obs" class="ui-state-default ui-corner-all mousetrap"  rows="5" cols="50" style="width: 49%"></textarea>
-                    <br>
-                </div>
-
-                <hr class="ui-state-default">
-            
-                <div class="question" style="margin-top: 15px;">
-                  <label for="medico" style="width: 130px;">Nome do médico(a):</label>
-                  <input type="text" class="ui-state-default ui-corner-all mousetrap" id="medico" style="width: 400px;">
-                  <br>
-
-                  <label style="width: 130px;">Telefone do(a) médico(a):</label>
-                  <input type="text" id="medicoTEL" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
-                  <br>
-
-                </div>
-
-                <p></p><br>
-
-                <hr class="ui-state-default">
-                <label style="width: 550px; margin: 5px; margin-top: 10px;">Observações:</label><br>
-                <textarea style="width: 49%; margin: 5px;" id="entrevistaDialogPed20" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-                <br>
+            <div id="entrevistaAdulto">
+              <!-- Imported content will be placed here -->
             </div>
-          </div>
+
+            <script>
+              fetch('/Gestão-Saúde/tabsProntuarios/entrevistaCadastro.html')
+                  .then(response => response.text())
+                  .then(data => {
+                      document.getElementById('entrevistaAdulto').innerHTML = data;
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                  });
+            </script>
+        </div>
           
-          <!--INÍCIO DA TAB PEDIATRIA-->
-          <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false">
-            <div style="margin: 5px;">
-              <div class="question">
-                <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
-                <textarea id="queixaPed" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 49%; margin-top: 10px;"></textarea>
-                <br>
-              </div>
+        <!--INÍCIO DA TAB PEDIATRIA-->
+        <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false">
 
-              <div style="margin: 5px;">
-                <p style="margin-top: 20px; font-weight: bold; font-size: larger;">História pregressa</p>
-
-                <div class="question">
-                  <label for="probGravidez_YN" style="width: 180px;">Problemas na gestação?</label>
-                  <label><input type="radio" name="probGravidez_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="probGravidez_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay12">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="hemorragia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="tipParto" style="width: 180px;">Tipo de parto?</label>
-                  <label><input type="radio" name="tipParto" value="Normal" checked>Normal</label>
-                  <label><input type="radio" name="tipParto" value="Cesárea">Cesárea</label>
-                  <label><input type="radio" name="tipParto" value="Outro">Outro</label>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="doencaInfancia_YN" style="width: 180px;">Doenças da infância?</label>
-                  <label><input type="radio" name="doencaInfancia_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="doencaInfancia_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay13">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="doencaInfancia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="internacao_YN" style="width: 180px;">Internação hospitalar?</label>
-                  <label><input type="radio" name="internacao_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="internacao_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay14">
-                    <label style="width: 150px; margin-left: 5px;">Motivo(s) e idade na ocasião?</label>
-                    <input type="text" id="internacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 360px;margin-top: 10px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="historicoMedicacao_YN" style="width: 180px;">Histórico de uso de medicamentos?</label>
-                  <label><input type="radio" name="historicoMedicacao_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="historicoMedicacao_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay15">
-                    <label style="width: 150px; margin-left: 5px;">Motivo(s) e idade na ocasião?</label>
-                    <input type="text" id="historicoMedicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 360px;margin-top: 10px;">
-                  </div>
-                  <br>
-                </div>
-
-                <hr class="ui-state-default">
-
-                <p style="margin-top: 20px; font-weight: bold; font-size: larger;">Condição atual</p>
-
-                <div class="question">
-                  <label for="alergia_YN_Ped" style="width: 150px;">Alérgico?</label>
-                  <label><input type="radio" name="alergia_YN_Ped" value="Não" checked> Não</label>
-                  <label><input type="radio" name="alergia_YN_Ped" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay16">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="historicoMedicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 500px;margin-top: 10px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="respiratorio_YN" style="width: 150px;">Problemas respiratórios?</label>
-                  <label><input type="radio" name="respiratorio_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="respiratorio_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay17">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="respiratorio" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 500px;margin-top: 10px;">
-                  </div>
-                  <br>
-                </div>
-
-
-                <label for="cardiaco_YN" style="margin-top: 10px; width: 150px;">Problemas cardíacos?</label>
-                <label style="margin-top: 10px;"><input type="radio" name="cardiaco_YN" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" name="cardiaco_YN" value="Sim">Sim</label>
-                  
-                <div id="displayNotdisplay18">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                    <input type="text" id="cardiaco" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 500px;margin-top: 10px;">
-                </div>
-                <br>
-
-                <label for="sanguineo_YN" style="margin-top: 10px; width: 150px;">Problemas sanguíneos?</label>
-                <label style="margin-top: 10px;"><input type="radio" name="sanguineo_YN" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" name="sanguineo_YN" value="Sim">Sim</label>
-                  
-                <div id="displayNotdisplay19">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                  <input type="text" id="sanguineo" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 500px;margin-top: 10px;">
-                </div>
-                <br>
-
-                <label for="diabetes_YN" style="margin-top: 10px; width: 150px;">Diabetes?</label>
-                <label style="margin-top: 10px;"><input type="radio" name="diabetes_YN" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" name="diabetes_YN" value="Sim">Sim</label>
-                  
-                <div id="displayNotdisplay20">
-                  <label for="diabetes" style="margin-top: 10px; margin-left: 25px;">Está compensada?</label>
-                  <label style="margin-top: 10px;"><input type="radio" name="diabetes" value="Não"  checked>Não</label>
-                  <label style="margin-top: 10px;"><input type="radio" name="diabetes" value="Sim">Sim</label>
-                </div>
-                <br>
-
-                <label for="medicacao_YN_Ped" style="margin-top: 10px; width: 150px;">Usa medicamentos atualmente?</label>
-                <label style="margin-top: 10px;"><input type="radio" name="medicacao_YN_Ped" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" name="medicacao_YN_Ped" value="Sim">Sim</label>
-                <br>
-                  
-                <div id="displayNotdisplay21">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                  <textarea style="width: 45%; margin: 5px;" id="medicacao_Ped" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-                </div>
-                <br>
-                <p></p>
-
-                <hr class="ui-state-default">
-
-                <label style="width: 120px; margin-top: 25px;">Nome do(a) pediatra:</label>
-                <input type="text" id="pediatra" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;margin-top: 25px;">
-                <br>
-
-                <label style="width: 120px;">Telefone: </label>
-                <input type="text" id="telPediatra" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
-                <br>
-
-                <p></p><br>
-                <hr class="ui-state-default">
-                <label style="width: 550px; margin: 5px; margin-top: 25px;">Observações:</label><br>
-                <textarea style="width: 49%; margin: 5px;" id="obs_ped" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-                <br>
-              </form>
-            </div>
+          <div id="entrevistaPed">
+            <!-- Imported content will be placed here -->
           </div>
+
+          <script>
+            fetch('/Gestão-Saúde/tabsProntuarios/entrevistaPedCadastro.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('entrevistaPed').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+          </script>
+          </form>
         </div>
       </div>
+    </div>
   </body>
+
   <script>
     // Function to show/hide content based on radio button selection
     function toggleDisplay(divId, radioName, targetValue) {

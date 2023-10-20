@@ -1,0 +1,240 @@
+<div id="entrevistaAdulto" style="margin: 5px;">
+    <div class="question">
+      <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
+      <textarea id="queixa" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 49%; margin-top: 10px;"></textarea>
+      <br>
+    </div>
+    
+    <div class="question" style="margin-top: 20px;">
+      <label for="doenca_YN">Sofre de alguma doença?</label>
+      <label><input type="radio" name="doenca_YN" value="Não" checked> Não</label>
+      <label><input type="radio" name="doenca_YN" value="Sim"> Sim</label>
+      
+      <div id="displayNotdisplay1">
+        <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+        <input type="text" id="doenca" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 515px;">
+      </div>
+      <br>
+    </div>
+
+    <div class="question">
+      <label for="tto_medico_YN">Está em tratamento médico atualmente?</label>
+      <label><input type="radio" name="tto_medico_YN" value="Não" checked> Não</label>
+      <label><input type="radio" name="tto_medico_YN" value="Sim"> Sim</label>
+      
+      <div id="displayNotdisplay2">
+        <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+        <input type="text" id="tto_medico" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 450px;">
+      </div>
+      <br>
+    </div>
+      
+    <div class="question">
+      <label for="medicacao_YN">Está fazendo uso de alguma medicação?</label>
+      <label><input type="radio" name="medicacao_YN" value="Não" checked> Não</label>
+      <label><input type="radio" name="medicacao_YN" value="Sim"> Sim</label>
+      
+      <div id="displayNotdisplay3">
+        <label style="width: 180px; margin-left: 5px;">Qual(is) medicamentos e dosagens?</label>
+        <input type="text" id="medicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 310px;">
+      </div>
+      <br>
+    </div>
+
+    <div class="question">
+      <label for="alergia_YN" style="width: 80px;">Tem alergia(s)?</label>
+      <label><input type="radio" name="alergia_YN" value="Não" checked> Não</label>
+      <label><input type="radio" name="alergia_YN" value="Sim"> Sim</label>
+      
+      <div id="displayNotdisplay4">
+        <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+        <input type="text" id="alergia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 560px;">
+      </div>
+      <br>
+    </div>
+
+    <div class="question">
+      <label for="fumante_YN" style="width: 70px;">É fumante?</label>
+      <label><input type="radio" name="fumante_YN" value="Não" checked> Não</label>
+      <label><input type="radio" name="fumante_YN" value="Sim"> Sim</label>
+      
+      <div id="displayNotdisplay5">
+        <label style="width: 100px; margin-left: 5px;">Há quanto tempo? </label>
+        <input type="text" id="fumante" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 520px;">
+      </div>
+      <br>
+    </div>
+
+    <div class="question">
+      <label for="etilista_YN" style="width: 70px;">É etilista?</label>
+      <label><input type="radio" name="etilista_YN" value="Não" checked> Não</label>
+      <label><input type="radio" name="etilista_YN" value="Sim"> Sim</label>
+
+      <div id="displayNotdisplay6">
+        <label style="width: 100px; margin-left: 5px;">Há quanto tempo? </label>
+        <input type="text" id="etilista" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 520px;">
+      </div>
+      <br>
+      </div>
+
+      <hr class="ui-state-default">
+
+      <p style="margin-top: 20px; font-weight: bold;">Histórico odontológico</p>
+
+      <div class="question">
+        <label for="ultimaConsulta" style="margin-top: 10px;">Última consulta odontológica</label>
+        <input type="text" name="ultimaConsulta" id="ultimaConsulta" maxlength="255" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 100px; margin-top: 10px;">
+        <br>
+      </div>
+
+      <div class="question" style="margin-bottom: 10px;">
+        <label for="ultimoTTO" style="margin-top: 10px;">Último tratamento realizado </label>
+        <input type="text" id="ultimoTTO" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 470px; margin-top: 10px;">
+        <br>
+      </div>
+
+      <hr class="ui-state-default">
+
+      <p style="margin-top: 20px; font-weight: bold;">Hábitos de higiêne</p>
+
+      <div class="question" style="margin-top: 10px;">
+        <label for="freq_higiene">Frequência da higiêne bucal</label>
+        <input type="text" name="freq_higiene" id="freq_higiene" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 465px;">
+        <br>
+      </div>
+
+      <!-- Dividir em 2 colunas -->
+      <style>
+        .dividirColunas {
+            display: flex;
+            width: 45%;
+        }
+
+        .column {
+            flex: 1;
+            padding: 10px;
+        }
+
+      </style>
+
+      <div class="dividirColunas">
+        <div class="column">
+            <div class="question" style="margin-top: 10px;">
+                <label for="instr_higiene">Instrumentos utilizados na Higiêne: (Permite seleções múltiplas)</label><br>
+                <select class="ui-state-default ui-corner-all" style="width: 25%; height: 60px; margin: 5px;" name="instr_higiene" id="instr_higiene" multiple>
+                    <option value="Enxaguante">Enxaguante</option>
+                    <option value="Escova">Escova</option>
+                    <option value="Fio dental">Fio dental</option>
+                </select> 
+                <br>
+            </div>
+        </div>
+    
+        <div class="column">
+            <div class="question">
+                <label for="fluor">Acesso a flúor  (Permite seleções múltiplas)</label><br>
+                <select class="ui-state-default ui-corner-all" style="width: 40%; height:60px; margin: 5px;" name="fluor" id="fluor" multiple>
+                    <option value="Enxaguante">Enxaguante</option>
+                    <option value="Dentifrício">Dentifrício</option>
+                    <option value="Aplicação profissional">Aplicação profissional</option>
+                </select> 
+                <br>
+            </div>
+          </div>
+      </div>
+
+      <hr class="ui-state-default">
+  
+      <p style="margin-top: 20px; font-weight: bold;">Histórico médico</p>
+      <div class="question">
+        <label for="operado_YN">Já foi operado?</label>
+        <label><input type="radio" name="operado_YN" value="Não" checked> Não</label>
+        <label><input type="radio" name="operado_YN" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay7">
+          <label style="width: 150px; margin-left: 5px;">Qual(is) procedimento(s)? </label>
+          <input type="text" id="operado" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
+        </div>
+        <br>
+      </div>
+
+      <div class="question">
+        <label for="cicatrizacao_YN">Teve problemas com a cicatrização?</label>
+        <label><input type="radio" name="cicatrizacao_YN" value="Não" checked> Não</label>
+        <label><input type="radio" name="cicatrizacao_YN" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay8">
+          <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+          <input type="text" id="cicatrizacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
+        </div>
+        <br>
+      </div>
+
+      <div class="question">
+        <label for="anestesia_YN">Teve problemas com anestesia?</label>
+        <label><input type="radio" name="anestesia_YN" value="Não" checked> Não</label>
+        <label><input type="radio" name="anestesia_YN" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay9">
+          <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+          <input type="text" id="anestesia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 480px;">
+        </div>
+        <br>
+      </div>
+
+      <div class="question">
+        <label for="hemorragia_YN">Teve problemas de hemorragia?</label>
+        <label><input type="radio" name="hemorragia_YN" value="Não" checked> Não</label>
+        <label><input type="radio" name="hemorragia_YN" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay10">
+          <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+          <input type="text" id="hemorragia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 485px;">
+        </div>
+        <br>
+      </div>
+
+      <div class="question">
+        <label for="gravidez_YN">Gravidez?</label>
+        <label><input type="radio" name="gravidez_YN" value="Não" checked> Não</label>
+        <label><input type="radio" name="gravidez_YN" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay11">
+          <label style="width: 170px; margin-left: 5px;">Quanto tempo de gestação? </label>
+          <input type="text" id="gravidez" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 465px;">
+        </div>
+        <br>
+      </div>
+    
+      <div class="question">
+        <label for="historicoFamiliar">Antecedentes Familiares:</label><br>
+        <textarea id="historicoFamiliar" class="ui-state-default ui-corner-all mousetrap" rows="3" cols="50" style="width: 49%"></textarea>
+        <br>
+      </div>
+
+      <div class="question">
+          <label for="obs">Outras observações importantes:</label><br>
+          <textarea id="obs" class="ui-state-default ui-corner-all mousetrap"  rows="5" cols="50" style="width: 49%"></textarea>
+          <br>
+      </div>
+
+      <hr class="ui-state-default">
+  
+      <div class="question" style="margin-top: 15px;">
+        <label for="medico" style="width: 130px;">Nome do médico(a):</label>
+        <input type="text" class="ui-state-default ui-corner-all mousetrap" id="medico" style="width: 400px;">
+        <br>
+
+        <label style="width: 130px;">Telefone do(a) médico(a):</label>
+        <input type="text" id="medicoTEL" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
+        <br>
+
+      </div>
+
+      <p></p><br>
+
+      <hr class="ui-state-default">
+      <label style="width: 550px; margin: 5px; margin-top: 10px;">Observações:</label><br>
+      <textarea style="width: 49%; margin: 5px;" id="entrevistaDialogPed20" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
+      <br>
+  </div>

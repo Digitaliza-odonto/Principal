@@ -48,6 +48,108 @@
       <!-- HIDDEN DIV FOR ALERT MESSAGE -->
   </head>
 
+
+  <script>
+    // Function to show/hide content based on radio button selection
+    function toggleDisplay(divId, radioName, targetValue) {
+    const radioButtons = document.querySelectorAll(`input[name="${radioName}"]`);
+    const targetDiv = document.getElementById(divId);
+
+    // Function to handle radio button change
+    function handleRadioButtonChange() {
+        if (radioButtons[radioButtons.length - 1].checked && radioButtons[radioButtons.length - 1].value === targetValue) {
+            targetDiv.style.display = "block"; // Show the target div
+        } else {
+            targetDiv.style.display = "none"; // Hide the target div
+        }
+    }
+
+    // Add event listener to each radio button
+    radioButtons.forEach(function (radioBtn) {
+        radioBtn.addEventListener("change", handleRadioButtonChange);
+    });
+
+    // Initialize the state based on the initial selection
+    handleRadioButtonChange();
+    }
+
+    // Call the function for each set of radio buttons and target divs
+    toggleDisplay("displayNotdisplay1", "doenca_YN", "Sim");
+    toggleDisplay("displayNotdisplay2", "tto_medico_YN", "Sim");
+    toggleDisplay("displayNotdisplay3", "medicacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay4", "alergia_YN", "Sim");
+    toggleDisplay("displayNotdisplay5", "fumante_YN", "Sim");
+    toggleDisplay("displayNotdisplay6", "etilista_YN", "Sim");
+    toggleDisplay("displayNotdisplay7", "operado_YN", "Sim");
+    toggleDisplay("displayNotdisplay8", "cicatrizacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay9", "anestesia_YN", "Sim");
+    toggleDisplay("displayNotdisplay10", "hemorragia_YN", "Sim");
+    toggleDisplay("displayNotdisplay11", "gravidez_YN", "Sim");
+    toggleDisplay("displayNotdisplay12", "probGravidez_YN", "Sim");
+    toggleDisplay("displayNotdisplay13", "doencaInfancia_YN", "Sim");
+    toggleDisplay("displayNotdisplay14", "internacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay15", "historicoMedicacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay16", "alergia_YN_Ped", "Sim");
+    toggleDisplay("displayNotdisplay17", "respiratorio_YN", "Sim");
+    toggleDisplay("displayNotdisplay18", "cardiaco_YN", "Sim");
+    toggleDisplay("displayNotdisplay19", "sanguineo_YN", "Sim");
+    toggleDisplay("displayNotdisplay20", "diabetes_YN", "Sim");
+    toggleDisplay("displayNotdisplay21", "medicacao_YN_Ped", "Sim");
+    
+    // Function to load content and call toggleDisplay after content is loaded
+    function loadContentAndInitialize() {
+      fetch('/Gestão-Saúde/tabsProntuarios/entrevistaCadastro.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('entrevistaAdulto').innerHTML = data;
+          
+          // Call toggleDisplay after the content is loaded
+          toggleDisplay("displayNotdisplay1", "doenca_YN", "Sim");
+          toggleDisplay("displayNotdisplay2", "tto_medico_YN", "Sim");
+          toggleDisplay("displayNotdisplay3", "medicacao_YN", "Sim");
+          toggleDisplay("displayNotdisplay4", "alergia_YN", "Sim");
+          toggleDisplay("displayNotdisplay5", "fumante_YN", "Sim");
+          toggleDisplay("displayNotdisplay6", "etilista_YN", "Sim");
+          toggleDisplay("displayNotdisplay7", "operado_YN", "Sim");
+          toggleDisplay("displayNotdisplay8", "cicatrizacao_YN", "Sim");
+          toggleDisplay("displayNotdisplay9", "anestesia_YN", "Sim");
+          toggleDisplay("displayNotdisplay10", "hemorragia_YN", "Sim");
+          toggleDisplay("displayNotdisplay11", "gravidez_YN", "Sim");
+          toggleDisplay("displayNotdisplay12", "probGravidez_YN", "Sim");
+          toggleDisplay("displayNotdisplay13", "doencaInfancia_YN", "Sim");
+          toggleDisplay("displayNotdisplay14", "internacao_YN", "Sim");
+          toggleDisplay("displayNotdisplay15", "historicoMedicacao_YN", "Sim");
+          toggleDisplay("displayNotdisplay16", "alergia_YN_Ped", "Sim");
+          toggleDisplay("displayNotdisplay17", "respiratorio_YN", "Sim");
+          toggleDisplay("displayNotdisplay18", "cardiaco_YN", "Sim");
+          toggleDisplay("displayNotdisplay19", "sanguineo_YN", "Sim");
+          toggleDisplay("displayNotdisplay20", "diabetes_YN", "Sim");
+          toggleDisplay("displayNotdisplay21", "medicacao_YN_Ped", "Sim");
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+    }
+
+    // Listen for the 'DOMContentLoaded' event before initializing content
+    document.addEventListener('DOMContentLoaded', loadContentAndInitialize);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <body>
     <!-- CONTEÚDO DA PÁGINA/TELA PRINCIPAL COBALTO -->
     <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
@@ -333,7 +435,7 @@
     </div>
   </body>
 
-  <script>
+  <!-- <script>
     // Function to show/hide content based on radio button selection
     function toggleDisplay(divId, radioName, targetValue) {
         const radioButtons = document.querySelectorAll(`input[name="${radioName}"]`);
@@ -380,5 +482,42 @@
     toggleDisplay("displayNotdisplay20", "diabetes_YN", "Sim");
     toggleDisplay("displayNotdisplay21", "medicacao_YN_Ped", "Sim");
               
-  </script>
+  </script> -->
+
+
+  <script>
+    fetch('/Gestão-Saúde/tabsProntuarios/entrevistaCadastro.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('entrevistaAdulto').innerHTML = data;
+            
+            // Call toggleDisplay after the content is loaded
+            toggleDisplay("displayNotdisplay1", "doenca_YN", "Sim");
+            toggleDisplay("displayNotdisplay2", "tto_medico_YN", "Sim");
+            toggleDisplay("displayNotdisplay3", "medicacao_YN", "Sim");
+            toggleDisplay("displayNotdisplay4", "alergia_YN", "Sim");
+            toggleDisplay("displayNotdisplay5", "fumante_YN", "Sim");
+            toggleDisplay("displayNotdisplay6", "etilista_YN", "Sim");
+            toggleDisplay("displayNotdisplay7", "operado_YN", "Sim");
+            toggleDisplay("displayNotdisplay8", "cicatrizacao_YN", "Sim");
+            toggleDisplay("displayNotdisplay9", "anestesia_YN", "Sim");
+            toggleDisplay("displayNotdisplay10", "hemorragia_YN", "Sim");
+            toggleDisplay("displayNotdisplay11", "gravidez_YN", "Sim");
+            toggleDisplay("displayNotdisplay12", "probGravidez_YN", "Sim");
+            toggleDisplay("displayNotdisplay13", "doencaInfancia_YN", "Sim");
+            toggleDisplay("displayNotdisplay14", "internacao_YN", "Sim");
+            toggleDisplay("displayNotdisplay15", "historicoMedicacao_YN", "Sim");
+            toggleDisplay("displayNotdisplay16", "alergia_YN_Ped", "Sim");
+            toggleDisplay("displayNotdisplay17", "respiratorio_YN", "Sim");
+            toggleDisplay("displayNotdisplay18", "cardiaco_YN", "Sim");
+            toggleDisplay("displayNotdisplay19", "sanguineo_YN", "Sim");
+            toggleDisplay("displayNotdisplay20", "diabetes_YN", "Sim");
+            toggleDisplay("displayNotdisplay21", "medicacao_YN_Ped", "Sim");
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
+
+
 </html>

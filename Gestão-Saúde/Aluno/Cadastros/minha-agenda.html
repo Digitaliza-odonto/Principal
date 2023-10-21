@@ -149,8 +149,8 @@
                     <p></p>
 
                     <div style="margin: 20px; margin-left: 10%;">
-                        <button type="submit" id="btnAdicionar" class="button">Cadastrar agendamento</button>
-                        <button name="deleteButton" id="deleteButton" value="deleteButton" class="button">Excluir agendamento</button>
+                        <button type="submit" id="btnAdicionar" onclick="agendarAtendimento()" class="button">Cadastrar agendamento</button>
+                        <button name="deleteButton" id="deleteButton" onclick="deleteAgendamento()" value="deleteButton" class="button">Excluir agendamento</button>
                         <button name="btnCancelar" onClick="limparCampos()" id="btnCancelar" value="Cancelar" class="button">Apagar campos</button>
                     </div>
                 </form>
@@ -547,89 +547,54 @@
                 }
             });
         });
-    </script>
 
-    
-    <script>
-        $(document).ready(function () {
+        function agendarAtendimento() {
             // Extract 'agendado_por' value from the logged-in user's Matricula
             const aluno = JSON.parse(localStorage.getItem('usuario'));
             const agendadoPor = aluno.Matricula;
 
             // Set 'agendado_por' value in the hidden field
             $('#agendado_por').val(agendadoPor);
-            
-            $('#btnAdicionar').click(function (event) {
-                event.preventDefault(); // Prevent the default form submission behavior
 
-                // Get form values
-                var cpfPaciente = $('#cpf_paciente').val();
-                var descricao = $('#descricao').val();
-                var dataAgendamento = $('#data_agendamento').val();
-                var horarioAgendamento = $('#horario_agendamento_1').val();
-                var minutoAgendamento = $('#horario_agendamento_2').val();
-                var local = $('#local').val();
-                var atividadeCurricular = $('#atividade_curricular').val();
+            var formData = {
+                cpf_paciente: $('#cpf_paciente').val(),
+                descricao: $('#descricao').val(),
+                data_agendamento: $('#data_agendamento').val(),
+                horario_agendamento: $('#horario_agendamento_1').val(),
+                minuto_agendamento: $('#horario_agendamento_2').val(),
+                local: $('#local').val(),
+                atividade_curricular: $('#atividade_curricular').val(),
+                agendado_por: agendadoPor
+            };
 
-                // Check if any required field is empty
-                if (!cpfPaciente || !descricao || !dataAgendamento || horarioAgendamento === 'HH' || minutoAgendamento === 'MM' || local === 'Escolher' || !atividadeCurricular) {
-                    // Handle empty field case (show an error message, prevent submission, etc.)
-                    showCustomAlert("Por favor, preencha todos os campos obrigatórios.");
-                    return;
-                }
-
-                // Create an object with all form fields and set 'id_agendamento' to an empty string
-                var formData = {
-                    id_agendamento: '', // Set id_agendamento to an empty string
-                    cpf_paciente: $('#cpf_paciente').val(),
-                    descricao: $('#descricao').val(),
-                    data_agendamento: $('#data_agendamento').val(),
-                    horario_agendamento: $('#horario_agendamento_1').val(),
-                    minuto_agendamento: $('#horario_agendamento_2').val(),
-                    local: $('#local').val(),
-                    atividade_curricular: $('#atividade_curricular').val(),
-                    agendado_por: agendadoPor
-                };
-
-                // Perform an AJAX POST request
-                $.ajax({
-                    type: 'POST',
-                    url: '../../../API/agenda/agendamento-insert-remove.php',
-                    data: formData,
-                    success: function (response) {
-                        // Show the result using the showCustomAlert() function
-                        showCustomAlert(response);
-
-                        // Optionally, clear the form fields or perform any other actions
-                        $('#pacienteAgendamento').val('');
-                        $('#cpf_paciente').val('');
-                        $('#descricao').val('');
-                        $('#data_agendamento').val('');
-                        $('#horario_agendamento_1').val('HH');
-                        $('#horario_agendamento_2').val('MM');
-                        $('#local').val('Escolher');
-                        $('#atividade_curricular').val('');
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors if needed
-                        showCustomAlert("Error: " + xhr.responseText); // Display the error response
-                        console.error(xhr); // Log the full error object for debugging
-                    }
-                });
+            // Perform an API request
+            api.agenda.criar(formData).then(function(response) {
+                //Check if the response contains a `message` property
+                const message = response.message || 'Agendamento realizado com sucesso.';
+                console.log(message);
+                showCustomAlert(message);
+        
+                limparCampos();
+                
+                }).catch(function(error) {
+                // Extract error message from the response or use a default error message
+                const errorMessage = error.message || 'Erro ao processar a solicitação.';
+                console.error(error);
             });
-    
-        // Delete selected items when "Excluir" button is clicked
-        $('#deleteButton').click(function (event) {
-            event.preventDefault(); // Prevent the default form submission behavior
-    
+
+            loadTableData();
+        }
+                
+        // Delete agendamento
+        function deleteAgendamento () {
             const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
-            // Get the value (ID) from the second column of the table in the same row
-            return $(this).closest('tr').find('td:eq(1)').text();
+                // Get the value (ID) from the second column of the table in the same row
+                return $(this).closest('tr').find('td:eq(1)').text();
             }).get();
     
             if (selectedIds.length === 0) {
-            showCustomAlert("Por favor, selecione ao menos um agendamento para excluir.");
-            return;
+                showCustomAlert("Por favor, selecione ao menos um agendamento para excluir.");
+                return;
             }
     
             // Create the request data as an object
@@ -638,26 +603,22 @@
             // Log the requestData for debugging
             console.log("Request Data:", requestData);
     
-            // Send the POST request using AJAX for deletion
-            $.ajax({
-            type: 'POST',
-            url: '../../../API/agenda/agendamento-insert-remove.php',
-            data: requestData, // Send the selectedIds directly
-            success: function (data) {
-                // Log the success response for debugging
-                showCustomAlert("Success Response:", data);
-    
-                showCustomAlert(data); // Display the server response
+            //Perform an API request for deletion
+            api.agenda.deletar(requestData).then(function(response) {
+                const message = response.message || 'Agendamento excluído com sucesso.';
+                showCustomAlert(message);
                 
-            },
-            error: function (xhr, status, error) {
-                // Log the error for debugging
-                console.error("Error:", error);
-            }
+                limparCampos();
+            
+            }).catch(function(error) {
+                // Extract error message from the response or use a default error message
+                const errorMessage = error.message || 'Erro ao processar a solicitação de exclusão.';
+                console.error(error);
             });
-        });
-        });
-    
+            
+            loadTableData();
+        }
+
         // FUNÇÃO PARA APAGAR CAMPOS DA PÁGINA
         function limparCampos() {
             document.getElementById("pacienteAgendamento").value = "";
@@ -668,7 +629,7 @@
             document.getElementById("horario_agendamento_2").value = "MM";
             document.getElementById("local").value = "Escolher";
             document.getElementById("atividade_curricular").value = "";
-    }
+        }
     </script>
   </body>
 </html>

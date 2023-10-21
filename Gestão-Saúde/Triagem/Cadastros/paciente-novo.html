@@ -1,23 +1,25 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head lang="pt-br">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
-      <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-    var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-    var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-    var PATH_COOKIE = '/';
-    var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-    var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-</script>
-<link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-<link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-<script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-<link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
-<link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar paciente novo</title>
+    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+      var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+      var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+      var PATH_COOKIE = '/';
+      var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+      var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+    </script>
+    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+    <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
 
-<!--ALERT MESSAGES-->
-<link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
-<script src="../../../scripts/alertMessage.js"></script>
+    <!--ALERT MESSAGES-->
+    <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+    <script src="../../../scripts/alertMessage.js"></script>
 
     <!-- HIDDEN DIV FOR ALERT MESSAGE -->
     <div id="customAlert" class="modal">
@@ -40,395 +42,247 @@
         <div><button id="okButton" class="centered-button">OK</button></div>
         </div>
     </div>
-    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-<!--ALERT MESSAGES-->
-</head>
+  </head>
 
-<!-- STYLE PÁGINA/TELA PRINCIPAL COBALTO -->
-<div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
-    <style type="text/css">
-    .columnGeral {width: 100.0%; float: left; padding-bottom: 8px;}
-    .columnGrafico {width: 33.3%; float: left; padding-bottom: 8px;}
-    .columnGrafico1 .portlet, .columnGrafico2 .portlet, .columnGrafico3 .portlet {margin-right: 1.5em;}
-    .column {width: 33.3%; float: left; padding-bottom: 100px;}
-    .column1 .portlet, .column2 .portlet {margin-right: 1.5em;}
-            @media (max-width: 900px){
-            .columnGrafico {width: 100%; float: none; padding-bottom: 0px;}
-            .columnGrafico1 .portlet, .columnGrafico2 .portlet {margin-right: 0px;}
-            .column {width: 100%; float: none; padding-bottom: 0px;}
-            .column1 .portlet, .column2 .portlet {margin-right: 0px;}
+    <body>
+
+    <!-- CONTEÚDO DA PÁGINA/TELA PRINCIPAL COBALTO -->
+    <div id="content-center" class="ui-layout-center ui-widget-content"
+        style="background: none !important; overflow: hidden !important">
+        
+      <div class="breadCrumb module">
+        <ul>
+          <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+          <li>Cadastro</li>
+          <li>Paciente novo</li>
+        </ul>
+        <div style="clear: both;"></div></div><div style="clear: both;"></div>
+        </ul>
+        <div style="clear: both;"></div></div><div style="clear: both;"></div>
+        
+        <div class="ui-widget-content ui-corner-all toolbar">
+          <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+          <button id="salvar" class="salvar" title="Salvar paciente" onclick="submit()" style="float: left;">Salvar</button>
+          <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+          <span style="clear: both; display: block"></span>
+        </div>
+
+
+    <!-- INÍCIO DIVISÃO EM TABS-->
+
+    <div id="tab" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+      <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+        
+        <li class="labeltab ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Dados pessoais</a></li>
+                
+      </ul>
+    
+      <!--INÍCIO DA TAB DADOS PESSOAIS-->
+      <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
+
+        <div>
+          <p></p>
+          <label style="width: 180px; margin: 5px; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
+          <input type="text" id="informacoesImportantes" maxlength="255" style="width: 340px; margin: 5px;"><br>
+        
+          <script>
+              // TROCAR STYLE SE O CAMPO 'informaçõesImportantes' for preenchido
+            document.addEventListener('DOMContentLoaded', function() {
+              const inputField = document.getElementById('informacoesImportantes');
+          
+              function applyStyles() {
+                if (inputField.value.trim() === '') {
+                  inputField.classList.add('ui-state-default');
+                  inputField.classList.remove('important-ui');
+                } else {
+                  inputField.classList.add('important-ui');
+                  inputField.classList.remove('ui-state-default');
+                }
+              }
+          
+              inputField.addEventListener('input', applyStyles);
+          
+              // Apply styles once the page loads
+              applyStyles();
+            });
+            
+          </script>
+          <p style="margin: 10px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
+          <p></p>
+          <br>
+        
+          <p></p>
+          <br>
+          <hr class="ui-state-default">
+        </div>
+          
+        <div id="capaCadastro">
+          <!-- Imported content will be placed here -->
+        </div>
+
+        <script>
+          fetch('/Gestão-Saúde/tabsProntuarios/capaCadastro.html')
+              .then(response => response.text())
+              .then(data => {
+                  document.getElementById('capaCadastro').innerHTML = data;
+              })
+              .catch(error => {
+                  console.error('Error:', error);
+              });
+        </script> 
+        
+
+        <script src="/API/API.js"></script>
+        <script type="text/javascript">
+          function submit() {
+
+            const formdata = getformdata()
+            const response = api.pacientes.criar(formdata).then((response) => { showCustomAlert(response.message)
+                  ;});
         }
-        .column-fixed {width: 33.3%; float: left; padding-bottom: 100px;}
-    .portlet {margin: 0 0 1.5em 0;}
-    .portlet-header {margin: 0.3em; padding: 2px 3px 5px 5px; cursor:pointer;}
-    .portlet-header button {float: right; height: 18px; width: 18px;}
-    .portlet-header .ui-icon {float: right;}
-    .portlet-content {padding: 6px; background: none !important; border: none; font-size: 1.1em;}
-    .portlet-content a:hover{text-decoration: underline!important;}
-    .portlet-content a:visited{color: #bbb!important;}
-    .portlet-content ul {list-style-type: none !important; padding:0px!important; border: none!important;}
-    .portlet-content ul li {padding: 3px !important; border-right: none!important; border-left: none!important; border-top: none!important; color: inherit!important; font-weight:inherit!important;}
-    .portlet-content ul li:last-child {border-bottom: none!important;}
-    .ui-sortable-placeholder {border: 1px dotted black; visibility: visible !important; height: 50px !important;}
-    .ui-sortable-placeholder * {visibility: hidden;}
-  </style>
-<!-- STYLE PÁGINA/TELA PRINCIPAL COBALTO -->
 
-<!-- CONTEÚDO DA PÁGINA/TELA PRINCIPAL COBALTO -->
+        function getformdata(){
+          const parentDiv = document.getElementById("tab-0"); 
+          const elements = document.querySelectorAll("input, select");
+          const jsonData = {};
 
-<div id="content-center" class="ui-layout-center ui-widget-content"
-    style="background: none !important; overflow: hidden !important">
-    
-  <div class="breadCrumb module">
-    <ul>
-      <li><a href="index.html"></a></li><li>Gestão Saúde</li>
-      <li>Cadastro</li>
-      <li>Paciente novo</li>
-    </ul>
-    <div style="clear: both;"></div></div><div style="clear: both;"></div>
-    </ul>
-    <div style="clear: both;"></div></div><div style="clear: both;"></div>
-    
-    <div class="ui-widget-content ui-corner-all toolbar">
-      <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-      <button id="salvar" class="salvar" title="Salvar paciente" onclick="submit()" style="float: left;">Salvar</button>
-      <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-      <span style="clear: both; display: block"></span>
-    </div>
+          for (const element of elements) {
+            if (element.tagName === "INPUT") {
+              if (element.type === "text") {
+                jsonData[element.id] = element.value;
+              } else if (element.type === "radio" && element.checked) {
+                jsonData[element.name] = element.value;
+              }
+            } else if (element.tagName === "SELECT") {
+              jsonData[element.id] = element.value;
+            }
+          }
+
+          console.log(jsonData);
+          return jsonData;
+        }
 
 
-<!-- INÍCIO DIVISÃO EM TABS-->
+            // Função para preencher o formulário com dados fictícios ---------------------------------------------------------------------------------------------
 
-<div id="tab" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
-  <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
-    
-    <li class="labeltab ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Dados pessoais</a></li>
-             
-  </ul>
-<!--FIM DIVISÃO EM TABS-->
+        // Array de dados fictícios
+        let dadosFicticios = [
+          {
+            informacoesImportantes: "Paciente com alergia a penicilina",
+            cpf: "112.289.390-63",
+            nome: "Fulano da Silva",
+            rg: "1234567",
+            CNS: "456789012345678",
+            dataNascimento: "01/01/1990",
+            email: "fulano@example.com",
+            telefone: "(00) 12345-6789",
+            telefone2: "(00) 98765-4321",
+            telefone3: "(00) 11111-2222",
+            estadoCivil: "SOLTEIRO",
+            sexo: "Masculino",
+            corRaca: "Branca",
+            nomeMae: "Ciclana da Silva",
+            nomePai: "Beltrano da Silva",
+            pne: ["Hipertensão", "Diabetes"],
+            enderecoTipo: "Residencial",
+            cep: "12345-678",
+            rua: "Rua dos Exemplos",
+            numero: "123",
+            complemento: "Apto 456",
+            bairro: "Bairro das Amostras",
+            cidade: "Cidadópolis",
+          },
+          {
+            informacoesImportantes: "",
+            cpf: "790.588.720-09",
+            nome: "Ciclana Pereira",
+            rg: "7654321",
+            CNS: "987654321098765",
+            dataNascimento: "15/06/1985",
+            email: "ciclana@example.com",
+            telefone: "(00) 98765-4321",
+            telefone2: "(00) 12345-6789",
+            telefone3: "",
+            estadoCivil: "CASADO",
+            sexo: "Feminino",
+            corRaca: "Parda",
+            nomeMae: "Maria Pereira",
+            nomePai: "José Pereira",
+            pne: ["Nenhum"],
+            enderecoTipo: "Residencial",
+            cep: "54321-987",
+            rua: "Avenida das Flores",
+            numero: "456",
+            complemento: "",
+            bairro: "Bairro Central",
+            cidade: "Cidadelândia",
+          },
+          {
+            informacoesImportantes: "",
+            cpf: "964.940.820-76",
+            nome: "Beltrano Alves",
+            rg: "11223344",
+            CNS: "123456789012345",
+            dataNascimento: "30/11/1982",
+            email: "beltrano@example.com",
+            telefone: "(00) 11111-2222",
+            telefone2: "",
+            telefone3: "",
+            estadoCivil: "DIVORCIADO",
+            sexo: "Masculino",
+            corRaca: "Indígena",
+            nomeMae: "Joana Alves",
+            nomePai: "Pedro Alves",
+            pne: ["Nenhum"],
+            enderecoTipo: "Comercial",
+            cep: "98765-432",
+            rua: "Rua do Comércio",
+            numero: "789",
+            complemento: "Sala 101",
+            bairro: "Centro Empresarial",
+            cidade: "Cidadeforte",
+          },
+          // Adicione mais dados fictícios aqui...
+        ];
 
 
-<!--INÍCIO DA TAB DADOS PESSOAIS-->
-
-
-<div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
-
-
-  <div>
-    <p></p>
-    <label style="width: 180px; margin: 5px; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
-    <input type="text" id="informacoesImportantes" maxlength="255" style="width: 340px; margin: 5px;"><br>
-  
-    <script>
-        // TROCAR STYLE SE O CAMPO 'informaçõesImportantes' for preenchido
-      document.addEventListener('DOMContentLoaded', function() {
-        const inputField = document.getElementById('informacoesImportantes');
-    
-        function applyStyles() {
-          if (inputField.value.trim() === '') {
-            inputField.classList.add('ui-state-default');
-            inputField.classList.remove('important-ui');
+        function preencherFormulario(indice) {
+          if (indice >= 0 && indice < dadosFicticios.length) {
+            const dados = dadosFicticios[indice];
+            
+            document.getElementById("informacoesImportantes").value = dados.informacoesImportantes;
+            document.getElementById("CPF").value = dados.cpf;
+            document.getElementById("Nome").value = dados.nome;
+            document.getElementById("Rg").value = dados.rg;
+            document.getElementById("CNS").value = dados.CNS;
+            document.getElementById("DataNasc").value = dados.dataNascimento;
+            document.getElementById("Email").value = dados.email;
+            document.getElementById("Tel").value = dados.telefone;
+            document.getElementById("Tel2").value = dados.telefone2;
+            document.getElementById("Tel3").value = dados.telefone3;
+            document.getElementById("EstadoCivil").value = dados.estadoCivil;
+            document.getElementById("Sexo").value = dados.sexo;
+            document.getElementById("CorRaca").value = dados.corRaca;
+            document.getElementById("NomeMae").value = dados.nomeMae;
+            document.getElementById("NomePai").value = dados.nomePai;
+            document.getElementById("PNE").value = dados.pne;
+            document.getElementById("EnderecoTipo").value = dados.enderecoTipo;
+            document.getElementById("Cep").value = dados.cep;
+            document.getElementById("Rua").value = dados.rua;
+            document.getElementById("EndNumero").value = dados.numero;
+            document.getElementById("EndComplemento").value = dados.complemento;
+            document.getElementById("Bairro").value = dados.bairro;
+            document.getElementById("Cidade").value = dados.cidade;
           } else {
-            inputField.classList.add('important-ui');
-            inputField.classList.remove('ui-state-default');
+            console.log("Índice inválido. Escolha um índice entre 0 e " + (dadosFicticios.length - 1));
           }
         }
-    
-        inputField.addEventListener('input', applyStyles);
-    
-        // Apply styles once the page loads
-        applyStyles();
-      });
-      
-    </script>
-    <p style="margin: 10px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
-    <p></p>
-    <br>
-  
-    <p></p>
-    <br>
-    <hr class="ui-state-default">
-  </div>
-    
-  
-    <p></p>
-    <br>
-    <label style="width: 120px; ;margin: 5px;">CPF</label>
-    <input type="text" name="Cpf" id="CPF" maxlength="11" class="ui-state-default ui-corner-all" style="width: 100px;">
-    <br> 
-    
-    <label style="width: 120px; ;margin: 5px;">Nome</label>
-    <input type="text" id="Nome" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;">
-    <br>
-    
-    <label style="width: 120px; ;margin: 5px;">RG</label>
-    <input type="text" id="Rg" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;">
-    <br>
-  
-    <label style="width: 120px; ;margin: 5px;">Cartão SUS (CNS)</label>
-    <input type="text" id="CNS" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;">
-    <br>
-    
-    <label style="width: 120px; ;margin: 5px;"  >Dt. nascimento</label>
-    <input type="text" id="DataNasc" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 80px;">
-    <br>
-  
-    <label style="width: 120px; ;margin: 5px;">E-mail</label>
-    <input type="text" id="Email" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;">
-    <br>
-  
-    <label style="width: 120px; ;margin: 5px;">Telefone</label>
-    <input type="text" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
-    <br>
-  
-    <label style="width: 120px; ;margin: 5px;">Telefone 2 (Opcional)</label>
-    <input type="text" id="Tel2" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
-    <br>
-  
-    <label style="width: 120px; ;margin: 5px;">Telefone 3 (Opcional)</label>
-    <input type="text" id="Tel3" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
-    <br>
-    
-  <label style="width: 120px; ;margin: 5px;">Estado civil</label>
-    <select class="ui-state-default" style="width: 180px; height: 20px;" name="EstadoCivil" id="EstadoCivil">
-      <option value="CASADO">CASADO</option>
-      <option value="DIVORCIADO">DIVORCIADO</option>
-      <option value="OUTROS">OUTROS</option>
-      <option value="SEPARADO">SEPARADO JUDICIALMENTE</option>
-      <option value="SOLTEIRO">SOLTEIRO</option>
-      <option value="VIUVO">VIUVO</option>
-    </select>
-  <br>
 
-  <label style="width: 120px; ;margin: 5px;">Sexo</label>
-    <select class="ui-state-default" style="width: 180px; height: 20px;" name="Sexo" id="Sexo">
-      <option value="Masculino">Masculino</option>
-      <option value="Feminino">Feminino</option>
-        </select> 
-  <br>
+        // Exemplo de uso: preencher o formulário com o primeiro conjunto de dados fictícios (índice 0)
+        //preencherFormulario(0);
 
-  <label style="width: 120px; ;margin: 5px;">Cor/Raça</label>
-    <select class="ui-state-default" style="width: 180px; height: 20px;" name="CorRaca" id="CorRaca">
-      <option value="Amarelo">Amarelo</option>
-      <option value="Branca">Branca</option>
-      <option value="Indígena">Indígena</option>
-      <option value="Parda">Parda</option>
-      <option value="Não quis declarar">Não quis declarar</option>
-    </select> 
-
-
-  <hr class="ui-state-default">
-  <label style="font-weight:bold;width: 120px;">Filiação</label>
-  <br>
-
-  <label style="width: 120px; margin: 5px;">Nome da mãe</label>
-  <input type="text" name="NomeMae" id="NomeMae" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;">
-
-  <br>
-  <label style="width: 120px;margin: 5px;">Nome do pai</label>
-  <input type="text" name="NomePai" id="NomePai" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;">
-  
-  <br>
-  <hr class="ui-state-default">
-  <label style="width: 600px;">Condição sistêmica/Necessidade especial: (Segurar control para fazer seleçoes múltiplas)</label><br>
-    <select class="ui-state-default" style="width: 100px;margin: 5px;" name="PNE" id="PNE" multiple>
-      <option value="Hipertensão">Hipertensão</option>
-      <option value="Diabetes">Diabetes</option>
-      <option value="Hepatite B">Hepatite B</option>
-      <option value="Hepatite C">Hepatite C</option>
-      <option value="Soropositivo">Soropositivo</option>
-    </select> 
-
-  <hr class="ui-state-default"><label style="font-weight:bold;width: 120px;">Endereço:</label>
-  <br>
-  
-  <label style="width: 120px;">Tipo de endereço</label>
-    <select class="ui-state-default" style="width: 180px; height: 20px;" name="EnderecoTipo" id="EnderecoTipo">
-      <option value="Comercial">Comercial</option>
-      <option value="Família">Família</option>
-      <option value="Residencial">Residencial</option>
-    </select> 
-  <br>
-
-  <label style="width: 120px;">CEP</label>
-    <input type="text" name="Cep" id="Cep" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap cep" style="width: 100px;">
-    <br>
-
-    <label style="width: 120px;">Endereço</label>
-    <input type="text" name="Rua" id="Rua" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;">
-    <br>
-
-    <label style="width: 120px;">Número</label>
-    <input type="text" name="EndNumero" id="EndNumero" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;">
-    <br>
-
-    <label style="width: 120px;">Complemento</label>
-    <input type="text" name="EndComplemento" id="EndComplemento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;">
-    <br>
-
-    <label style="width: 120px;">Bairro</label>
-    <input type="text" name="Bairro" id="Bairro" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;">
-    <br>
-
-    <label style="width: 120px;">Cidade</label>
-    <input type="text" name="Cidade" id="Cidade" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;">
-    <br>
-
-   
-
-    
-  
-
-<script src="/API/API.js"></script>
-<script type="text/javascript">
-  function submit() {
-
-    const formdata = getformdata()
-    const response = api.pacientes.criar(formdata).then((response) => { showCustomAlert(response.message)
-          ;});
-}
-
-function getformdata(){
-  const parentDiv = document.getElementById("tab-0"); 
-  const elements = document.querySelectorAll("input, select");
-  const jsonData = {};
-
-  for (const element of elements) {
-    if (element.tagName === "INPUT") {
-      if (element.type === "text") {
-        jsonData[element.id] = element.value;
-      } else if (element.type === "radio" && element.checked) {
-        jsonData[element.name] = element.value;
-      }
-    } else if (element.tagName === "SELECT") {
-      jsonData[element.id] = element.value;
-    }
-  }
-
-  console.log(jsonData);
-  return jsonData;
-}
-
-
-    // Função para preencher o formulário com dados fictícios ---------------------------------------------------------------------------------------------
-
-// Array de dados fictícios
-let dadosFicticios = [
-  {
-    informacoesImportantes: "Paciente com alergia a penicilina",
-    cpf: "112.289.390-63",
-    nome: "Fulano da Silva",
-    rg: "1234567",
-    CNS: "456789012345678",
-    dataNascimento: "01/01/1990",
-    email: "fulano@example.com",
-    telefone: "(00) 12345-6789",
-    telefone2: "(00) 98765-4321",
-    telefone3: "(00) 11111-2222",
-    estadoCivil: "SOLTEIRO",
-    sexo: "Masculino",
-    corRaca: "Branca",
-    nomeMae: "Ciclana da Silva",
-    nomePai: "Beltrano da Silva",
-    pne: ["Hipertensão", "Diabetes"],
-    enderecoTipo: "Residencial",
-    cep: "12345-678",
-    rua: "Rua dos Exemplos",
-    numero: "123",
-    complemento: "Apto 456",
-    bairro: "Bairro das Amostras",
-    cidade: "Cidadópolis",
-  },
-  {
-    informacoesImportantes: "",
-    cpf: "790.588.720-09",
-    nome: "Ciclana Pereira",
-    rg: "7654321",
-    CNS: "987654321098765",
-    dataNascimento: "15/06/1985",
-    email: "ciclana@example.com",
-    telefone: "(00) 98765-4321",
-    telefone2: "(00) 12345-6789",
-    telefone3: "",
-    estadoCivil: "CASADO",
-    sexo: "Feminino",
-    corRaca: "Parda",
-    nomeMae: "Maria Pereira",
-    nomePai: "José Pereira",
-    pne: ["Nenhum"],
-    enderecoTipo: "Residencial",
-    cep: "54321-987",
-    rua: "Avenida das Flores",
-    numero: "456",
-    complemento: "",
-    bairro: "Bairro Central",
-    cidade: "Cidadelândia",
-  },
-  {
-    informacoesImportantes: "",
-    cpf: "964.940.820-76",
-    nome: "Beltrano Alves",
-    rg: "11223344",
-    CNS: "123456789012345",
-    dataNascimento: "30/11/1982",
-    email: "beltrano@example.com",
-    telefone: "(00) 11111-2222",
-    telefone2: "",
-    telefone3: "",
-    estadoCivil: "DIVORCIADO",
-    sexo: "Masculino",
-    corRaca: "Indígena",
-    nomeMae: "Joana Alves",
-    nomePai: "Pedro Alves",
-    pne: ["Nenhum"],
-    enderecoTipo: "Comercial",
-    cep: "98765-432",
-    rua: "Rua do Comércio",
-    numero: "789",
-    complemento: "Sala 101",
-    bairro: "Centro Empresarial",
-    cidade: "Cidadeforte",
-  },
-  // Adicione mais dados fictícios aqui...
-];
-
-
-function preencherFormulario(indice) {
-  if (indice >= 0 && indice < dadosFicticios.length) {
-    const dados = dadosFicticios[indice];
-    
-    document.getElementById("informacoesImportantes").value = dados.informacoesImportantes;
-    document.getElementById("CPF").value = dados.cpf;
-    document.getElementById("Nome").value = dados.nome;
-    document.getElementById("Rg").value = dados.rg;
-    document.getElementById("CNS").value = dados.CNS;
-    document.getElementById("DataNasc").value = dados.dataNascimento;
-    document.getElementById("Email").value = dados.email;
-    document.getElementById("Tel").value = dados.telefone;
-    document.getElementById("Tel2").value = dados.telefone2;
-    document.getElementById("Tel3").value = dados.telefone3;
-    document.getElementById("EstadoCivil").value = dados.estadoCivil;
-    document.getElementById("Sexo").value = dados.sexo;
-    document.getElementById("CorRaca").value = dados.corRaca;
-    document.getElementById("NomeMae").value = dados.nomeMae;
-    document.getElementById("NomePai").value = dados.nomePai;
-    document.getElementById("PNE").value = dados.pne;
-    document.getElementById("EnderecoTipo").value = dados.enderecoTipo;
-    document.getElementById("Cep").value = dados.cep;
-    document.getElementById("Rua").value = dados.rua;
-    document.getElementById("EndNumero").value = dados.numero;
-    document.getElementById("EndComplemento").value = dados.complemento;
-    document.getElementById("Bairro").value = dados.bairro;
-    document.getElementById("Cidade").value = dados.cidade;
-  } else {
-    console.log("Índice inválido. Escolha um índice entre 0 e " + (dadosFicticios.length - 1));
-  }
-}
-
-// Exemplo de uso: preencher o formulário com o primeiro conjunto de dados fictícios (índice 0)
-//preencherFormulario(0);
-
-</script>
-
-</body>
+        </script>
+      </div>
+    </div>
+  </body>
 </html>

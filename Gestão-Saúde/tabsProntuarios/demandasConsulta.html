@@ -1,0 +1,91 @@
+<div id="demandasConsulta">
+
+    <p></p>
+    <table class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;">
+    <thead class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="font-size: larger; height: auto;">
+        <th style="width: 5%;">Data</th>
+        <!-- <th style="width: 10%;">Curso</th> -->
+        <th style="width: 15%;">Especialidade</th>
+        <th style="width: 60%;">Demanda</th>
+        <th style="width: 20%;">Status</th>
+    </thead>
+    <thead id="tabelaencaminhamentos" class="ui-state-default"><tr style="align-items: center;"></thead>
+    </table>
+
+    <!--Script DEMANDAS-->
+    <script>
+    function adicionarNovaLinha(data) {
+        console.log(data)
+    // Seleciona o corpo da tabela usando o XPath
+    const tbody = document.getElementById("tabelaencaminhamentos")
+    // Cria um novo elemento de linha (<tr>)
+    const novaLinha = document.createElement('tr');
+    novaLinha.style.alignItems = 'center';
+
+    // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
+    novaLinha.innerHTML = `
+        <td role="gridcell" style="text-align:center;">${data.Data}</td>
+        // <td role="gridcell" style="text-align:center;">${data.Curso}</td>
+        <td role="gridcell" style="text-align:center;">${data.Especialidade}</td>
+        <td role="gridcell" style="text-align:center;">${data.Demanda}</td>
+        <td role="gridcell" style="text-align:center;">${data.Status}</td>
+    `;
+
+    // Adiciona a nova linha ao corpo da tabela
+    tbody.appendChild(novaLinha);
+    }
+
+
+    function getDataFromTab(TabId){
+    const parentDiv = document.getElementById(TabId); 
+    const elements = parentDiv.querySelectorAll("input, select, textarea"); // Include textarea elements
+    const jsonData = {};
+
+    for (const element of elements) {
+        if (element.tagName === "INPUT") {
+        if (element.type === "text") {
+            jsonData[element.id] = element.value;
+        } else if (element.type === "radio" && element.checked) {
+            jsonData[element.name] = element.value;
+        }
+        } else if (element.tagName === "SELECT") {
+        jsonData[element.id] = element.value;
+        } else if (element.tagName === "TEXTAREA") { // Handle textarea elements
+        jsonData[element.id] = element.value;
+        }
+    }
+
+    console.log(jsonData);
+    return jsonData;
+    }
+    const codtonome = {
+    "0": "Escolher",
+    "1200": "Enfermagem",
+    "7100": "Farmácia",
+    "400": "Odontologia",
+    "7200": "Terapia Ocupacional"
+    }
+
+
+    function encaminhar(){
+        let Encaminhamentos = getDataFromTab("encaminhamento") 
+        Encaminhamentos.CPF = getUrlVars()["cpf"]
+        Encaminhamentos.Status = "Em espera"
+        Encaminhamentos.Curso = codtonome[Encaminhamentos.Curso]
+        console.log(Encaminhamentos)
+        api.encaminhamentos.criar(Encaminhamentos).then((result)=>{
+    alert(result.message)
+    console.log(result)
+    adicionarNovaLinha(Encaminhamentos)
+        })
+    }
+    const CPF = getUrlVars()["cpf"]
+    api.encaminhamentos.consultar({CPF}).then((encaminhamentos)=>{
+        console.log(encaminhamentos)
+        encaminhamentos.forEach(encaminhamento => {
+        adicionarNovaLinha(encaminhamento)
+        })
+        
+    })
+    </script>
+</div>

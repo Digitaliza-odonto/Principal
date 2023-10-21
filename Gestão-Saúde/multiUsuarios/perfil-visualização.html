@@ -136,19 +136,8 @@
         <H2 style="color: red;"> O ideal seria uma tabela expansível (collapsible) com uma linha por entrevista, quando clica abre as informações</H2>
 
         <div id="planosConsulta">
-          <!-- Imported content will be placed here -->
+          <?php echo file_get_contents('../tabsProntuarios/planosConsulta.html');     ?>
         </div>
-
-        <script>
-          fetch('/Gestão-Saúde/tabsProntuarios/planosConsulta.html')
-              .then(response => response.text())
-              .then(data => {
-                  document.getElementById('planosConsulta').innerHTML = data;
-              })
-              .catch(error => {
-                  console.error('Error:', error);
-              });
-        </script>
           
       </div>
 
@@ -158,19 +147,10 @@
         <H2 style="color: red;"> FALTA AJUSTAR O SCRIPT PRA BUSCAR O REGISTROS DE ATENDIMENTO DO PACIENTE</H2>
 
         <div id="historicoAtendimentos">
-          <!-- Imported content will be placed here -->
+          <?php echo file_get_contents('../tabsProntuarios/historicoAtendimentos.html');     ?>
         </div>
 
-        <script>
-          fetch('/Gestão-Saúde/tabsProntuarios/historicoAtendimentos.html')
-              .then(response => response.text())
-              .then(data => {
-                  document.getElementById('historicoAtendimentos').innerHTML = data;
-              })
-              .catch(error => {
-                  console.error('Error:', error);
-              });
-        </script>
+
 
 
 
@@ -180,19 +160,8 @@
       <div id="tab-5" class="ui-widget tab tab-5 tab-5 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-5" role="tabpanel" aria-expanded="true" aria-hidden="false">
       
         <div id="examesVisualizar">
-          <!-- Imported content will be placed here -->
+          <?php echo file_get_contents('../tabsProntuarios/examesVisualizar.html');     ?>
         </div>
-
-        <script>
-          fetch('/Gestão-Saúde/tabsProntuarios/examesVisualizar.html')
-              .then(response => response.text())
-              .then(data => {
-                  document.getElementById('examesVisualizar').innerHTML = data;
-              })
-              .catch(error => {
-                  console.error('Error:', error);
-              });
-        </script>
       </div>
     </div>
   </body>

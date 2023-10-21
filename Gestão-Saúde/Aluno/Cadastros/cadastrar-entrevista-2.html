@@ -48,6 +48,108 @@
       <!-- HIDDEN DIV FOR ALERT MESSAGE -->
   </head>
 
+
+  <script>
+    // Function to show/hide content based on radio button selection
+    function toggleDisplay(divId, radioName, targetValue) {
+    const radioButtons = document.querySelectorAll(`input[name="${radioName}"]`);
+    const targetDiv = document.getElementById(divId);
+
+    // Function to handle radio button change
+    function handleRadioButtonChange() {
+        if (radioButtons[radioButtons.length - 1].checked && radioButtons[radioButtons.length - 1].value === targetValue) {
+            targetDiv.style.display = "block"; // Show the target div
+        } else {
+            targetDiv.style.display = "none"; // Hide the target div
+        }
+    }
+
+    // Add event listener to each radio button
+    radioButtons.forEach(function (radioBtn) {
+        radioBtn.addEventListener("change", handleRadioButtonChange);
+    });
+
+    // Initialize the state based on the initial selection
+    handleRadioButtonChange();
+    }
+
+    // Call the function for each set of radio buttons and target divs
+    toggleDisplay("displayNotdisplay1", "doenca_YN", "Sim");
+    toggleDisplay("displayNotdisplay2", "tto_medico_YN", "Sim");
+    toggleDisplay("displayNotdisplay3", "medicacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay4", "alergia_YN", "Sim");
+    toggleDisplay("displayNotdisplay5", "fumante_YN", "Sim");
+    toggleDisplay("displayNotdisplay6", "etilista_YN", "Sim");
+    toggleDisplay("displayNotdisplay7", "operado_YN", "Sim");
+    toggleDisplay("displayNotdisplay8", "cicatrizacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay9", "anestesia_YN", "Sim");
+    toggleDisplay("displayNotdisplay10", "hemorragia_YN", "Sim");
+    toggleDisplay("displayNotdisplay11", "gravidez_YN", "Sim");
+    toggleDisplay("displayNotdisplay12", "probGravidez_YN", "Sim");
+    toggleDisplay("displayNotdisplay13", "doencaInfancia_YN", "Sim");
+    toggleDisplay("displayNotdisplay14", "internacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay15", "historicoMedicacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay16", "alergia_YN_Ped", "Sim");
+    toggleDisplay("displayNotdisplay17", "respiratorio_YN", "Sim");
+    toggleDisplay("displayNotdisplay18", "cardiaco_YN", "Sim");
+    toggleDisplay("displayNotdisplay19", "sanguineo_YN", "Sim");
+    toggleDisplay("displayNotdisplay20", "diabetes_YN", "Sim");
+    toggleDisplay("displayNotdisplay21", "medicacao_YN_Ped", "Sim");
+    
+    // Function to load content and call toggleDisplay after content is loaded
+    function loadContentAndInitialize() {
+      fetch('/Gestão-Saúde/tabsProntuarios/entrevistaCadastro.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('entrevistaAdulto').innerHTML = data;
+          
+          // Call toggleDisplay after the content is loaded
+          toggleDisplay("displayNotdisplay1", "doenca_YN", "Sim");
+          toggleDisplay("displayNotdisplay2", "tto_medico_YN", "Sim");
+          toggleDisplay("displayNotdisplay3", "medicacao_YN", "Sim");
+          toggleDisplay("displayNotdisplay4", "alergia_YN", "Sim");
+          toggleDisplay("displayNotdisplay5", "fumante_YN", "Sim");
+          toggleDisplay("displayNotdisplay6", "etilista_YN", "Sim");
+          toggleDisplay("displayNotdisplay7", "operado_YN", "Sim");
+          toggleDisplay("displayNotdisplay8", "cicatrizacao_YN", "Sim");
+          toggleDisplay("displayNotdisplay9", "anestesia_YN", "Sim");
+          toggleDisplay("displayNotdisplay10", "hemorragia_YN", "Sim");
+          toggleDisplay("displayNotdisplay11", "gravidez_YN", "Sim");
+          toggleDisplay("displayNotdisplay12", "probGravidez_YN", "Sim");
+          toggleDisplay("displayNotdisplay13", "doencaInfancia_YN", "Sim");
+          toggleDisplay("displayNotdisplay14", "internacao_YN", "Sim");
+          toggleDisplay("displayNotdisplay15", "historicoMedicacao_YN", "Sim");
+          toggleDisplay("displayNotdisplay16", "alergia_YN_Ped", "Sim");
+          toggleDisplay("displayNotdisplay17", "respiratorio_YN", "Sim");
+          toggleDisplay("displayNotdisplay18", "cardiaco_YN", "Sim");
+          toggleDisplay("displayNotdisplay19", "sanguineo_YN", "Sim");
+          toggleDisplay("displayNotdisplay20", "diabetes_YN", "Sim");
+          toggleDisplay("displayNotdisplay21", "medicacao_YN_Ped", "Sim");
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+    }
+
+    // Listen for the 'DOMContentLoaded' event before initializing content
+    document.addEventListener('DOMContentLoaded', loadContentAndInitialize);
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <body>
     <!-- CONTEÚDO DA PÁGINA/TELA PRINCIPAL COBALTO -->
     <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
@@ -65,7 +167,7 @@
       <!-- CONTEÚDO BOTÕES -->
       <div class="ui-widget-content ui-corner-all toolbar">
         <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Salvar</button>
+        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitForm()" style="float: left;">Salvar</button>
         <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
         <span style="clear: both; display: block"></span>
       </div>
@@ -119,577 +221,221 @@
           
             <p></p>
             <br>
-            <hr class="ui-state-default">
           </div>
             
-          <div>
-            <p></p>
-            <br>
-            <label style="width: 120px; ;margin: 5px;">CPF</label>
-            <input type="text" name="Cpf" id="Cpf" maxlength="" class="ui-state-default ui-corner-all mousetrap cpf" onblur="pesquisaPessoa()" style="width: 100px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">Nome</label>
-            <input type="text" name="Nome" id="Nome" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
-            <br>
-            
-            <label style="width: 120px; ;margin: 5px;">RG</label>
-            <input type="text" name="Rg" id="Rg" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">Cartão SUS (CNS)</label>
-            <input type="text" name="CNS" id="CNS" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;" readonly="readonly">
-            <br>
-            
-            <label style="width: 120px; ;margin: 5px;"  >Dt. nascimento</label>
-            <input type="text" name="DataNasc" id="DataNasc" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 80px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">E-mail</label>
-            <input type="text" name="Email" id="Email" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">Telefone</label>
-            <input type="text" name="Tel" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">Telefone 2 (Opcional)</label>
-            <input type="text" name="Tel2" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
-            <br>
-          
-            <label style="width: 120px; ;margin: 5px;">Telefone 3 (Opcional)</label>
-            <input type="text" name="Tel3" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
-            <br>
-            
-            <label style="width: 120px; ;margin: 5px;">Estado civil</label>
-            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="EstadoCivil" id="EstadoCivil" disabled>
-              <option value="CASADO">CASADO</option>
-              <option value="DIVORCIADO">DIVORCIADO</option>
-              <option value="OUTROS">OUTROS</option>
-              <option value="SEPARADO">SEPARADO JUDICIALMENTE</option>
-              <option value="SOLTEIRO">SOLTEIRO</option>
-              <option value="VIUVO">VIUVO</option>
-            </select>
-            <br>
-
-            <label style="width: 120px; ;margin: 5px;">Sexo</label>
-            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="Sexo" id="Sexo" disabled>
-              <option value="Masculino">Masculino</option>
-              <option value="Feminino">Feminino</option>
-                </select> 
-            <br>
-
-            <label style="width: 120px; ;margin: 5px;">Cor/Raça</label>
-            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="CorRaca" id="CorRaca" disabled>
-              <option value="Amarelo">Amarelo</option>
-              <option value="Branca">Branca</option>
-              <option value="Indígena">Indígena</option>
-              <option value="Parda">Parda</option>
-              <option value="Não quis declarar">Não quis declarar</option>
-            </select> 
-
-            <hr class="ui-state-default">
-            <label style="font-weight:bold;width: 120px;" readonly="readonly">Filiação</label>
-            <br>
-
-            <label style="width: 120px; margin: 5px;">Nome da mãe</label>
-            <input type="text" name="NomeMae" id="NomeMae" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
-
-            <br>
-            <label style="width: 120px;margin: 5px;">Nome do pai</label>
-            <input type="text" name="NomePai" id="NomePai" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
-            
-            <br>
-            <hr class="ui-state-default">
-            <label style="width: 600px;">Condição sistêmica/Necessidade especial: (Segurar control para fazer seleçoes múltiplas)</label><br>
-            <select class="ui-state-default ui-corner-all" style="width: 100px;margin: 5px;" name="PNE" id="PNE" multiple disabled>
-              <option value="Hipertensão">Hipertensão</option>
-              <option value="Diabetes">Diabetes</option>
-              <option value="Hepatite B">Hepatite B</option>
-              <option value="Hepatite C">Hepatite C</option>
-              <option value="Soropositivo">Soropositivo</option>
-            </select> 
-
-            <hr class="ui-state-default"><label style="font-weight:bold;width: 120px;">Endereço:</label>
-            <br>
-            
-            <label style="width: 120px;">Tipo de endereço</label>
-            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="EnderecoTipo" id="EnderecoTipo" disabled>
-              <option value="Comercial">Comercial</option>
-              <option value="Família">Família</option>
-              <option value="Residencial">Residencial</option>
-            </select> 
-            <br>
-
-            <label style="width: 120px;">CEP</label>
-            <input type="text" name="Cep" id="Cep" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap cep" style="width: 100px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px;">Endereço</label>
-            <input type="text" name="Rua" id="Rua" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px;">Número</label>
-            <input type="text" name="EndNumero" id="EndNumero" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px;">Complemento</label>
-            <input type="text" name="EndComplemento" id="EndComplemento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px;">Bairro</label>
-            <input type="text" name="Bairro" id="Bairro" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-            <br>
-
-            <label style="width: 120px;">Cidade</label>
-            <input type="text" name="Cidade" id="Cidade" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-            <br>
-
-            
-            <script src="/API/API.js"></script>
-
-            <script type="text/javascript">
-              // Função para preencher o formulário com os dados do perfil
-              function preencherFormulario(dados) {
-                  console.log(dados)
-                  document.getElementById("Cpf").value = dados.CPF;
-                  document.getElementById("Nome").value = dados.Nome;
-                  document.getElementById("Nometab").innerText = dados.Nome;
-                  document.getElementById("Rg").value = dados.Rg;
-                  document.getElementById("DataNasc").value = dados.DataNasc;
-                  document.getElementById("Email").value = dados.Email;
-                  document.getElementById("Tel").value = dados.Tel;
-                  document.getElementById("EstadoCivil").value = dados.EstadoCivil;
-                  document.getElementById("Sexo").value = dados.Sexo;
-                  document.getElementById("CorRaca").value = dados.CorRaca;
-                  document.getElementById("NomeMae").value = dados.NomeMae;
-                  document.getElementById("NomePai").value = dados.NomePai;
-                  document.getElementById("PNE").value = dados.PNE;
-                  document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
-                  document.getElementById("Cep").value = dados.Cep;
-                  document.getElementById("Rua").value = dados.Rua;
-                  document.getElementById("EndNumero").value = dados.EndNumero;
-                  document.getElementById("EndComplemento").value = dados.EndComplemento;
-                  document.getElementById("Bairro").value = dados.Bairro;
-                  document.getElementById("Cidade").value = dados.Cidade;
-                }
-            
-                // Função para buscar o perfil usando a API
-                function buscarPerfil() {
-                  const cpf = getUrlVars()['cpf'];
-                  if (cpf) {
-                    api.pacientes.consultar({ CPF: cpf })
-                      .then((pacientes) => {
-                        if (pacientes.length === 0) {
-                          console.log('Nenhum paciente encontrado');
-                        } else {
-                          preencherFormulario(pacientes[0]);
-                        }
-                      })
-                      .catch((error) => {
-                        console.error('Erro ao consultar perfil:', error);
-                      });
-                  } else {
-                    console.log('CPF não encontrado na URL.');
-                  }
-                }
-            
-                // Função para obter parâmetros da URL
-                function getUrlVars() {
-                  var vars = {};
-                  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                    vars[key] = value;
-                  });
-                  return vars;
-              
-                }
-            
-                // Chamar a função para buscar o perfil
-                buscarPerfil();
-            </script>
+          <div id="capaContent">
+            <!-- Imported content will be placed here -->
           </div>
+
+          <script>
+            fetch('/Gestão-Saúde/tabsProntuarios/capaConsulta.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('capaContent').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+          </script>
+
+          <script src="/API/API.js"></script>
+
+          <script type="text/javascript">
+            // Função para preencher o formulário com os dados do perfil
+            function preencherFormulario(dados) {
+                console.log(dados)
+                document.getElementById("Cpf").value = dados.CPF;
+                document.getElementById("Nome").value = dados.Nome;
+                document.getElementById("Nometab").innerText = dados.Nome;
+                document.getElementById("Rg").value = dados.Rg;
+                document.getElementById("DataNasc").value = dados.DataNasc;
+                document.getElementById("Email").value = dados.Email;
+                document.getElementById("Tel").value = dados.Tel;
+                document.getElementById("EstadoCivil").value = dados.EstadoCivil;
+                document.getElementById("Sexo").value = dados.Sexo;
+                document.getElementById("CorRaca").value = dados.CorRaca;
+                document.getElementById("NomeMae").value = dados.NomeMae;
+                document.getElementById("NomePai").value = dados.NomePai;
+                document.getElementById("PNE").value = dados.PNE;
+                document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
+                document.getElementById("Cep").value = dados.Cep;
+                document.getElementById("Rua").value = dados.Rua;
+                document.getElementById("EndNumero").value = dados.EndNumero;
+                document.getElementById("EndComplemento").value = dados.EndComplemento;
+                document.getElementById("Bairro").value = dados.Bairro;
+                document.getElementById("Cidade").value = dados.Cidade;
+              }
+          
+              // Função para buscar o perfil usando a API
+              function buscarPerfil() {
+                const cpf = getUrlVars()['cpf'];
+                if (cpf) {
+                  api.pacientes.consultar({ CPF: cpf })
+                    .then((pacientes) => {
+                      if (pacientes.length === 0) {
+                        console.log('Nenhum paciente encontrado');
+                      } else {
+                        preencherFormulario(pacientes[0]);
+                      }
+                    })
+                    .catch((error) => {
+                      console.error('Erro ao consultar perfil:', error);
+                    });
+                } else {
+                  console.log('CPF não encontrado na URL.');
+                }
+              }
+          
+              // Função para obter parâmetros da URL
+              function getUrlVars() {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                  vars[key] = value;
+                });
+                return vars;
+            
+              }
+          
+              // Chamar a função para buscar o perfil
+              buscarPerfil();
+          </script>
         </div>
+        
 
         <!--INÍCIO DA TAB ENTREVISTA DIALOGADA ADULTOS-->
         <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
-          <div>
-            <!-- CONTEÚDO COLUNA DA ESQUERDA -->
-            <div style="width: 50%; float: left; padding-bottom: 8px; box-sizing: border-box;">
-              <div style="margin: 5px;">
-
-                <div class="question">
-                  <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
-                  <textarea id="queixa" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 75%; margin-top: 10px;"></textarea>
-                  <br>
-                </div>
-                
-                <div class="question" style="margin-top: 20px;">
-                  <label for="doenca_YN">Sofre de alguma doença?</label>
-                  <label><input type="radio" name="doenca_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="doenca_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay11">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="doenca" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 380px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="tto_medico_YN">Está em tratamento médico atualmente?</label>
-                  <label><input type="radio" name="tto_medico_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="tto_medico_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay12">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="tto_medico" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 310px;">
-                  </div>
-                  <br>
-                </div>
-                  
-                <div class="question">
-                  <label for="medicacao_YN">Está fazendo uso de alguma medicação?</label>
-                  <label><input type="radio" name="medicacao_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="medicacao_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay13">
-                    <br>
-                    <label style="width: 200px; margin-left: 5px;">Qual(is) medicamentos e dosagens?</label><br>
-                    <input type="text" id="medicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 310px;">
-                  </div>
-                  <br>
-                </div>
-    
-                <div class="question" style="margin-top: 10px;">
-                  <label for="alergia_YN">Tem alergia(s)?</label>
-                  <label><input type="radio" name="alergia_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="alergia_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay15">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="alergia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 430px;">
-                  </div>
-                  <br>
-                </div>
-    
-                <div class="question">
-                  <label for="fumante_YN">É fumante?</label>
-                  <label><input type="radio" name="fumante_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="fumante_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay16">
-                    <label style="width: 100px; margin-left: 5px;">Há quanto tempo? </label>
-                    <input type="text" id="fumante" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;">
-                  </div>
-                  <br>
-                </div>
-    
-                <div class="question">
-                  <label for="etilista_YN">É etilista?</label>
-                  <label><input type="radio" name="etilista_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="etilista_YN" value="Sim"> Sim</label>
-    
-                  <div id="displayNotdisplay14">
-                    <label style="width: 100px; margin-left: 5px;">Há quanto tempo? </label>
-                    <input type="text" id="etilista" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 410px;">
-                  </div>
-                  <br>
-                  </div>
-    
-                  <div class="question">
-                    <label for="ultimaConsulta">Última consulta odontológica</label>
-                    <input type="text" name="ultimaConsulta" id="ultimaConsulta" maxlength="255" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 100px;">
-                    <br>
-                  </div>
-    
-                  <div class="question">
-                    <label for="ultimoTTO" style="margin-top: 10px;">Tratamento realizado </label>
-                    <input type="text" id="ultimoTTO" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 560px; margin-top: 10px;">
-                    <br>
-                  </div>
-    
-                  <div class="question" style="margin-top: 10px;">
-                    <label for="freq_higiene">Hábitos de Higiêne/Frequência</label>
-                    <input type="text" name="freq_higiene" id="freq_higiene" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 515px;">
-                    <br>
-                  </div>
-                  
-                  <div class="question" style="margin-top: 10px;">
-                    <label for="instr_higiene">Instrumentos utilizados na Higiêne</label>
-                    <label><input type="checkbox" name="escova" value="Escova">Escova</label>
-                    <label><input type="checkbox" name="fio" value="Fio">Fio</label>
-                    <label><input type="checkbox" name="outros" value="Outros"> Outros</label>
-                    <input type="text" name="outros_desc" id="outros_desc" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;"><br>
-                  </div>
-    
-                  <div class="question">
-                    <label for="fluor">Acesso a flúor</label>
-                    <label><input type="checkbox" name="dentifrício" value="Dentifrício"> Dentifrício</label>
-                    <label><input type="checkbox" name="bochecho" value="Bochecho"> Bochecho</label>
-                    <label><input type="checkbox" name="aplicacaoProfissional" value="Aplicação Profissional"> Aplicação Profissional</label>
-                    <br>
-                  </div>
-              </div>
+          
+          <script>
+            function submitForm() {
+                var formData = {
+                    Cpf: $('#Cpf').val(),
+                    queixa: $('#queixa').val() || '',
+                    doenca_YN: $('#doenca_YN').val() || 'Não',
+                    doenca: $('#doenca').val() || '',
+                    tto_medico_YN: $('#tto_medico_YN').val() || 'Não',
+                    tto_medico: $('#tto_medico').val() || '',
+                    medicacao_YN: $('#medicacao_YN').val() || 'Não',
+                    medicacao: $('#medicacao').val() || '',
+                    alergia_YN: $('#alergia_YN').val() || 'Não',
+                    alergia: $('#alergia').val() || '',
+                    fumante_YN: $('#fumante_YN').val() || 'Não',
+                    fumante: $('#fumante').val() || '',
+                    etilista_YN: $('#etilista_YN').val() || 'Não',
+                    etilista: $('#etilista').val() || '',
+                    ultimaConsulta: $('#ultimaConsulta').val() || '',
+                    ultimoTTO: $('#ultimoTTO').val() || '',
+                    freq_higiene: $('#freq_higiene').val() || '',
+                    instr_higiene: $('#instr_higiene').val() || '',
+                    fluor: $('#fluor').val() || '',
+                    operado_YN: $('#operado_YN').val() || 'Não',
+                    operado: $('#operado').val() || '',
+                    cicatrizacao_YN: $('#cicatrizacao_YN').val() || 'Não',
+                    cicatrizacao: $('#cicatrizacao').val() || '',
+                    anestesia_YN: $('#anestesia_YN').val() || 'Não',
+                    anestesia: $('#anestesia').val() || '',
+                    hemorragia_YN: $('#hemorragia_YN').val() || 'Não',
+                    hemorragia: $('#hemorragia').val() || '',
+                    gravidez_YN: $('#gravidez_YN').val() || 'Não',
+                    gravidez: $('#gravidez').val() || '',
+                    historicoFamiliar: $('#historicoFamiliar').val() || '',
+                    obs: $('#obs').val() || '',
+                    medico: $('#medico').val() || '',
+                    medicoTEL: $('#medicoTEL').val() || '',
+        
+                    // Pediatria
+                    queixaPed: $('#queixaPed').val() || '',
+                    probGravidez_YN: $('#probGravidez_YN').val() || 'Não',
+                    probGravidez: $('#probGravidez').val() || '',
+                    tipoParto: $('#tipoParto').val() || '',
+                    doencaInfancia_YN: $('#doencaInfancia_YN').val() || 'Não',
+                    doencaInfancia: $('#doencaInfancia').val() || '',
+                    internacao_YN: $('#internacao_YN').val() || 'Não',
+                    internacao: $('#internacao').val() || '',
+                    historicoMedicacao: $('#historicoMedicacao').val() || '',
+                    alergia_YN_Ped: $('#alergia_YN_Ped').val() || 'Não',
+                    alergia_Ped: $('#alergia_Ped').val() || '',
+                    respiratorio_YN: $('#respiratorio_YN').val() || 'Não',
+                    respiratorio: $('#respiratorio').val() || '',
+                    cardiaco_YN: $('#cardiaco_YN').val() || 'Não',
+                    cardiaco: $('#cardiaco').val() || '',
+                    sanguineo_YN: $('#sanguineo_YN').val() || 'Não',
+                    sanguineo: $('#sanguineo').val() || '',
+                    diabetes_YN: $('#diabetes_YN').val() || 'Não',
+                    diabetes: $('#diabetes').val() || '',
+                    medicacao_YN_Ped: $('#medicacao_YN_Ped').val() || 'Não',
+                    medicacao_Ped: $('#medicacao_Ped').val() || '',
+                    pediatra: $('#pediatra').val() || '',
+                    telPediatra: $('#telPediatra').val() || '',
+                    obs_ped: $('#obs_ped').val() || ''
+                };
+        
+                console.log(formData);
+        
+                // Perform API request
+                api.entrevistaDialogada.criar(formData)
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    }
+                    throw new Error('Network response was not ok.');
+                })
+                .then(data => {
+                    console.log(data);
+                    if (data.message) {
+                        console.log(data.message);
+                        showCustomAlert(data.message);
+                    } else {
+                        console.log(data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showCustomAlert('Error occurred while processing your request.');
+                });
+            }
+          </script>
+                    
+          <form id="entrevistaForm">
+            <div id="entrevistaAdulto">
+              <!-- Imported content will be placed here -->
             </div>
 
-            <!-- CONTEÚDO COLUNA DA DIREITA -->
-            <div style="width: 50%; float: left; padding-bottom: 8px; box-sizing: border-box;">
-              <div style="margin: 5px;">
-                <p style="margin-top: 20px; font-weight: bold;">Histórico médico</p>
-                <div class="question">
-                  <label for="operado_YN">Já foi operado?</label>
-                  <label><input type="radio" name="operado_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="operado_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay17">
-                    <label style="width: 150px; margin-left: 5px;">Qual(is) procedimento(s)? </label>
-                    <input type="text" id="operado" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="cicatrizacao_YN">Teve problemas com a cicatrização?</label>
-                  <label><input type="radio" name="cicatrizacao_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="cicatrizacao_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay18">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="cicatrizacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="anestesia_YN">Teve problemas com anestesia?</label>
-                  <label><input type="radio" name="anestesia_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="anestesia_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay19">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="anestesia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 370px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="hemorragia_YN">Teve problemas de hemorrgia?</label>
-                  <label><input type="radio" name="hemorragia_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="hemorragia_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay20">
-                    <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
-                    <input type="text" id="hemorragia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 380px;">
-                  </div>
-                  <br>
-                </div>
-
-                <div class="question">
-                  <label for="gravidez_YN">Gravidez?</label>
-                  <label><input type="radio" name="gravidez_YN" value="Não" checked> Não</label>
-                  <label><input type="radio" name="gravidez_YN" value="Sim"> Sim</label>
-                  
-                  <div id="displayNotdisplay21">
-                    <label style="width: 175px; margin-left: 5px;">Quanto tempo de gestação? </label>
-                    <input type="text" id="gravidez" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;">
-                  </div>
-                  <br>
-                </div>
-              
-                <div class="question">
-                  <label for="historicoFamiliar">Antecedentes Familiares:</label><br>
-                  <textarea id="historicoFamiliar" class="ui-state-default ui-corner-all mousetrap" rows="3" cols="50" style="width: 55%"></textarea>
-                  <br>
-                </div>
-
-                <div class="question">
-                    <label for="obs">Outras observações importantes:</label><br>
-                    <textarea id="obs" class="ui-state-default ui-corner-all mousetrap"  rows="5" cols="50" style="width: 55%"></textarea>
-                    <br>
-                </div>
-              </div>
-            </div>
-            <br>
-                
-            <hr class="ui-state-default">
-            
-            <div class="question" style="margin-top: 15px;">
-              <label for="medico">Nome do médico(a):</label>
-              <input type="text" class="ui-state-default ui-corner-all mousetrap" id="medico" style="width: 200px;">
-              <br>
-
-              <label for="medicoTEL">Telefone do(a) médico(a):</label>
-              <input type="text" class="ui-state-default ui-corner-all mousetrap" id="medicoTEL" style="width: 200px;">
-              <br>
-
-            </div>
-
-            <p></p><br>
-
-            <hr class="ui-state-default">
-            <label style="width: 550px; margin: 5px; margin-top: 10px;">Observações:</label><br>
-            <textarea style="width: 55%; margin: 5px;" id="entrevistaDialogPed20" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-            <br>
-          </div>
+            <script>
+              fetch('/Gestão-Saúde/tabsProntuarios/entrevistaCadastro.html')
+                  .then(response => response.text())
+                  .then(data => {
+                      document.getElementById('entrevistaAdulto').innerHTML = data;
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                  });
+            </script>
         </div>
-
+          
         <!--INÍCIO DA TAB PEDIATRIA-->
         <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false">
-          <div>
 
-            <div class="question">
-              <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
-              <textarea id="queixaPed" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 35%; margin-top: 10px;"></textarea>
-              <br>
-            </div>
-
-            <!-- CONTEÚDO COLUNA DA ESQUERDA -->
-            <div style="width: 50%; float: left; padding-bottom: 8px; box-sizing: border-box;">
-  
-              <div style="margin: 5px;">
-                <p style="margin-top: 20px; font-weight: bold; font-size: larger;">História pregressa</p>
-
-                <label for="probGravidez_YN" style="margin-top: 10px; width: 180px;">Problemas na gestação?</label>
-                <label style="margin-top: 10px;"><input type="radio" id="probGravidez_YN" value="Não" checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" id="probGravidez_YN" value="Sim">Sim</label>
-                
-                <div id="displayNotdisplay1">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                  <input type="text" id="probGravidez" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;margin-top: 10px;">
-                
-                </div>
-                <br>
-                        
-                <label for="tipParto" style="margin-top: 10px; width: 180px;">Tipo de parto?</label>
-                <label style="margin-top: 10px;"><input type="radio" id="tipParto" value="Normal" checked>Normal</label>
-                <label style="margin-top: 10px;"><input type="radio" id="tipParto" value="Cesariana">Cesariana</label>
-                <label style="margin-top: 10px;"><input type="radio" id="tipParto" value="Outro">Outro</label>
-                <p></p><br>
-
-                <label for="doencaInfancia_YN" style="margin-top: 10px; width: 180px;">Doenças da infância?</label>
-                <label style="margin-top: 10px;"><input type="radio" id="doencaInfancia_YN" value="Não" checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" id="doencaInfancia_YN" value="Sim">Sim</label>
-
-                <div id="displayNotdisplay2">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                  <input type="text" id="doencaInfancia" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;margin-top: 10px;">
-                </div>
-                <br>
-                
-                <label for="internacao_YN" style="margin-top: 10px; width: 180px;">Internação hospitalar??</label>
-                <label style="margin-top: 10px;"><input type="radio" id="internacao_YN" value="Não" checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" id="internacao_YN" value="Sim">Sim</label>
-                
-                <div id="displayNotdisplay3">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px; width: 150px;">Motivo(s) e idade na ocasião? </label>
-                  <input type="text" id="internacao_YN" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 250px;margin-top: 10px;">
-                </div>
-                <br>
-
-                <label for="historicoMedicacao_YN" style="margin-top: 10px; width: 180px;">Histórico de uso de medicamentos?</label>
-                <label style="margin-top: 10px;"><input type="radio" id="historicoMedicacao_YN" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" id="historicoMedicacao_YN" value="Sim">Sim</label>
-                <br>
-                
-                <div id="displayNotdisplay4">
-                  <label for="historicoMedicacao" style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                  <textarea style="width: 75%; height: 50px; margin: 5px;" id="historicoMedicacao" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-                </div>
-              </div>
-            </div>
-
-            <!-- CONTEÚDO COLUNA DA DIREITA -->
-            <div style="width: 50%; float: left; padding-bottom: 8px; box-sizing: border-box;">
-              <div style="margin: 5px;">
-                <p style="margin-top: 20px; font-weight: bold; font-size: larger;">Condição atual</p>
-
-                <label for="alergia_YN_Ped" style="margin-top: 10px; width: 150px;">Alérgico?</label>
-                <label style="margin-top: 10px;"><input type="radio" name="alergia_YN_Ped" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" name="alergia_YN_Ped" value="Sim">Sim</label>
-                
-                <div id="displayNotdisplay5">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                  <input type="text" id="alergia_Ped" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 250px;margin-top: 10px;">
-                </div>
-                <br>
-    
-                <label for="respiratorio_YN" style="margin-top: 10px; width: 150px;">Problemas respiratórios?</label>
-                <label style="margin-top: 10px;"><input type="radio" name="respiratorio_YN" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" name="respiratorio_YN" value="Sim">Sim</label>
-                
-                <div id="displayNotdisplay6">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                  <input type="text" id="respiratorio" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 250px;margin-top: 10px;">
-                </div>
-                <br>
-    
-                <label for="cardiaco_YN" style="margin-top: 10px; width: 150px;">Problemas cardíacos?</label>
-                <label style="margin-top: 10px;"><input type="radio" name="cardiaco_YN" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" name="cardiaco_YN" value="Sim">Sim</label>
-                  
-                <div id="displayNotdisplay7">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                    <input type="text" id="cardiaco" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 250px;margin-top: 10px;">
-                </div>
-                <br>
-    
-                <label for="sanguineo_YN" style="margin-top: 10px; width: 150px;">Problemas sanguíneos?</label>
-                <label style="margin-top: 10px;"><input type="radio" name="sanguineo_YN" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" name="sanguineo_YN" value="Sim">Sim</label>
-                  
-                <div id="displayNotdisplay8">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                  <input type="text" id="sanguineo" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 250px;margin-top: 10px;">
-                </div>
-                <br>
-    
-                <label for="diabetes_YN" style="margin-top: 10px; width: 150px;">Diabetes?</label>
-                <label style="margin-top: 10px;"><input type="radio" name="diabetes_YN" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" name="diabetes_YN" value="Sim">Sim</label>
-                  
-                <div id="displayNotdisplay9">
-                  <label for="diabetes" style="margin-top: 10px; margin-left: 25px;">Está compensada?</label>
-                  <label style="margin-top: 10px;"><input type="radio" name="diabetes" value="Não"  checked>Não</label>
-                  <label style="margin-top: 10px;"><input type="radio" name="diabetes" value="Sim">Sim</label>
-                </div>
-                <br>
-    
-                <label for="medicacao_YN_Ped" style="margin-top: 10px; width: 150px;">Usa medicamentos atualmente?</label>
-                <label style="margin-top: 10px;"><input type="radio" name="medicacao_YN_Ped" value="Não"  checked>Não</label>
-                <label style="margin-top: 10px;"><input type="radio" name="medicacao_YN_Ped" value="Sim">Sim</label>
-                <br>
-                  
-                <div id="displayNotdisplay10">
-                  <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
-                  <textarea style="width: 55%; margin: 5px;" id="medicacao_Ped" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-                </div>
-                <br>
-                <p></p>
-                <br>
-              </div>
-            </div>
-            <br>
-                
-            <hr class="ui-state-default">
-            <label style="width: 120px; margin-top: 25px;">Nome do(a) pediatra:</label>
-            <input type="text" id="pediatra" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;margin-top: 25px;">
-            <br>
-
-            <label style="width: 120px;">Telefone: </label>
-            <input type="text" id="telPediatra" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
-            <br>
-
-            <p></p><br>
-            <hr class="ui-state-default">
-            <label style="width: 550px; margin: 5px; margin-top: 25px;">Observações:</label><br>
-            <textarea style="width: 55%; margin: 5px;" id="obs_ped" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-            <br>
+          <div id="entrevistaPed">
+            <!-- Imported content will be placed here -->
           </div>
+
+          <script>
+            fetch('/Gestão-Saúde/tabsProntuarios/entrevistaPedCadastro.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('entrevistaPed').innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+          </script>
+          </form>
         </div>
       </div>
     </div>
   </body>
-  <script>
+
+  <!-- <script>
     // Function to show/hide content based on radio button selection
     function toggleDisplay(divId, radioName, targetValue) {
         const radioButtons = document.querySelectorAll(`input[name="${radioName}"]`);
@@ -714,27 +460,64 @@
     }
 
     // Call the function for each set of radio buttons and target divs
-    toggleDisplay("displayNotdisplay1", "entrevistaDialogPed1", "Sim");
-    toggleDisplay("displayNotdisplay2", "entrevistaDialogPed4", "Sim");
-    toggleDisplay("displayNotdisplay3", "entrevistaDialogPed6", "Sim");
-    toggleDisplay("displayNotdisplay4", "entrevistaDialogPed8", "Sim");
-    toggleDisplay("displayNotdisplay5", "entrevistaDialogPed10", "Sim");
-    toggleDisplay("displayNotdisplay6", "entrevistaDialogPed12", "Sim");
-    toggleDisplay("displayNotdisplay7", "entrevistaDialogPed14", "Sim");
-    toggleDisplay("displayNotdisplay8", "entrevistaDialogPed16", "Sim");
-    toggleDisplay("displayNotdisplay9", "entrevistaDialogPed18", "Sim");
-    toggleDisplay("displayNotdisplay10", "entrevistaDialogPed20", "Sim");
-    toggleDisplay("displayNotdisplay11", "doenca", "Sim");
-    toggleDisplay("displayNotdisplay12", "tratamento", "Sim");
-    toggleDisplay("displayNotdisplay13", "medicacao", "Sim");
-    toggleDisplay("displayNotdisplay14", "etilista", "Sim");
-    toggleDisplay("displayNotdisplay15", "alergia", "Sim");
-    toggleDisplay("displayNotdisplay16", "fumante", "Sim");
-    toggleDisplay("displayNotdisplay17", "operado", "Sim");
-    toggleDisplay("displayNotdisplay18", "cicatrizacao", "Sim");
-    toggleDisplay("displayNotdisplay19", "anestesiado", "Sim");
-    toggleDisplay("displayNotdisplay20", "sangramento", "Sim");
-    toggleDisplay("displayNotdisplay21", "gravidez", "Sim");
-          
-  </script>
+    toggleDisplay("displayNotdisplay1", "doenca_YN", "Sim");
+    toggleDisplay("displayNotdisplay2", "tto_medico_YN", "Sim");
+    toggleDisplay("displayNotdisplay3", "medicacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay4", "alergia_YN", "Sim");
+    toggleDisplay("displayNotdisplay5", "fumante_YN", "Sim");
+    toggleDisplay("displayNotdisplay6", "etilista_YN", "Sim");
+    toggleDisplay("displayNotdisplay7", "operado_YN", "Sim");
+    toggleDisplay("displayNotdisplay8", "cicatrizacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay9", "anestesia_YN", "Sim");
+    toggleDisplay("displayNotdisplay10", "hemorragia_YN", "Sim");
+    toggleDisplay("displayNotdisplay11", "gravidez_YN", "Sim");
+    toggleDisplay("displayNotdisplay12", "probGravidez_YN", "Sim");
+    toggleDisplay("displayNotdisplay13", "doencaInfancia_YN", "Sim");
+    toggleDisplay("displayNotdisplay14", "internacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay15", "historicoMedicacao_YN", "Sim");
+    toggleDisplay("displayNotdisplay16", "alergia_YN_Ped", "Sim");
+    toggleDisplay("displayNotdisplay17", "respiratorio_YN", "Sim");
+    toggleDisplay("displayNotdisplay18", "cardiaco_YN", "Sim");
+    toggleDisplay("displayNotdisplay19", "sanguineo_YN", "Sim");
+    toggleDisplay("displayNotdisplay20", "diabetes_YN", "Sim");
+    toggleDisplay("displayNotdisplay21", "medicacao_YN_Ped", "Sim");
+              
+  </script> -->
+
+
+  <script>
+    fetch('/Gestão-Saúde/tabsProntuarios/entrevistaCadastro.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('entrevistaAdulto').innerHTML = data;
+            
+            // Call toggleDisplay after the content is loaded
+            toggleDisplay("displayNotdisplay1", "doenca_YN", "Sim");
+            toggleDisplay("displayNotdisplay2", "tto_medico_YN", "Sim");
+            toggleDisplay("displayNotdisplay3", "medicacao_YN", "Sim");
+            toggleDisplay("displayNotdisplay4", "alergia_YN", "Sim");
+            toggleDisplay("displayNotdisplay5", "fumante_YN", "Sim");
+            toggleDisplay("displayNotdisplay6", "etilista_YN", "Sim");
+            toggleDisplay("displayNotdisplay7", "operado_YN", "Sim");
+            toggleDisplay("displayNotdisplay8", "cicatrizacao_YN", "Sim");
+            toggleDisplay("displayNotdisplay9", "anestesia_YN", "Sim");
+            toggleDisplay("displayNotdisplay10", "hemorragia_YN", "Sim");
+            toggleDisplay("displayNotdisplay11", "gravidez_YN", "Sim");
+            toggleDisplay("displayNotdisplay12", "probGravidez_YN", "Sim");
+            toggleDisplay("displayNotdisplay13", "doencaInfancia_YN", "Sim");
+            toggleDisplay("displayNotdisplay14", "internacao_YN", "Sim");
+            toggleDisplay("displayNotdisplay15", "historicoMedicacao_YN", "Sim");
+            toggleDisplay("displayNotdisplay16", "alergia_YN_Ped", "Sim");
+            toggleDisplay("displayNotdisplay17", "respiratorio_YN", "Sim");
+            toggleDisplay("displayNotdisplay18", "cardiaco_YN", "Sim");
+            toggleDisplay("displayNotdisplay19", "sanguineo_YN", "Sim");
+            toggleDisplay("displayNotdisplay20", "diabetes_YN", "Sim");
+            toggleDisplay("displayNotdisplay21", "medicacao_YN_Ped", "Sim");
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+</script>
+
+
 </html>

@@ -1,0 +1,230 @@
+<div id="encaminhamentoTab">
+
+    <label style="font-weight:bold;width: 300px;font-size: 14px;">Origem do encaminhamento</label>
+    <p></p><br>
+    <p></p><br>
+
+    <label style="width: 180px;">Data do encaminhamento</label>
+    <input type="text" id="encaminhamentoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 150px;" />
+    <br>
+
+    <label style="width: 180px;">Origem do encaminhamento</label>
+    <input type="text" id="encaminhamentoOrigem" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="GET NOME DA DISCIPLINA">
+    <br>
+
+    <label style="width: 240px; ;">Descrição da demanda do paciente:</label><br>
+    <textarea style="width: 460px;" id="encaminhamentoDemanda" rows="10" maxlength="1000" class="ui-state-default ui-corner-all"  placeholder="DESCREVER TODAS AS NECESSIDADES DO PACIENTE"></textarea>
+    <br>
+
+    <label style="width: 180px;">Responsável técnico</label>
+    <input type="text" id="responsavelEncaminhamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="SELECT BOX OU BUSCAR O NOME?">
+    <br>
+
+
+    <label style="width: 260px;">Paciente terá alta: (Nenhuma outra demanda na FO)</label>
+    <input type="checkbox" id="pacienteAlta">
+    <br>
+
+    <script>
+        const pacienteFaltouCheckbox = document.getElementById('pacienteAlta');
+        const atendimentoDescricaoInput = document.getElementById('encaminhamentoDemanda');
+
+        pacienteFaltouCheckbox.addEventListener('change', function() {
+            if (pacienteFaltouCheckbox.checked) {
+                // Add the text when checkbox is checked
+                atendimentoDescricaoInput.value += 'Paciente teve alta neste dia. ';
+            } else {
+                // Remove the text when checkbox is unchecked
+                atendimentoDescricaoInput.value = atendimentoDescricaoInput.value.replace('Paciente teve alta neste dia. ', '');
+            }
+        });
+    </script>
+
+        <hr class="ui-state-default">  
+
+        <label style="font-weight:bold;width: 300px;font-size: 14px;">Destino do encaminhamento</label>
+        <p></p><br>
+        <p></p><br>
+        
+        <!-- <label style="width: 180px;">Área/Curso da saúde</label>
+            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="areaSaúde" id="areaSaúde">
+            <option value="Escolher">Escolher</option>
+            <option value="Odontologia">Odontologia</option>
+            <option value="Enfermagem">Enfermagem</option>
+            <option value="Farmácia">Farmácia</option>
+            <option value="Terapia Ocupacional">Terapia Ocupacional</option>
+        </select> -->
+
+        <br>
+        <p></p>
+        <label style="width: 180px;">Lista de especialidades</label>
+        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="especAreaSaúde" id="especAreaSaúde">
+            <option value="Escolher">Escolher</option>
+            <option value="Prótese Dentária">Prótese Dentária</option>
+            <option value="Odontopediatria">Odontopediatria</option>
+            <option value="Periodontia">Periodontia</option>
+            <option value="Dentística">Dentística</option>
+            <option value="Cirurgia">Cirurgia</option>
+        </select>
+        <br>
+        <p></p>
+
+        <label style="width: 180px;">Nível de complexidade</label>
+    <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" id="encaminhamentoComplexidade">
+        <option value="Escolher">Escolher</option>
+        <option value="Baixa">Baixa</option>
+        <option value="Média">Média</option>
+        <option value="Alta (Pós-graduação)">Alta (Pós-graduação)</option>
+    </select>
+    <br>
+    
+    <!-- <script>
+        const disciplinas = [
+        {codCurso: 'Escolher', nomeEspec:'Selecione uma especialidade'},
+        {codCurso: 'Odontologia', nomeEspec:'Prótese Dentária'},
+        {codCurso: 'Odontologia', nomeEspec:'Odontopediatria'},
+        {codCurso: 'Odontologia', nomeEspec:'Periodontia'},
+        {codCurso: 'Odontologia', nomeEspec:'Dentística'},
+        {codCurso: 'Odontologia', nomeEspec:'Cirurgia'},
+        {codCurso: 'Enfermagem', nomeEspec:'Pediatria e Neonatologia'},
+        {codCurso: 'Enfermagem', nomeEspec:'Terapia Intensiva e Alta Complexidade'},
+        {codCurso: 'Enfermagem', nomeEspec:'Cardiologia e Hemodinâmica'},
+        {codCurso: 'Farmácia', nomeEspec:'Análises clínicas' },
+        {codCurso: 'Farmácia', nomeEspec:'Antroposofia' },
+        {codCurso: 'Terapia Ocupacional', nomeEspec:'Contextos sociais' },
+        {codCurso: 'Terapia Ocupacional', nomeEspec:'Saúde da família' },
+        // Add more options as needed
+        ];
+        
+        const areaSelect = document.getElementById('areaSaúde');
+        const disciplinasSelect = document.getElementById('especAreaSaúde');
+        
+        areaSelect.addEventListener('change', function() {
+        const selectedCodCurso = areaSelect.value;
+        
+        // Clear existing options
+        disciplinasSelect.innerHTML = '<option value="Escolher">Selecione uma especialidade</option>';
+        
+        // Filter and populate the second select
+        const selectedDisciplinas = disciplinas.filter(disciplina => disciplina.codCurso === selectedCodCurso);
+        selectedDisciplinas.forEach(disciplina => {
+            const option = document.createElement('option');
+            option.value = disciplina.nomeEspec;
+            option.textContent = disciplina.nomeEspec;
+            disciplinasSelect.appendChild(option);
+        });
+        });
+    </script> -->
+
+    <hr class="ui-state-default">
+    <p></p>
+    <br>
+
+    <label style="color: red;">APAGAR ISSO DEPOIS - PEGAR DO USUÁRIO (ALUNO)</label> <input type="text" id="alunoEncaminhamento" placeholder="Aluno"><br>
+
+
+    <p></p>
+        <button id="btnAdicionar" onclick="addTableRow()" value="Adicionar" class="button"  >Adicionar</button>
+        <button id="btnCancelar" onclick="clearInputFields()" value="Cancelar" class="button"  >Cancelar</button>
+        <button id="btnDeletar" onclick="deleteRow()" value="Remover" class="button">Remover</button>
+        <br>
+        <p></p>
+
+    <hr class="ui-state-default">
+
+    <p></p>
+
+    <h2> Listagem de encaminhamentos</h2>
+    <div style="margin: 10px;"></div>
+    <table id="listaEncaminhamentos" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 90%; font-size: 14px; margin: 15px;">
+    <thead>
+        <tr class="ui-jqgrid-labels" role="rowheader">
+        <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 3%;">Selec.</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 5%;">Data</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 7%;">Área da Saúde</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 12%;">Especialidade</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 25%;">Descrição da demanda</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 5%;">Complexidade</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 15%;">Origem</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 14%;">Aluno</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 14%;">Responsável técnico</th>
+        </tr>
+        </thead>
+        <!-- Table body rows go here -->
+    </table>
+
+
+    <script>
+    function deleteRow() {
+        var table = document.getElementById("listaEncaminhamentos");
+        var rowCount = table.rows.length;
+
+        for (var i = rowCount - 1; i >= 0; i--) {
+            var row = table.rows[i];
+            var checkbox = row.cells[0].getElementsByTagName("input")[0];
+
+            if (checkbox && checkbox.type === "checkbox" && checkbox.checked) {
+            table.deleteRow(i);
+            }
+        }
+        }
+
+    function addTableRow() {
+        var encaminhamentoData = getValue("encaminhamentoData");
+        var encaminhamentoOrigem = getValue("encaminhamentoOrigem");
+        var encaminhamentoDemanda = getValue("encaminhamentoDemanda");
+        var responsavelEncaminhamento = getValue("responsavelEncaminhamento");
+        var encaminhamentoComplexidade = getValue("encaminhamentoComplexidade");
+        var areaSaúde = getValue("areaSaúde");
+        var especAreaSaúde = getValue("especAreaSaúde");
+        var alunoEncaminhamento = getValue("alunoEncaminhamento");
+
+        if (
+        encaminhamentoData && encaminhamentoOrigem && encaminhamentoDemanda &&
+        responsavelEncaminhamento && alunoEncaminhamento &&
+        !isEscolherOption(areaSaúde) && !isEscolherOption(especAreaSaúde) && !isEscolherOption(encaminhamentoComplexidade)
+        ) {
+        var table = document.getElementById("listaEncaminhamentos");
+        var newRow = table.insertRow(-1);
+
+        var checkboxCell = newRow.insertCell();
+        var checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkboxCell.appendChild(checkbox);
+        checkboxCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+        var values = [encaminhamentoData, areaSaúde, especAreaSaúde, encaminhamentoDemanda, encaminhamentoComplexidade, encaminhamentoOrigem, alunoEncaminhamento, responsavelEncaminhamento];
+        
+        for (var i = 0; i < values.length; i++) {
+            insertCell(newRow, values[i]);
+        }
+
+        clearInputFields();
+        } else {
+        showCustomAlert("Por favor, preencha todos os campos.");
+        }
+    }
+
+    function getValue(id) {
+        return document.getElementById(id).value;
+    }
+
+    function insertCell(row, value) {
+        var cell = row.insertCell();
+        cell.innerHTML = value;
+        cell.className = "ui-state-default ui-th-column ui-th-ltr";
+    }
+
+    function clearInputFields() {
+        var inputIds = ["encaminhamentoData", "areaSaúde", "especAreaSaúde", "encaminhamentoDemanda", "encaminhamentoComplexidade", "encaminhamentoOrigem", "alunoEncaminhamento", "responsavelEncaminhamento"];
+        
+        for (var i = 0; i < inputIds.length; i++) {
+        document.getElementById(inputIds[i]).value = "";
+        }
+    }
+
+    function isEscolherOption(value) {
+        return value === "Escolher";
+    }
+    </script>
+</div>

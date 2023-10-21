@@ -16,7 +16,7 @@ if (isset($data->id)) {
     $id = $data->id;
 
     // Use prepared statement to avoid SQL injection
-    $query = "SELECT * FROM `agenda-clinicas` WHERE `agendado_por` = $id AND (`status_agendamento` = 'Agendado' OR `status_agendamento` = 'No local')";
+    $query = "SELECT * FROM `agenda-clinicas` WHERE `agendado_por` = '$id' AND (`status_agendamento` = 'Agendado' OR `status_agendamento` = 'No local')";
 
     $result = db($query);
 

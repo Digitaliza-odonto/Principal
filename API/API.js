@@ -167,7 +167,11 @@ const avaliacoes = {
 
 const agenda = {
   criar: async (data) => {
-    const url = `${getApiUrl()}/agenda/agendamento-insert-remove.php`;
+    const url = `${getApiUrl()}/agenda/criarAgendamento.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  deletar: async (data) => {
+    const url = `${getApiUrl()}/agenda/deleteAgendamento.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarGeral: async (data) => {

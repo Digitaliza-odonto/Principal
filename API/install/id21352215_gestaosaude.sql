@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 20-Out-2023 às 16:02
+-- Tempo de geração: 20-Out-2023 às 17:42
 -- Versão do servidor: 10.4.28-MariaDB
 -- versão do PHP: 8.2.4
 
@@ -212,6 +212,87 @@ INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Curso`, `Especialidade`, `D
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `entrevista`
+--
+
+CREATE TABLE `entrevista` (
+  `id_entrevista` bigint(20) NOT NULL,
+  `data` date NOT NULL,
+  `CPF` varchar(11) NOT NULL,
+  `queixa` text NOT NULL,
+  `doenca_YN` varchar(3) NOT NULL,
+  `doenca` varchar(60) NOT NULL,
+  `tto_medico_YN` varchar(3) NOT NULL,
+  `tto_medico` varchar(60) NOT NULL,
+  `medicacao_YN` varchar(3) NOT NULL,
+  `medicacao` varchar(60) NOT NULL,
+  `alergia_YN` varchar(3) NOT NULL,
+  `alergia` varchar(60) NOT NULL,
+  `fumante_YN` varchar(3) NOT NULL,
+  `fumante` varchar(60) NOT NULL,
+  `etilista_YN` varchar(3) NOT NULL,
+  `etilista` varchar(60) NOT NULL,
+  `ultimaConsulta` varchar(15) NOT NULL,
+  `ultimoTTO` varchar(60) NOT NULL,
+  `freq_Higiene` varchar(60) NOT NULL,
+  `instr_Higiene` text NOT NULL,
+  `fluor` text NOT NULL,
+  `operado_YN` varchar(3) NOT NULL,
+  `operado` varchar(60) NOT NULL,
+  `cicatrizacao_YN` varchar(3) NOT NULL,
+  `cicatrizacao` varchar(60) NOT NULL,
+  `anestesia_YN` varchar(3) NOT NULL,
+  `anestesia` varchar(60) NOT NULL,
+  `hemorragia_YN` varchar(3) NOT NULL,
+  `hemorragia` varchar(60) NOT NULL,
+  `gravidez_YN` varchar(3) NOT NULL,
+  `gravidez` varchar(8) NOT NULL,
+  `historicoFamiliar` varchar(60) NOT NULL,
+  `obs` varchar(120) NOT NULL,
+  `medico` varchar(64) NOT NULL,
+  `medicoTEL` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `entrevistaped`
+--
+
+CREATE TABLE `entrevistaped` (
+  `id_entrevista` bigint(20) NOT NULL,
+  `data` date NOT NULL,
+  `CPF` varchar(11) NOT NULL,
+  `queixaPed` text NOT NULL,
+  `probGravidez_YN` varchar(3) NOT NULL,
+  `probGravidez` varchar(8) NOT NULL,
+  `tipoParto` varchar(12) NOT NULL,
+  `doencaInfancia_YN` varchar(3) NOT NULL,
+  `doencaInfancia` varchar(60) NOT NULL,
+  `internacao_YN` varchar(3) NOT NULL,
+  `internacao` varchar(60) NOT NULL,
+  `historicoMedicacao_YN` varchar(3) NOT NULL,
+  `historicoMedicacao` varchar(60) NOT NULL,
+  `alergia_YN_Ped` varchar(3) NOT NULL,
+  `alergia_Ped` varchar(60) NOT NULL,
+  `respiratorio_YN` varchar(3) NOT NULL,
+  `respiratorio` varchar(60) NOT NULL,
+  `cardiaco_YN` varchar(3) NOT NULL,
+  `cardiaco` varchar(60) NOT NULL,
+  `sanguineo_YN` varchar(3) NOT NULL,
+  `sanguineo` varchar(60) NOT NULL,
+  `diabetes_YN` varchar(3) NOT NULL,
+  `diabetes` varchar(60) NOT NULL,
+  `medicacao_YN_Ped` varchar(3) NOT NULL,
+  `medicacao_Ped` varchar(60) NOT NULL,
+  `pediatra` varchar(64) NOT NULL,
+  `telPediatra` int(11) NOT NULL,
+  `obs_ped` varchar(120) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `materiais`
 --
 
@@ -310,6 +391,25 @@ INSERT INTO `pacientes` (`id`, `CPF`, `CNS`, `Nome`, `Rg`, `DataNasc`, `Email`, 
 (12, '666.555.444-33', NULL, 'Pedro Rodrigues', '56789012', '', 'pedro@example.com', '', 'SOLTEIRO', 'Masculino', 'Clara Rodrigues', 'José Rodrigues', '', 'Array', 'Residencial', '98765-432', 'Rua dos Sonhos', '', '', 'Jardim Esperança', 'Cidade Feliz'),
 (13, '888.777.666-44', NULL, 'Carlos Santos', '43210987', '', 'carlos@example.com', '', 'CASADO', 'Masculino', 'Marta Santos', 'Pedro Santos', '', 'Array', 'Residencial', '54321-123', 'Rua das Palmeiras', '', '', 'Jardim Tropical', 'Cidadeverde'),
 (14, '999.888.777-33', NULL, 'Larissa Pereira', '76543210', '', 'larissa@example.com', '', 'SOLTEIRA', 'Feminino', 'Maria Pereira', 'José Pereira', '', 'Array', 'Residencial', '76543-210', 'Rua das Flores', '', '', 'Jardim das Flores', 'Cidadefeliz');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `plano_tto`
+--
+
+CREATE TABLE `plano_tto` (
+  `id` int(11) NOT NULL,
+  `CPF` varchar(11) DEFAULT NULL,
+  `data` date DEFAULT NULL,
+  `queixa` varchar(255) DEFAULT NULL,
+  `aspectoRelevante` varchar(255) DEFAULT NULL,
+  `especialidade` varchar(255) DEFAULT NULL,
+  `descricao` text DEFAULT NULL,
+  `aluno_id` varchar(255) DEFAULT NULL,
+  `responsavel` varchar(255) DEFAULT NULL,
+  `componente_curricular` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -518,6 +618,18 @@ ALTER TABLE `encaminhamentos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices para tabela `entrevista`
+--
+ALTER TABLE `entrevista`
+  ADD PRIMARY KEY (`id_entrevista`);
+
+--
+-- Índices para tabela `entrevistaped`
+--
+ALTER TABLE `entrevistaped`
+  ADD PRIMARY KEY (`id_entrevista`);
+
+--
 -- Índices para tabela `materiais`
 --
 ALTER TABLE `materiais`
@@ -527,6 +639,12 @@ ALTER TABLE `materiais`
 -- Índices para tabela `pacientes`
 --
 ALTER TABLE `pacientes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `plano_tto`
+--
+ALTER TABLE `plano_tto`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -555,7 +673,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `agenda-clinicas`
 --
 ALTER TABLE `agenda-clinicas`
-  MODIFY `id_agendamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id_agendamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de tabela `arquivos`
@@ -582,16 +700,34 @@ ALTER TABLE `encaminhamentos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de tabela `entrevista`
+--
+ALTER TABLE `entrevista`
+  MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de tabela `entrevistaped`
+--
+ALTER TABLE `entrevistaped`
+  MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de tabela `materiais`
 --
 ALTER TABLE `materiais`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT de tabela `pacientes`
 --
 ALTER TABLE `pacientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de tabela `plano_tto`
+--
+ALTER TABLE `plano_tto`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de tabela `solicitacao_materiais`

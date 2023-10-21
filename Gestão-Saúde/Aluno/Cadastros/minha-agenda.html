@@ -166,7 +166,7 @@
                 </ul>
             </div>
 
-            <table id="gridPaciente" class="ui-jqgrid-htable ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
+            <table id="gridPaciente" class="ui-jqgrid-htable ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 100%; font-size: 14px;">
                 <thead>
                     <tr class="ui-jqgrid-labels" role="rowheader">
                         <th class="ui-jqgrid-titlebar ui-widget-header">Nome.</th>
@@ -318,7 +318,7 @@
         
             <hr class="ui-state-default">
 
-            <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin-left: 50px; margin-top: 25px; margin-bottom: 15px;">
+            <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 100%;">
                 <thead>
                     <tr class="ui-jqgrid-labels" role="rowheader">
                         <th class="ui-jqgrid-titlebar ui-widget-header">Selec.</th>    
@@ -364,26 +364,25 @@
                                     
             // Extract 'agendado_por' value from the logged-in user's Matricula
             const aluno = JSON.parse(localStorage.getItem('usuario'));
-            const id = aluno.Matricula;
-
 
             function loadTableData() {
-                // Make an AJAX request to fetch data from your PHP script
-                $.ajax({
-                    url: '../../../API/agenda/agendados-usuario.php?id=' + id,
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function (data) {
+                api.agenda.consultarAgendadosUsuario({ id: aluno.Matricula })
+                    .then((data) => {
+                        // verifica se o retorno é um erro
+                        if (data.erro) {
+                            showCustomAlert(data.erro);
+                            return;
+                        }
+
                         console.log(data);
                         totalRows = data.length;
                         tableRows = data;
                         applyFilters();
                         updateButtons();
-                    },
-                    error: function () {
-                        console.log('Error fetching data');
-                    }
-                });
+                    })
+                    .catch((error) => {
+                        showCustomAlert('Error fetching data');
+                    });
             }
       
             function applyFilters() {

@@ -1,0 +1,69 @@
+<div id="faltasTab">
+    <p></p>
+    <table id="faltasPaciente" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;">
+        <thead class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="font-size: larger; height: 10px;">
+            <tr>
+                <th style="width: 7.5%;">Data</th>
+                <th style="width: 7.5%;">Especialidade</th>
+                <th style="width: 10%;">Aluno</th>
+                <th style="width: 10%;">Componente curricular</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- NEW ROWS TO BE ADDED HERE -->
+        </tbody>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    function consultaFaltas() {
+        // Extract CPF parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const cpf = urlParams.get('cpf');
+
+        // Check if CPF parameter is present in the URL
+        if (cpf) {
+            // Create a JSON object with the CPF value
+            const requestData = {
+                cpf: cpf
+            };
+
+            // API request => ENTREVISTA ADULTOS
+            api.agenda.consultaFaltas(requestData)
+                .then((dados) => {
+                    console.log(dados);
+                    populateFaltas(dados);
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+        } else {
+            console.error('CPF parameter is missing in the URL');
+        }
+    }
+
+    consultaFaltas();
+
+    function populateFaltas(data) {
+     const tableBody = document.getElementById('faltasPaciente').getElementsByTagName('tbody')[0];
+
+        data.forEach(atendimento => {
+            const newRow = tableBody.insertRow();
+            newRow.classList.add('ui-state-default', 'ui-th-column', 'ui-th-ltr');
+
+            const cellData = [
+                atendimento.data_agendamento,
+                atendimento.atividade_curricular,
+                atendimento.agendado_por,
+                atendimento.local,
+            ];
+
+            cellData.forEach((cellValue, index) => {
+                const cell = newRow.insertCell(index);
+                cell.textContent = cellValue;
+                // Optionally, you can add classes or styles to the cells here if needed.
+            });
+        });
+    }
+</script>

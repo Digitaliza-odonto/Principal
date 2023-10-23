@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `agenda-clinicas` (
   `id_agendamento` bigint(20) NOT NULL,
   `agendado_por` varchar(11) NOT NULL,
-  `cpf_paciente` varchar(11) NOT NULL,
+  `cpf_paciente` varchar(50) NOT NULL,
   `data_agendamento` date NOT NULL,
   `horario_agendamento` varchar(2) NOT NULL,
   `minuto_agendamento` varchar(2) NOT NULL,
@@ -388,7 +388,7 @@ CREATE TABLE `pacientes` (
   `CPF` varchar(255) NOT NULL,
   `CNS` varchar(255) DEFAULT NULL,
   `Nome` varchar(255) DEFAULT NULL,
-  `nomeSocial` int(11) NOT NULL,
+  `nomeSocial` varchar(255) DEFAULT NULL,
   `Rg` varchar(255) DEFAULT NULL,
   `DataNasc` varchar(255) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,

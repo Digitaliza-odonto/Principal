@@ -49,7 +49,7 @@
     <br>
 
     <label style="width: 120px; ;margin: 5px;">Nome social</label>
-    <input type="text" name="nomeSocial" id="Nome" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+    <input type="text" name="nomeSocial" id="nomeSocial" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
     <br>
     
     <label style="width: 120px; ;margin: 5px;">RG</label>
@@ -175,6 +175,7 @@
           console.log(dados)
           document.getElementById("Cpf").value = dados.CPF;
           document.getElementById("Nome").value = dados.Nome;
+          document.getElementById("nomeSocial").value = dados.nomeSocial;
           document.getElementById("Nometab").innerText = dados.Nome;
           document.getElementById("Rg").value = dados.Rg;
           document.getElementById("DataNasc").value = dados.DataNasc;

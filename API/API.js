@@ -202,6 +202,10 @@ const agenda = {
     const url = `${getApiUrl()}/agenda/nolocal-usuario.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultaFaltas: async (data) => {
+    const url = `${getApiUrl()}/agenda/consultarFaltas.php`;
+    return sendRequest(url, 'POST', data);
+  },
   admitirPaciente: async (data) => {
     const url = `${getApiUrl()}/agenda/admitir-paciente.php`;
     return sendRequest(url, 'POST', data);

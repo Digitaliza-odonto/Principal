@@ -108,57 +108,29 @@
 
       <!--INÍCIO DA TAB ENTREVISTA DIALOGADA-->
       <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
-
-        <H2 style="color: red;"> FALTA O SCRIPT PARA BUSCAR DADOS DO BANCO (tabela 'entrevista') </H2>
-        <H2 style="color: red;"> O ideal seria uma tabela expansível (collapsible) com uma linha por entrevista, quando clica abre as informações</H2>
+        <br>        
+        <div id="entrevistaConsulta">
+          <?php echo file_get_contents('../tabsProntuarios/entrevistaConsulta.html');     ?>
+        </div>
         <br>
-        
-        <label style="width: 180px; margin: 5px; font-weight: bold;">ADULTOS</label>
-        <br>
-
-
-        <hr class="ui-state-default" style="margin-top: 50px;">
-        <br>
-
-        <label style="width: 180px; margin: 5px; font-weight: bold; margin-top: 50px;">ODONTOPEDIATRIA</label>
-        <br>
-               
-
-
-
-            
       </div>
 
       <!--INÍCIO DA TAB PLANOS DE TRATAMENTO-->
       <div id="tab-3" class="ui-widget tab tab-3 tab-3 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: auto;">
-      
-        <H2 style="color: red;"> FALTA  O SCRIPT PRA plano de tto</H2>
-        <H2 style="color: red;"> O ideal seria uma tabela expansível (collapsible) com uma linha por entrevista, quando clica abre as informações</H2>
-
         <div id="planosConsulta">
           <?php echo file_get_contents('../tabsProntuarios/planosConsulta.html');     ?>
         </div>
-          
       </div>
 
       <!--INÍCIO DA TAB HISTÓRICO-->
       <div id="tab-4" class="ui-widget tab tab-4 tab-4 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: auto;">
-      
-        <H2 style="color: red;"> FALTA AJUSTAR O SCRIPT PRA BUSCAR O REGISTROS DE ATENDIMENTO DO PACIENTE</H2>
-
         <div id="historicoAtendimentos">
           <?php echo file_get_contents('../tabsProntuarios/historicoAtendimentos.html');     ?>
         </div>
-
-
-
-
-
       </div>
 
       <!--INÍCIO DA TAB EXAMES COMPLEMENTARES-->
       <div id="tab-5" class="ui-widget tab tab-5 tab-5 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-5" role="tabpanel" aria-expanded="true" aria-hidden="false">
-      
         <div id="examesVisualizar">
           <?php echo file_get_contents('../tabsProntuarios/examesVisualizar.html');     ?>
         </div>

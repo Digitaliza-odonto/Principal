@@ -549,41 +549,64 @@
         });
 
         function agendarAtendimento() {
-            // Extract 'agendado_por' value from the logged-in user's Matricula
-            const aluno = JSON.parse(localStorage.getItem('usuario'));
-            const agendadoPor = aluno.Matricula;
+    // Extract 'agendado_por' value from the logged-in user's Matricula
+    const aluno = JSON.parse(localStorage.getItem('usuario'));
+    const agendadoPor = aluno.Matricula;
 
-            // Set 'agendado_por' value in the hidden field
-            $('#agendado_por').val(agendadoPor);
+    // Set 'agendado_por' value in the hidden field
+    $('#agendado_por').val(agendadoPor);
 
-            var formData = {
-                cpf_paciente: $('#cpf_paciente').val(),
-                descricao: $('#descricao').val(),
-                data_agendamento: $('#data_agendamento').val(),
-                horario_agendamento: $('#horario_agendamento_1').val(),
-                minuto_agendamento: $('#horario_agendamento_2').val(),
-                local: $('#local').val(),
-                atividade_curricular: $('#atividade_curricular').val(),
-                agendado_por: agendadoPor
-            };
+    // Get the selected date and time for the appointment
+    const selectedDate = new Date($('#data_agendamento').val() + ' ' + $('#horario_agendamento_1').val() + ':' + $('#horario_agendamento_2').val());
+    
+    // Get the current date and time
+    const currentDate = new Date();
 
-            // Perform an API request
-            api.agenda.criar(formData).then(function(response) {
-                //Check if the response contains a `message` property
+    // Calculate the difference in milliseconds between the selected date and the current date
+    const timeDifference = selectedDate.getTime() - currentDate.getTime();
+
+    // Check if the selected date is at least 24 hours in the future
+    if (timeDifference >= 24 * 60 * 60 * 1000) {
+        var formData = {
+            cpf_paciente: $('#cpf_paciente').val(),
+            descricao: $('#descricao').val(),
+            data_agendamento: $('#data_agendamento').val(),
+            horario_agendamento: $('#horario_agendamento_1').val(),
+            minuto_agendamento: $('#horario_agendamento_2').val(),
+            local: $('#local').val(),
+            atividade_curricular: $('#atividade_curricular').val(),
+            agendado_por: agendadoPor
+        };
+
+        // Perform an API request
+        api.agenda.criar(formData)
+            .then(function(response) {
+                // Check if the response contains a `message` property
                 const message = response.message || 'Agendamento realizado com sucesso.';
                 console.log(message);
                 showCustomAlert(message);
-        
+
                 limparCampos();
-                
-                }).catch(function(error) {
+
+            })
+            .catch(function(error) {
                 // Extract error message from the response or use a default error message
                 const errorMessage = error.message || 'Erro ao processar a solicitação.';
                 console.error(error);
+                showCustomAlert(errorMessage);
             });
 
             loadTableData();
+        } else {
+            // Display an error message if the appointment is less than 24 hours in the future
+            const errorMessage = 'Agendamentos devem ser realizados com ao menos 24h de antecedência.';
+            console.error(errorMessage);
+            showCustomAlert(errorMessage);
         }
+    }
+
+
+       
                 
         // Delete agendamento
         function deleteAgendamento () {

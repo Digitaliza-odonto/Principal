@@ -1,11 +1,8 @@
 <div id="historicoAtendimento">
-
     <p></p>
-
     <table id="historicoPaciente" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;">
         <thead class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="font-size: larger; height: 10px;">
             <th style="width: 7.5%;">Data</th>
-            <!-- <th style="width: 7.5%;">Curso</th> -->
             <th style="width: 7.5%;">Especialidade</th>
             <th style="width: 55%;">Descrição</th>
             <th style="width: 10%;">Aluno</th>
@@ -17,3 +14,60 @@
         </tbody>
     </table>
 </div>
+
+
+<script type="text/javascript">
+    function consultaHistorico() {
+        // Extract CPF parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const cpf = urlParams.get('cpf');
+
+        // Check if CPF parameter is present in the URL
+        if (cpf) {
+            // Create a JSON object with the CPF value
+            const requestData = {
+                cpf: cpf
+            };
+
+            // API request => ENTREVISTA ADULTOS
+            api.atendimentos.consultarAtendimento(requestData)
+                .then((dados) => {
+                    console.log(dados);
+                    populateHistoricoFields(dados);
+                })
+                .catch((error) => {
+                    console.error('Error fetching data:', error);
+                });
+        } else {
+            console.error('CPF parameter is missing in the URL');
+        }
+    }
+
+    consultaHistorico();
+
+    function populateHistoricoFields(data) {
+    const tableBody = document.getElementById('historicoPaciente').getElementsByTagName('tbody')[0];
+
+    data.forEach(atendimento => {
+        const newRow = tableBody.insertRow();
+        newRow.classList.add('ui-state-default', 'ui-th-column', 'ui-th-ltr');
+
+        const cellData = [
+            atendimento.data,
+            atendimento.especialidade,
+            atendimento.descricao,
+            atendimento.id_aluno,
+            atendimento.responsavel,
+            atendimento.componente_curricular,
+        ];
+
+        cellData.forEach((cellValue, index) => {
+            const cell = newRow.insertCell(index);
+            cell.textContent = cellValue;
+            // Optionally, you can add classes or styles to the cells here if needed.
+        });
+    });
+}
+
+
+</script>

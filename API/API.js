@@ -249,8 +249,8 @@ const planoTratamento = {
     const url = `${getApiUrl()}/planoTTO/criar.php`;
     return sendRequest(url, 'POST', data);
   },
-  consultar: async (data) => {
-    const url = `${getApiUrl()}/planoTTO/consultar.php`;
+  consultarPlano: async (data) => {
+    const url = `${getApiUrl()}/planoTTO/consultarPlano.php`;
     return sendRequest(url, 'POST', data);
   },
 };
@@ -260,8 +260,23 @@ const entrevistaDialogada = {
     const url = `${getApiUrl()}/entrevista/criar.php`;
     return sendRequest(url, 'POST', data);
   },
-  consultar: async (data) => {
-    const url = `${getApiUrl()}/entrevista/consultar.php`;
+  consultarEntrevista: async (data) => {
+    const url = `${getApiUrl()}/entrevista/consultarEntrevista.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarEntrevistaPed: async (data) => {
+    const url = `${getApiUrl()}/entrevista/consultarEntrevistaPed.php`;
+    return sendRequest(url, 'POST', data);
+  }
+};
+
+const atendimentos = {
+  criar: async (data) => {
+    const url = `${getApiUrl()}/atendimentos/criarAtendimento.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarAtendimento: async (data) => {
+    const url = `${getApiUrl()}/atendimentos/consultarAtendimento.php`;
     return sendRequest(url, 'POST', data);
   },
 };
@@ -284,7 +299,8 @@ window.api = {
   procedimentos,
   agenda,
   planoTratamento,
-  entrevistaDialogada
+  entrevistaDialogada,
+  atendimentos
 };
 
 // remove o banner do 000webhost

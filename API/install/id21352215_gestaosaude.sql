@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/10/2023 às 16:47
+-- Tempo de geração: 24/10/2023 às 23:56
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -161,7 +161,8 @@ INSERT INTO `avaliacoesatendimento` (`id_avaliacao`, `data_avaliacao`, `matricul
 --
 
 CREATE TABLE `disciplinas` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `cod_disciplina` varchar(20) NOT NULL,
   `Nome` varchar(255) NOT NULL,
   `turma` varchar(255) NOT NULL,
   `periodo` varchar(255) NOT NULL,
@@ -176,17 +177,17 @@ CREATE TABLE `disciplinas` (
 -- Despejando dados para a tabela `disciplinas`
 --
 
-INSERT INTO `disciplinas` (`id`, `Nome`, `turma`, `periodo`, `alunos`, `ano`, `curso`, `codigo`, `datadecadastro`) VALUES
-(1, 'PERIODONTIA CLÍNICA', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\",\"Jou00e3o\", \"Ana\", \"Bruno\", \"Carlos\"]\"', '2020', 'Odontologia', '03470016', '01/01/2020'),
-(2, 'ODONTOPEDIATRIA', 'M2', '2020/1', '\"[\"Pedro\", \"Aluno\",\"Jou00e3o\", \"Ana\", \"Bruno\", \"Carlos\"]\"', '2020', 'Odontologia', '03500053', '01/01/2020'),
-(3, 'CIRURGIA BUCO-MAXILAR III', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\", \"Sandra\", \"Isabela\", \"Patricia\", \"Ricardo\"]\"', '2020', 'Odontologia', '03490047', '01/01/2020'),
-(4, 'PERIODONTIA CLÍNICA', 'M2', '2020/1', '\"[\"Daniela\", \"Eduardo\", \"Fabiana\", \"Gustavo\", \"Henrique, Ivana\"]\"', '2020', 'Odontologia', '03470016', '01/01/2020'),
-(5, 'ESTÁGIO EM PRONTO ATENDIMENTO', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\"]\"', '2020', 'Odontologia', '03470031', '01/01/2020'),
-(6, 'ESTÁGIO EM PRONTO ATENDIMENTO', 'M2', '2020/1', '\"[\"Pedro\", \"Aluno\"]\"', '2020', 'Odontologia', '03470031', '01/01/2020'),
-(7, 'CIRURGIA BUCO-MAXILAR III', 'M2', '2020/1', '\"[\"Renato\", \"William\", \"Leandro\", \"Lucas\", \"Ana\", \"Daniela\"]\"', '2020', 'Odontologia', '03490047', '01/01/2020'),
-(8, 'PRÓTESE DENTÁRIA PARCIAL III', 'M2', '2020/1', '\"[\"William\", \"Aluno\", \"Sandra\", \"Isabela\", \"Patricia\", \"Carlos\"]\"', '2020', 'Odontologia', '03480031', '01/01/2020'),
-(9, 'ODONTOPEDIATRIA', 'M1', '2020/1', '\"[\"Daniela\", \"Eduardo\", \"Fabiana\", \"Gustavo\", \"Henrique, Ivana\"]\"', '2020', 'Odontologia', '03500053', '01/01/2020'),
-(10, 'PRÓTESE DENTÁRIA PARCIAL III', 'M1', '2020/1', '\"[\"Renato\", \"Henrique\", \"Leandro\", \"Lucas\", \"Sandra\", \"Daniela\"]\"', '2020', 'Odontologia', '03480031', '01/01/2020');
+INSERT INTO `disciplinas` (`id`, `cod_disciplina`, `Nome`, `turma`, `periodo`, `alunos`, `ano`, `curso`, `codigo`, `datadecadastro`) VALUES
+(1, '03470016', 'PERIODONTIA CLÍNICA', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\",\"Jou00e3o\", \"Ana\", \"Bruno\", \"Carlos\"]\"', '2020', 'Odontologia', '03470016', '01/01/2020'),
+(2, '03500053', 'ODONTOPEDIATRIA', 'M2', '2020/1', '\"[\"Pedro\", \"Aluno\",\"Jou00e3o\", \"Ana\", \"Bruno\", \"Carlos\"]\"', '2020', 'Odontologia', '03500053', '01/01/2020'),
+(3, '03490047', 'CIRURGIA BUCO-MAXILAR III', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\", \"Sandra\", \"Isabela\", \"Patricia\", \"Ricardo\"]\"', '2020', 'Odontologia', '03490047', '01/01/2020'),
+(4, '003470016', 'PERIODONTIA CLÍNICA', 'M2', '2020/1', '\"[\"Daniela\", \"Eduardo\", \"Fabiana\", \"Gustavo\", \"Henrique, Ivana\"]\"', '2020', 'Odontologia', '03470016', '01/01/2020'),
+(5, '03470031', 'ESTÁGIO EM PRONTO ATENDIMENTO', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\"]\"', '2020', 'Odontologia', '03470031', '01/01/2020'),
+(6, '03470031', 'ESTÁGIO EM PRONTO ATENDIMENTO', 'M2', '2020/1', '\"[\"Pedro\", \"Aluno\"]\"', '2020', 'Odontologia', '03470031', '01/01/2020'),
+(7, '03490047', 'CIRURGIA BUCO-MAXILAR III', 'M2', '2020/1', '\"[\"Renato\", \"William\", \"Leandro\", \"Lucas\", \"Ana\", \"Daniela\"]\"', '2020', 'Odontologia', '03490047', '01/01/2020'),
+(8, '03480031', 'PRÓTESE DENTÁRIA PARCIAL III', 'M2', '2020/1', '\"[\"William\", \"Aluno\", \"Sandra\", \"Isabela\", \"Patricia\", \"Carlos\"]\"', '2020', 'Odontologia', '03480031', '01/01/2020'),
+(9, '003500053', 'ODONTOPEDIATRIA', 'M1', '2020/1', '\"[\"Daniela\", \"Eduardo\", \"Fabiana\", \"Gustavo\", \"Henrique, Ivana\"]\"', '2020', 'Odontologia', '03500053', '01/01/2020'),
+(10, '03480031', 'PRÓTESE DENTÁRIA PARCIAL III', 'M1', '2020/1', '\"[\"Renato\", \"Henrique\", \"Leandro\", \"Lucas\", \"Sandra\", \"Daniela\"]\"', '2020', 'Odontologia', '03480031', '01/01/2020');
 
 -- --------------------------------------------------------
 
@@ -374,8 +375,8 @@ INSERT INTO `materiais` (`id`, `nome`, `quantidade`, `tipo_material`, `apresenta
 (16, 'hauhauhauh', 4, 'Resina composta', 'Bisnaga'),
 (17, 'testematerial', 12, 'Cimento', 'Frasco'),
 (18, 'testeqqer coisa', 4, 'Cimento', 'Bisnaga'),
-(19, 'testedenovo', 3, 'Resina composta', 'Bisnaga'),
-(20, 'ionomero de vidro', 7, 'Cimento', 'Kit'),
+(19, 'testedenovo', 0, 'Resina composta', 'Bisnaga'),
+(20, 'ionomero de vidro', 2, 'Cimento', 'Kit'),
 (21, 'fosfato de zinco', 2, 'Cimento', 'Kit'),
 (22, 'alginato', 1, 'Moldagem', 'Pacote'),
 (23, 'polieter', 9, 'Moldagem', 'Kit'),
@@ -590,7 +591,7 @@ INSERT INTO `solicitacao_materiais` (`id_solicitacao`, `setor`, `nome_solicitant
 (60, 'Clínica 1º Andar - Sul', 'Fulano', 987654, '2023-09-26', '2023-10-13', '1,4', 'Fosfato de zinco,Teste', '1,2', 'Atendido', '0', NULL, ''),
 (61, 'Clínica 1º Andar - Sul', 'Beltrano', 123456, '2023-09-26', '2023-10-13', '11,1', 'rolo de algodão,Fosfato de zinco', '2,1', 'Parcialmente atendido', '0', NULL, ''),
 (62, 'Clínica Oeste', 'Fulano', 987654, '2023-09-26', NULL, '1,20', 'Fosfato de zinco,ionomero de vidro', '1,3', 'Solicitado', '0', NULL, NULL),
-(63, 'Clínica Oeste', 'Beltrano', 123456, '2023-09-26', NULL, '20,19', 'ionomero de vidro,testedenovo', '3,2', 'Solicitado', '0', NULL, NULL),
+(63, 'Clínica Oeste', 'Beltrano', 123456, '2023-09-26', '2023-10-24', '20,19', 'ionomero de vidro,testedenovo', '3,2', '', '0', NULL, 'aaa'),
 (64, 'Clínica 4º Andar', 'Ciclano', 654321, '2023-09-26', NULL, '24,26', 'silicone de condensação,resina acrílica', '1,5', 'Solicitado', '0', NULL, NULL),
 (65, 'Laboratórios pré-clínica', 'Ciclano', 654321, '2023-09-26', '2023-10-03', '24,26,23,22', 'silicone de condensação,resina acrílica,polieter,alginato', '1,5,2,2', 'Parcialmente atendido', '24,26,23,22', '1,5,2,2', 'Observação teste'),
 (66, 'Clínica 1º Andar - Sul', 'Fulano', 987654, '2023-09-27', NULL, '7,5', 'teste3,teste2', '1,2', 'Solicitado', '0', NULL, NULL),
@@ -766,7 +767,7 @@ ALTER TABLE `avaliacoesatendimento`
 -- AUTO_INCREMENT de tabela `disciplinas`
 --
 ALTER TABLE `disciplinas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `encaminhamentos`

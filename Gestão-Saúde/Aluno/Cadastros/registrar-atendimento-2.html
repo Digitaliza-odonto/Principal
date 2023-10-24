@@ -18,7 +18,8 @@
 
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
       <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-  <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+    <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
 
     <!--ALERT MESSAGES-->
     <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
@@ -74,170 +75,68 @@
       <div id="tab" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
           
-          <li class="labeltab ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Dados pessoais</a></li>
+          <li class="labeltab ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-0" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-0">Dados pessoais</a></li>
 
-          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-1" aria-labelledby="ui-id-2" aria-selected="false"><a href="#tab-1" accesskey="tab-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Entrevista(s) dialogada(s)</a></li>
+          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-1" aria-labelledby="ui-id-1" aria-selected="false"><a href="#tab-1" accesskey="tab-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">Entrevista(s) dialogada(s)</a></li>
 
-          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-2" aria-labelledby="ui-id-3" aria-selected="false"><a href="#tab-2" accesskey="tab-2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">Plano(s) de tratamento</a></li>
+          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-2" aria-labelledby="ui-id-2" aria-selected="false"><a href="#tab-2" accesskey="tab-2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">Plano(s) de tratamento</a></li>
 
-          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-3" aria-labelledby="ui-id-4" aria-selected="false"><a href="#tab-3" accesskey="tab-3" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">Atendimento realizado</a></li>
+          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-3" aria-labelledby="ui-id-3" aria-selected="false"><a href="#tab-3" accesskey="tab-3" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">Atendimento realizado</a></li>
 
-          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-4" aria-labelledby="ui-id-5" aria-selected="false"><a href="#tab-4" accesskey="tab-4" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-5">Anexar documentos/exames complementares</a></li>
+          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-4" aria-labelledby="ui-id-4" aria-selected="false"><a href="#tab-4" accesskey="tab-4" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">Anexar documentos/exames complementares</a></li>
         </ul>
 
-        <!--INÍCIO DA TAB DADOS PESSOAIS-->
-        <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
-
-          <br>
-          <div>
-            <p></p>
-            <label style="width: 180px; margin: 5px; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
-            <input type="text" id="informacoesImportantes" maxlength="255" style="width: 340px; margin: 5px;" readonly="readonly"><br>
-          
-            <script>
-                // TROCAR STYLE SE O CAMPO 'informaçõesImportantes' for preenchido
-              document.addEventListener('DOMContentLoaded', function() {
-                const inputField = document.getElementById('informacoesImportantes');
-            
-                function applyStyles() {
-                  if (inputField.value.trim() === '') {
-                    inputField.classList.add('ui-state-default');
-                    inputField.classList.remove('important-ui');
-                  } else {
-                    inputField.classList.add('important-ui');
-                    inputField.classList.remove('ui-state-default');
-                  }
-                }
-            
-                inputField.addEventListener('input', applyStyles);
-            
-                // Apply styles once the page loads
-                applyStyles();
-              });
-            </script>
-            <p style="margin: 10px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
-            <p></p>
-            <br>
-          
-            <p></p>
-            <br>
-          </div>
-            
-          <div id="capaContent">
-            <!-- Imported content will be placed here -->
-          </div>
-
-          <script>
-            fetch('/Gestão-Saúde/tabsProntuarios/capaConsulta.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('capaContent').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-          </script>
-
-          <script src="/API/API.js"></script>
-
-          <script type="text/javascript">
-            // Função para preencher o formulário com os dados do perfil
-            function preencherFormulario(dados) {
-                console.log(dados)
-                document.getElementById("Cpf").value = dados.CPF;
-                document.getElementById("Nome").value = dados.Nome;
-                document.getElementById("Nometab").innerText = dados.Nome;
-                document.getElementById("Rg").value = dados.Rg;
-                document.getElementById("DataNasc").value = dados.DataNasc;
-                document.getElementById("Email").value = dados.Email;
-                document.getElementById("Tel").value = dados.Tel;
-                document.getElementById("EstadoCivil").value = dados.EstadoCivil;
-                document.getElementById("Sexo").value = dados.Sexo;
-                document.getElementById("CorRaca").value = dados.CorRaca;
-                document.getElementById("NomeMae").value = dados.NomeMae;
-                document.getElementById("NomePai").value = dados.NomePai;
-                document.getElementById("PNE").value = dados.PNE;
-                document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
-                document.getElementById("Cep").value = dados.Cep;
-                document.getElementById("Rua").value = dados.Rua;
-                document.getElementById("EndNumero").value = dados.EndNumero;
-                document.getElementById("EndComplemento").value = dados.EndComplemento;
-                document.getElementById("Bairro").value = dados.Bairro;
-                document.getElementById("Cidade").value = dados.Cidade;
-              }
-          
-              // Função para buscar o perfil usando a API
-              function buscarPerfil() {
-                const cpf = getUrlVars()['cpf'];
-                if (cpf) {
-                  api.pacientes.consultar({ CPF: cpf })
-                    .then((pacientes) => {
-                      if (pacientes.length === 0) {
-                        console.log('Nenhum paciente encontrado');
-                      } else {
-                        preencherFormulario(pacientes[0]);
-                      }
-                    })
-                    .catch((error) => {
-                      console.error('Erro ao consultar perfil:', error);
-                    });
-                } else {
-                  console.log('CPF não encontrado na URL.');
-                }
-              }
-          
-              // Função para obter parâmetros da URL
-              function getUrlVars() {
-                var vars = {};
-                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                  vars[key] = value;
-                });
-                return vars;
-            
-              }
-          
-              // Chamar a função para buscar o perfil
-              buscarPerfil();
-          </script>
-        </div>
-
         
-        <!--INÍCIO DA TAB ENTREVISTA DIALOGADA-->
-        <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
-
-          <h2 style="color: red;"> BUSCAR DADOS DO BANCO E INCLUIR COMO LINHAS QUE EXPANDEM/COLAPSAM AO CLICAR</h2>
-             
+        <!--INÍCIO DA TAB DADOS PESSOAIS-->
+        <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-0" role="tabpanel" aria-expanded="true" aria-hidden="false">
+          <div id="capaContent">
+            <?php echo file_get_contents('../../tabsProntuarios/capaConsulta.html');     ?>
+          </div>
         </div>
 
         <!--INÍCIO DA TAB ENTREVISTA DIALOGADA-->
-        <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false">
+        <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false">
+          <br>        
+          <div id="entrevistaConsulta">
+            <?php echo file_get_contents('../../tabsProntuarios/entrevistaConsulta.html');     ?>
+          </div>
+          <br>
+        </div>
 
-          <h2 style="color: red;"> BUSCAR DADOS DO BANCO E INCLUIR COMO LINHAS QUE EXPANDEM/COLAPSAM AO CLICAR</h2>
-              
+        <!--INÍCIO DA TAB PLANOS DE TRATAMENTO-->
+        <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: auto;">
+          <div id="planosConsulta">
+            <?php echo file_get_contents('../../tabsProntuarios/planosConsulta.html');     ?>
+          </div>
         </div>
         
         <!--INÍCIO DA TAB DESCRIÇÃO DO ATENDIMENTO/PLANO DE TRATAMENTO-->
-        <div id="tab-3" class="ui-widget tab tab-3 tab-3 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 1100px;">
+        <div id="tab-3" class="ui-widget tab tab-3 tab-3 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 1100px;">
 
           <p></p>
 
-          <label style="font-weight:bold;width: 180px;">Área/Curso da saúde</label>
+          <!-- <label style="font-weight:bold;width: 180px;">Área/Curso da saúde</label>
           <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="areaSaúde" id="areaSaúde">
             <option value="0">Escolher</option>
             <option value="Odontologia">Odontologia</option>
             <option value="Enfermagem">Enfermagem</option>
             <option value="Farmácia">Farmácia</option>
             <option value="Terapia Ocupacional">Terapia Ocupacional</option>
-          </select>
+          </select> -->
           
           <br>
           <p></p>
           <label style="font-weight:bold;width: 180px;">Lista de especialidades</label>
           <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="especAreaSaúde" id="especAreaSaúde">
-            <option value="0">Selecione uma especialidade</option>
+            <option value="Escolher">Escolher</option>
+            <option value="Prótese Dentária">Prótese Dentária</option>
+            <option value="Odontopediatria">Odontopediatria</option>
+            <option value="Periodontia">Periodontia</option>
+            <option value="Dentística">Dentística</option>
+            <option value="Cirurgia">Cirurgia</option>
           </select>
           
-          <script>
+          <!-- <script>
             const disciplinas = [
               {codCurso: '0', nomeEspec:'Selecione uma especialidade'},
               {codCurso: 'Odontologia', nomeEspec:'Prótese Dentária'},
@@ -273,7 +172,7 @@
                 disciplinasSelect.appendChild(option);
               });
             });
-          </script>
+          </script> -->
           
           <hr class="ui-state-default">
           <p></p>
@@ -479,33 +378,11 @@
             
       
          <!--INÍCIO DA TAB ANEXAR DOCUMENTOS/EXAMES COMPLEMENTARES-->
-         <div id="tab-4" class="ui-widget tab tab-4 tab-4 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-5" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 450px;">
-
-          <div style="margin: 10px; margin-bottom: 50px;">
-            <h2>Banco de formulários/prontuários para exames específicos<spam style="font-size: 12px; margin-left: 10px;">(Preencher, salvar em PDF e anexar abaixo)</spam><br></h2>
-          
-            <p style="font-size: 12px;"><a href="../../../src/termo_consentimento.docx">- Termo de consentimento</a></p>
-            <p style="font-size: 12px;"><a href="../../../src/plano_tratamento.docx">- Plano de tratamento</a></p>
-            <p style="font-size: 12px;"><a href="../../../src/exame_clinico.docx">- Exame clínico</a></p>
-
-          </div>
-
-          <hr class="ui-state-default">
-          
-          <div id="anexoExames">
-            <!-- Imported content will be placed here -->
-          </div>
-  
-          <script>
-            fetch('/Gestão-Saúde/tabsProntuarios/anexarExames.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('anexoExames').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-          </script>
+         <div id="tab-4" class="ui-widget tab tab-4 tab-4 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 450px;">
+                    
+            <div id="anexoExames">
+              <?php echo file_get_contents('../../tabsProntuarios/anexarExames.html');     ?>
+            </div>
         </div>
       </div>
     </div>

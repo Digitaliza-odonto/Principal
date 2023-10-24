@@ -1,4 +1,41 @@
 <div id="capaCadastro">
+  <br>
+    <div>
+      <p></p>
+
+      <script>
+        // TROCAR STYLE SE O CAMPO 'informaçõesImportantes' for preenchido
+      document.addEventListener('DOMContentLoaded', function() {
+        const inputField = document.getElementById('informacoesImportantes');
+    
+        function applyStyles() {
+          if (inputField.value.trim() === '') {
+            inputField.classList.add('ui-state-default');
+            inputField.classList.remove('important-ui');
+          } else {
+            inputField.classList.add('important-ui');
+            inputField.classList.remove('ui-state-default');
+          }
+        }
+    
+        inputField.addEventListener('input', applyStyles);
+    
+        // Apply styles once the page loads
+        applyStyles();
+      });
+    </script>
+
+      <label style="width: 180px; margin: 5px; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
+      <input type="text" name="informacoesImportantes" id="informacoesImportantes" maxlength="255" style="width: 340px; margin: 5px;"><br>
+    
+
+      <p style="margin: 10px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
+      <p></p>
+      <br>
+    
+      <p></p>
+      <br>
+    </div>
   
     <p></p>
     <br>
@@ -7,7 +44,7 @@
     <br>
   
     <label style="width: 120px; ;margin: 5px;">CPF</label>
-    <input type="text" name="Cpf" id="Cpf" maxlength="" class="ui-state-default ui-corner-all mousetrap cpf" onblur="pesquisaPessoa()" style="width: 100px;">
+    <input type="text" name="Cpf" id="Cpf" maxlength="" class="ui-state-default ui-corner-all mousetrap cpf" onblur="pesquisaPessoa()" style="width: 100px;" readonly>
     <br>
   
     <label style="width: 120px; ;margin: 5px;">Nome</label>
@@ -39,11 +76,11 @@
     <br>
   
     <label style="width: 120px; ;margin: 5px;">Telefone 2 (Opcional)</label>
-    <input type="text" name="Tel2" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
+    <input type="text" name="Tel2" id="Tel2" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
     <br>
   
     <label style="width: 120px; ;margin: 5px;">Telefone 3 (Opcional)</label>
-    <input type="text" name="Tel3" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
+    <input type="text" name="Tel3" id="Tel3" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
     <br>
     
 
@@ -139,13 +176,17 @@
         function preencherFormulario(dados) {
           console.log(dados)
           document.getElementById("Cpf").value = dados.CPF;
+          document.getElementById("informacoesImportantes").value = dados.informacoesImportantes;
+          document.getElementById("CNS").value = dados.CNS;
           document.getElementById("Nome").value = dados.Nome;
-          document.getElementById("nomeSocial").value = dados.NomeSocial;
+          document.getElementById("nomeSocial").value = dados.nomeSocial;
           document.getElementById("Nometab").innerText = dados.Nome;
           document.getElementById("Rg").value = dados.Rg;
           document.getElementById("DataNasc").value = dados.DataNasc;
           document.getElementById("Email").value = dados.Email;
           document.getElementById("Tel").value = dados.Tel;
+          document.getElementById("Tel2").value = dados.Tel2;
+          document.getElementById("Tel3").value = dados.Tel3;
           document.getElementById("EstadoCivil").value = dados.EstadoCivil;
           document.getElementById("Sexo").value = dados.Sexo;
           document.getElementById("CorRaca").value = dados.CorRaca;

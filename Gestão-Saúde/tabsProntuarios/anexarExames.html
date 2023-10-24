@@ -1,27 +1,74 @@
-<div id="anexoExames">
+<div id="anexoExames" style="margin: 5px;">
+    
+    <h2>Banco de formulários/prontuários</h2>
+
+    <button type="button" class="collapsible" style="width: 40%;">+ Formulários/prontuários para exames específicos (Preencher, salvar em PDF e anexar abaixo):</button>
+    <div class="content">
+        <p style="font-size: 12px; margin-left: 35px;"><a href="../../src/termo_consentimento.docx">- Termo de consentimento</a></p>
+        <p style="font-size: 12px; margin-left: 35px;"><a href="../../src/plano_tratamento.docx">- Plano de tratamento</a></p>
+        <p style="font-size: 12px; margin-left: 35px;"><a href="../../src/exame_clinico.docx">- Exame clínico</a></p>
+    </div>
+    
+    <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+        });
+    }
+    </script>
+
+    <hr class="ui-state-default"><br>
 
     <table id="Exames" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;">
-        <thead class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="font-size: larger; height: 10px;">
-        <th style="width: 5%;">Data</th>
-        <th style="width: 80%;">Descrição</th>
-        <th style="width: 15%;">Tipo</th>
-        <th style="width: 10%;">Baixar</th>
-        </thead>
+        <thead>
+            <tr class="ui-jqgrid-labels" role="rowheader">
+              <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">Selec.</th>
+              <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">Data</th>
+              <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 35%;">Descrição do documento/exame</th>
+              <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 18%;">Tipo de documento/exame</th>
+              <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 17%;">Nome do arquivo</th>
+            </tr>
+          </thead>
     </table>
 
     
     <!-- seção para upload de exames -->
     <div id="uploadExames" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom">
-    <hr class="ui-state-default"><br>
-    <label name="anexarexames" id="anexarexames" style="width:350px; font-size: 16; font-weight: bold;">Anexar exames</label><br>
-        <label for="myfile">Selecione o arquivo:</label>
-        <input type="file" id="myfile" name="myfile"><br>
-        <label for="data">Data:</label>
-        <input class="ui-state-default ui-corner-all mousetrap " type="date" id="data" name="data"><br>
-        <label for="descricao">Descrição:</label>
-        <textarea class="ui-state-default ui-corner-all mousetrap " type="text" id="descricao" name="descricao"></textarea><br>
-        <label for="tipo">Tipo:</label>
-        <input class="ui-state-default ui-corner-all mousetrap " type="text" id="tipo" name="tipo"><br>
+        
+        <hr class="ui-state-default"><br>
+        
+        <label name="anexarexames" id="anexarexames" style="width:350px; font-size: 16; font-weight: bold;">Anexar exames</label><br>
+        
+        <label for="myfile" style="width: 120px; margin-bottom: 10px;">Selecione o arquivo:</label>
+        <input type="file" id="myfile" name="myfile">
+        <br>
+                
+        <label for="data" style="width: 120px; margin-bottom: 10px;">Data do exame</label>
+        <input type="date" id="data" name="data" maxlength="10" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 120px; margin-bottom: 10px;"/>
+        <br>
+                
+        <label for="descricao" style="width: 120px; margin-bottom: 10px;">Descrição do exame</label>
+        <input type="text" id="descricao" name="descricao" maxlength="80" class="ui-state-default ui-corner-all mousetrap " style="width: 380;" placeholder="Descrever o exame que será anexado">
+        <br>
+
+        <label for="tipo" style="width: 260px; margin-top: 20px;">Selecione o tipo de documento/exame complementar:</label>
+        <select class="ui-state-default ui-corner-all" style="width: 120px; margin-bottom: 10px; height: 20px; margin-top: 20px" id="tipo" name="tipo">
+          <option value="">Escolher</option>
+          <option value="Radiografia periapical">Radiografia periapical</option>
+          <option value="Radiografia panorâmica">Radiografia panorâmica</option>
+          <option value="Exame complementar digitalizado">Exame complementar digitalizado</option>
+          <option value="Outro">Outro</option>
+        </select><br>
+        
         <input type="submit" value="Enviar" onclick="upload()">
     </div>
 

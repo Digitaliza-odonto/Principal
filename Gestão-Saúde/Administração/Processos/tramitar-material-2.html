@@ -253,6 +253,9 @@
                         }
                     });
                 }
+            
+
+
 
                 function showPage(page, data, quantidadeIdMap) {
                     var startIndex = (page - 1) * rowsPerPage;
@@ -335,41 +338,43 @@
             
                 // Get form data
                 const formData = new FormData(materialRequestForm);
-            
+
                 // Inputs
                 const id_solicitacao = document.getElementById('id_solicitacao').value;
                 const obsTramite = document.getElementById('obs_tramite').value;
                 const qtd_atendida = Array.from(document.querySelectorAll('#listaRequisicoes tbody tr td:nth-child(6) input')).map(input => input.value.trim());
                 const listaIds = Array.from(document.querySelectorAll('#listaRequisicoes tbody tr td:nth-child(2)')).map(td => td.textContent.trim());
                 const currentDay = new Date().toISOString().split('T')[0];
-            
+
                 // Append additional data to form data
                 formData.append('id_solicitacao', id_solicitacao);
                 formData.append('obs_tramite', obsTramite);
                 formData.append('qtd_atendida', qtd_atendida);
                 formData.append('lista_ids', listaIds);
                 formData.append('data_tramite', currentDay);
-            
-                // Make AJAX request
-                try {
-                    const response = await fetch('../../../API/materiais/tramitar-materiais.php', {
-                        method: 'POST',
-                        body: formData
-                    });
 
-                    if (response.ok) {
-                    const responseData = await response.json();
-                    if (responseData.success) {
-                        showCustomAlert(responseData.message, 'success'); // Display success message
-                    } else {
-                        showCustomAlert(responseData.message, 'error'); // Display error message
-                    }
+                // Create JSON object
+                const data = {
+                    id_solicitacao: id_solicitacao,
+                    obs_tramite: obsTramite,
+                    qtd_atendida: qtd_atendida,
+                    lista_ids: listaIds,
+                    data_tramite: currentDay
+                };
+            
+            // Perform API request           
+            api.materiais.tramitarMaterial(data)
+            .then(function(response) {
+                if (response.message) {
+                    console.log(response.message);
+                    showCustomAlert(response.message, 'success');
                 } else {
-                    showCustomAlert('Error occurred during the request.', 'error');
+                    showCustomAlert(error, 'error');
                 }
-            } catch (error) {
-                showCustomAlert('Error occurred: ' + error, 'error');
-            }
+            })
+            .catch(function(error) {
+                console.log(response);
+            });
         });
         </script>
     </body>

@@ -139,6 +139,10 @@ const disciplinas = {
   consultar: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultar.php`;
     return sendRequest(url, 'POST', data);
+  },
+  consultarID: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultarID.php`;
+    return sendRequest(url, 'POST', data);
   }
 };
 

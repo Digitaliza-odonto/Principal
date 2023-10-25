@@ -97,7 +97,7 @@
 
           <script>
             function submitForm() {
-              var formData = {
+              var formContent = {
                 queixa: $('#queixa').val(),
                 aspectoRelevante: $('#aspectoRelevante').val(),
                 especialidade: $('#especialidade').val(),
@@ -105,12 +105,12 @@
                 aluno_id: $('#aluno_id').val(),
                 responsavel: $('#responsavel').val(),
                 componente_curricular: $('#componente_curricular').val(),
-                Cpf: $('#Cpf').val()
+                CPF: $('#Cpf').val()
               };
               
                                
               // Perform API request
-              api.planoTratamento.criar(formData)
+              api.planoTratamento.criar(formContent)
                 .then(function(response) {
                   if (response.message) {
                     console.log(response.message);
@@ -126,18 +126,12 @@
           </script>
 
           <form id="planoForm">
-            <div id="planoCadastro">
-              <!-- Imported content will be placed here -->
-            </div>
-
-            <h2 style="color: red; margin-top: 25px;"> FALTA PEGAR O ID DO ALUNO AUTOMATICAMENTE</h2>
-            <input type="text" id="aluno_id" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 32%;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO"><br>
-            <script>
-              document.getElementById("aluno_id").value = JSON.parse(localStorage.getItem("usuario"))['Matricula'];
-            </script>
-            <h2 style="color: red;"> APAGAR ESSE CAMPO DEPOIS DISSO</h2><br>
-
-          </form>
+            
+              <input type="hidden" id="aluno_id" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 32%;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO"><br>
+              <script>
+                document.getElementById("aluno_id").value = JSON.parse(localStorage.getItem("usuario"))['Matricula'];
+              </script>
+            </form>
 
           <div id="planoContent">
             <?php echo file_get_contents('../../tabsProntuarios/planoCadastro.html');     ?>

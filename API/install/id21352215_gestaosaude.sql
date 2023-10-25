@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 24/10/2023 às 23:56
+-- Tempo de geração: 25/10/2023 às 21:49
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -228,6 +228,8 @@ INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Curso`, `Especialidade`, `D
 
 CREATE TABLE `entrevista` (
   `id_entrevista` bigint(20) NOT NULL,
+  `id_aluno` varchar(50) NOT NULL,
+  `id_disciplina` varchar(255) NOT NULL,
   `data` date NOT NULL,
   `CPF` varchar(50) NOT NULL,
   `queixa` text NOT NULL,
@@ -261,16 +263,24 @@ CREATE TABLE `entrevista` (
   `historicoFamiliar` varchar(60) NOT NULL,
   `obs` varchar(120) NOT NULL,
   `medico` varchar(64) NOT NULL,
-  `medicoTEL` int(11) NOT NULL
+  `medicoTEL` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `entrevista`
 --
 
-INSERT INTO `entrevista` (`id_entrevista`, `data`, `CPF`, `queixa`, `doenca_YN`, `doenca`, `tto_medico_YN`, `tto_medico`, `medicacao_YN`, `medicacao`, `alergia_YN`, `alergia`, `fumante_YN`, `fumante`, `etilista_YN`, `etilista`, `ultimaConsulta`, `ultimoTTO`, `freq_Higiene`, `instr_Higiene`, `fluor`, `operado_YN`, `operado`, `cicatrizacao_YN`, `cicatrizacao`, `anestesia_YN`, `anestesia`, `hemorragia_YN`, `hemorragia`, `gravidez_YN`, `gravidez`, `historicoFamiliar`, `obs`, `medico`, `medicoTEL`) VALUES
-(1, '2023-10-23', '112.289.390-63', '', 'Sim', 'teste', 'Não', '', 'Sim', 'TESTE', 'Não', '', 'Não', '', 'Não', '', '12/03/2021', 'teste', '3x ao dia', 'Enxaguante,Escova', 'Dentifirício', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Nada consta', 'teste observação', 'Dr. X', 99999999),
-(2, '2023-10-23', '112.289.390-63', '', 'Sim', 'teste', 'Não', '', 'Sim', 'TESTE', 'Não', '', 'Não', '', 'Não', '', '12/03/2021', 'teste', '3x ao dia', 'Enxaguante,Escova', 'Dentifirício', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Nada consta', 'teste observação', 'Dr. X', 99999999);
+INSERT INTO `entrevista` (`id_entrevista`, `id_aluno`, `id_disciplina`, `data`, `CPF`, `queixa`, `doenca_YN`, `doenca`, `tto_medico_YN`, `tto_medico`, `medicacao_YN`, `medicacao`, `alergia_YN`, `alergia`, `fumante_YN`, `fumante`, `etilista_YN`, `etilista`, `ultimaConsulta`, `ultimoTTO`, `freq_Higiene`, `instr_Higiene`, `fluor`, `operado_YN`, `operado`, `cicatrizacao_YN`, `cicatrizacao`, `anestesia_YN`, `anestesia`, `hemorragia_YN`, `hemorragia`, `gravidez_YN`, `gravidez`, `historicoFamiliar`, `obs`, `medico`, `medicoTEL`) VALUES
+(1, '', '', '2023-10-23', '112.289.390-63', '', 'Sim', 'teste', 'Não', '', 'Sim', 'TESTE', 'Não', '', 'Não', '', 'Não', '', '12/03/2021', 'teste', '3x ao dia', 'Enxaguante,Escova', 'Dentifirício', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Nada consta', 'teste observação', 'Dr. X', '99999999'),
+(2, '', '', '2023-10-23', '112.289.390-63', '', 'Sim', 'teste', 'Não', '', 'Sim', 'TESTE', 'Não', '', 'Não', '', 'Não', '', '12/03/2021', 'teste', '3x ao dia', 'Enxaguante,Escova', 'Dentifirício', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Nada consta', 'teste observação', 'Dr. X', '99999999'),
+(7, 'Pedro', 'PERIODONTIA CLÍNICA', '2023-10-25', '790.588.720-09', 'queixaaaaaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '0'),
+(8, 'Pedro', 'PRÓTESE DENTÁRIA PARCIAL III', '2023-10-25', '964.940.820-76', 'queixaadulto', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '0'),
+(9, 'Pedro', 'PERIODONTIA CLÍNICA', '2023-10-25', '964.940.820-76', 'Queixa Adulto', 'Não', 'mmmmm', 'Não', '', 'Não', 'mmmmmmmm', 'Não', '', 'Não', '', 'Não', '', '2023-10-25', 'tto', '3x ao dia', 'Array', 'Array', 'Não', 'aaaaaaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'avvvvvvvv', 'ccccccc', '', ''),
+(10, 'Pedro', 'ODONTOPEDIATRIA', '2023-10-25', '790.588.720-09', 'queixaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', ''),
+(11, 'Pedro', 'ODONTOPEDIATRIA', '2023-10-25', '790.588.720-09', 'queixaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', ''),
+(12, 'Pedro', 'ODONTOPEDIATRIA', '2023-10-25', '790.588.720-09', 'queixaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', ''),
+(13, 'Pedro', 'ESTÁGIO EM PRONTO ATENDIMENTO (EPA)', '2023-10-25', '790.588.720-09', 'queixaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', ''),
+(14, 'Pedro', 'PERIODONTIA CLÍNICA', '2023-10-25', '964.940.820-76', 'queixaAdultoooooooo', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -280,6 +290,8 @@ INSERT INTO `entrevista` (`id_entrevista`, `data`, `CPF`, `queixa`, `doenca_YN`,
 
 CREATE TABLE `entrevistaped` (
   `id_entrevista` bigint(20) NOT NULL,
+  `id_aluno` varchar(50) NOT NULL,
+  `id_disciplinaPed` varchar(255) NOT NULL,
   `data` date NOT NULL,
   `CPF` varchar(50) NOT NULL,
   `queixaPed` text NOT NULL,
@@ -305,7 +317,7 @@ CREATE TABLE `entrevistaped` (
   `medicacao_YN_Ped` varchar(3) NOT NULL,
   `medicacao_Ped` varchar(60) NOT NULL,
   `pediatra` varchar(64) NOT NULL,
-  `telPediatra` int(11) NOT NULL,
+  `telPediatra` varchar(20) NOT NULL,
   `obs_ped` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -313,8 +325,10 @@ CREATE TABLE `entrevistaped` (
 -- Despejando dados para a tabela `entrevistaped`
 --
 
-INSERT INTO `entrevistaped` (`id_entrevista`, `data`, `CPF`, `queixaPed`, `probGravidez_YN`, `probGravidez`, `tipoParto`, `doencaInfancia_YN`, `doencaInfancia`, `internacao_YN`, `internacao`, `historicoMedicacao_YN`, `historicoMedicacao`, `alergia_YN_Ped`, `alergia_Ped`, `respiratorio_YN`, `respiratorio`, `cardiaco_YN`, `cardiaco`, `sanguineo_YN`, `sanguineo`, `diabetes_YN`, `diabetes`, `medicacao_YN_Ped`, `medicacao_Ped`, `pediatra`, `telPediatra`, `obs_ped`) VALUES
-(1, '2023-10-25', '112.289.390-63', 'queixa ped', 'Sim', 'Não', 'Cesárea', 'Não', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Pediatra', 0, 'teste_obs');
+INSERT INTO `entrevistaped` (`id_entrevista`, `id_aluno`, `id_disciplinaPed`, `data`, `CPF`, `queixaPed`, `probGravidez_YN`, `probGravidez`, `tipoParto`, `doencaInfancia_YN`, `doencaInfancia`, `internacao_YN`, `internacao`, `historicoMedicacao_YN`, `historicoMedicacao`, `alergia_YN_Ped`, `alergia_Ped`, `respiratorio_YN`, `respiratorio`, `cardiaco_YN`, `cardiaco`, `sanguineo_YN`, `sanguineo`, `diabetes_YN`, `diabetes`, `medicacao_YN_Ped`, `medicacao_Ped`, `pediatra`, `telPediatra`, `obs_ped`) VALUES
+(1, '', 'PRÓTESE DENTÁRIA PARCIAL III', '2023-10-25', '112.289.390-63', 'queixa ped', 'Sim', 'Não', 'Cesárea', 'Não', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Pediatra', '0', 'teste_obs'),
+(5, 'Pedro', 'PRÓTESE DENTÁRIA PARCIAL III', '2023-10-25', '964.940.820-76', 'queixaPed', 'Não', '', '', 'Não', '', 'Não', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '0', ''),
+(6, 'Pedro', 'ODONTOPEDIATRIA', '2023-10-25', '964.940.820-76', 'queixa ped', 'Não', '', '', 'Não', '', 'Não', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'aaaaaaaa', '(12) 3455-66665', 'aaaaaaaaaa');
 
 -- --------------------------------------------------------
 
@@ -324,23 +338,23 @@ INSERT INTO `entrevistaped` (`id_entrevista`, `data`, `CPF`, `queixaPed`, `probG
 
 CREATE TABLE `historicoatendimentos` (
   `id_atendimentos` bigint(20) NOT NULL,
+  `id_aluno` varchar(255) NOT NULL,
   `cpf` varchar(50) NOT NULL,
   `data` date NOT NULL,
   `especialidade` varchar(255) NOT NULL,
   `descricao` text NOT NULL,
-  `id_aluno` varchar(255) NOT NULL,
   `responsavel` varchar(255) NOT NULL,
   `componente_curricular` varchar(255) NOT NULL,
-  `codSus` text NOT NULL,
-  `homologado` varchar(3) NOT NULL
+  `homologado` varchar(3) NOT NULL,
+  `codSus` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `historicoatendimentos`
 --
 
-INSERT INTO `historicoatendimentos` (`id_atendimentos`, `cpf`, `data`, `especialidade`, `descricao`, `id_aluno`, `responsavel`, `componente_curricular`, `codSus`, `homologado`) VALUES
-(1, '112.289.390-63', '2023-10-16', 'prótese', 'descrição', 'Aluno', 'responsavel', 'disciplina', 'lista de códigos', '');
+INSERT INTO `historicoatendimentos` (`id_atendimentos`, `id_aluno`, `cpf`, `data`, `especialidade`, `descricao`, `responsavel`, `componente_curricular`, `homologado`, `codSus`) VALUES
+(1, 'Aluno', '112.289.390-63', '2023-10-16', 'prótese', 'descrição', 'responsavel', 'disciplina', '', 'lista de códigos');
 
 -- --------------------------------------------------------
 
@@ -466,9 +480,13 @@ CREATE TABLE `plano_tto` (
 --
 
 INSERT INTO `plano_tto` (`id`, `CPF`, `data`, `queixa`, `aspectoRelevante`, `especialidade`, `descricao`, `aluno_id`, `responsavel`, `componente_curricular`) VALUES
-(1, '', '2023-10-19', 'Queixa', 'Aspectos', 'Odontopediatria,Dentística', 'Descrição', 'Aluno', 'Professor', 'Disciplina'),
+(1, '790.588.720-09', '2023-10-19', 'Queixa', 'Aspectos', 'Odontopediatria,Dentística', 'Descrição', 'Aluno', 'Professor', 'Disciplina'),
 (2, '112.289.390-63', '2023-10-09', 'queixa 1', 'relevancia', 'prótese, cirurgia', 'descricao', 'ALUNO X', 'PROF. Y', 'UPD-2'),
-(3, '112.289.390-63', '2023-10-24', 'queixa 2', 'aspectos2', 'Dentística', 'Descr2', 'ALUNO W', 'PROF. Z', 'ECO-2');
+(3, '112.289.390-63', '2023-10-24', 'queixa 2', 'aspectos2', 'Dentística', 'Descr2', 'ALUNO W', 'PROF. Z', 'ECO-2'),
+(7, '790.588.720-09', '2023-10-25', 'plano com CPF', 'aspectos com CPF', 'Prótese Dentária,Odontopediatria,Periodontia,Dentística', 'Desc', 'Pedro', 'prof', 'disci'),
+(8, '790.588.720-09', '2023-10-25', 'queixa', 'aspec', 'Prótese Dentária,Odontopediatria,Periodontia', 'des', 'Pedro', 'prof', 'disc'),
+(9, '964.940.820-76', '2023-10-25', 'plano com CPF', 'aspects', 'Odontopediatria,Periodontia,Dentística', 'desc', 'Pedro', 'prof', 'disc'),
+(15, '964.940.820-76', '2023-10-25', 'agora', 'a', 'Prótese Dentária,Odontopediatria', 'asb', 'Pedro', 'aaa', 'bbb');
 
 -- --------------------------------------------------------
 
@@ -650,12 +668,14 @@ INSERT INTO `usuarios` (`id`, `Matricula`, `Nome`, `Tipo`, `Pacientes`) VALUES
 
 CREATE TABLE `vinculospacientes` (
   `id_vinculo` bigint(20) NOT NULL,
+  `id_demanda` varchar(50) NOT NULL,
   `cpf_paciente` varchar(50) NOT NULL,
   `id_aluno` varchar(50) NOT NULL,
   `demandaEspecialidade` varchar(255) NOT NULL,
   `demandaDescricao` int(11) NOT NULL,
   `complexidade` int(11) NOT NULL,
   `disciplina` int(11) NOT NULL,
+  `turma` varchar(2) NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -779,13 +799,13 @@ ALTER TABLE `encaminhamentos`
 -- AUTO_INCREMENT de tabela `entrevista`
 --
 ALTER TABLE `entrevista`
-  MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `entrevistaped`
 --
 ALTER TABLE `entrevistaped`
-  MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `materiais`
@@ -803,7 +823,7 @@ ALTER TABLE `pacientes`
 -- AUTO_INCREMENT de tabela `plano_tto`
 --
 ALTER TABLE `plano_tto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `solicitacao_materiais`

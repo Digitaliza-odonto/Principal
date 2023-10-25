@@ -1,90 +1,102 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE");
 header("Access-Control-Allow-Headers: X-Requested-With, Content-Type");
 header("Access-Control-Allow-Credentials: true");
-header("Content-Type: application/json");
 
-require_once '../db.php';
+require_once '../db.php';   // Importa o arquivo de conexão com o banco de dados
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = date('Y-m-d');
-    $CPF = $_POST['Cpf'];
-    $queixa = $_POST['queixa'];
-    $doenca_YN = $_POST['doenca_YN'];
-    $doenca = $_POST['doenca'];
-    $tto_medico_YN = $_POST['tto_medico_YN'];
-    $tto_medico = $_POST['tto_medico'];
-    $medicacao_YN = $_POST['medicacao_YN'];
-    $medicacao = $_POST['medicacao'];
-    $alergia_YN = $_POST['alergia_YN'];
-    $alergia = $_POST['alergia'];
-    $fumante_YN = $_POST['fumante_YN'];
-    $fumante = $_POST['fumante'];
-    $etilista_YN = $_POST['etilista_YN'];
-    $etilista = $_POST['etilista'];
-    $ultimaConsulta = $_POST['ultimaConsulta'];
-    $ultimoTTO = $_POST['ultimoTTO'];
-    $freq_higiene = $_POST['freq_higiene'];
-    $instr_higiene = implode(',', $_POST['instr_higiene']);
-    $fluor = implode(',', $_POST['fluor']);
-    $operado_YN = $_POST['operado_YN'];
-    $operado = $_POST['operado'];
-    $cicatrizacao_YN = $_POST['cicatrizacao_YN'];
-    $cicatrizacao = $_POST['cicatrizacao'];
-    $anestesia_YN = $_POST['anestesia_YN'];
-    $anestesia = $_POST['anestesia'];
-    $hemorragia_YN = $_POST['hemorragia_YN'];
-    $hemorragia = $_POST['hemorragia'];
-    $gravidez_YN = $_POST['gravidez_YN'];
-    $gravidez = $_POST['gravidez'];
-    $historicoFamiliar = $_POST['historicoFamiliar'];
-    $obs = $_POST['obs'];
-    $medico = $_POST['medico'];
-    $medicoTEL = $_POST['medicoTEL'];
+    $data = json_decode(file_get_contents('php://input'), true);
+    
+    $Data = date('Y-m-d');
+    $id_aluno = $data['id_aluno'];
 
-    if (!empty($queixa)) {
-        // If 'queixa' is not empty, execute $insertQuery1
-        $insertQuery = "INSERT INTO `entrevista`(`data`, `CPF`, `queixa`, `doenca_YN`, `doenca`, `tto_medico_YN`, `tto_medico`, `medicacao_YN`, `medicacao`, `alergia_YN`, `alergia`, `fumante_YN`, `fumante`, `etilista_YN`, `etilista`, `ultimaConsulta`, `ultimoTTO`, `freq_Higiene`, `instr_Higiene`, `fluor`, `operado_YN`, `operado`, `cicatrizacao_YN`, `cicatrizacao`, `anestesia_YN`, `anestesia`, `hemorragia_YN`, `hemorragia`, `gravidez_YN`, `gravidez`, `historicoFamiliar`, `obs`, `medico`, `medicoTEL`) 
-        VALUES ('$data', '$CPF', '$queixa', '$doenca_YN', '$doenca', '$tto_medico_YN', '$tto_medico', '$medicacao_YN', '$medicacao', '$alergia_YN', '$alergia', '$fumante_YN', '$fumante', '$etilista_YN', '$etilista', '$ultimaConsulta', '$ultimoTTO', '$freq_higiene', '$instr_higiene', '$fluor', '$operado_YN', '$operado', '$cicatrizacao_YN', '$cicatrizacao', '$anestesia_YN', '$anestesia', '$hemorragia_YN', '$hemorragia', '$gravidez_YN', '$gravidez', '$historicoFamiliar', '$obs', '$medico', '$medicoTEL')";
-    } else {
-        // If 'queixa' is empty, execute $insertQuery2
-        $queixaPed = $_POST['queixaPed'];
-        $probGravidez_YN = $_POST['probGravidez_YN'];
-        $probGravidez = $_POST['probGravidez'];
-        $tipoParto = $_POST['tipoParto'];
-        $doencaInfancia_YN = $_POST['doencaInfancia_YN'];
-        $doencaInfancia = $_POST['doencaInfancia'];
-        $internacao_YN = $_POST['internacao_YN'];
-        $internacao = $_POST['internacao'];
-        $historicoMedicacao_YN = $_POST['historicoMedicacao_YN'];
-        $historicoMedicacao = $_POST['historicoMedicacao'];
-        $alergia_YN_Ped = $_POST['alergia_YN_Ped'];
-        $alergia_Ped = $_POST['alergia_Ped'];
-        $respiratorio_YN = $_POST['respiratorio_YN'];
-        $respiratorio = $_POST['respiratorio'];
-        $cardiaco_YN = $_POST['cardiaco_YN'];
-        $cardiaco = $_POST['cardiaco'];
-        $sanguineo_YN = $_POST['sanguineo_YN'];
-        $sanguineo = $_POST['sanguineo'];
-        $diabetes_YN = $_POST['diabetes_YN'];
-        $diabetes = $_POST['diabetes'];
-        $medicacao_YN_Ped = $_POST['medicacao_YN_Ped'];
-        $medicacao_Ped = $_POST['medicacao_Ped'];
-        $pediatra = $_POST['pediatra'];
-        $telPediatra = $_POST['telPediatra'];
-        $obs_ped = $_POST['obs_ped'];
+    //ADULTO
+    $id_disciplina = $data['id_disciplina'];
+    $CPF = $data['CPF'];
+    $queixa = $data['queixa'];
+    $doenca_YN = $data['doenca_YN'];
+    $doenca = $data['doenca'];
+    $tto_medico_YN = $data['tto_medico_YN'];
+    $tto_medico = $data['tto_medico'];
+    $medicacao_YN = $data['medicacao_YN'];
+    $medicacao = $data['medicacao'];
+    $alergia_YN = $data['alergia_YN'];
+    $alergia = $data['alergia'];
+    $fumante_YN = $data['fumante_YN'];
+    $fumante = $data['fumante'];
+    $etilista_YN = $data['etilista_YN'];
+    $etilista = $data['etilista'];
+    $ultimaConsulta = $data['ultimaConsulta'];
+    $ultimoTTO = $data['ultimoTTO'];
+    $freq_higiene = $data['freq_higiene'];
+    $instr_higiene = $data['instr_higiene'];
+    $fluor = $data['fluor'];
+    $operado_YN = $data['operado_YN'];
+    $operado = $data['operado'];
+    $cicatrizacao_YN = $data['cicatrizacao_YN'];
+    $cicatrizacao = $data['cicatrizacao'];
+    $anestesia_YN = $data['anestesia_YN'];
+    $anestesia = $data['anestesia'];
+    $hemorragia_YN = $data['hemorragia_YN'];
+    $hemorragia = $data['hemorragia'];
+    $gravidez_YN = $data['gravidez_YN'];
+    $gravidez = $data['gravidez'];
+    $historicoFamiliar = $data['historicoFamiliar'];
+    $obs = $data['obs'];
+    $medico = $data['medico'];
+    $medicoTEL = $data['medicoTEL'];
+    
+    //PEDIATRIA
+    $queixaPed = $data['queixaPed'];
+    $id_disciplinaPed = $data['id_disciplinaPed'];
+    $probGravidez_YN = $data['probGravidez_YN'];
+    $probGravidez = $data['probGravidez'];
+    $tipoParto = $data['tipoParto'];
+    $doencaInfancia_YN = $data['doencaInfancia_YN'];
+    $doencaInfancia = $data['doencaInfancia'];
+    $internacao_YN = $data['internacao_YN'];
+    $internacao = $data['internacao'];
+    $historicoMedicacao_YN = $data['historicoMedicacao_YN'];
+    $historicoMedicacao = $data['historicoMedicacao'];
+    $alergia_YN_Ped = $data['alergia_YN_Ped'];
+    $alergia_Ped = $data['alergia_Ped'];
+    $respiratorio_YN = $data['respiratorio_YN'];
+    $respiratorio = $data['respiratorio'];
+    $cardiaco_YN = $data['cardiaco_YN'];
+    $cardiaco = $data['cardiaco'];
+    $sanguineo_YN = $data['sanguineo_YN'];
+    $sanguineo = $data['sanguineo'];
+    $diabetes_YN = $data['diabetes_YN'];
+    $diabetes = $data['diabetes'];
+    $medicacao_YN_Ped = $data['medicacao_YN_Ped'];
+    $medicacao_Ped = $data['medicacao_Ped'];
+    $pediatra = $data['pediatra'];
+    $telPediatra = $data['telPediatra'];
+    $obs_ped = $data['obs_ped'];
+    
+    
+// Check if 'queixa' field is empty
+if (empty($data['queixa'])) {
+    // If 'queixa' is empty, use the query for entrevistaped table
+    $insertQuery = "INSERT INTO `entrevistaped` (`id_aluno`, `id_disciplinaPed`, `Data`, `CPF`, `queixaPed`, `probGravidez_YN`, `probGravidez`, `tipoParto`, `doencaInfancia_YN`, `doencaInfancia`, `internacao_YN`, `internacao`, `historicoMedicacao_YN`, `historicoMedicacao`, `alergia_YN_Ped`, `alergia_Ped`, `respiratorio_YN`, `respiratorio`, `cardiaco_YN`, `cardiaco`, `sanguineo_YN`, `sanguineo`, `diabetes_YN`, `diabetes`, `medicacao_YN_Ped`, `medicacao_Ped`, `pediatra`, `telPediatra`, `obs_ped`)
+            VALUES ('$id_aluno', '$id_disciplinaPed', '$Data', '$CPF', '$queixaPed', '$probGravidez_YN', '$probGravidez', '$tipoParto', '$doencaInfancia_YN', '$doencaInfancia', '$internacao_YN', '$internacao', '$historicoMedicacao_YN', '$historicoMedicacao', '$alergia_YN_Ped', '$alergia_Ped', '$respiratorio_YN', '$respiratorio', '$cardiaco_YN', '$cardiaco', '$sanguineo_YN', '$sanguineo', '$diabetes_YN', '$diabetes', '$medicacao_YN_Ped', '$medicacao_Ped', '$pediatra', '$telPediatra', '$obs_ped')";
 
-        $insertQuery = "INSERT INTO `entrevistaped`(`data`, `CPF`, `queixaPed`, `probGravidez_YN`, `probGravidez`, `tipoParto`, `doencaInfancia_YN`, `doencaInfancia`, `internacao_YN`, `internacao`, `historicoMedicacao_YN`, `historicoMedicacao`, `alergia_YN_Ped`, `alergia_Ped`, `respiratorio_YN`, `respiratorio`, `cardiaco_YN`, `cardiaco`, `sanguineo_YN`, `sanguineo`, `diabetes_YN`, `diabetes`, `medicacao_YN_Ped`, `medicacao_Ped`, `pediatra`, `telPediatra`, `obs_ped`) 
-        VALUES ('$data', '$CPF', '$queixaPed', '$probGravidez_YN', '$probGravidez', '$tipoParto', '$doencaInfancia_YN', '$doencaInfancia', '$internacao_YN', '$internacao', '$historicoMedicacao_YN', '$historicoMedicacao', '$alergia_YN_Ped', '$alergia_Ped', '$respiratorio_YN', '$respiratorio', '$cardiaco_YN', '$cardiaco', '$sanguineo_YN', '$sanguineo', '$diabetes_YN', '$diabetes', '$medicacao_YN_Ped', '$medicacao_Ped', '$pediatra', '$telPediatra', '$obs_ped')";
-    }
 
-    if (db($insertQuery)) {
-        echo json_encode(array("message" => "Entrevista dialogada cadastrada com sucesso"));
-    } else {
-        echo json_encode(array("error" => "Erro ao cadastrar entrevista dialogada"));
-    }
 } else {
-    echo json_encode(array("error" => "Método inválido"));
+    // If 'queixa' is not empty, use the query for entrevista table
+    $insertQuery = "INSERT INTO `entrevista` (`id_aluno`, `id_disciplina`, `data`, `CPF`, `queixa`, `doenca_YN`, `doenca`, `tto_medico_YN`, `tto_medico`, `medicacao_YN`, `medicacao`, `alergia_YN`, `alergia`, `fumante_YN`, `fumante`, `etilista_YN`, `etilista`, `ultimaConsulta`, `ultimoTTO`, `freq_higiene`, `instr_higiene`, `fluor`, `operado_YN`, `operado`, `cicatrizacao_YN`, `cicatrizacao`, `anestesia_YN`, `anestesia`, `hemorragia_YN`, `hemorragia`, `gravidez_YN`, `gravidez`, `historicoFamiliar`, `obs`, `medico`, `medicoTEL`) 
+            VALUES ('$id_aluno', '$id_disciplina', '$Data', '$CPF', '$queixa', '$doenca_YN', '$doenca', '$tto_medico_YN', '$tto_medico', '$medicacao_YN', '$medicacao', '$alergia_YN', '$alergia', '$fumante_YN', '$fumante', '$etilista_YN', '$etilista', '$ultimaConsulta', '$ultimoTTO', '$freq_higiene', '$instr_higiene', '$fluor', '$operado_YN', '$operado', '$cicatrizacao_YN', '$cicatrizacao', '$anestesia_YN', '$anestesia', '$hemorragia_YN', '$hemorragia', '$gravidez_YN', '$gravidez', '$historicoFamiliar', '$obs', '$medico', '$medicoTEL')";
 }
+
+// Execute the query
+db($insertQuery);
+
+echo json_encode(array("message" => "Entrevista dialogada registrada com sucesso"));
+} else {
+echo json_encode(array("message" => "Método inválido"));
+}
+
 ?>

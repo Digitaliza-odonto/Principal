@@ -1,20 +1,9 @@
 <div id="registrarAtendimento">
     
-    <p></p>
-
-    <!-- <label style="font-weight:bold;width: 180px;">Área/Curso da saúde</label>
-    <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="areaSaúde" id="areaSaúde">
-    <option value="0">Escolher</option>
-    <option value="Odontologia">Odontologia</option>
-    <option value="Enfermagem">Enfermagem</option>
-    <option value="Farmácia">Farmácia</option>
-    <option value="Terapia Ocupacional">Terapia Ocupacional</option>
-    </select> -->
-    
     <br>
     <p></p>
     <label style="font-weight:bold;width: 180px;">Lista de especialidades</label>
-    <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="especAreaSaúde" id="especAreaSaúde">
+    <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="especialidade" id="especialidade">
     <option value="Escolher">Escolher</option>
     <option value="Prótese Dentária">Prótese Dentária</option>
     <option value="Odontopediatria">Odontopediatria</option>
@@ -22,44 +11,6 @@
     <option value="Dentística">Dentística</option>
     <option value="Cirurgia">Cirurgia</option>
     </select>
-    
-    <!-- <script>
-    const disciplinas = [
-        {codCurso: '0', nomeEspec:'Selecione uma especialidade'},
-        {codCurso: 'Odontologia', nomeEspec:'Prótese Dentária'},
-        {codCurso: 'Odontologia', nomeEspec:'Odontopediatria'},
-        {codCurso: 'Odontologia', nomeEspec:'Periodontia'},
-        {codCurso: 'Odontologia', nomeEspec:'Dentística'},
-        {codCurso: 'Odontologia', nomeEspec:'Cirurgia'},
-        {codCurso: 'Enfermagem', nomeEspec:'Pediatria e Neonatologia'},
-        {codCurso: 'Enfermagem', nomeEspec:'Terapia Intensiva e Alta Complexidade'},
-        {codCurso: 'Enfermagem', nomeEspec:'Cardiologia e Hemodinâmica'},
-        {codCurso: 'Farmácia', nomeEspec:'Análises clínicas' },
-        {codCurso: 'Farmácia', nomeEspec:'Antroposofia' },
-        {codCurso: 'Terapia Ocupacional', nomeEspec:'Contextos sociais' },
-        {codCurso: 'Terapia Ocupacional', nomeEspec:'Saúde da família' },
-        // Add more options as needed
-    ];
-    
-    const areaSelect = document.getElementById('areaSaúde');
-    const disciplinasSelect = document.getElementById('especAreaSaúde');
-    
-    areaSelect.addEventListener('change', function() {
-        const selectedCodCurso = areaSelect.value;
-    
-        // Clear existing options
-        disciplinasSelect.innerHTML = '<option value="0">Selecione uma especialidade</option>';
-    
-        // Filter and populate the second select
-        const selectedDisciplinas = disciplinas.filter(disciplina => disciplina.codCurso === selectedCodCurso);
-        selectedDisciplinas.forEach(disciplina => {
-        const option = document.createElement('option');
-        option.value = disciplina.nomeEspec;
-        option.textContent = disciplina.nomeEspec;
-        disciplinasSelect.appendChild(option);
-        });
-    });
-    </script> -->
     
     <hr class="ui-state-default">
     <p></p>
@@ -72,42 +23,9 @@
     <label style="width: 180px; ;">Código SUS:</label>
     <button id="btnAddCodSus" value="Adicionar Cód. SUS" class="button">Adicionar Cód. SUS</button>
     <div style="height: 22px; width: 25px; margin: 0px -1px 5px 0px; display: block; float: left; position: relative; padding: 0; text-decoration: none !important; text-align: center; zoom: 1; overflow: visible; border-right: none;" class="ui-widget ui-state-default ui-corner-tl ui-corner-bl ui-button-icon-only"><span class=" ui-icon ui-icon-search"></span></div>
-    <input type="text" value="" maxlength="" class="ui-state-default ui-corner-tr ui-corner-br mousetrap " id="atendimentoCodSUS" placeholder="Digite o código SUS" style="width: 240px;" />
+    <input type="text" value="" class="ui-state-default ui-corner-tr ui-corner-br mousetrap" id="atendimentoCodSUS" placeholder="Digite o código SUS" style="width: 240px;" />
     <br>
-
-
-
-
-<script>
-
-    function getProcedimentos() {
-        // Fetch users from API
-        return api.procedimentos.consultar()
-            .then(function (procedimentos) {
-                console.log(procedimentos);
-                return procedimentos;
-            })
-            .catch(function (error) {
-                console.error('Erro ao consultar usuários:', error);
-                throw error;
-            });
-        }
-
-    getProcedimentos();
     
-    </script>
-
-    
-
-
-
-
-
-
-
-
-
-
     <label style="width: 180px;">Data do atendimento</label>
     <input type="text" id="atendimentoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 265px;" />
     <br>
@@ -121,118 +39,75 @@
     <input type="text" id="componenteCurricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO">
     <br>
     
-            <p></p>
-    <button id="btnAdicionar" onclick="addTable()" value="Adicionar" class="button"  >Adicionar</button>
-    <button id="btnCancelar" onclick="limparCampos()" value="Cancelar" class="button"  >Cancelar</button>
+    <p></p>
+    <button id="btnCancelar" onclick="limparCampos()" value="Cancelar" class="button">Limpar campos</button>
     <br>
+
     <p></p>
-    
     <hr class="ui-state-default">
-    
     <p></p>
-    
-    <h2> Descrição do registro de atendimento</h2>
-    <div style="margin: 10px;"></div>
-    <table id="listaProcedimento" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 90%; font-size: 14px; margin: 15px;">
-    <thead>
-        <tr class="ui-jqgrid-labels" role="rowheader">
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">
-            Data
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 7.5%;">
-            Área da Saúde
-        </th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 12.5%;">
-            Especialidade
-        </th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 40%;">
-            Descrição do procedimento
-        </th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 20%;">
-            Responsável técnico
-        </th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 15%;">
-            Disciplina/Estágio
-        </th>
-        </tr>
-        </thead>
-        <!-- Table body rows go here -->
-    </table>
-    
-    <script>
-    function addTable() {
-        var atendimentoData = document.getElementById("atendimentoData").value;
-        var areaSaúde = document.getElementById("areaSaúde").value;
-        var especAreaSaúde = document.getElementById("especAreaSaúde").value;
-        var atendimentoDescrição = document.getElementById("atendimentoDescrição").value;
-        var responsavelProcedimento = document.getElementById("responsavelProcedimento").value;
-        var componenteCurricular = document.getElementById("componenteCurricular").value;
-    
-        if (atendimentoData && areaSaúde && especAreaSaúde && atendimentoDescrição && responsavelProcedimento && componenteCurricular) {
-        var table = document.getElementById("listaProcedimento");
-        var newRow = table.insertRow(-1);
-    
-        var atendimentoDataCell = newRow.insertCell(0);
-        atendimentoDataCell.innerHTML = atendimentoData;
-        atendimentoDataCell.className = "ui-state-default ui-th-column ui-th-ltr";
-    
-        var areaSaúdeCell = newRow.insertCell(1);
-        areaSaúdeCell.innerHTML = areaSaúde;
-        areaSaúdeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-    
-        var especAreaSaúdeCell = newRow.insertCell(2);
-        especAreaSaúdeCell.innerHTML = especAreaSaúde;
-        especAreaSaúdeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-    
-        var atendimentoDescriçãoCell = newRow.insertCell(3);
-        atendimentoDescriçãoCell.innerHTML = atendimentoDescrição;
-        atendimentoDescriçãoCell.className = "ui-state-default ui-th-column ui-th-ltr";
-    
-        var responsavelProcedimentoCell = newRow.insertCell(4);
-        responsavelProcedimentoCell.innerHTML = responsavelProcedimento;
-        responsavelProcedimentoCell.className = "ui-state-default ui-th-column ui-th-ltr";
-    
-        var componenteCurricularCell = newRow.insertCell(5);
-        componenteCurricularCell.innerHTML = componenteCurricular;
-        componenteCurricularCell.className = "ui-state-default ui-th-column ui-th-ltr";
-    
-        // Clear input fields after adding row
-        document.getElementById("atendimentoData").value = "";
-        document.getElementById("areaSaúde").value = "";
-        document.getElementById("especAreaSaúde").value = "";
-        document.getElementById("atendimentoDescrição").value = "";
-        document.getElementById("responsavelProcedimento").value = "";
-        document.getElementById("componenteCurricular").value = "";
-        }
-    }
-    
-    function limparCampos() {
-        document.getElementById("atendimentoData").value = "";
-        document.getElementById("areaSaúde").value = "";
-        document.getElementById("especAreaSaúde").value = "";
-        document.getElementById("atendimentoDescrição").value = "";
-        document.getElementById("responsavelProcedimento").value = "";
-        document.getElementById("componenteCurricular").value = "";
-    }
-    </script>
     
     <hr class="ui-state-default">
     <div style="margin: 10px;"></div>
     <h2> Listagem de procedimentos SUS realizados</h2>
-    <table id="listaCodSUS" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 60%; font-size: 14px; margin: 15px;">
+    <table id="listaCodSUS" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 40%; font-size: 14px; margin: 15px;">
     <thead>
         <tr class="ui-jqgrid-labels" role="rowheader">
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">
-            Selec.
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 95%;">
-            Cód. e Procedimento SUS
+            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 5%;">Selec.</th>
+            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 15%;">Código</th>
+            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 80%;">Procedimento SUS</th>
         </tr>
         </thead>
         <!-- Table body rows go here -->
     </table>
     
     <button name="btnDeletar" id="btnDeletar" value="Deletar" class="button" style="margin: 15px;">Remover código SUS</button>
-    <!-- ADD DADOS NA TABELA DE ATENDIMENTO -->
+
+    <div>
+        <input type="hidden" id="aluno_id" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 32%;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO"><br>
+    </div>
+    
+    <!-- AUTOCOMPLETE PROCEDIMENTOS SUS & ADICIONA REMOVE LINHAS NA TABELA DE PROCEDIMENTOS-->
     <script>
+        $(document).ready(function () {
+            $('#atendimentoCodSUS').autocomplete({
+                source: function(request, response) {
+                    // Call the getProcedimentos function with user input as a parameter
+                    getProcedimentos(request.term).then(function (procedimentos) {
+                        // Map the response data and format it as 'cod_sus - nome'
+                        const procedimentosList = procedimentos.map(procedimento => ({
+                            value: procedimento.cod_sus + ' - ' + procedimento.nome,
+                            cod_sus: procedimento.cod_sus, // Store the cod_sus separately for further use if needed
+                            nome: procedimento.nome // Store the nome separately for further use if needed
+                        }));
+                        response(procedimentosList);
+                    }).catch(function (error) {
+                        console.error('Erro ao consultar procedimentos:', error);
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    // Handle selection
+                    $('#atendimentoCodSUS').val(ui.item.value); // Set input value to 'cod_sus - nome'
+                    console.log('Selected Cod_sus:', ui.item.cod_sus);
+                    console.log('Selected Nome:', ui.item.nome);
+                }
+            });
+
+            function getProcedimentos(term) {
+                // Fetch procedimentos from API based on user input
+                return api.procedimentos.consultar(term)
+                    .then(function (procedimentos) {
+                        console.log(procedimentos);
+                        return procedimentos;
+                    })
+                    .catch(function (error) {
+                        console.error('Erro ao consultar procedimentos:', error);
+                        throw error;
+                    });
+            }
+        });
+    
     document.getElementById("btnAddCodSus").addEventListener("click", function () {
         var atendimentoCodSUS = document.getElementById("atendimentoCodSUS").value;
         addCodSUSRow(atendimentoCodSUS);
@@ -245,15 +120,19 @@
     function addCodSUSRow(codSUS) {
         var listaCodSUSTable = document.getElementById("listaCodSUS");
         var newRow = listaCodSUSTable.insertRow(-1); // Insert at the end
-    
+
         const checkBoxCell = newRow.insertCell(0);
         checkBoxCell.innerHTML = '<input type="checkbox" class="delete-checkbox">';
         checkBoxCell.className = "ui-state-default ui-th-column ui-th-ltr";
-    
+
         var codesCell = newRow.insertCell(1);
-        codesCell.textContent = codSUS;
+        codesCell.textContent = codSUS.split(" - ")[0];
         codesCell.className = "ui-state-default ui-th-column ui-th-ltr";
-    
+
+        var nomeCell = newRow.insertCell(2);
+        nomeCell.textContent = codSUS.split(" - ")[1];
+        nomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
         // Clear input field after adding row
         document.getElementById("atendimentoCodSUS").value = "";
     }
@@ -267,6 +146,14 @@
                 table.deleteRow(i + 1); // +1 because of the header row
             }
         }
+    }
+
+    function limparCampos() {
+        document.getElementById("atendimentoData").value = "";
+        document.getElementById("especialidade").value = "";
+        document.getElementById("atendimentoDescrição").value = "";
+        document.getElementById("responsavelProcedimento").value = "";
+        document.getElementById("componenteCurricular").value = "";
     }
     </script>
 </div>

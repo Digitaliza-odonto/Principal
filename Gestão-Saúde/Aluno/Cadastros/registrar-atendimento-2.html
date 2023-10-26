@@ -66,7 +66,7 @@
       <!-- CONTEÚDO BOTÕES -->
       <div class="ui-widget-content ui-corner-all">
         <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Registrar atendimento</button>
+        <button id="salvar" class="salvar" title="Salvar paciente" onclick="criarAtendimento()" style="float: left;">Registrar atendimento</button>
         <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
         <span style="clear: both; display: block"></span>
       </div>
@@ -125,6 +125,56 @@
               <?php echo file_get_contents('../../tabsProntuarios/anexarExames.html');     ?>
             </div>
         </div>
+
+        <!-- API REQUEST - CRIAR ATENDIMENTO -->
+        <script>
+          function criarAtendimento () {
+            document.getElementById("aluno_id").value = JSON.parse(localStorage.getItem("usuario"))['Matricula'];
+            var atendimentoData = document.getElementById("atendimentoData").value;
+            var especialidade = document.getElementById("especialidade").value;
+            var atendimentoDescrição = document.getElementById("atendimentoDescrição").value;
+            var responsavelProcedimento = document.getElementById("responsavelProcedimento").value;
+            var componenteCurricular = document.getElementById("componenteCurricular").value;
+            var CPF = document.getElementById("Cpf").value;
+            var codSUSArray = [];
+
+            // Iterate over the table rows and extract 'cod_sus' values
+            var listaCodSUSTable = document.getElementById("listaCodSUS");
+            var rows = listaCodSUSTable.getElementsByTagName("tr");
+            for (var i = 1; i < rows.length; i++) {
+              var codSUSValue = rows[i].cells[1].textContent; // Assuming 'cod_sus' is in the second cell
+              codSUSArray.push(codSUSValue);
+            }
+
+            if (atendimentoData && especialidade && atendimentoDescrição && responsavelProcedimento && componenteCurricular) {
+              var formContent = {
+                "aluno_id": aluno_id,
+                "Cpf": CPF,
+                "atendimentoData": atendimentoData,
+                "especialidade": especialidade,
+                "atendimentoDescrição": atendimentoDescrição,
+                "responsavelProcedimento": responsavelProcedimento,
+                "componenteCurricular": componenteCurricular,
+                "codSUSArray": codSUSArray // Add the 'codSUSArray' to the formContent object
+              };
+
+              console.log(formContent);
+
+              api.atendimentos.criar(formContent)
+                .then(function(response) {
+                  if (response.message) {
+                    console.log(response.message);
+                    showCustomAlert(response.message);
+                  } else {
+                    console.log(response);
+                  }
+                })
+                .catch(function(error) {
+                  showCustomAlert(error);
+                });
+            }
+          }
+        </script>
       </div>
     </div>
   </body>

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2023 at 03:46 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- Tempo de geração: 26/10/2023 às 18:44
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `id21352215_gestaosaude`
+-- Banco de dados: `id21352215_gestaosaude`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `agenda-clinicas`
+-- Estrutura para tabela `agenda-clinicas`
 --
 
 CREATE TABLE `agenda-clinicas` (
@@ -41,7 +41,7 @@ CREATE TABLE `agenda-clinicas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `agenda-clinicas`
+-- Despejando dados para a tabela `agenda-clinicas`
 --
 
 INSERT INTO `agenda-clinicas` (`id_agendamento`, `agendado_por`, `cpf_paciente`, `data_agendamento`, `horario_agendamento`, `minuto_agendamento`, `atividade_curricular`, `local`, `descricao`, `status_agendamento`) VALUES
@@ -90,7 +90,7 @@ INSERT INTO `agenda-clinicas` (`id_agendamento`, `agendado_por`, `cpf_paciente`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `arquivos`
+-- Estrutura para tabela `arquivos`
 --
 
 CREATE TABLE `arquivos` (
@@ -105,7 +105,7 @@ CREATE TABLE `arquivos` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `avaliacoesatendimento`
+-- Estrutura para tabela `avaliacoesatendimento`
 --
 
 CREATE TABLE `avaliacoesatendimento` (
@@ -129,7 +129,7 @@ CREATE TABLE `avaliacoesatendimento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `avaliacoesatendimento`
+-- Despejando dados para a tabela `avaliacoesatendimento`
 --
 
 INSERT INTO `avaliacoesatendimento` (`id_avaliacao`, `data_avaliacao`, `matricula`, `id_responsavel`, `responsavel`, `cod_disciplina`, `disciplina`, `periodo`, `pontualidade`, `comportamento`, `materiais`, `conhecimento`, `cuidado`, `adversidades`, `dupla`, `autoavaliacao`, `obs`) VALUES
@@ -157,7 +157,7 @@ INSERT INTO `avaliacoesatendimento` (`id_avaliacao`, `data_avaliacao`, `matricul
 -- --------------------------------------------------------
 
 --
--- Table structure for table `disciplinas`
+-- Estrutura para tabela `disciplinas`
 --
 
 CREATE TABLE `disciplinas` (
@@ -174,7 +174,7 @@ CREATE TABLE `disciplinas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `disciplinas`
+-- Despejando dados para a tabela `disciplinas`
 --
 
 INSERT INTO `disciplinas` (`id`, `cod_disciplina`, `Nome`, `turma`, `periodo`, `alunos`, `ano`, `curso`, `codigo`, `datadecadastro`) VALUES
@@ -192,7 +192,7 @@ INSERT INTO `disciplinas` (`id`, `cod_disciplina`, `Nome`, `turma`, `periodo`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `encaminhamentos`
+-- Estrutura para tabela `encaminhamentos`
 --
 
 CREATE TABLE `encaminhamentos` (
@@ -210,7 +210,7 @@ CREATE TABLE `encaminhamentos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `encaminhamentos`
+-- Despejando dados para a tabela `encaminhamentos`
 --
 
 INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Curso`, `Especialidade`, `Demanda`, `Status`, `Observacoes`, `Complexidade`, `homologado`, `tramitado`) VALUES
@@ -223,7 +223,7 @@ INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Curso`, `Especialidade`, `D
 -- --------------------------------------------------------
 
 --
--- Table structure for table `entrevista`
+-- Estrutura para tabela `entrevista`
 --
 
 CREATE TABLE `entrevista` (
@@ -267,7 +267,7 @@ CREATE TABLE `entrevista` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `entrevista`
+-- Despejando dados para a tabela `entrevista`
 --
 
 INSERT INTO `entrevista` (`id_entrevista`, `id_aluno`, `id_disciplina`, `data`, `CPF`, `queixa`, `doenca_YN`, `doenca`, `tto_medico_YN`, `tto_medico`, `medicacao_YN`, `medicacao`, `alergia_YN`, `alergia`, `fumante_YN`, `fumante`, `etilista_YN`, `etilista`, `ultimaConsulta`, `ultimoTTO`, `freq_Higiene`, `instr_Higiene`, `fluor`, `operado_YN`, `operado`, `cicatrizacao_YN`, `cicatrizacao`, `anestesia_YN`, `anestesia`, `hemorragia_YN`, `hemorragia`, `gravidez_YN`, `gravidez`, `historicoFamiliar`, `obs`, `medico`, `medicoTEL`) VALUES
@@ -285,7 +285,7 @@ INSERT INTO `entrevista` (`id_entrevista`, `id_aluno`, `id_disciplina`, `data`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `entrevistaped`
+-- Estrutura para tabela `entrevistaped`
 --
 
 CREATE TABLE `entrevistaped` (
@@ -322,7 +322,7 @@ CREATE TABLE `entrevistaped` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `entrevistaped`
+-- Despejando dados para a tabela `entrevistaped`
 --
 
 INSERT INTO `entrevistaped` (`id_entrevista`, `id_aluno`, `id_disciplinaPed`, `data`, `CPF`, `queixaPed`, `probGravidez_YN`, `probGravidez`, `tipoParto`, `doencaInfancia_YN`, `doencaInfancia`, `internacao_YN`, `internacao`, `historicoMedicacao_YN`, `historicoMedicacao`, `alergia_YN_Ped`, `alergia_Ped`, `respiratorio_YN`, `respiratorio`, `cardiaco_YN`, `cardiaco`, `sanguineo_YN`, `sanguineo`, `diabetes_YN`, `diabetes`, `medicacao_YN_Ped`, `medicacao_Ped`, `pediatra`, `telPediatra`, `obs_ped`) VALUES
@@ -333,7 +333,7 @@ INSERT INTO `entrevistaped` (`id_entrevista`, `id_aluno`, `id_disciplinaPed`, `d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `historicoatendimentos`
+-- Estrutura para tabela `historicoatendimentos`
 --
 
 CREATE TABLE `historicoatendimentos` (
@@ -350,18 +350,18 @@ CREATE TABLE `historicoatendimentos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `historicoatendimentos`
+-- Despejando dados para a tabela `historicoatendimentos`
 --
 
 INSERT INTO `historicoatendimentos` (`id_atendimentos`, `id_aluno`, `cpf`, `data`, `especialidade`, `descricao`, `responsavel`, `componente_curricular`, `homologado`, `codSus`) VALUES
-(1, 'Array', '', '0000-00-00', '', 'descrição com array', 'professor', 'componente', 'Não', '[\"101020090\",\"201010232\"]'),
-(2, 'Array', '', '0000-00-00', '', 'descrição com array', 'professor', 'componente', 'Não', '[\"204010055\",\"301100152\"]'),
-(3, 'Array', '', '0000-00-00', '', 'cpf????', 'resp', 'disc', 'Não', '[\"101020090\"]');
+(11, 'Pedro', '790.588.720-09', '2023-10-26', 'Odontopediatria,Dentística', 'TESTE', 'PROFE', 'DISCI', 'Não', '[\"101020090\"]'),
+(12, 'Pedro', '790.588.720-09', '2023-10-26', 'Odontopediatria,Dentística', 'TESTE', 'PROFE', 'DISCI', 'Não', '[\"101020090\"]'),
+(26, 'Pedro', '790.588.720-09', '2023-10-26', 'Prótese Dentária', 'aaaaaaaa', 'prof', 'disciplina', 'Não', '[\"101020090\"]');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `materiais`
+-- Estrutura para tabela `materiais`
 --
 
 CREATE TABLE `materiais` (
@@ -373,7 +373,7 @@ CREATE TABLE `materiais` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `materiais`
+-- Despejando dados para a tabela `materiais`
 --
 
 INSERT INTO `materiais` (`id`, `nome`, `quantidade`, `tipo_material`, `apresentacao`) VALUES
@@ -407,7 +407,7 @@ INSERT INTO `materiais` (`id`, `nome`, `quantidade`, `tipo_material`, `apresenta
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pacientes`
+-- Estrutura para tabela `pacientes`
 --
 
 CREATE TABLE `pacientes` (
@@ -439,7 +439,7 @@ CREATE TABLE `pacientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pacientes`
+-- Despejando dados para a tabela `pacientes`
 --
 
 INSERT INTO `pacientes` (`id`, `CPF`, `informacoesImportantes`, `CNS`, `Nome`, `nomeSocial`, `Rg`, `DataNasc`, `Email`, `Tel`, `Tel2`, `Tel3`, `EstadoCivil`, `Sexo`, `NomeMae`, `NomePai`, `CorRaca`, `PNE`, `EnderecoTipo`, `Cep`, `Rua`, `EndNumero`, `EndComplemento`, `Bairro`, `Cidade`) VALUES
@@ -461,7 +461,7 @@ INSERT INTO `pacientes` (`id`, `CPF`, `informacoesImportantes`, `CNS`, `Nome`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `plano_tto`
+-- Estrutura para tabela `plano_tto`
 --
 
 CREATE TABLE `plano_tto` (
@@ -478,7 +478,7 @@ CREATE TABLE `plano_tto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `plano_tto`
+-- Despejando dados para a tabela `plano_tto`
 --
 
 INSERT INTO `plano_tto` (`id`, `CPF`, `data`, `queixa`, `aspectoRelevante`, `especialidade`, `descricao`, `aluno_id`, `responsavel`, `componente_curricular`) VALUES
@@ -493,7 +493,7 @@ INSERT INTO `plano_tto` (`id`, `CPF`, `data`, `queixa`, `aspectoRelevante`, `esp
 -- --------------------------------------------------------
 
 --
--- Table structure for table `procedimentos_sus`
+-- Estrutura para tabela `procedimentos_sus`
 --
 
 CREATE TABLE `procedimentos_sus` (
@@ -503,7 +503,7 @@ CREATE TABLE `procedimentos_sus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `procedimentos_sus`
+-- Despejando dados para a tabela `procedimentos_sus`
 --
 
 INSERT INTO `procedimentos_sus` (`cod_sus`, `nome`, `tipo`) VALUES
@@ -583,7 +583,7 @@ INSERT INTO `procedimentos_sus` (`cod_sus`, `nome`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `solicitacao_materiais`
+-- Estrutura para tabela `solicitacao_materiais`
 --
 
 CREATE TABLE `solicitacao_materiais` (
@@ -603,7 +603,7 @@ CREATE TABLE `solicitacao_materiais` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `solicitacao_materiais`
+-- Despejando dados para a tabela `solicitacao_materiais`
 --
 
 INSERT INTO `solicitacao_materiais` (`id_solicitacao`, `setor`, `nome_solicitante`, `id_solicitante`, `data_pedido`, `data_tramite`, `lista_ids`, `lista_materiais`, `lista_qtd`, `statusSolicitacao`, `ids_atendidos`, `qtd_atendida`, `obs_tramite`) VALUES
@@ -622,7 +622,7 @@ INSERT INTO `solicitacao_materiais` (`id_solicitacao`, `setor`, `nome_solicitant
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -634,7 +634,7 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `Matricula`, `Nome`, `Tipo`, `Pacientes`) VALUES
@@ -665,7 +665,7 @@ INSERT INTO `usuarios` (`id`, `Matricula`, `Nome`, `Tipo`, `Pacientes`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vinculospacientes`
+-- Estrutura para tabela `vinculospacientes`
 --
 
 CREATE TABLE `vinculospacientes` (
@@ -682,172 +682,172 @@ CREATE TABLE `vinculospacientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `agenda-clinicas`
+-- Índices de tabela `agenda-clinicas`
 --
 ALTER TABLE `agenda-clinicas`
   ADD PRIMARY KEY (`id_agendamento`);
 
 --
--- Indexes for table `avaliacoesatendimento`
+-- Índices de tabela `avaliacoesatendimento`
 --
 ALTER TABLE `avaliacoesatendimento`
   ADD PRIMARY KEY (`id_avaliacao`);
 
 --
--- Indexes for table `disciplinas`
+-- Índices de tabela `disciplinas`
 --
 ALTER TABLE `disciplinas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `encaminhamentos`
+-- Índices de tabela `encaminhamentos`
 --
 ALTER TABLE `encaminhamentos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `entrevista`
+-- Índices de tabela `entrevista`
 --
 ALTER TABLE `entrevista`
   ADD PRIMARY KEY (`id_entrevista`);
 
 --
--- Indexes for table `entrevistaped`
+-- Índices de tabela `entrevistaped`
 --
 ALTER TABLE `entrevistaped`
   ADD PRIMARY KEY (`id_entrevista`);
 
 --
--- Indexes for table `historicoatendimentos`
+-- Índices de tabela `historicoatendimentos`
 --
 ALTER TABLE `historicoatendimentos`
   ADD PRIMARY KEY (`id_atendimentos`);
 
 --
--- Indexes for table `materiais`
+-- Índices de tabela `materiais`
 --
 ALTER TABLE `materiais`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pacientes`
+-- Índices de tabela `pacientes`
 --
 ALTER TABLE `pacientes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `plano_tto`
+-- Índices de tabela `plano_tto`
 --
 ALTER TABLE `plano_tto`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `procedimentos_sus`
+-- Índices de tabela `procedimentos_sus`
 --
 ALTER TABLE `procedimentos_sus`
   ADD PRIMARY KEY (`cod_sus`);
 
 --
--- Indexes for table `solicitacao_materiais`
+-- Índices de tabela `solicitacao_materiais`
 --
 ALTER TABLE `solicitacao_materiais`
   ADD PRIMARY KEY (`id_solicitacao`);
 
 --
--- Indexes for table `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `vinculospacientes`
+-- Índices de tabela `vinculospacientes`
 --
 ALTER TABLE `vinculospacientes`
   ADD PRIMARY KEY (`id_vinculo`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `agenda-clinicas`
+-- AUTO_INCREMENT de tabela `agenda-clinicas`
 --
 ALTER TABLE `agenda-clinicas`
   MODIFY `id_agendamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
--- AUTO_INCREMENT for table `avaliacoesatendimento`
+-- AUTO_INCREMENT de tabela `avaliacoesatendimento`
 --
 ALTER TABLE `avaliacoesatendimento`
   MODIFY `id_avaliacao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
--- AUTO_INCREMENT for table `disciplinas`
+-- AUTO_INCREMENT de tabela `disciplinas`
 --
 ALTER TABLE `disciplinas`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `encaminhamentos`
+-- AUTO_INCREMENT de tabela `encaminhamentos`
 --
 ALTER TABLE `encaminhamentos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `entrevista`
+-- AUTO_INCREMENT de tabela `entrevista`
 --
 ALTER TABLE `entrevista`
   MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `entrevistaped`
+-- AUTO_INCREMENT de tabela `entrevistaped`
 --
 ALTER TABLE `entrevistaped`
   MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `historicoatendimentos`
+-- AUTO_INCREMENT de tabela `historicoatendimentos`
 --
 ALTER TABLE `historicoatendimentos`
-  MODIFY `id_atendimentos` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_atendimentos` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
--- AUTO_INCREMENT for table `materiais`
+-- AUTO_INCREMENT de tabela `materiais`
 --
 ALTER TABLE `materiais`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
--- AUTO_INCREMENT for table `pacientes`
+-- AUTO_INCREMENT de tabela `pacientes`
 --
 ALTER TABLE `pacientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `plano_tto`
+-- AUTO_INCREMENT de tabela `plano_tto`
 --
 ALTER TABLE `plano_tto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
--- AUTO_INCREMENT for table `solicitacao_materiais`
+-- AUTO_INCREMENT de tabela `solicitacao_materiais`
 --
 ALTER TABLE `solicitacao_materiais`
   MODIFY `id_solicitacao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 DELIMITER $$
 --
--- Events
+-- Eventos
 --
 CREATE DEFINER=`root`@`localhost` EVENT `update_falta` ON SCHEDULE EVERY 1 DAY STARTS '2023-10-12 00:01:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE `agenda-clinicas` SET status_agendamento = 'Faltou' WHERE status_agendamento = 'Agendado' AND data_agendamento < CURDATE()$$
 

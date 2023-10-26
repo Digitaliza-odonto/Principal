@@ -115,6 +115,26 @@
           <div id="registrarAtendimento">
             <?php echo file_get_contents('../../tabsProntuarios/registrarAtendimento.html');     ?>
           </div>
+
+          <!-- POPULATE THE HIDDEN ID FOR 'selectedEspecialidade' -->
+          <input id="selectedEspecialidade" type="hidden">
+          <script>
+            // Get the select element and the input element
+            var selectEspecialidade = document.getElementById("especialidade");
+            var selectedEspecialidadeInput = document.getElementById("selectedEspecialidade");
+
+            // Function to update the selectedEspecialidade input value
+            function updateSelectedEspecialidade() {
+                var selectedOption = selectEspecialidade.options[selectEspecialidade.selectedIndex];
+                selectedEspecialidadeInput.value = selectedOption.value;
+            }
+
+            // Add event listener to the select element
+            selectEspecialidade.addEventListener("change", updateSelectedEspecialidade);
+
+            // Call the function initially to set the default value
+            updateSelectedEspecialidade();
+          </script>
         </div> 
             
       
@@ -128,10 +148,11 @@
 
         <!-- API REQUEST - CRIAR ATENDIMENTO -->
         <script>
-          function criarAtendimento () {
-            document.getElementById("aluno_id").value = JSON.parse(localStorage.getItem("usuario"))['Matricula'];
+          function criarAtendimento() {
+            var aluno_id = JSON.parse(localStorage.getItem("usuario"))['Matricula'];
+            document.getElementById("aluno_id").value = aluno_id;
             var atendimentoData = document.getElementById("atendimentoData").value;
-            var especialidade = document.getElementById("especialidade").value;
+            var especialidade = document.getElementById("selectedEspecialidade").value;
             var atendimentoDescrição = document.getElementById("atendimentoDescrição").value;
             var responsavelProcedimento = document.getElementById("responsavelProcedimento").value;
             var componenteCurricular = document.getElementById("componenteCurricular").value;
@@ -142,36 +163,40 @@
             var listaCodSUSTable = document.getElementById("listaCodSUS");
             var rows = listaCodSUSTable.getElementsByTagName("tr");
             for (var i = 1; i < rows.length; i++) {
-              var codSUSValue = rows[i].cells[1].textContent; // Assuming 'cod_sus' is in the second cell
-              codSUSArray.push(codSUSValue);
+                var codSUSValue = rows[i].cells[1].textContent; // Assuming 'cod_sus' is in the second cell
+                codSUSArray.push(codSUSValue);
             }
 
-            if (atendimentoData && especialidade && atendimentoDescrição && responsavelProcedimento && componenteCurricular) {
-              var formContent = {
-                "aluno_id": aluno_id,
-                "Cpf": CPF,
-                "atendimentoData": atendimentoData,
-                "especialidade": especialidade,
-                "atendimentoDescrição": atendimentoDescrição,
-                "responsavelProcedimento": responsavelProcedimento,
-                "componenteCurricular": componenteCurricular,
-                "codSUSArray": codSUSArray // Add the 'codSUSArray' to the formContent object
-              };
+            // Check if all required fields are filled
+            if (atendimentoData && especialidade && especialidade !='Escolher' && atendimentoDescrição && responsavelProcedimento && componenteCurricular && CPF && codSUSArray != []) {
+                var formContent = {
+                    "aluno_id": aluno_id,
+                    "Cpf": CPF,
+                    "atendimentoData": atendimentoData,
+                    "selectedEspecialidade": especialidade,
+                    "atendimentoDescrição": atendimentoDescrição,
+                    "responsavelProcedimento": responsavelProcedimento,
+                    "componenteCurricular": componenteCurricular,
+                    "codSUSArray": codSUSArray
+                };
 
-              console.log(formContent);
+                console.log(formContent);
 
-              api.atendimentos.criar(formContent)
-                .then(function(response) {
-                  if (response.message) {
-                    console.log(response.message);
-                    showCustomAlert(response.message);
-                  } else {
-                    console.log(response);
-                  }
-                })
-                .catch(function(error) {
-                  showCustomAlert(error);
-                });
+                api.atendimentos.criar(formContent)
+                    .then(function (response) {
+                        if (response.message) {
+                            console.log(response.message);
+                            showCustomAlert(response.message);
+                        } else {
+                            console.log(response);
+                        }
+                    })
+                    .catch(function (error) {
+                        showCustomAlert(error);
+                    });
+            } else {
+                // If any of the required fields are empty, display an alert message
+                showCustomAlert("Por favor, preencha todos os campos da aba 'Atendimento realizado'.");
             }
           }
         </script>

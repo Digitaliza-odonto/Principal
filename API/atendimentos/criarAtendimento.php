@@ -10,17 +10,17 @@ require_once '../db.php';   // Import the file that contains the database connec
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
 
-    $CPF = $data['CPF'];
+    $Cpf = $data['Cpf'];
     $aluno_id = $data['aluno_id'];
-    $atendimentoData = $data['atendimentoData'];
-    $Especialidade = $data['Especialidade'];
+    $atendimentoData = DateTime::createFromFormat('d/m/Y', $data['atendimentoData'])->format('Y-m-d');
+    $selectedEspecialidade = $data['selectedEspecialidade'];
     $atendimentoDescrição = $data['atendimentoDescrição'];
     $responsavelProcedimento = $data['responsavelProcedimento'];
     $componenteCurricular = $data['componenteCurricular'];
     $codSUSArray = json_encode($data['codSUSArray']); // Serialize the array to JSON before insertion
 
     $insertQuery = "INSERT INTO `historicoatendimentos`(`id_aluno`, `cpf`, `data`, `especialidade`, `descricao`, `responsavel`, `componente_curricular`, `homologado`, `codSus`)
-        VALUES ('$aluno_id','$CPF','$atendimentoData','$especAreaSaúde','$atendimentoDescrição','$responsavelProcedimento','$componenteCurricular','Não','$codSUSArray');";
+        VALUES ('$aluno_id','$Cpf','$atendimentoData','$selectedEspecialidade','$atendimentoDescrição','$responsavelProcedimento','$componenteCurricular','Não','$codSUSArray');";
     
     db($insertQuery);
 

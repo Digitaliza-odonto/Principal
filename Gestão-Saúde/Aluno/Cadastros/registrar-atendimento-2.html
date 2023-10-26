@@ -18,7 +18,8 @@
 
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
       <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-  <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+    <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
 
     <!--ALERT MESSAGES-->
     <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
@@ -65,7 +66,7 @@
       <!-- CONTEÚDO BOTÕES -->
       <div class="ui-widget-content ui-corner-all">
         <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Registrar atendimento</button>
+        <button id="salvar" class="salvar" title="Salvar paciente" onclick="criarAtendimento()" style="float: left;">Registrar atendimento</button>
         <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
         <span style="clear: both; display: block"></span>
       </div>
@@ -74,439 +75,131 @@
       <div id="tab" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
         <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
           
-          <li class="labeltab ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Dados pessoais</a></li>
+          <li class="labeltab ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-0" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-0">Dados pessoais</a></li>
 
-          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-1" aria-labelledby="ui-id-2" aria-selected="false"><a href="#tab-1" accesskey="tab-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Entrevista(s) dialogada(s)</a></li>
+          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-1" aria-labelledby="ui-id-1" aria-selected="false"><a href="#tab-1" accesskey="tab-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">Entrevista(s) dialogada(s)</a></li>
 
-          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-2" aria-labelledby="ui-id-3" aria-selected="false"><a href="#tab-2" accesskey="tab-2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">Plano(s) de tratamento</a></li>
+          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-2" aria-labelledby="ui-id-2" aria-selected="false"><a href="#tab-2" accesskey="tab-2" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">Plano(s) de tratamento</a></li>
 
-          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-3" aria-labelledby="ui-id-4" aria-selected="false"><a href="#tab-3" accesskey="tab-3" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">Atendimento realizado</a></li>
+          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-3" aria-labelledby="ui-id-3" aria-selected="false"><a href="#tab-3" accesskey="tab-3" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-3">Atendimento realizado</a></li>
 
-          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-4" aria-labelledby="ui-id-5" aria-selected="false"><a href="#tab-4" accesskey="tab-4" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-5">Anexar documentos/exames complementares</a></li>
+          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-4" aria-labelledby="ui-id-4" aria-selected="false"><a href="#tab-4" accesskey="tab-4" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">Anexar documentos/exames complementares</a></li>
         </ul>
 
-        <!--INÍCIO DA TAB DADOS PESSOAIS-->
-        <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
-
-          <br>
-          <div>
-            <p></p>
-            <label style="width: 180px; margin: 5px; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
-            <input type="text" id="informacoesImportantes" maxlength="255" style="width: 340px; margin: 5px;" readonly="readonly"><br>
-          
-            <script>
-                // TROCAR STYLE SE O CAMPO 'informaçõesImportantes' for preenchido
-              document.addEventListener('DOMContentLoaded', function() {
-                const inputField = document.getElementById('informacoesImportantes');
-            
-                function applyStyles() {
-                  if (inputField.value.trim() === '') {
-                    inputField.classList.add('ui-state-default');
-                    inputField.classList.remove('important-ui');
-                  } else {
-                    inputField.classList.add('important-ui');
-                    inputField.classList.remove('ui-state-default');
-                  }
-                }
-            
-                inputField.addEventListener('input', applyStyles);
-            
-                // Apply styles once the page loads
-                applyStyles();
-              });
-            </script>
-            <p style="margin: 10px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
-            <p></p>
-            <br>
-          
-            <p></p>
-            <br>
-          </div>
-            
-          <div id="capaContent">
-            <!-- Imported content will be placed here -->
-          </div>
-
-          <script>
-            fetch('/Gestão-Saúde/tabsProntuarios/capaConsulta.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('capaContent').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-          </script>
-
-          <script src="/API/API.js"></script>
-
-          <script type="text/javascript">
-            // Função para preencher o formulário com os dados do perfil
-            function preencherFormulario(dados) {
-                console.log(dados)
-                document.getElementById("Cpf").value = dados.CPF;
-                document.getElementById("Nome").value = dados.Nome;
-                document.getElementById("Nometab").innerText = dados.Nome;
-                document.getElementById("Rg").value = dados.Rg;
-                document.getElementById("DataNasc").value = dados.DataNasc;
-                document.getElementById("Email").value = dados.Email;
-                document.getElementById("Tel").value = dados.Tel;
-                document.getElementById("EstadoCivil").value = dados.EstadoCivil;
-                document.getElementById("Sexo").value = dados.Sexo;
-                document.getElementById("CorRaca").value = dados.CorRaca;
-                document.getElementById("NomeMae").value = dados.NomeMae;
-                document.getElementById("NomePai").value = dados.NomePai;
-                document.getElementById("PNE").value = dados.PNE;
-                document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
-                document.getElementById("Cep").value = dados.Cep;
-                document.getElementById("Rua").value = dados.Rua;
-                document.getElementById("EndNumero").value = dados.EndNumero;
-                document.getElementById("EndComplemento").value = dados.EndComplemento;
-                document.getElementById("Bairro").value = dados.Bairro;
-                document.getElementById("Cidade").value = dados.Cidade;
-              }
-          
-              // Função para buscar o perfil usando a API
-              function buscarPerfil() {
-                const cpf = getUrlVars()['cpf'];
-                if (cpf) {
-                  api.pacientes.consultar({ CPF: cpf })
-                    .then((pacientes) => {
-                      if (pacientes.length === 0) {
-                        console.log('Nenhum paciente encontrado');
-                      } else {
-                        preencherFormulario(pacientes[0]);
-                      }
-                    })
-                    .catch((error) => {
-                      console.error('Erro ao consultar perfil:', error);
-                    });
-                } else {
-                  console.log('CPF não encontrado na URL.');
-                }
-              }
-          
-              // Função para obter parâmetros da URL
-              function getUrlVars() {
-                var vars = {};
-                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                  vars[key] = value;
-                });
-                return vars;
-            
-              }
-          
-              // Chamar a função para buscar o perfil
-              buscarPerfil();
-          </script>
-        </div>
-
         
-        <!--INÍCIO DA TAB ENTREVISTA DIALOGADA-->
-        <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
-
-          <h2 style="color: red;"> BUSCAR DADOS DO BANCO E INCLUIR COMO LINHAS QUE EXPANDEM/COLAPSAM AO CLICAR</h2>
-             
+        <!--INÍCIO DA TAB DADOS PESSOAIS-->
+        <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-0" role="tabpanel" aria-expanded="true" aria-hidden="false">
+          <div id="capaContent">
+            <?php echo file_get_contents('../../tabsProntuarios/capaConsulta.html');     ?>
+          </div>
         </div>
 
         <!--INÍCIO DA TAB ENTREVISTA DIALOGADA-->
-        <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false">
+        <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" aria-expanded="true" aria-hidden="false">
+          <br>        
+          <div id="entrevistaConsulta">
+            <?php echo file_get_contents('../../tabsProntuarios/entrevistaConsulta.html');     ?>
+          </div>
+          <br>
+        </div>
 
-          <h2 style="color: red;"> BUSCAR DADOS DO BANCO E INCLUIR COMO LINHAS QUE EXPANDEM/COLAPSAM AO CLICAR</h2>
-              
+        <!--INÍCIO DA TAB PLANOS DE TRATAMENTO-->
+        <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: auto;">
+          <div id="planosConsulta">
+            <?php echo file_get_contents('../../tabsProntuarios/planosConsulta.html');     ?>
+          </div>
         </div>
         
         <!--INÍCIO DA TAB DESCRIÇÃO DO ATENDIMENTO/PLANO DE TRATAMENTO-->
-        <div id="tab-3" class="ui-widget tab tab-3 tab-3 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 1100px;">
+        <div id="tab-3" class="ui-widget tab tab-3 tab-3 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 1100px;">
+          <div id="registrarAtendimento">
+            <?php echo file_get_contents('../../tabsProntuarios/registrarAtendimento.html');     ?>
+          </div>
 
-          <p></p>
+          <!-- POPULATE THE HIDDEN ID FOR 'selectedEspecialidade' -->
+          <input id="selectedEspecialidade" type="hidden">
+          <script>
+            // Get the select element and the input element
+            var selectEspecialidade = document.getElementById("especialidade");
+            var selectedEspecialidadeInput = document.getElementById("selectedEspecialidade");
 
-          <label style="font-weight:bold;width: 180px;">Área/Curso da saúde</label>
-          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="areaSaúde" id="areaSaúde">
-            <option value="0">Escolher</option>
-            <option value="Odontologia">Odontologia</option>
-            <option value="Enfermagem">Enfermagem</option>
-            <option value="Farmácia">Farmácia</option>
-            <option value="Terapia Ocupacional">Terapia Ocupacional</option>
-          </select>
-          
-          <br>
-          <p></p>
-          <label style="font-weight:bold;width: 180px;">Lista de especialidades</label>
-          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="especAreaSaúde" id="especAreaSaúde">
-            <option value="0">Selecione uma especialidade</option>
-          </select>
-          
-          <script>
-            const disciplinas = [
-              {codCurso: '0', nomeEspec:'Selecione uma especialidade'},
-              {codCurso: 'Odontologia', nomeEspec:'Prótese Dentária'},
-              {codCurso: 'Odontologia', nomeEspec:'Odontopediatria'},
-              {codCurso: 'Odontologia', nomeEspec:'Periodontia'},
-              {codCurso: 'Odontologia', nomeEspec:'Dentística'},
-              {codCurso: 'Odontologia', nomeEspec:'Cirurgia'},
-              {codCurso: 'Enfermagem', nomeEspec:'Pediatria e Neonatologia'},
-              {codCurso: 'Enfermagem', nomeEspec:'Terapia Intensiva e Alta Complexidade'},
-              {codCurso: 'Enfermagem', nomeEspec:'Cardiologia e Hemodinâmica'},
-              {codCurso: 'Farmácia', nomeEspec:'Análises clínicas' },
-              {codCurso: 'Farmácia', nomeEspec:'Antroposofia' },
-              {codCurso: 'Terapia Ocupacional', nomeEspec:'Contextos sociais' },
-              {codCurso: 'Terapia Ocupacional', nomeEspec:'Saúde da família' },
-              // Add more options as needed
-            ];
-            
-            const areaSelect = document.getElementById('areaSaúde');
-            const disciplinasSelect = document.getElementById('especAreaSaúde');
-            
-            areaSelect.addEventListener('change', function() {
-              const selectedCodCurso = areaSelect.value;
-            
-              // Clear existing options
-              disciplinasSelect.innerHTML = '<option value="0">Selecione uma especialidade</option>';
-            
-              // Filter and populate the second select
-              const selectedDisciplinas = disciplinas.filter(disciplina => disciplina.codCurso === selectedCodCurso);
-              selectedDisciplinas.forEach(disciplina => {
-                const option = document.createElement('option');
-                option.value = disciplina.nomeEspec;
-                option.textContent = disciplina.nomeEspec;
-                disciplinasSelect.appendChild(option);
-              });
-            });
-          </script>
-          
-          <hr class="ui-state-default">
-          <p></p>
-          <br>
-          
-          <label style="width: 400px; ;">Descrição do plano de tratamento ou procedimento realizado:</label><br>
-            <textarea style="width: 460px;" id="atendimentoDescrição" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" ></textarea>
-          <br>
-
-          <label style="width: 180px; ;">Código SUS:</label>
-            <button id="btnAddCodSus" value="Adicionar Cód. SUS" class="button">Adicionar Cód. SUS</button>
-          <div style="height: 22px; width: 25px; margin: 0px -1px 5px 0px; display: block; float: left; position: relative; padding: 0; text-decoration: none !important; text-align: center; zoom: 1; overflow: visible; border-right: none;" class="ui-widget ui-state-default ui-corner-tl ui-corner-bl ui-button-icon-only"><span class=" ui-icon ui-icon-search"></span></div>
-          <input type="text" value="" maxlength="" class="ui-state-default ui-corner-tr ui-corner-br mousetrap " id="atendimentoCodSUS" placeholder="Digite o código SUS" style="width: 240px;" />
-          
-          <br>
-          <label style="width: 180px;">Data do atendimento</label>
-          <input type="text" id="atendimentoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 265px;" />
-          <br>
-          
-          <br>
-          <label style="width: 180px;">Responsável técnico</label>
-          <input type="text" id="responsavelProcedimento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="SELECT BOX OU BUSCAR O NOME?">
-          <br>
-          
-          <label style="width: 180px;">Componente curricular</label>
-          <input type="text" id="componenteCurricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO">
-          <br>
-          
-          <label style="width: 180px;">Paciente faltou:</label>
-          <input type="checkbox" id="pacienteFaltou">
-          <br>
-          
-          <script>
-            const pacienteFaltouCheckbox = document.getElementById('pacienteFaltou');
-            const atendimentoDescricaoInput = document.getElementById('atendimentoDescrição');
-          
-            pacienteFaltouCheckbox.addEventListener('change', function() {
-                if (pacienteFaltouCheckbox.checked) {
-                    // Add the text when checkbox is checked
-                    atendimentoDescricaoInput.value += 'Paciente faltou sem justificativa';
-                } else {
-                    // Remove the text when checkbox is unchecked
-                    atendimentoDescricaoInput.value = atendimentoDescricaoInput.value.replace('Paciente faltou sem justificativa', '');
-                }
-            });
-          </script>
-          
-          <p></p>
-          <button id="btnAdicionar" onclick="addTable()" value="Adicionar" class="button"  >Adicionar</button>
-          <button id="btnCancelar" onclick="limparCampos()" value="Cancelar" class="button"  >Cancelar</button>
-          <br>
-          <p></p>
-          
-          <hr class="ui-state-default">
-          
-          <p></p>
-          
-          <h2> Descrição do registro de atendimento</h2>
-          <div style="margin: 10px;"></div>
-          <table id="listaProcedimento" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 90%; font-size: 14px; margin: 15px;">
-            <thead>
-              <tr class="ui-jqgrid-labels" role="rowheader">
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">
-                  Data
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 7.5%;">
-                  Área da Saúde
-                </th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 12.5%;">
-                  Especialidade
-                </th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 40%;">
-                  Descrição do procedimento
-                </th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 20%;">
-                  Responsável técnico
-                </th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 15%;">
-                  Disciplina/Estágio
-                </th>
-              </tr>
-              </thead>
-              <!-- Table body rows go here -->
-          </table>
-          
-          <script>
-            function addTable() {
-              var atendimentoData = document.getElementById("atendimentoData").value;
-              var areaSaúde = document.getElementById("areaSaúde").value;
-              var especAreaSaúde = document.getElementById("especAreaSaúde").value;
-              var atendimentoDescrição = document.getElementById("atendimentoDescrição").value;
-              var responsavelProcedimento = document.getElementById("responsavelProcedimento").value;
-              var componenteCurricular = document.getElementById("componenteCurricular").value;
-          
-              if (atendimentoData && areaSaúde && especAreaSaúde && atendimentoDescrição && responsavelProcedimento && componenteCurricular) {
-                var table = document.getElementById("listaProcedimento");
-                var newRow = table.insertRow(-1);
-          
-                var atendimentoDataCell = newRow.insertCell(0);
-                atendimentoDataCell.innerHTML = atendimentoData;
-                atendimentoDataCell.className = "ui-state-default ui-th-column ui-th-ltr";
-          
-                var areaSaúdeCell = newRow.insertCell(1);
-                areaSaúdeCell.innerHTML = areaSaúde;
-                areaSaúdeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-          
-                var especAreaSaúdeCell = newRow.insertCell(2);
-                especAreaSaúdeCell.innerHTML = especAreaSaúde;
-                especAreaSaúdeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-          
-                var atendimentoDescriçãoCell = newRow.insertCell(3);
-                atendimentoDescriçãoCell.innerHTML = atendimentoDescrição;
-                atendimentoDescriçãoCell.className = "ui-state-default ui-th-column ui-th-ltr";
-          
-                var responsavelProcedimentoCell = newRow.insertCell(4);
-                responsavelProcedimentoCell.innerHTML = responsavelProcedimento;
-                responsavelProcedimentoCell.className = "ui-state-default ui-th-column ui-th-ltr";
-          
-                var componenteCurricularCell = newRow.insertCell(5);
-                componenteCurricularCell.innerHTML = componenteCurricular;
-                componenteCurricularCell.className = "ui-state-default ui-th-column ui-th-ltr";
-          
-                // Clear input fields after adding row
-                document.getElementById("atendimentoData").value = "";
-                document.getElementById("areaSaúde").value = "";
-                document.getElementById("especAreaSaúde").value = "";
-                document.getElementById("atendimentoDescrição").value = "";
-                document.getElementById("responsavelProcedimento").value = "";
-                document.getElementById("componenteCurricular").value = "";
-              }
+            // Function to update the selectedEspecialidade input value
+            function updateSelectedEspecialidade() {
+                var selectedOption = selectEspecialidade.options[selectEspecialidade.selectedIndex];
+                selectedEspecialidadeInput.value = selectedOption.value;
             }
-          
-            function limparCampos() {
-              document.getElementById("atendimentoData").value = "";
-              document.getElementById("areaSaúde").value = "";
-              document.getElementById("especAreaSaúde").value = "";
-              document.getElementById("atendimentoDescrição").value = "";
-              document.getElementById("responsavelProcedimento").value = "";
-              document.getElementById("componenteCurricular").value = "";
-            }
-          </script>
-          
-          <hr class="ui-state-default">
-          <div style="margin: 10px;"></div>
-          <h2> Listagem de procedimentos SUS realizados</h2>
-          <table id="listaCodSUS" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 60%; font-size: 14px; margin: 15px;">
-            <thead>
-              <tr class="ui-jqgrid-labels" role="rowheader">
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">
-                  Selec.
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 95%;">
-                  Cód. e Procedimento SUS
-              </tr>
-              </thead>
-              <!-- Table body rows go here -->
-          </table>
-          
-          <button name="btnDeletar" id="btnDeletar" value="Deletar" class="button" style="margin: 15px;">Remover código SUS</button>
-            <!-- ADD DADOS NA TABELA DE ATENDIMENTO -->
-          <script>
-            document.getElementById("btnAddCodSus").addEventListener("click", function () {
-                var atendimentoCodSUS = document.getElementById("atendimentoCodSUS").value;
-                addCodSUSRow(atendimentoCodSUS);
-            });
-            
-            document.getElementById("btnDeletar").addEventListener("click", function () {
-                deleteSUSRows();
-            });
-            
-            function addCodSUSRow(codSUS) {
-                var listaCodSUSTable = document.getElementById("listaCodSUS");
-                var newRow = listaCodSUSTable.insertRow(-1); // Insert at the end
-            
-                const checkBoxCell = newRow.insertCell(0);
-                checkBoxCell.innerHTML = '<input type="checkbox" class="delete-checkbox">';
-                checkBoxCell.className = "ui-state-default ui-th-column ui-th-ltr";
-            
-                var codesCell = newRow.insertCell(1);
-                codesCell.textContent = codSUS;
-                codesCell.className = "ui-state-default ui-th-column ui-th-ltr";
-            
-                // Clear input field after adding row
-                document.getElementById("atendimentoCodSUS").value = "";
-            }
-            
-            function deleteSUSRows() {
-              var checkboxes = document.getElementsByClassName("delete-checkbox");
-              var table = document.getElementById("listaCodSUS");
 
-              for (var i = checkboxes.length - 1; i >= 0; i--) {
-                  if (checkboxes[i].checked) {
-                      table.deleteRow(i + 1); // +1 because of the header row
-                  }
-              }
-          }
+            // Add event listener to the select element
+            selectEspecialidade.addEventListener("change", updateSelectedEspecialidade);
+
+            // Call the function initially to set the default value
+            updateSelectedEspecialidade();
           </script>
-          
-          <hr class="ui-state-default">
-          <h2 style="padding: 40px; line-height: 150%; color: rgb(211, 39, 39);">
-            
-          2- PUXAR OS CÓDIGOS SUS DA LISTAGEM CRIADA PELA ADMINISTRAÇÃO<br>
-          </h2>
         </div> 
             
       
          <!--INÍCIO DA TAB ANEXAR DOCUMENTOS/EXAMES COMPLEMENTARES-->
-         <div id="tab-4" class="ui-widget tab tab-4 tab-4 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-5" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 450px;">
-
-          <div style="margin: 10px; margin-bottom: 50px;">
-            <h2>Banco de formulários/prontuários para exames específicos<spam style="font-size: 12px; margin-left: 10px;">(Preencher, salvar em PDF e anexar abaixo)</spam><br></h2>
-          
-            <p style="font-size: 12px;"><a href="../../../src/termo_consentimento.docx">- Termo de consentimento</a></p>
-            <p style="font-size: 12px;"><a href="../../../src/plano_tratamento.docx">- Plano de tratamento</a></p>
-            <p style="font-size: 12px;"><a href="../../../src/exame_clinico.docx">- Exame clínico</a></p>
-
-          </div>
-
-          <hr class="ui-state-default">
-          
-          <div id="anexoExames">
-            <!-- Imported content will be placed here -->
-          </div>
-  
-          <script>
-            fetch('/Gestão-Saúde/tabsProntuarios/anexarExames.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('anexoExames').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-          </script>
+         <div id="tab-4" class="ui-widget tab tab-4 tab-4 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 450px;">
+                    
+            <div id="anexoExames">
+              <?php echo file_get_contents('../../tabsProntuarios/anexarExames.html');     ?>
+            </div>
         </div>
+
+        <!-- API REQUEST - CRIAR ATENDIMENTO -->
+        <script>
+          function criarAtendimento() {
+            var aluno_id = JSON.parse(localStorage.getItem("usuario"))['Matricula'];
+            document.getElementById("aluno_id").value = aluno_id;
+            var atendimentoData = document.getElementById("atendimentoData").value;
+            var especialidade = document.getElementById("selectedEspecialidade").value;
+            var atendimentoDescrição = document.getElementById("atendimentoDescrição").value;
+            var responsavelProcedimento = document.getElementById("responsavelProcedimento").value;
+            var componenteCurricular = document.getElementById("componenteCurricular").value;
+            var CPF = document.getElementById("Cpf").value;
+            var codSUSArray = [];
+
+            // Iterate over the table rows and extract 'cod_sus' values
+            var listaCodSUSTable = document.getElementById("listaCodSUS");
+            var rows = listaCodSUSTable.getElementsByTagName("tr");
+            for (var i = 1; i < rows.length; i++) {
+                var codSUSValue = rows[i].cells[1].textContent; // Assuming 'cod_sus' is in the second cell
+                codSUSArray.push(codSUSValue);
+            }
+
+            // Check if all required fields are filled
+            if (atendimentoData && especialidade && especialidade !='Escolher' && atendimentoDescrição && responsavelProcedimento && componenteCurricular && CPF && codSUSArray != []) {
+                var formContent = {
+                    "aluno_id": aluno_id,
+                    "Cpf": CPF,
+                    "atendimentoData": atendimentoData,
+                    "selectedEspecialidade": especialidade,
+                    "atendimentoDescrição": atendimentoDescrição,
+                    "responsavelProcedimento": responsavelProcedimento,
+                    "componenteCurricular": componenteCurricular,
+                    "codSUSArray": codSUSArray
+                };
+
+                console.log(formContent);
+
+                api.atendimentos.criar(formContent)
+                    .then(function (response) {
+                        if (response.message) {
+                            console.log(response.message);
+                            showCustomAlert(response.message);
+                        } else {
+                            console.log(response);
+                        }
+                    })
+                    .catch(function (error) {
+                        showCustomAlert(error);
+                    });
+            } else {
+                // If any of the required fields are empty, display an alert message
+                showCustomAlert("Por favor, preencha todos os campos da aba 'Atendimento realizado'.");
+            }
+          }
+        </script>
       </div>
     </div>
   </body>

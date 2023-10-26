@@ -86,6 +86,8 @@
         <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-4" aria-labelledby="ui-id-4" aria-selected="false"><a href="#tab-4" accesskey="tab-4" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-4">Histórico</a></li>
 
         <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-5" aria-labelledby="ui-id-5" aria-selected="false"><a href="#tab-5" accesskey="tab-5" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-5">Documentos/Exames complementares</a></li>
+
+        <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-6" aria-labelledby="ui-id-6" aria-selected="false"><a href="#tab-6" accesskey="tab-6" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-6">Falta(s) registrada(s)</a></li>
                 
       </ul>
   
@@ -133,6 +135,13 @@
       <div id="tab-5" class="ui-widget tab tab-5 tab-5 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-5" role="tabpanel" aria-expanded="true" aria-hidden="false">
         <div id="examesVisualizar">
           <?php echo file_get_contents('../tabsProntuarios/examesVisualizar.html');     ?>
+        </div>
+      </div>
+
+      <!--INÍCIO DA TAB FALTAS-->
+      <div id="tab-6" class="ui-widget tab tab-6 tab-6 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-6" role="tabpanel" aria-expanded="true" aria-hidden="false">
+        <div id="examesVisualizar">
+          <?php echo file_get_contents('../tabsProntuarios/faltas.html');     ?>
         </div>
       </div>
     </div>

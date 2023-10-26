@@ -1,4 +1,19 @@
 <div id="entrevistaAdulto" style="margin: 5px;">
+
+  <label style="width: 195px; margin: 5px;">Disciplina:</label>
+    <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px; margin: 5px;" id="id_disciplina">
+        <option value="">Escolher</option>
+        <option value="ESTÁGIO EM PRONTO ATENDIMENTO (EPA)">ESTÁGIO EM PRONTO ATENDIMENTO (EPA)</option>
+        <option value="ODONTOPEDIATRIA">ODONTOPEDIATRIA</option>
+        <option value="PERIODONTIA CLÍNICA">PERIODONTIA CLÍNICA</option>
+        <option value="PRÓTESE DENTÁRIA PARCIAL III">PRÓTESE DENTÁRIA PARCIAL III</option>
+        <option value="CIRURGIA BUCO-MAXILAR III">CIRURGIA BUCO-MAXILAR III</option>
+        <option value="RADIOLOGIA E IMAGINOLOGIA">RADIOLOGIA E IMAGINOLOGIA</option>
+    </select>
+    <p></p>
+
+    <hr class="ui-state-default">
+
     <div class="question">
       <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
       <textarea id="queixa" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 49%; margin-top: 10px;"></textarea>
@@ -83,7 +98,7 @@
 
       <div class="question">
         <label for="ultimaConsulta" style="margin-top: 10px;">Última consulta odontológica</label>
-        <input type="text" name="ultimaConsulta" id="ultimaConsulta" maxlength="255" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 100px; margin-top: 10px;">
+        <input type="date" name="ultimaConsulta" id="ultimaConsulta" maxlength="255" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 100px; margin-top: 10px;">
         <br>
       </div>
 

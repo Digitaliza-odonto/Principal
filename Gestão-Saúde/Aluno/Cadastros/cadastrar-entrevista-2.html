@@ -48,7 +48,7 @@
       <!-- HIDDEN DIV FOR ALERT MESSAGE -->
   </head>
 
-
+<!-- HIDE/UNHIDE CONTENT BASED ON RADIO BUTTON SELECTION -->
   <script>
     // Function to show/hide content based on radio button selection
     function toggleDisplay(divId, radioName, targetValue) {
@@ -139,17 +139,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
   <body>
     <!-- CONTEÚDO DA PÁGINA/TELA PRINCIPAL COBALTO -->
     <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
@@ -167,7 +156,7 @@
       <!-- CONTEÚDO BOTÕES -->
       <div class="ui-widget-content ui-corner-all toolbar">
         <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitForm()" style="float: left;">Salvar</button>
+        <button id="submitButton" class="salvar" title="Salvar paciente" style="float: left;">Salvar</button>
         <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
         <span style="clear: both; display: block"></span>
       </div>
@@ -189,302 +178,39 @@
         <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
 
           <br>
-          <div>
-            <p></p>
-            <label style="width: 180px; margin: 5px; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
-            <input type="text" id="informacoesImportantes" maxlength="255" style="width: 340px; margin: 5px;" readonly="readonly"><br>
-          
-            <script>
-                // TROCAR STYLE SE O CAMPO 'informaçõesImportantes' for preenchido
-              document.addEventListener('DOMContentLoaded', function() {
-                const inputField = document.getElementById('informacoesImportantes');
-            
-                function applyStyles() {
-                  if (inputField.value.trim() === '') {
-                    inputField.classList.add('ui-state-default');
-                    inputField.classList.remove('important-ui');
-                  } else {
-                    inputField.classList.add('important-ui');
-                    inputField.classList.remove('ui-state-default');
-                  }
-                }
-            
-                inputField.addEventListener('input', applyStyles);
-            
-                // Apply styles once the page loads
-                applyStyles();
-              });
-            </script>
-            <p style="margin: 10px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
-            <p></p>
-            <br>
-          
-            <p></p>
-            <br>
-          </div>
-            
-          <div id="capaContent">
-            <!-- Imported content will be placed here -->
-          </div>
-
-          <script>
-            fetch('/Gestão-Saúde/tabsProntuarios/capaConsulta.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('capaContent').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-          </script>
-
-          <script src="/API/API.js"></script>
-
-          <script type="text/javascript">
-            // Função para preencher o formulário com os dados do perfil
-            function preencherFormulario(dados) {
-                console.log(dados)
-                document.getElementById("Cpf").value = dados.CPF;
-                document.getElementById("Nome").value = dados.Nome;
-                document.getElementById("Nometab").innerText = dados.Nome;
-                document.getElementById("Rg").value = dados.Rg;
-                document.getElementById("DataNasc").value = dados.DataNasc;
-                document.getElementById("Email").value = dados.Email;
-                document.getElementById("Tel").value = dados.Tel;
-                document.getElementById("EstadoCivil").value = dados.EstadoCivil;
-                document.getElementById("Sexo").value = dados.Sexo;
-                document.getElementById("CorRaca").value = dados.CorRaca;
-                document.getElementById("NomeMae").value = dados.NomeMae;
-                document.getElementById("NomePai").value = dados.NomePai;
-                document.getElementById("PNE").value = dados.PNE;
-                document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
-                document.getElementById("Cep").value = dados.Cep;
-                document.getElementById("Rua").value = dados.Rua;
-                document.getElementById("EndNumero").value = dados.EndNumero;
-                document.getElementById("EndComplemento").value = dados.EndComplemento;
-                document.getElementById("Bairro").value = dados.Bairro;
-                document.getElementById("Cidade").value = dados.Cidade;
-              }
-          
-              // Função para buscar o perfil usando a API
-              function buscarPerfil() {
-                const cpf = getUrlVars()['cpf'];
-                if (cpf) {
-                  api.pacientes.consultar({ CPF: cpf })
-                    .then((pacientes) => {
-                      if (pacientes.length === 0) {
-                        console.log('Nenhum paciente encontrado');
-                      } else {
-                        preencherFormulario(pacientes[0]);
-                      }
-                    })
-                    .catch((error) => {
-                      console.error('Erro ao consultar perfil:', error);
-                    });
-                } else {
-                  console.log('CPF não encontrado na URL.');
-                }
-              }
-          
-              // Função para obter parâmetros da URL
-              function getUrlVars() {
-                var vars = {};
-                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                  vars[key] = value;
-                });
-                return vars;
-            
-              }
-          
-              // Chamar a função para buscar o perfil
-              buscarPerfil();
-          </script>
+            <div id="entrevistaContent">
+              <?php echo file_get_contents('../../tabsProntuarios/capaConsulta.html');     ?>
+            </div>                     
         </div>
         
 
         <!--INÍCIO DA TAB ENTREVISTA DIALOGADA ADULTOS-->
         <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
           
-          <script>
-            function submitForm() {
-                var formData = {
-                    Cpf: $('#Cpf').val(),
-                    queixa: $('#queixa').val() || '',
-                    doenca_YN: $('#doenca_YN').val() || 'Não',
-                    doenca: $('#doenca').val() || '',
-                    tto_medico_YN: $('#tto_medico_YN').val() || 'Não',
-                    tto_medico: $('#tto_medico').val() || '',
-                    medicacao_YN: $('#medicacao_YN').val() || 'Não',
-                    medicacao: $('#medicacao').val() || '',
-                    alergia_YN: $('#alergia_YN').val() || 'Não',
-                    alergia: $('#alergia').val() || '',
-                    fumante_YN: $('#fumante_YN').val() || 'Não',
-                    fumante: $('#fumante').val() || '',
-                    etilista_YN: $('#etilista_YN').val() || 'Não',
-                    etilista: $('#etilista').val() || '',
-                    ultimaConsulta: $('#ultimaConsulta').val() || '',
-                    ultimoTTO: $('#ultimoTTO').val() || '',
-                    freq_higiene: $('#freq_higiene').val() || '',
-                    instr_higiene: $('#instr_higiene').val() || '',
-                    fluor: $('#fluor').val() || '',
-                    operado_YN: $('#operado_YN').val() || 'Não',
-                    operado: $('#operado').val() || '',
-                    cicatrizacao_YN: $('#cicatrizacao_YN').val() || 'Não',
-                    cicatrizacao: $('#cicatrizacao').val() || '',
-                    anestesia_YN: $('#anestesia_YN').val() || 'Não',
-                    anestesia: $('#anestesia').val() || '',
-                    hemorragia_YN: $('#hemorragia_YN').val() || 'Não',
-                    hemorragia: $('#hemorragia').val() || '',
-                    gravidez_YN: $('#gravidez_YN').val() || 'Não',
-                    gravidez: $('#gravidez').val() || '',
-                    historicoFamiliar: $('#historicoFamiliar').val() || '',
-                    obs: $('#obs').val() || '',
-                    medico: $('#medico').val() || '',
-                    medicoTEL: $('#medicoTEL').val() || '',
-        
-                    // Pediatria
-                    queixaPed: $('#queixaPed').val() || '',
-                    probGravidez_YN: $('#probGravidez_YN').val() || 'Não',
-                    probGravidez: $('#probGravidez').val() || '',
-                    tipoParto: $('#tipoParto').val() || '',
-                    doencaInfancia_YN: $('#doencaInfancia_YN').val() || 'Não',
-                    doencaInfancia: $('#doencaInfancia').val() || '',
-                    internacao_YN: $('#internacao_YN').val() || 'Não',
-                    internacao: $('#internacao').val() || '',
-                    historicoMedicacao: $('#historicoMedicacao').val() || '',
-                    alergia_YN_Ped: $('#alergia_YN_Ped').val() || 'Não',
-                    alergia_Ped: $('#alergia_Ped').val() || '',
-                    respiratorio_YN: $('#respiratorio_YN').val() || 'Não',
-                    respiratorio: $('#respiratorio').val() || '',
-                    cardiaco_YN: $('#cardiaco_YN').val() || 'Não',
-                    cardiaco: $('#cardiaco').val() || '',
-                    sanguineo_YN: $('#sanguineo_YN').val() || 'Não',
-                    sanguineo: $('#sanguineo').val() || '',
-                    diabetes_YN: $('#diabetes_YN').val() || 'Não',
-                    diabetes: $('#diabetes').val() || '',
-                    medicacao_YN_Ped: $('#medicacao_YN_Ped').val() || 'Não',
-                    medicacao_Ped: $('#medicacao_Ped').val() || '',
-                    pediatra: $('#pediatra').val() || '',
-                    telPediatra: $('#telPediatra').val() || '',
-                    obs_ped: $('#obs_ped').val() || ''
-                };
-        
-                console.log(formData);
-        
-                // Perform API request
-                api.entrevistaDialogada.criar(formData)
-                .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    throw new Error('Network response was not ok.');
-                })
-                .then(data => {
-                    console.log(data);
-                    if (data.message) {
-                        console.log(data.message);
-                        showCustomAlert(data.message);
-                    } else {
-                        console.log(data);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showCustomAlert('Error occurred while processing your request.');
-                });
-            }
-          </script>
-                    
-          <form id="entrevistaForm">
-            <div id="entrevistaAdulto">
-              <!-- Imported content will be placed here -->
-            </div>
-
-            <script>
-              fetch('/Gestão-Saúde/tabsProntuarios/entrevistaCadastro.html')
-                  .then(response => response.text())
-                  .then(data => {
-                      document.getElementById('entrevistaAdulto').innerHTML = data;
-                  })
-                  .catch(error => {
-                      console.error('Error:', error);
-                  });
-            </script>
+         
+            <input type="hidden" id="aluno_id" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 32%;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO"><br>
+              <script>
+                document.getElementById("aluno_id").value = JSON.parse(localStorage.getItem("usuario"))['Matricula'];
+              </script>
+              <div id="entrevistaAdulto">
+                <?php echo file_get_contents('../../tabsProntuarios/entrevistaCadastro.html');     ?>
+              </div>
         </div>
           
         <!--INÍCIO DA TAB PEDIATRIA-->
         <div id="tab-2" class="ui-widget tab tab-2 tab-2 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false">
 
           <div id="entrevistaPed">
-            <!-- Imported content will be placed here -->
+            <?php echo file_get_contents('../../tabsProntuarios/entrevistaPedCadastro.html');     ?>
           </div>
+          
 
-          <script>
-            fetch('/Gestão-Saúde/tabsProntuarios/entrevistaPedCadastro.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('entrevistaPed').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-          </script>
-          </form>
         </div>
       </div>
     </div>
   </body>
 
-  <!-- <script>
-    // Function to show/hide content based on radio button selection
-    function toggleDisplay(divId, radioName, targetValue) {
-        const radioButtons = document.querySelectorAll(`input[name="${radioName}"]`);
-        const targetDiv = document.getElementById(divId);
-
-        // Function to handle radio button change
-        function handleRadioButtonChange() {
-            if (radioButtons[radioButtons.length - 1].checked && radioButtons[radioButtons.length - 1].value === targetValue) {
-                targetDiv.style.display = "block"; // Show the target div
-            } else {
-                targetDiv.style.display = "none"; // Hide the target div
-            }
-        }
-
-        // Add event listener to each radio button
-        radioButtons.forEach(function (radioBtn) {
-            radioBtn.addEventListener("change", handleRadioButtonChange);
-        });
-
-        // Initialize the state based on the initial selection
-        handleRadioButtonChange();
-    }
-
-    // Call the function for each set of radio buttons and target divs
-    toggleDisplay("displayNotdisplay1", "doenca_YN", "Sim");
-    toggleDisplay("displayNotdisplay2", "tto_medico_YN", "Sim");
-    toggleDisplay("displayNotdisplay3", "medicacao_YN", "Sim");
-    toggleDisplay("displayNotdisplay4", "alergia_YN", "Sim");
-    toggleDisplay("displayNotdisplay5", "fumante_YN", "Sim");
-    toggleDisplay("displayNotdisplay6", "etilista_YN", "Sim");
-    toggleDisplay("displayNotdisplay7", "operado_YN", "Sim");
-    toggleDisplay("displayNotdisplay8", "cicatrizacao_YN", "Sim");
-    toggleDisplay("displayNotdisplay9", "anestesia_YN", "Sim");
-    toggleDisplay("displayNotdisplay10", "hemorragia_YN", "Sim");
-    toggleDisplay("displayNotdisplay11", "gravidez_YN", "Sim");
-    toggleDisplay("displayNotdisplay12", "probGravidez_YN", "Sim");
-    toggleDisplay("displayNotdisplay13", "doencaInfancia_YN", "Sim");
-    toggleDisplay("displayNotdisplay14", "internacao_YN", "Sim");
-    toggleDisplay("displayNotdisplay15", "historicoMedicacao_YN", "Sim");
-    toggleDisplay("displayNotdisplay16", "alergia_YN_Ped", "Sim");
-    toggleDisplay("displayNotdisplay17", "respiratorio_YN", "Sim");
-    toggleDisplay("displayNotdisplay18", "cardiaco_YN", "Sim");
-    toggleDisplay("displayNotdisplay19", "sanguineo_YN", "Sim");
-    toggleDisplay("displayNotdisplay20", "diabetes_YN", "Sim");
-    toggleDisplay("displayNotdisplay21", "medicacao_YN_Ped", "Sim");
-              
-  </script> -->
-
-
+  <!-- HIDE/UNHIDE CONTENT BASED ON RADIO BUTTON SELECTION -->
   <script>
     fetch('/Gestão-Saúde/tabsProntuarios/entrevistaCadastro.html')
         .then(response => response.text())
@@ -519,5 +245,103 @@
         });
 </script>
 
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function submitForm() {
+      var formContent = {
+        id_aluno: $('#aluno_id').val() || '',
+        id_disciplina: $('#id_disciplina').val() || '',
+        CPF: $('#Cpf').val(),
+        queixa: $('#queixa').val() || '',
+        doenca_YN: $('#doenca_YN').val() || 'Não',
+        doenca: $('#doenca').val() || '',
+        tto_medico_YN: $('#tto_medico_YN').val() || 'Não',
+        tto_medico: $('#tto_medico').val() || '',
+        medicacao_YN: $('#medicacao_YN').val() || 'Não',
+        medicacao: $('#medicacao').val() || '',
+        alergia_YN: $('#alergia_YN').val() || 'Não',
+        alergia: $('#alergia').val() || '',
+        fumante_YN: $('#fumante_YN').val() || 'Não',
+        fumante: $('#fumante').val() || '',
+        etilista_YN: $('#etilista_YN').val() || 'Não',
+        etilista: $('#etilista').val() || '',
+        ultimaConsulta: $('#ultimaConsulta').val() || '',
+        ultimoTTO: $('#ultimoTTO').val() || '',
+        freq_higiene: $('#freq_higiene').val() || '',
+        instr_higiene: $('#instr_higiene').val() || '',
+        fluor: $('#fluor').val() || '',
+        operado_YN: $('#operado_YN').val() || 'Não',
+        operado: $('#operado').val() || '',
+        cicatrizacao_YN: $('#cicatrizacao_YN').val() || 'Não',
+        cicatrizacao: $('#cicatrizacao').val() || '',
+        anestesia_YN: $('#anestesia_YN').val() || 'Não',
+        anestesia: $('#anestesia').val() || '',
+        hemorragia_YN: $('#hemorragia_YN').val() || 'Não',
+        hemorragia: $('#hemorragia').val() || '',
+        gravidez_YN: $('#gravidez_YN').val() || 'Não',
+        gravidez: $('#gravidez').val() || '',
+        historicoFamiliar: $('#historicoFamiliar').val() || '',
+        obs: $('#obs').val() || '',
+        medico: $('#medico').val() || '',
+        medicoTEL: $('#medicoTEL').val() || '',
+
+        // Pediatria
+        id_disciplinaPed: $('#id_disciplinaPed').val() || '',
+        queixaPed: $('#queixaPed').val() || '',
+        probGravidez_YN: $('#probGravidez_YN').val() || 'Não',
+        probGravidez: $('#probGravidez').val() || '',
+        tipoParto: $('#tipoParto').val() || '',
+        doencaInfancia_YN: $('#doencaInfancia_YN').val() || 'Não',
+        doencaInfancia: $('#doencaInfancia').val() || '',
+        internacao_YN: $('#internacao_YN').val() || 'Não',
+        internacao: $('#internacao').val() || '',
+        historicoMedicacao: $('#historicoMedicacao').val() || '',
+        alergia_YN_Ped: $('#alergia_YN_Ped').val() || 'Não',
+        alergia_Ped: $('#alergia_Ped').val() || '',
+        respiratorio_YN: $('#respiratorio_YN').val() || 'Não',
+        respiratorio: $('#respiratorio').val() || '',
+        cardiaco_YN: $('#cardiaco_YN').val() || 'Não',
+        cardiaco: $('#cardiaco').val() || '',
+        sanguineo_YN: $('#sanguineo_YN').val() || 'Não',
+        sanguineo: $('#sanguineo').val() || '',
+        diabetes_YN: $('#diabetes_YN').val() || 'Não',
+        diabetes: $('#diabetes').val() || '',
+        medicacao_YN_Ped: $('#medicacao_YN_Ped').val() || 'Não',
+        medicacao_Ped: $('#medicacao_Ped').val() || '',
+        pediatra: $('#pediatra').val() || '',
+        telPediatra: $('#telPediatra').val() || '',
+        obs_ped: $('#obs_ped').val() || ''
+    };
+
+    // Perform API request
+    api.entrevistaDialogada.criar(formContent)
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Network response was not ok.');
+        })
+        .then(data => {
+            console.log(data);
+            if (data.message) {
+                showCustomAlert('message:', data.message);
+            } else {
+                console.error('Invalid response format:', data);
+                showCustomAlert('Invalid response format.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showCustomAlert('Entrevista dialogada registrada com sucesso');
+        });
+    }
+    
+    // Attach click event listener to the submit button
+    document.getElementById('submitButton').addEventListener('click', function() {
+        // Call the function to submit the form
+        submitForm();
+    });
+});
+</script>
 
 </html>

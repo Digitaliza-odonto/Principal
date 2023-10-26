@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 23/10/2023 às 18:38
+-- Tempo de geração: 26/10/2023 às 18:44
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `agenda-clinicas` (
   `id_agendamento` bigint(20) NOT NULL,
   `agendado_por` varchar(11) NOT NULL,
-  `cpf_paciente` varchar(11) NOT NULL,
+  `cpf_paciente` varchar(50) NOT NULL,
   `data_agendamento` date NOT NULL,
   `horario_agendamento` varchar(2) NOT NULL,
   `minuto_agendamento` varchar(2) NOT NULL,
@@ -45,31 +45,31 @@ CREATE TABLE `agenda-clinicas` (
 --
 
 INSERT INTO `agenda-clinicas` (`id_agendamento`, `agendado_por`, `cpf_paciente`, `data_agendamento`, `horario_agendamento`, `minuto_agendamento`, `atividade_curricular`, `local`, `descricao`, `status_agendamento`) VALUES
-(1, '2010123', '111222333', '2023-10-16', '09', '00', 'ODONTOPEDIATRIA', 'ClÃ­nica Oeste', 'Primeira consulta', 'Agendado'),
-(2, '2010123', '2147483647', '2018-10-23', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'ClÃ­nica Oeste', 'Primeira consulta', 'Faltou'),
+(1, '2010123', '111222333', '2023-10-16', '09', '00', 'ODONTOPEDIATRIA', 'Clínica Oeste', 'Primeira consulta', 'Agendado'),
+(2, '2010123', '2147483647', '2018-10-23', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'Clínica Oeste', 'Primeira consulta', 'Faltou'),
 (3, '2010123', '654123789', '2023-10-26', '08', '00', 'PERIODONTIA CLÍNICA', 'Bloco - 3o Andar', 'Primeira consulta', 'Atendido'),
 (4, '2010123', '321456789', '2023-10-23', '15', '15', 'RADIOLOGIA E IMAGINOLOGIA', 'Radiologia', 'Primeira consulta', 'No local'),
-(5, '2014321', '789987654', '2016-10-23', '09', '30', 'ODONTOPEDIATRIA', 'ClÃ­nica Oeste', 'Primeira consulta', 'Faltou'),
-(6, '2014321', '654123789', '2018-10-23', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'ClÃ­nica Oeste', 'Primeira consulta', 'Faltou'),
+(5, '2014321', '789987654', '2016-10-23', '09', '30', 'ODONTOPEDIATRIA', 'Clínica Oeste', 'Primeira consulta', 'Faltou'),
+(6, '2014321', '112.289.390-63', '2018-10-23', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'Clínica Oeste', 'Primeira consulta', 'Faltou'),
 (7, '2014321', '321456789', '2020-10-23', '08', '00', 'PERIODONTIA CLÍNICA', 'Bloco - 3o Andar', 'Primeira consulta', 'Faltou'),
 (8, '2014321', '789987654', '2016-10-23', '15', '00', 'RADIOLOGIA E IMAGINOLOGIA', 'Radiologia', 'Primeira consulta', 'Faltou'),
 (9, '2014321', '654123789', '2017-10-23', '18', '30', 'CETAT', 'Bloco - 3o Andar', 'Primeira consulta', 'Atendido'),
-(10, '2011456', '321456789', '2016-10-23', '09', '00', 'ODONTOPEDIATRIA', 'ClÃ­nica Oeste', 'Primeira consulta', 'No local'),
-(11, '2011456', '789987654', '2018-10-23', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'ClÃ­nica Oeste', 'Primeira consulta', 'Faltou'),
+(10, '2011456', '321456789', '2016-10-23', '09', '00', 'ODONTOPEDIATRIA', 'Clínica Oeste', 'Primeira consulta', 'No local'),
+(11, '2011456', '789987654', '2018-10-23', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'Clínica Oeste', 'Primeira consulta', 'Faltou'),
 (12, '2011456', '654123789', '2020-10-23', '08', '30', 'PERIODONTIA CLÍNICA', 'Bloco - 3o Andar', 'Primeira consulta', 'Faltou'),
-(13, '2012789', '321456789', '2023-10-10', '09', '45', 'ODONTOPEDIATRIA', 'ClÃ­nica Oeste', 'Primeira consulta', 'Faltou'),
-(14, '2012789', '789987654', '2018-10-23', '14', '0', 'CIRURGIA BUCO-MAXILAR III', 'ClÃ­nica Oeste', 'Primeira consulta', 'Faltou'),
+(13, '2012789', '112.289.390-63', '2023-10-10', '09', '45', 'ODONTOPEDIATRIA', 'Clínica Oeste', 'Primeira consulta', 'Faltou'),
+(14, '2012789', '789987654', '2018-10-23', '14', '0', 'CIRURGIA BUCO-MAXILAR III', 'Clínica Oeste', 'Primeira consulta', 'Faltou'),
 (15, '2012789', '654123789', '2020-10-23', '08', '00', 'PERIODONTIA CLÍNICA', 'Bloco - 3o Andar', 'Primeira consulta', 'Faltou'),
-(16, '2013654', '789987654', '2016-10-23', '09', '00', 'ODONTOPEDIATRIA', 'ClÃ­nica Oeste', 'Primeira consulta', 'Faltou'),
-(17, '2013654', '654123789', '2018-10-23', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'ClÃ­nica Oeste', 'Primeira consulta', 'Faltou'),
+(16, '2013654', '789987654', '2016-10-23', '09', '00', 'ODONTOPEDIATRIA', 'Clínica Oeste', 'Primeira consulta', 'Faltou'),
+(17, '2013654', '654123789', '2018-10-23', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'Clínica Oeste', 'Primeira consulta', 'Faltou'),
 (18, '2013654', '321456789', '2020-10-23', '08', '00', 'PERIODONTIA CLÍNICA', 'Bloco - 3o Andar', 'Primeira consulta', 'Faltou'),
-(19, '1111', '3333', '2024-09-11', '08', '15', '55555', 'ClÃ­nica Sul - 1Âº Andar', '4444', 'Agendado'),
-(20, '2010123', '123456', '2023-11-11', '14', '00', 'disciplina', 'ClÃ­nica Sul - 1Âº Andar', 'aaaaa', 'Agendado'),
-(21, '2010123', '123456', '2023-11-11', '14', '00', 'disciplina', 'ClÃ­nica Sul - 1Âº Andar', 'aaaaa', 'Agendado'),
-(37, 'Pedro', '790.588.720', '2023-10-19', '10', '15', 'undefined', '0', 'Teste', 'Agendado'),
-(38, 'Pedro', '790.588.720', '2023-10-18', '8', '15', 'undefined', '0', 'Teste', 'No local'),
-(39, 'Pedro', '790.588.720', '2023-10-18', '15', '0', 'undefined', '0', '', 'Agendado'),
-(40, 'Pedro', '964.940.820', '2023-10-17', '17', '15', 'undefined', '0', 'Teste', 'Agendado'),
+(19, '1111', '3333', '2024-09-11', '08', '15', 'CIRURGIA BUCO-MAXILAR III', 'Clínica Sul - 1º Andar', 'Primeira consulta', 'Agendado'),
+(20, '2010123', '123456', '2023-11-11', '14', '00', 'ODONTOPEDIATRIA', 'Clínica Sul - Clínica 1º Andar', 'Primeira consulta', 'Agendado'),
+(21, '2010123', '123456', '2023-11-11', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'Clínica 1º Andar', 'Primeira consulta', 'Agendado'),
+(37, 'Pedro', '790.588.720', '2023-10-19', '10', '15', 'ODONTOPEDIATRIA', 'Clínica Oeste', 'Primeira consulta', 'Agendado'),
+(38, 'Pedro', '790.588.720', '2023-10-18', '8', '15', 'CIRURGIA BUCO-MAXILAR III', 'Clínica Oeste', 'Primeira consulta', 'No local'),
+(39, 'Pedro', '790.588.720', '2023-10-18', '15', '0', 'ODONTOPEDIATRIA', 'Clínica Oeste', 'Primeira consulta', 'Agendado'),
+(40, 'Pedro', '964.940.820', '2023-10-17', '17', '15', 'CIRURGIA BUCO-MAXILAR III', 'Clínica Oeste', 'Primeira consulta', 'Agendado'),
 (41, 'Pedro', '790.588.720', '2023-10-18', '0', '0', 'undefined', '0', '', 'Agendado'),
 (42, 'Pedro', '790.588.720', '2023-10-17', '11', '15', 'undefined', '0', 'Teste', 'Agendado'),
 (43, 'Pedro', '790.588.720', '2023-10-20', '13', '30', 'undefined', '0', 'Anamnese', 'Agendado'),
@@ -85,8 +85,7 @@ INSERT INTO `agenda-clinicas` (`id_agendamento`, `agendado_por`, `cpf_paciente`,
 (56, 'Pedro', '790.588.720', '2023-10-17', '14', '15', '0', 'Bloco - 3º Andar', '0', 'Agendado'),
 (57, 'Pedro', '790.588.720', '2024-11-14', '8', '15', '0', 'Clínica Sul - 1º Andar', '0', 'Agendado'),
 (58, 'Pedro', '964.940.820', '2024-11-14', '9', '15', '0', 'Clínica Sul - 1º Andar', '0', 'Agendado'),
-(59, 'Pedro', '790.588.720', '2023-10-18', '09', '15', '0', 'Clínica Sul - 2º Andar', 'Teste', 'Agendado'),
-(60, 'Pedro', '790.588.720', '2024-10-17', '11', '45', 'undefined', 'Bloco - 3º Andar', 'Descrição', 'Agendado');
+(59, 'Pedro', '790.588.720', '2023-10-18', '09', '15', '0', 'Clínica Sul - 2º Andar', 'Teste', 'Agendado');
 
 -- --------------------------------------------------------
 
@@ -162,7 +161,8 @@ INSERT INTO `avaliacoesatendimento` (`id_avaliacao`, `data_avaliacao`, `matricul
 --
 
 CREATE TABLE `disciplinas` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `cod_disciplina` varchar(20) NOT NULL,
   `Nome` varchar(255) NOT NULL,
   `turma` varchar(255) NOT NULL,
   `periodo` varchar(255) NOT NULL,
@@ -177,17 +177,17 @@ CREATE TABLE `disciplinas` (
 -- Despejando dados para a tabela `disciplinas`
 --
 
-INSERT INTO `disciplinas` (`id`, `Nome`, `turma`, `periodo`, `alunos`, `ano`, `curso`, `codigo`, `datadecadastro`) VALUES
-(1, 'PERIODONTIA CLÍNICA', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\",\"Jou00e3o\", \"Ana\", \"Bruno\", \"Carlos\"]\"', '2020', 'Odontologia', '03470016', '01/01/2020'),
-(2, 'ODONTOPEDIATRIA', 'M2', '2020/1', '\"[\"Pedro\", \"Aluno\",\"Jou00e3o\", \"Ana\", \"Bruno\", \"Carlos\"]\"', '2020', 'Odontologia', '03500053', '01/01/2020'),
-(3, 'CIRURGIA BUCO-MAXILAR III', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\", \"Sandra\", \"Isabela\", \"Patricia\", \"Ricardo\"]\"', '2020', 'Odontologia', '03490047', '01/01/2020'),
-(4, 'PERIODONTIA CLÍNICA', 'M2', '2020/1', '\"[\"Daniela\", \"Eduardo\", \"Fabiana\", \"Gustavo\", \"Henrique, Ivana\"]\"', '2020', 'Odontologia', '03470016', '01/01/2020'),
-(5, 'ESTÁGIO EM PRONTO ATENDIMENTO', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\"]\"', '2020', 'Odontologia', '03470031', '01/01/2020'),
-(6, 'ESTÁGIO EM PRONTO ATENDIMENTO', 'M2', '2020/1', '\"[\"Pedro\", \"Aluno\"]\"', '2020', 'Odontologia', '03470031', '01/01/2020'),
-(7, 'CIRURGIA BUCO-MAXILAR III', 'M2', '2020/1', '\"[\"Renato\", \"William\", \"Leandro\", \"Lucas\", \"Ana\", \"Daniela\"]\"', '2020', 'Odontologia', '03490047', '01/01/2020'),
-(8, 'PRÓTESE DENTÁRIA PARCIAL III', 'M2', '2020/1', '\"[\"William\", \"Aluno\", \"Sandra\", \"Isabela\", \"Patricia\", \"Carlos\"]\"', '2020', 'Odontologia', '03480031', '01/01/2020'),
-(9, 'ODONTOPEDIATRIA', 'M1', '2020/1', '\"[\"Daniela\", \"Eduardo\", \"Fabiana\", \"Gustavo\", \"Henrique, Ivana\"]\"', '2020', 'Odontologia', '03500053', '01/01/2020'),
-(10, 'PRÓTESE DENTÁRIA PARCIAL III', 'M1', '2020/1', '\"[\"Renato\", \"Henrique\", \"Leandro\", \"Lucas\", \"Sandra\", \"Daniela\"]\"', '2020', 'Odontologia', '03480031', '01/01/2020');
+INSERT INTO `disciplinas` (`id`, `cod_disciplina`, `Nome`, `turma`, `periodo`, `alunos`, `ano`, `curso`, `codigo`, `datadecadastro`) VALUES
+(1, '03470016', 'PERIODONTIA CLÍNICA', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\",\"Jou00e3o\", \"Ana\", \"Bruno\", \"Carlos\"]\"', '2020', 'Odontologia', '03470016', '01/01/2020'),
+(2, '03500053', 'ODONTOPEDIATRIA', 'M2', '2020/1', '\"[\"Pedro\", \"Aluno\",\"Jou00e3o\", \"Ana\", \"Bruno\", \"Carlos\"]\"', '2020', 'Odontologia', '03500053', '01/01/2020'),
+(3, '03490047', 'CIRURGIA BUCO-MAXILAR III', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\", \"Sandra\", \"Isabela\", \"Patricia\", \"Ricardo\"]\"', '2020', 'Odontologia', '03490047', '01/01/2020'),
+(4, '003470016', 'PERIODONTIA CLÍNICA', 'M2', '2020/1', '\"[\"Daniela\", \"Eduardo\", \"Fabiana\", \"Gustavo\", \"Henrique, Ivana\"]\"', '2020', 'Odontologia', '03470016', '01/01/2020'),
+(5, '03470031', 'ESTÁGIO EM PRONTO ATENDIMENTO', 'M1', '2020/1', '\"[\"Pedro\", \"Aluno\"]\"', '2020', 'Odontologia', '03470031', '01/01/2020'),
+(6, '03470031', 'ESTÁGIO EM PRONTO ATENDIMENTO', 'M2', '2020/1', '\"[\"Pedro\", \"Aluno\"]\"', '2020', 'Odontologia', '03470031', '01/01/2020'),
+(7, '03490047', 'CIRURGIA BUCO-MAXILAR III', 'M2', '2020/1', '\"[\"Renato\", \"William\", \"Leandro\", \"Lucas\", \"Ana\", \"Daniela\"]\"', '2020', 'Odontologia', '03490047', '01/01/2020'),
+(8, '03480031', 'PRÓTESE DENTÁRIA PARCIAL III', 'M2', '2020/1', '\"[\"William\", \"Aluno\", \"Sandra\", \"Isabela\", \"Patricia\", \"Carlos\"]\"', '2020', 'Odontologia', '03480031', '01/01/2020'),
+(9, '003500053', 'ODONTOPEDIATRIA', 'M1', '2020/1', '\"[\"Daniela\", \"Eduardo\", \"Fabiana\", \"Gustavo\", \"Henrique, Ivana\"]\"', '2020', 'Odontologia', '03500053', '01/01/2020'),
+(10, '03480031', 'PRÓTESE DENTÁRIA PARCIAL III', 'M1', '2020/1', '\"[\"Renato\", \"Henrique\", \"Leandro\", \"Lucas\", \"Sandra\", \"Daniela\"]\"', '2020', 'Odontologia', '03480031', '01/01/2020');
 
 -- --------------------------------------------------------
 
@@ -204,19 +204,21 @@ CREATE TABLE `encaminhamentos` (
   `Demanda` varchar(255) DEFAULT NULL,
   `Status` varchar(255) DEFAULT NULL,
   `Observacoes` varchar(255) DEFAULT NULL,
-  `Complexidade` varchar(255) DEFAULT NULL
+  `Complexidade` varchar(255) DEFAULT NULL,
+  `homologado` varchar(3) NOT NULL,
+  `tramitado` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `encaminhamentos`
 --
 
-INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Curso`, `Especialidade`, `Demanda`, `Status`, `Observacoes`, `Complexidade`) VALUES
-(1, '112.289.390-63', '01/01/2020', 'Odontologia', 'Cirurgia', 'Exodontia do 38', 'Em espera', 'Tratamento de rotina.', 'Média'),
-(2, '790.588.720-09', '01/01/2020', 'Odontologia', 'Prótese dentária', 'Coroa unitária no dente 24', 'Em espera', 'Tratamento de rotina de odontopediatria.', 'Média'),
-(3, '112.289.390-63', '01/01/2020', 'Odontologia', 'Prótese Dentária', 'Confeccção de PPR superior', 'Em espera', 'Necessita de acompanhamento constante.', 'Baixa'),
-(4, '790.588.720-09', '01/01/2020', 'Odontologia', 'Periodontia', 'Aumento de coroa clínica no 24', 'Em espera', 'Problema identificado durante a consulta inicial.', 'Média'),
-(5, '112.289.390-63', '01/01/2020', 'Odontologia', 'Periodontia', 'Raspagem subgengival em todos os sextantes', 'Em espera', 'Paciente relatou dor intensa.', 'Média');
+INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Curso`, `Especialidade`, `Demanda`, `Status`, `Observacoes`, `Complexidade`, `homologado`, `tramitado`) VALUES
+(1, '112.289.390-63', '01/01/2020', 'Odontologia', 'Cirurgia', 'Exodontia do 38', 'Em espera', 'Tratamento de rotina.', 'Média', '', ''),
+(2, '790.588.720-09', '01/01/2020', 'Odontologia', 'Prótese dentária', 'Coroa unitária no dente 24', 'Em espera', 'Tratamento de rotina de odontopediatria.', 'Média', '', ''),
+(3, '112.289.390-63', '01/01/2020', 'Odontologia', 'Prótese Dentária', 'Confeccção de PPR superior', 'Em espera', 'Necessita de acompanhamento constante.', 'Baixa', '', ''),
+(4, '790.588.720-09', '01/01/2020', 'Odontologia', 'Periodontia', 'Aumento de coroa clínica no 24', 'Em espera', 'Problema identificado durante a consulta inicial.', 'Média', '', ''),
+(5, '112.289.390-63', '01/01/2020', 'Odontologia', 'Periodontia', 'Raspagem subgengival em todos os sextantes', 'Em espera', 'Paciente relatou dor intensa.', 'Média', '', '');
 
 -- --------------------------------------------------------
 
@@ -226,6 +228,8 @@ INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Curso`, `Especialidade`, `D
 
 CREATE TABLE `entrevista` (
   `id_entrevista` bigint(20) NOT NULL,
+  `id_aluno` varchar(50) NOT NULL,
+  `id_disciplina` varchar(255) NOT NULL,
   `data` date NOT NULL,
   `CPF` varchar(50) NOT NULL,
   `queixa` text NOT NULL,
@@ -259,16 +263,24 @@ CREATE TABLE `entrevista` (
   `historicoFamiliar` varchar(60) NOT NULL,
   `obs` varchar(120) NOT NULL,
   `medico` varchar(64) NOT NULL,
-  `medicoTEL` int(11) NOT NULL
+  `medicoTEL` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `entrevista`
 --
 
-INSERT INTO `entrevista` (`id_entrevista`, `data`, `CPF`, `queixa`, `doenca_YN`, `doenca`, `tto_medico_YN`, `tto_medico`, `medicacao_YN`, `medicacao`, `alergia_YN`, `alergia`, `fumante_YN`, `fumante`, `etilista_YN`, `etilista`, `ultimaConsulta`, `ultimoTTO`, `freq_Higiene`, `instr_Higiene`, `fluor`, `operado_YN`, `operado`, `cicatrizacao_YN`, `cicatrizacao`, `anestesia_YN`, `anestesia`, `hemorragia_YN`, `hemorragia`, `gravidez_YN`, `gravidez`, `historicoFamiliar`, `obs`, `medico`, `medicoTEL`) VALUES
-(1, '2023-10-23', '112.289.390-63', '', 'Sim', 'teste', 'Não', '', 'Sim', 'TESTE', 'Não', '', 'Não', '', 'Não', '', '12/03/2021', 'teste', '3x ao dia', 'Enxaguante,Escova', 'Dentifirício', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Nada consta', 'teste observação', 'Dr. X', 99999999),
-(2, '2023-10-23', '112.289.390-63', '', 'Sim', 'teste', 'Não', '', 'Sim', 'TESTE', 'Não', '', 'Não', '', 'Não', '', '12/03/2021', 'teste', '3x ao dia', 'Enxaguante,Escova', 'Dentifirício', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Nada consta', 'teste observação', 'Dr. X', 99999999);
+INSERT INTO `entrevista` (`id_entrevista`, `id_aluno`, `id_disciplina`, `data`, `CPF`, `queixa`, `doenca_YN`, `doenca`, `tto_medico_YN`, `tto_medico`, `medicacao_YN`, `medicacao`, `alergia_YN`, `alergia`, `fumante_YN`, `fumante`, `etilista_YN`, `etilista`, `ultimaConsulta`, `ultimoTTO`, `freq_Higiene`, `instr_Higiene`, `fluor`, `operado_YN`, `operado`, `cicatrizacao_YN`, `cicatrizacao`, `anestesia_YN`, `anestesia`, `hemorragia_YN`, `hemorragia`, `gravidez_YN`, `gravidez`, `historicoFamiliar`, `obs`, `medico`, `medicoTEL`) VALUES
+(1, '', '', '2023-10-23', '112.289.390-63', '', 'Sim', 'teste', 'Não', '', 'Sim', 'TESTE', 'Não', '', 'Não', '', 'Não', '', '12/03/2021', 'teste', '3x ao dia', 'Enxaguante,Escova', 'Dentifirício', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Nada consta', 'teste observação', 'Dr. X', '99999999'),
+(2, '', '', '2023-10-23', '112.289.390-63', '', 'Sim', 'teste', 'Não', '', 'Sim', 'TESTE', 'Não', '', 'Não', '', 'Não', '', '12/03/2021', 'teste', '3x ao dia', 'Enxaguante,Escova', 'Dentifirício', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Nada consta', 'teste observação', 'Dr. X', '99999999'),
+(7, 'Pedro', 'PERIODONTIA CLÍNICA', '2023-10-25', '790.588.720-09', 'queixaaaaaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '0'),
+(8, 'Pedro', 'PRÓTESE DENTÁRIA PARCIAL III', '2023-10-25', '964.940.820-76', 'queixaadulto', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '0'),
+(9, 'Pedro', 'PERIODONTIA CLÍNICA', '2023-10-25', '964.940.820-76', 'Queixa Adulto', 'Não', 'mmmmm', 'Não', '', 'Não', 'mmmmmmmm', 'Não', '', 'Não', '', 'Não', '', '2023-10-25', 'tto', '3x ao dia', 'Array', 'Array', 'Não', 'aaaaaaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'avvvvvvvv', 'ccccccc', '', ''),
+(10, 'Pedro', 'ODONTOPEDIATRIA', '2023-10-25', '790.588.720-09', 'queixaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', ''),
+(11, 'Pedro', 'ODONTOPEDIATRIA', '2023-10-25', '790.588.720-09', 'queixaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', ''),
+(12, 'Pedro', 'ODONTOPEDIATRIA', '2023-10-25', '790.588.720-09', 'queixaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', ''),
+(13, 'Pedro', 'ESTÁGIO EM PRONTO ATENDIMENTO (EPA)', '2023-10-25', '790.588.720-09', 'queixaaa', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', ''),
+(14, 'Pedro', 'PERIODONTIA CLÍNICA', '2023-10-25', '964.940.820-76', 'queixaAdultoooooooo', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -278,6 +290,8 @@ INSERT INTO `entrevista` (`id_entrevista`, `data`, `CPF`, `queixa`, `doenca_YN`,
 
 CREATE TABLE `entrevistaped` (
   `id_entrevista` bigint(20) NOT NULL,
+  `id_aluno` varchar(50) NOT NULL,
+  `id_disciplinaPed` varchar(255) NOT NULL,
   `data` date NOT NULL,
   `CPF` varchar(50) NOT NULL,
   `queixaPed` text NOT NULL,
@@ -303,7 +317,7 @@ CREATE TABLE `entrevistaped` (
   `medicacao_YN_Ped` varchar(3) NOT NULL,
   `medicacao_Ped` varchar(60) NOT NULL,
   `pediatra` varchar(64) NOT NULL,
-  `telPediatra` int(11) NOT NULL,
+  `telPediatra` varchar(20) NOT NULL,
   `obs_ped` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -311,8 +325,10 @@ CREATE TABLE `entrevistaped` (
 -- Despejando dados para a tabela `entrevistaped`
 --
 
-INSERT INTO `entrevistaped` (`id_entrevista`, `data`, `CPF`, `queixaPed`, `probGravidez_YN`, `probGravidez`, `tipoParto`, `doencaInfancia_YN`, `doencaInfancia`, `internacao_YN`, `internacao`, `historicoMedicacao_YN`, `historicoMedicacao`, `alergia_YN_Ped`, `alergia_Ped`, `respiratorio_YN`, `respiratorio`, `cardiaco_YN`, `cardiaco`, `sanguineo_YN`, `sanguineo`, `diabetes_YN`, `diabetes`, `medicacao_YN_Ped`, `medicacao_Ped`, `pediatra`, `telPediatra`, `obs_ped`) VALUES
-(1, '2023-10-25', '112.289.390-63', 'queixa ped', 'Sim', 'Não', 'Cesárea', 'Não', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Pediatra', 0, 'teste_obs');
+INSERT INTO `entrevistaped` (`id_entrevista`, `id_aluno`, `id_disciplinaPed`, `data`, `CPF`, `queixaPed`, `probGravidez_YN`, `probGravidez`, `tipoParto`, `doencaInfancia_YN`, `doencaInfancia`, `internacao_YN`, `internacao`, `historicoMedicacao_YN`, `historicoMedicacao`, `alergia_YN_Ped`, `alergia_Ped`, `respiratorio_YN`, `respiratorio`, `cardiaco_YN`, `cardiaco`, `sanguineo_YN`, `sanguineo`, `diabetes_YN`, `diabetes`, `medicacao_YN_Ped`, `medicacao_Ped`, `pediatra`, `telPediatra`, `obs_ped`) VALUES
+(1, '', 'PRÓTESE DENTÁRIA PARCIAL III', '2023-10-25', '112.289.390-63', 'queixa ped', 'Sim', 'Não', 'Cesárea', 'Não', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Pediatra', '0', 'teste_obs'),
+(5, 'Pedro', 'PRÓTESE DENTÁRIA PARCIAL III', '2023-10-25', '964.940.820-76', 'queixaPed', 'Não', '', '', 'Não', '', 'Não', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', '', '0', ''),
+(6, 'Pedro', 'ODONTOPEDIATRIA', '2023-10-25', '964.940.820-76', 'queixa ped', 'Não', '', '', 'Não', '', 'Não', '', '', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'Não', '', 'aaaaaaaa', '(12) 3455-66665', 'aaaaaaaaaa');
 
 -- --------------------------------------------------------
 
@@ -322,14 +338,25 @@ INSERT INTO `entrevistaped` (`id_entrevista`, `data`, `CPF`, `queixaPed`, `probG
 
 CREATE TABLE `historicoatendimentos` (
   `id_atendimentos` bigint(20) NOT NULL,
+  `id_aluno` varchar(255) NOT NULL,
   `cpf` varchar(50) NOT NULL,
   `data` date NOT NULL,
   `especialidade` varchar(255) NOT NULL,
   `descricao` text NOT NULL,
   `responsavel` varchar(255) NOT NULL,
-  `disciplina` varchar(255) NOT NULL,
-  `codSys` text NOT NULL
+  `componente_curricular` varchar(255) NOT NULL,
+  `homologado` varchar(3) NOT NULL,
+  `codSus` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `historicoatendimentos`
+--
+
+INSERT INTO `historicoatendimentos` (`id_atendimentos`, `id_aluno`, `cpf`, `data`, `especialidade`, `descricao`, `responsavel`, `componente_curricular`, `homologado`, `codSus`) VALUES
+(11, 'Pedro', '790.588.720-09', '2023-10-26', 'Odontopediatria,Dentística', 'TESTE', 'PROFE', 'DISCI', 'Não', '[\"101020090\"]'),
+(12, 'Pedro', '790.588.720-09', '2023-10-26', 'Odontopediatria,Dentística', 'TESTE', 'PROFE', 'DISCI', 'Não', '[\"101020090\"]'),
+(26, 'Pedro', '790.588.720-09', '2023-10-26', 'Prótese Dentária', 'aaaaaaaa', 'prof', 'disciplina', 'Não', '[\"101020090\"]');
 
 -- --------------------------------------------------------
 
@@ -364,8 +391,8 @@ INSERT INTO `materiais` (`id`, `nome`, `quantidade`, `tipo_material`, `apresenta
 (16, 'hauhauhauh', 4, 'Resina composta', 'Bisnaga'),
 (17, 'testematerial', 12, 'Cimento', 'Frasco'),
 (18, 'testeqqer coisa', 4, 'Cimento', 'Bisnaga'),
-(19, 'testedenovo', 3, 'Resina composta', 'Bisnaga'),
-(20, 'ionomero de vidro', 7, 'Cimento', 'Kit'),
+(19, 'testedenovo', 0, 'Resina composta', 'Bisnaga'),
+(20, 'ionomero de vidro', 2, 'Cimento', 'Kit'),
 (21, 'fosfato de zinco', 2, 'Cimento', 'Kit'),
 (22, 'alginato', 1, 'Moldagem', 'Pacote'),
 (23, 'polieter', 9, 'Moldagem', 'Kit'),
@@ -386,13 +413,16 @@ INSERT INTO `materiais` (`id`, `nome`, `quantidade`, `tipo_material`, `apresenta
 CREATE TABLE `pacientes` (
   `id` int(11) NOT NULL,
   `CPF` varchar(255) NOT NULL,
+  `informacoesImportantes` varchar(255) NOT NULL,
   `CNS` varchar(255) DEFAULT NULL,
   `Nome` varchar(255) DEFAULT NULL,
-  `nomeSocial` int(11) NOT NULL,
+  `nomeSocial` varchar(255) NOT NULL,
   `Rg` varchar(255) DEFAULT NULL,
   `DataNasc` varchar(255) DEFAULT NULL,
   `Email` varchar(255) DEFAULT NULL,
   `Tel` varchar(255) DEFAULT NULL,
+  `Tel2` varchar(20) NOT NULL,
+  `Tel3` varchar(20) NOT NULL,
   `EstadoCivil` varchar(255) DEFAULT NULL,
   `Sexo` varchar(255) DEFAULT NULL,
   `NomeMae` varchar(255) DEFAULT NULL,
@@ -412,21 +442,21 @@ CREATE TABLE `pacientes` (
 -- Despejando dados para a tabela `pacientes`
 --
 
-INSERT INTO `pacientes` (`id`, `CPF`, `CNS`, `Nome`, `nomeSocial`, `Rg`, `DataNasc`, `Email`, `Tel`, `EstadoCivil`, `Sexo`, `NomeMae`, `NomePai`, `CorRaca`, `PNE`, `EnderecoTipo`, `Cep`, `Rua`, `EndNumero`, `EndComplemento`, `Bairro`, `Cidade`) VALUES
-(1, '999.888.777-66', NULL, 'Ricardo Santos', 0, '33221100', '', 'ricardo@example.com', '', 'CASADO', 'Masculino', 'Marta Santos', 'José Santos', '', 'Array', 'Residencial', '98765-432', 'Rua dos Sonhos', '', '', 'Jardim Esperança', 'Cidade Feliz'),
-(2, '222.111.333-55', NULL, 'Sandra Oliveira', 0, '54321098', '', 'sandra@example.com', '', 'SOLTEIRA', 'Feminino', 'Ana Oliveira', 'José Oliveira', '', 'Array', 'Residencial', '98765-432', 'Rua dos Sonhos', '', '', 'Jardim Esperança', 'Cidade Feliz'),
-(3, '444.333.222-11', NULL, 'João Pereira', 0, '12345678', '', 'joao@example.com', '', 'CASADO', 'Masculino', 'Maria Pereira', 'Antônio Pereira', '', 'Array', 'Residencial', '76543-210', 'Rua das Flores', '', '', 'Jardim das Flores', 'Cidadefeliz'),
-(4, '790.588.720-09', NULL, 'Ciclana Pereira', 0, '7654321', '', 'ciclana@example.com', '', 'CASADO', 'Feminino', 'Maria Pereira', 'José Pereira', '', 'Array', 'Residencial', '54321-987', 'Avenida das Flores', '', '', 'Bairro Central', 'Cidadelândia'),
-(5, '999.888.777-33', NULL, 'Larissa Pereira', 0, '76543210', '', 'larissa@example.com', '', 'SOLTEIRA', 'Feminino', 'Maria Pereira', 'José Pereira', '', 'Array', 'Residencial', '76543-210', 'Rua das Flores', '', '', 'Jardim das Flores', 'Cidadefeliz'),
-(6, '333.222.111-00', NULL, 'Isabela Lima', 0, '65432109', '', 'isabela@example.com', '', 'SOLTEIRA', 'Feminino', 'Marta Lima', 'Pedro Lima', '', 'Array', 'Residencial', '54321-123', 'Rua das Palmeiras', '', '', 'Jardim Tropical', 'Cidadeverde'),
-(7, '964.940.820-76', NULL, 'Beltrano Alves', 0, '11223344', '', 'beltrano@example.com', '', 'DIVORCIADO', 'Masculino', 'Joana Alves', 'Pedro Alves', '', 'Array', 'Comercial', '98765-432', 'Rua do Comércio', '', '', 'Centro Empresarial', 'Cidadeforte'),
-(8, '111.222.333-44', NULL, 'José da Silva', 0, '12345678', '', 'jose@example.com', '', 'CASADO', 'Masculino', 'Maria da Silva', 'Antônio da Silva', '', 'Array', 'Residencial', '76543-210', 'Rua das Árvores', '', '', 'Jardim das Flores', 'Cidadefeliz'),
-(9, '112.289.390-63', NULL, 'Fulano da Silva', 0, '1234567', '', 'fulano@example.com', '', 'SOLTEIRO', 'Masculino', 'Ciclana da Silva', 'Beltrano da Silva', '', 'Array', 'Residencial', '12345-678', 'Rua dos Exemplos', '', '', 'Bairro das Amostras', 'Cidadópolis'),
-(10, '555.666.777-88', NULL, 'Ana Souza', 0, '88776655', '', 'ana@example.com', '', 'CASADA', 'Feminino', 'Maria Souza', 'João Souza', '', 'Array', 'Residencial', '12345-678', 'Rua da Praia', '', '', 'Beira Mar', 'Cidade Marítima'),
-(11, '666.555.444-33', NULL, 'Pedro Rodrigues', 0, '56789012', '', 'pedro@example.com', '', 'SOLTEIRO', 'Masculino', 'Clara Rodrigues', 'José Rodrigues', '', 'Array', 'Residencial', '98765-432', 'Rua dos Sonhos', '', '', 'Jardim Esperança', 'Cidade Feliz'),
-(12, '777.888.999-11', NULL, 'Lucia Lima', 0, '11223344', '', 'lucia@example.com', '', 'SOLTEIRA', 'Feminino', 'Ana Lima', 'Pedro Lima', '', 'Array', 'Residencial', '54321-123', 'Rua das Palmeiras', '', '', 'Jardim Tropical', 'Cidadeverde'),
-(13, '111.222.333-55', NULL, 'Mariana Costa', 0, '98765432', '', 'mariana@example.com', '', 'CASADA', 'Feminino', 'Ana Costa', 'José Costa', '', 'Array', 'Residencial', '76543-210', 'Rua das Flores', '', '', 'Jardim das Flores', 'Cidadefeliz'),
-(14, '888.777.666-44', NULL, 'Carlos Santos', 0, '43210987', '', 'carlos@example.com', '', 'CASADO', 'Masculino', 'Marta Santos', 'Pedro Santos', '', 'Array', 'Residencial', '54321-123', 'Rua das Palmeiras', '', '', 'Jardim Tropical', 'Cidadeverde');
+INSERT INTO `pacientes` (`id`, `CPF`, `informacoesImportantes`, `CNS`, `Nome`, `nomeSocial`, `Rg`, `DataNasc`, `Email`, `Tel`, `Tel2`, `Tel3`, `EstadoCivil`, `Sexo`, `NomeMae`, `NomePai`, `CorRaca`, `PNE`, `EnderecoTipo`, `Cep`, `Rua`, `EndNumero`, `EndComplemento`, `Bairro`, `Cidade`) VALUES
+(1, '999.888.777-66', 'TESTE', NULL, 'Ricardo Santos', 'Joana Santos', '33221100', '', 'ricardo@example.com', '', '', '', 'CASADO', 'Masculino', 'Marta Santos', 'José Santos', '', '', 'Residencial', '98765-432', 'Rua dos Sonhos', '', '', 'Jardim Esperança', 'Cidade Feliz'),
+(2, '222.111.333-55', '', NULL, 'Sandra Oliveira', '', '54321098', '', 'sandra@example.com', '', '', '', 'SOLTEIRA', 'Feminino', 'Ana Oliveira', 'José Oliveira', '', 'Array', 'Residencial', '98765-432', 'Rua dos Sonhos', '', '', 'Jardim Esperança', 'Cidade Feliz'),
+(3, '444.333.222-11', '', NULL, 'João Pereira', '', '12345678', '', 'joao@example.com', '', '', '', 'CASADO', 'Masculino', 'Maria Pereira', 'Antônio Pereira', '', 'Array', 'Residencial', '76543-210', 'Rua das Flores', '', '', 'Jardim das Flores', 'Cidadefeliz'),
+(4, '790.588.720-09', '', NULL, 'Ciclana Pereira', '', '7654321', '', 'ciclana@example.com', '', '', '', 'CASADO', 'Feminino', 'Maria Pereira', 'José Pereira', '', 'Array', 'Residencial', '54321-987', 'Avenida das Flores', '', '', 'Bairro Central', 'Cidadelândia'),
+(5, '999.888.777-33', '', NULL, 'Larissa Pereira', '', '76543210', '', 'larissa@example.com', '', '', '', 'SOLTEIRA', 'Feminino', 'Maria Pereira', 'José Pereira', '', 'Array', 'Residencial', '76543-210', 'Rua das Flores', '', '', 'Jardim das Flores', 'Cidadefeliz'),
+(6, '333.222.111-00', '', NULL, 'Isabela Lima', '', '65432109', '', 'isabela@example.com', '', '', '', 'SOLTEIRA', 'Feminino', 'Marta Lima', 'Pedro Lima', '', 'Array', 'Residencial', '54321-123', 'Rua das Palmeiras', '', '', 'Jardim Tropical', 'Cidadeverde'),
+(7, '964.940.820-76', '', NULL, 'Beltrano Alves', '', '11223344', '', 'beltrano@example.com', '', '', '', 'DIVORCIADO', 'Masculino', 'Joana Alves', 'Pedro Alves', '', 'Array', 'Comercial', '98765-432', 'Rua do Comércio', '', '', 'Centro Empresarial', 'Cidadeforte'),
+(8, '111.222.333-44', '', NULL, 'José da Silva', '', '12345678', '', 'jose@example.com', '', '', '', 'CASADO', 'Masculino', 'Maria da Silva', 'Antônio da Silva', '', 'Array', 'Residencial', '76543-210', 'Rua das Árvores', '', '', 'Jardim das Flores', 'Cidadefeliz'),
+(9, '112.289.390-63', '', NULL, 'Fulano da Silva', '', '1234567', '', 'fulano@example.com', '', '', '', 'SOLTEIRO', 'Masculino', 'Ciclana da Silva', 'Beltrano da Silva', '', 'Array', 'Residencial', '12345-678', 'Rua dos Exemplos', '', '', 'Bairro das Amostras', 'Cidadópolis'),
+(10, '555.666.777-88', '', NULL, 'Ana Souza', '', '88776655', '', 'ana@example.com', '', '', '', 'CASADA', 'Feminino', 'Maria Souza', 'João Souza', '', 'Array', 'Residencial', '12345-678', 'Rua da Praia', '', '', 'Beira Mar', 'Cidade Marítima'),
+(11, '666.555.444-33', '', NULL, 'Pedro Rodrigues', '', '56789012', '', 'pedro@example.com', '', '', '', 'SOLTEIRO', 'Masculino', 'Clara Rodrigues', 'José Rodrigues', '', 'Array', 'Residencial', '98765-432', 'Rua dos Sonhos', '', '', 'Jardim Esperança', 'Cidade Feliz'),
+(12, '777.888.999-11', '', NULL, 'Lucia Lima', '', '11223344', '', 'lucia@example.com', '', '', '', 'SOLTEIRA', 'Feminino', 'Ana Lima', 'Pedro Lima', '', 'Array', 'Residencial', '54321-123', 'Rua das Palmeiras', '', '', 'Jardim Tropical', 'Cidadeverde'),
+(13, '111.222.333-55', '', NULL, 'Mariana Costa', '', '98765432', '', 'mariana@example.com', '', '', '', 'CASADA', 'Feminino', 'Ana Costa', 'José Costa', '', 'Array', 'Residencial', '76543-210', 'Rua das Flores', '', '', 'Jardim das Flores', 'Cidadefeliz'),
+(14, '888.777.666-44', '', NULL, 'Carlos Santos', '', '43210987', '', 'carlos@example.com', '', '', '', 'CASADO', 'Masculino', 'Marta Santos', 'Pedro Santos', '', 'Array', 'Residencial', '54321-123', 'Rua das Palmeiras', '', '', 'Jardim Tropical', 'Cidadeverde');
 
 -- --------------------------------------------------------
 
@@ -452,9 +482,13 @@ CREATE TABLE `plano_tto` (
 --
 
 INSERT INTO `plano_tto` (`id`, `CPF`, `data`, `queixa`, `aspectoRelevante`, `especialidade`, `descricao`, `aluno_id`, `responsavel`, `componente_curricular`) VALUES
-(1, '', '2023-10-19', 'Queixa', 'Aspectos', 'Odontopediatria,Dentística', 'Descrição', 'Aluno', 'Professor', 'Disciplina'),
+(1, '790.588.720-09', '2023-10-19', 'Queixa', 'Aspectos', 'Odontopediatria,Dentística', 'Descrição', 'Aluno', 'Professor', 'Disciplina'),
 (2, '112.289.390-63', '2023-10-09', 'queixa 1', 'relevancia', 'prótese, cirurgia', 'descricao', 'ALUNO X', 'PROF. Y', 'UPD-2'),
-(3, '112.289.390-63', '2023-10-24', 'queixa 2', 'aspectos2', 'Dentística', 'Descr2', 'ALUNO W', 'PROF. Z', 'ECO-2');
+(3, '112.289.390-63', '2023-10-24', 'queixa 2', 'aspectos2', 'Dentística', 'Descr2', 'ALUNO W', 'PROF. Z', 'ECO-2'),
+(7, '790.588.720-09', '2023-10-25', 'plano com CPF', 'aspectos com CPF', 'Prótese Dentária,Odontopediatria,Periodontia,Dentística', 'Desc', 'Pedro', 'prof', 'disci'),
+(8, '790.588.720-09', '2023-10-25', 'queixa', 'aspec', 'Prótese Dentária,Odontopediatria,Periodontia', 'des', 'Pedro', 'prof', 'disc'),
+(9, '964.940.820-76', '2023-10-25', 'plano com CPF', 'aspects', 'Odontopediatria,Periodontia,Dentística', 'desc', 'Pedro', 'prof', 'disc'),
+(15, '964.940.820-76', '2023-10-25', 'agora', 'a', 'Prótese Dentária,Odontopediatria', 'asb', 'Pedro', 'aaa', 'bbb');
 
 -- --------------------------------------------------------
 
@@ -577,7 +611,7 @@ INSERT INTO `solicitacao_materiais` (`id_solicitacao`, `setor`, `nome_solicitant
 (60, 'Clínica 1º Andar - Sul', 'Fulano', 987654, '2023-09-26', '2023-10-13', '1,4', 'Fosfato de zinco,Teste', '1,2', 'Atendido', '0', NULL, ''),
 (61, 'Clínica 1º Andar - Sul', 'Beltrano', 123456, '2023-09-26', '2023-10-13', '11,1', 'rolo de algodão,Fosfato de zinco', '2,1', 'Parcialmente atendido', '0', NULL, ''),
 (62, 'Clínica Oeste', 'Fulano', 987654, '2023-09-26', NULL, '1,20', 'Fosfato de zinco,ionomero de vidro', '1,3', 'Solicitado', '0', NULL, NULL),
-(63, 'Clínica Oeste', 'Beltrano', 123456, '2023-09-26', NULL, '20,19', 'ionomero de vidro,testedenovo', '3,2', 'Solicitado', '0', NULL, NULL),
+(63, 'Clínica Oeste', 'Beltrano', 123456, '2023-09-26', '2023-10-24', '20,19', 'ionomero de vidro,testedenovo', '3,2', '', '0', NULL, 'aaa'),
 (64, 'Clínica 4º Andar', 'Ciclano', 654321, '2023-09-26', NULL, '24,26', 'silicone de condensação,resina acrílica', '1,5', 'Solicitado', '0', NULL, NULL),
 (65, 'Laboratórios pré-clínica', 'Ciclano', 654321, '2023-09-26', '2023-10-03', '24,26,23,22', 'silicone de condensação,resina acrílica,polieter,alginato', '1,5,2,2', 'Parcialmente atendido', '24,26,23,22', '1,5,2,2', 'Observação teste'),
 (66, 'Clínica 1º Andar - Sul', 'Fulano', 987654, '2023-09-27', NULL, '7,5', 'teste3,teste2', '1,2', 'Solicitado', '0', NULL, NULL),
@@ -628,6 +662,25 @@ INSERT INTO `usuarios` (`id`, `Matricula`, `Nome`, `Tipo`, `Pacientes`) VALUES
 (22, 'Leandro', 'Leandro Rios', 'Aluno', 'null'),
 (23, 'Lucas', 'Lucas Lima', 'Aluno', 'null');
 
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `vinculospacientes`
+--
+
+CREATE TABLE `vinculospacientes` (
+  `id_vinculo` bigint(20) NOT NULL,
+  `id_demanda` varchar(50) NOT NULL,
+  `cpf_paciente` varchar(50) NOT NULL,
+  `id_aluno` varchar(50) NOT NULL,
+  `demandaEspecialidade` varchar(255) NOT NULL,
+  `demandaDescricao` int(11) NOT NULL,
+  `complexidade` int(11) NOT NULL,
+  `disciplina` int(11) NOT NULL,
+  `turma` varchar(2) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Índices para tabelas despejadas
 --
@@ -669,6 +722,12 @@ ALTER TABLE `entrevistaped`
   ADD PRIMARY KEY (`id_entrevista`);
 
 --
+-- Índices de tabela `historicoatendimentos`
+--
+ALTER TABLE `historicoatendimentos`
+  ADD PRIMARY KEY (`id_atendimentos`);
+
+--
 -- Índices de tabela `materiais`
 --
 ALTER TABLE `materiais`
@@ -705,6 +764,12 @@ ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Índices de tabela `vinculospacientes`
+--
+ALTER TABLE `vinculospacientes`
+  ADD PRIMARY KEY (`id_vinculo`);
+
+--
 -- AUTO_INCREMENT para tabelas despejadas
 --
 
@@ -712,7 +777,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `agenda-clinicas`
 --
 ALTER TABLE `agenda-clinicas`
-  MODIFY `id_agendamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id_agendamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT de tabela `avaliacoesatendimento`
@@ -724,7 +789,7 @@ ALTER TABLE `avaliacoesatendimento`
 -- AUTO_INCREMENT de tabela `disciplinas`
 --
 ALTER TABLE `disciplinas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `encaminhamentos`
@@ -736,13 +801,19 @@ ALTER TABLE `encaminhamentos`
 -- AUTO_INCREMENT de tabela `entrevista`
 --
 ALTER TABLE `entrevista`
-  MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `entrevistaped`
 --
 ALTER TABLE `entrevistaped`
-  MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de tabela `historicoatendimentos`
+--
+ALTER TABLE `historicoatendimentos`
+  MODIFY `id_atendimentos` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de tabela `materiais`
@@ -754,13 +825,13 @@ ALTER TABLE `materiais`
 -- AUTO_INCREMENT de tabela `pacientes`
 --
 ALTER TABLE `pacientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `plano_tto`
 --
 ALTER TABLE `plano_tto`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de tabela `solicitacao_materiais`

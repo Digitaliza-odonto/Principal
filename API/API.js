@@ -139,6 +139,10 @@ const disciplinas = {
   consultar: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultar.php`;
     return sendRequest(url, 'POST', data);
+  },
+  consultarID: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultarID.php`;
+    return sendRequest(url, 'POST', data);
   }
 };
 
@@ -200,6 +204,10 @@ const agenda = {
   },
   consultarNoLocalUsuario: async (data) => {
     const url = `${getApiUrl()}/agenda/nolocal-usuario.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultaFaltas: async (data) => {
+    const url = `${getApiUrl()}/agenda/consultarFaltas.php`;
     return sendRequest(url, 'POST', data);
   },
   admitirPaciente: async (data) => {

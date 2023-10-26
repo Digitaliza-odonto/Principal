@@ -5,7 +5,7 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE");
 header("Access-Control-Allow-Headers: X-Requested-With, Content-Type");
 header("Access-Control-Allow-Credentials: true");
 
-require_once '../db.php';   // Importa o arquivo de conexão com o banco de dados
+require_once '../db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
@@ -37,13 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $existingPatient = db("SELECT * FROM pacientes WHERE CPF = '$CPF'");
 
     if (count($existingPatient) > 0) {
-        echo json_encode(array("pacienteCriado" => false, "message" => "Paciente com esse CPF já existe"));
+        // Update the existing patient record
+        $updateQuery = "UPDATE pacientes SET informacoesImportantes = '$informacoesImportantes', Nome = '$Nome', nomeSocial = '$nomeSocial', Rg = '$Rg', DataNasc = '$DataNasc', Email = '$Email', Tel = '$Tel', Tel2 = '$Tel2', Tel3 = '$Tel3',EstadoCivil = '$EstadoCivil', Sexo = '$Sexo', NomeMae = '$NomeMae', NomePai = '$NomePai', CorRaca = '$CorRaca', PNE = '$PNE', EnderecoTipo = '$EnderecoTipo', Cep = '$Cep', Rua = '$Rua', EndNumero = '$EndNumero', EndComplemento = '$EndComplemento', Bairro = '$Bairro', Cidade = '$Cidade' WHERE CPF = '$CPF'";
+        
+        db($updateQuery);
+
+        echo json_encode(array("pacienteAtualizado" => true, "message" => "Paciente atualizado com sucesso"));
     } else {
-        $insertQuery = "INSERT INTO pacientes (CPF, informacoesImportantes, CNS, Nome, nomeSocial, Rg, DataNasc, Email, Tel, Tel2, Tel3, EstadoCivil, Sexo, NomeMae, NomePai, CorRaca, PNE, EnderecoTipo, Cep, Rua, EndNumero, EndComplemento, Bairro, Cidade) VALUES ('$CPF', '$Nome', '$Rg', '$DataNasc', '$Email', '$Tel', '$EstadoCivil', '$Sexo', '$NomeMae', '$NomePai', '$CorRaca', '$PNE', '$EnderecoTipo', '$Cep', '$Rua', '$EndNumero', '$EndComplemento', '$Bairro', '$Cidade')";
-
-        db($insertQuery);
-
-        echo json_encode(array("pacienteCriado" => true, "message" => "Paciente criado com sucesso"));
+        echo json_encode(array("pacienteAtualizado" => false, "message" => "Paciente não encontrado"));
     }
 } else {
     echo json_encode(array("message" => "Método inválido"));

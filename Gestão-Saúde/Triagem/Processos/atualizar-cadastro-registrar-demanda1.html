@@ -1,50 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atuazliar cadastro/Registrar demanda de  paciente</title>
-  <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-    var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-    var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-    var PATH_COOKIE = '/';
-    var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-    var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-  </script>
-  <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-  <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-  <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-  <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">  
-  <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
-</head>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Atualizar cadastro/Registrar demanda</title>
+      <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+          var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+          var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+          var PATH_COOKIE = '/';
+          var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+          var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+      </script>
+      <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+      <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+      <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+      <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+      <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
+
+      <!--ALERT MESSAGES-->
+      <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+      <script src="../../../scripts/alertMessage.js"></script>
+
+      <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+      <div id="customAlert" class="modal">
+          <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+          <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+              <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+              <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+              <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+              </button>
+          </div>
+          <p></p>
+          <br>
+          <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+              <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+              <p id="alertMessage"></p>
+          </div>
+          <p> </p><br>
+          <p> </p><br>
+          <p> </p><br>
+          <div><button id="okButton" class="centered-button">OK</button></div>
+          </div>
+      </div>
+      <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+  <!--ALERT MESSAGES-->
+  </head>
 
 <body>
-  <!-- CONTEÚDO DA PÁGINA/TELA PRINCIPAL COBALTO -->
-  <div id="content-center" class="ui-layout-center ui-widget-content"
-      style="background: none !important; overflow: hidden !important">
-      
+  <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
+        
+
+    <!-- CONTEÚDO SUPERIOR -->
     <div class="breadCrumb module">
       <ul>
-        <li><a href="index.html"></a></li><li>Gestão Saúde</li>
-        <li>Processos</li>
-        <li>Atualizar dados e/ou registrar demanda</li>
-        <li id="Nometab"></li>
+        <li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
+          <li>Processos</li>
+          <li>Atualizar dados e/ou registrar demanda</li>
+          <li id="Nometab"></li>
       </ul>
-      <div style="clear: both;"></div>
-    </div><div style="clear: both;"></div>
-    </ul>
-    
+        
     <div style="clear: both;"></div></div><div style="clear: both;"></div>
-      
+    
+    <!-- CONTEÚDO BOTÕES -->
     <div class="ui-widget-content ui-corner-all toolbar">
       <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-      <button id="salvar" class="salvar" title="Ctrl + P" style="float: left;">Salvar</button>
+      <button id="salvar" class="salvar" onclick="submit()" title="Ctrl + P" style="float: left;">Salvar</button>
       <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
       <span style="clear: both; display: block"></span>
     </div>
-</head>
 
-  <body>
     <!-- INÍCIO DIVISÃO EM TABS-->
     <div id="tab" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
       <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
@@ -54,145 +78,73 @@
         <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-1" aria-labelledby="ui-id-1" aria-selected="false"><a href="#tab-1" accesskey="tab-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-1">Encaminhamento/Demandas</a></li>
       </ul>
 
-    <!--INÍCIO DA TAB DADOS PESSOAIS-->
-    <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
+      <!--INÍCIO DA TAB DADOS PESSOAIS-->
+      <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
 
-      <br>
-      <div>
-        <p></p>
-        <label style="width: 180px; margin: 5px; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
-        <input type="text" id="informacoesImportantes" maxlength="255" style="width: 340px; margin: 5px;" readonly="readonly"><br>
-      
-        <script>
-            // TROCAR STYLE SE O CAMPO 'informaçõesImportantes' for preenchido
-          document.addEventListener('DOMContentLoaded', function() {
-            const inputField = document.getElementById('informacoesImportantes');
-        
-            function applyStyles() {
-              if (inputField.value.trim() === '') {
-                inputField.classList.add('ui-state-default');
-                inputField.classList.remove('important-ui');
-              } else {
-                inputField.classList.add('important-ui');
-                inputField.classList.remove('ui-state-default');
-              }
-            }
-        
-            inputField.addEventListener('input', applyStyles);
-        
-            // Apply styles once the page loads
-            applyStyles();
-          });
-        </script>
-        <p style="margin: 10px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
-        <p></p>
-        <br>
-      
-        <p></p>
-        <br>
-      </div>
-        
-      <div id="capaContent">
-        <!-- Imported content will be placed here -->
+                
+        <div id="capaCadastro">
+          <?php echo file_get_contents('../../tabsProntuarios/capaCadastro.html');     ?>
+        </div>
       </div>
 
-      <script>
-        fetch('/Gestão-Saúde/tabsProntuarios/capaConsulta.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('capaContent').innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-      </script>
-
-      <script src="/API/API.js"></script>
-
+      <!-- Script atualizar dados -->
       <script type="text/javascript">
-        // Função para preencher o formulário com os dados do perfil
-        function preencherFormulario(dados) {
-            console.log(dados)
-            document.getElementById("Cpf").value = dados.CPF;
-            document.getElementById("Nome").value = dados.Nome;
-            document.getElementById("Nometab").innerText = dados.Nome;
-            document.getElementById("Rg").value = dados.Rg;
-            document.getElementById("DataNasc").value = dados.DataNasc;
-            document.getElementById("Email").value = dados.Email;
-            document.getElementById("Tel").value = dados.Tel;
-            document.getElementById("EstadoCivil").value = dados.EstadoCivil;
-            document.getElementById("Sexo").value = dados.Sexo;
-            document.getElementById("CorRaca").value = dados.CorRaca;
-            document.getElementById("NomeMae").value = dados.NomeMae;
-            document.getElementById("NomePai").value = dados.NomePai;
-            document.getElementById("PNE").value = dados.PNE;
-            document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
-            document.getElementById("Cep").value = dados.Cep;
-            document.getElementById("Rua").value = dados.Rua;
-            document.getElementById("EndNumero").value = dados.EndNumero;
-            document.getElementById("EndComplemento").value = dados.EndComplemento;
-            document.getElementById("Bairro").value = dados.Bairro;
-            document.getElementById("Cidade").value = dados.Cidade;
-          }
-      
-          // Função para buscar o perfil usando a API
-          function buscarPerfil() {
-            const cpf = getUrlVars()['cpf'];
-            if (cpf) {
-              api.pacientes.consultar({ CPF: cpf })
-                .then((pacientes) => {
-                  if (pacientes.length === 0) {
-                    console.log('Nenhum paciente encontrado');
-                  } else {
-                    preencherFormulario(pacientes[0]);
-                  }
-                })
-                .catch((error) => {
-                  console.error('Erro ao consultar perfil:', error);
-                });
-            } else {
-              console.log('CPF não encontrado na URL.');
+        function submit() {
+
+          const formdata = getformdata()
+          const response = api.pacientes.atualizar(formdata).then((response) => { showCustomAlert(response.message)
+                ;});
+      }
+
+      function getformdata(){
+        const parentDiv = document.getElementById("tab-0"); 
+        const elements = document.querySelectorAll("input, select");
+        const jsonData = {};
+
+        for (const element of elements) {
+          if (element.tagName === "INPUT") {
+            if (element.type === "text") {
+              jsonData[element.id] = element.value;
+            } else if (element.type === "radio" && element.checked) {
+              jsonData[element.name] = element.value;
             }
+          } else if (element.tagName === "SELECT") {
+            jsonData[element.id] = element.value;
           }
-      
-          // Função para obter parâmetros da URL
-          function getUrlVars() {
-            var vars = {};
-            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-              vars[key] = value;
-            });
-            return vars;
-        
-          }
-      
-          // Chamar a função para buscar o perfil
-          buscarPerfil();
+        }
+
+        console.log(jsonData);
+        return jsonData;
+      }
       </script>
-      </div>
 
-
-      <!--INÍCIO TAB DEMANDAS-->
+     <!--INÍCIO TAB DEMANDAS-->
       <div id="encaminhamento">
         <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" style="display: none;" aria-expanded="false" aria-hidden="true">
           <p></p>
 
-          <label style="font-weight:bold;width: 180px;">Área/Curso da saúde</label>
+          <!-- <label style="font-weight:bold;width: 180px;">Área/Curso da saúde</label>
           <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" id="Curso">
             <option value="Escolher">Escolher</option>
             <option value="Odontologia">Odontologia</option>
             <option value="Enfermagem">Enfermagem</option>
             <option value="Farmácia">Farmácia</option>
             <option value="Terapia Ocupacional">Terapia Ocupacional</option>
-          </select>
+          </select> -->
           
           <br>
           <p></p>
           <label style="font-weight:bold;width: 180px;">Lista de especialidades</label>
           <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" id="Especialidade">
-            <option value="0">Selecione uma especialidade</option>
+            <option value="Escolher">Escolher</option>
+            <option value="Prótese Dentária">Prótese Dentária</option>
+            <option value="Odontopediatria">Odontopediatria</option>
+            <option value="Periodontia">Periodontia</option>
+            <option value="Dentística">Dentística</option>
+            <option value="Cirurgia">Cirurgia</option>
           </select>
           
-          <script>
+          <!-- <script>
             let componentesCurriculares = [
               {codCurso: 'Escolher', nomeEspec:'Selecione uma especialidade'},
               {codCurso: 'Odontologia', nomeEspec:'Prótese Dentária'},
@@ -228,7 +180,7 @@
                 componentesCurricularesSelect.appendChild(option);
               });
             });
-          </script>
+          </script> -->
 
 
         <p></p>
@@ -260,29 +212,21 @@
         <hr class="ui-state-default">
 
           <p></p>
-        <table class="ui-jqgrid-htable" style="width: 1200px;" role="grid" aria-labelledby="gridDemanda_Paciente" cellspacing="0" cellpadding="0" border="0">
-                <thead>
-              <tr class="ui-jqgrid-labels" role="rowheader">
-                <th id="gridDemanda_Paciente_id" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" title="ID" style="width: 150px; display: none;" aria-selected="false">
-                  <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span>
-                  <div id="jqgh_gridHistoricoAluno_id" class="ui-jqgrid-sortable">ID<span class="s-ico" style="display: none;"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-icon ui-icon-triangle-1-n ui-sort-ltr ui-state-disabled"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div>
-                </th>
-                <th id="gridDemanda_data" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" title="Data" style="width: 151px;">
-                  <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="gridDemanda_data" class="ui-jqgrid-sortable">Data<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span><span sort="desc" class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-icon ui-icon-triangle-1-s ui-sort-ltr"></span></span></div>
-                </th>
-                <th id="gridDemanda_areaSaude" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" title="Descrição do exame" style="width: 175px;" aria-selected="true">
-                  <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="gridDemanda_areaSaude" class="ui-jqgrid-sortable">Área da Saúde<span class="s-ico" style=""></span></div>
-                </th>
-                <th id="gridDemanda_especialidade" role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" title="Espe" style="width: 175px;">
-                  <span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div id="gridDemanda_especialidade" class="ui-jqgrid-sortable">Especialidade<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span>
-                </th>
-                <th role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" title="demandaEspecífica" style="width: 175px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div class="ui-jqgrid-sortable">Demanda<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span>
-                <th role="columnheader" class="ui-state-default ui-th-column ui-th-ltr" title="StatusPaciente" style="width: 175px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr" style="cursor: col-resize;">&nbsp;</span><div class="ui-jqgrid-sortable">Status<span class="s-ico" style="display:none"><span sort="asc" class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-icon ui-icon-triangle-1-n ui-sort-ltr"></span>
-                </th>
-              </tr>
-            <thead id="tabelaencaminhamentos">
+
+          <table id="gridDemanda_Paciente" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;">
+            <thead class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="font-size: larger; height: 10px;">
+                <tr>
+                    <th style="width: 7.5%;">Data</th>
+                    <th style="width: 7.5%;">Especialidade</th>
+                    <th style="width: 10%;">Demanda</th>
+                    <th style="width: 10%;">Componente curricular</th>
+                </tr>
             </thead>
-          </table>
+            <tbody id="tabelaencaminhamentos">
+                <!-- NEW ROWS TO BE ADDED HERE -->
+            </tbody>
+        </table>
+       
         </div>
       
         <!--Script DEMANDAS-->
@@ -294,11 +238,12 @@
           // Cria um novo elemento de linha (<tr>)
           const novaLinha = document.createElement('tr');
           novaLinha.style.alignItems = 'center';
+          novaLinha.classList.add('ui-state-default', 'ui-th-column', 'ui-th-ltr');
 
           // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
           novaLinha.innerHTML = `
             <td role="gridcell" style="text-align:center;">${data.Data}</td>
-            <td role="gridcell" style="text-align:center;">${data.Curso}</td>
+            
             <td role="gridcell" style="text-align:center;">${data.Especialidade}</td>
             <td role="gridcell" style="text-align:center;">${data.Demanda}</td>
             <td role="gridcell" style="text-align:center;">${data.Status}</td>

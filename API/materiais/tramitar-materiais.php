@@ -3,17 +3,24 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
-
+// não exibir erros
+error_reporting(0);
 include_once('../config.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the form data
-    $data_tramite = $_POST['data_tramite'];
-    $statusSolicitacao = $_POST['statusSolicitacao'];
-    $ids_atendidos = explode(',', $_POST['lista_ids']); // Explode the comma-separated string into an array
-    $qtd_atendida = explode(',', $_POST['qtd_atendida']); // Explode the comma-separated string into an array
-    $obs_tramite = $_POST['obs_tramite'];
-    $id_solicitacao = $_POST['id_solicitacao'];
+    // Get the request body
+    $request_body = file_get_contents('php://input');
+
+    // Decode the JSON request body into a PHP object
+    $request_data = json_decode($request_body);
+
+    // Get the form data from the PHP object
+    $data_tramite = $request_data->data_tramite;
+    $statusSolicitacao = $request_data->statusSolicitacao;
+    $ids_atendidos = $request_data->lista_ids;
+    $qtd_atendida = $request_data->qtd_atendida;
+    $obs_tramite = $request_data->obs_tramite;
+    $id_solicitacao = $request_data->id_solicitacao;
 
     // Validate subtraction results
     $validSubtractions = true;

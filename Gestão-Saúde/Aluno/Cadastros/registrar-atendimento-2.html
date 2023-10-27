@@ -158,6 +158,7 @@
             var componenteCurricular = document.getElementById("componenteCurricular").value;
             var cpf = document.getElementById("Cpf").value;
             var codSUSArray = [];
+            var descricao_SUS_Array = [];
 
             // Iterate over the table rows and extract 'cod_sus' values
             var listaCodSUSTable = document.getElementById("listaCodSUS");
@@ -165,6 +166,14 @@
             for (var i = 1; i < rows.length; i++) {
                 var codSUSValue = rows[i].cells[1].textContent; // Assuming 'cod_sus' is in the second cell
                 codSUSArray.push(codSUSValue);
+            }
+
+            // Iterate over the table rows and extract 'descricao_SUS' values (assuming it's in the third cell)
+            var listaCodSUSTable = document.getElementById("listaCodSUS");
+            var rows = listaCodSUSTable.getElementsByTagName("tr");
+            for (var i = 1; i < rows.length; i++) {
+                var descricao_SUS_Value = rows[i].cells[2].textContent; // Assuming 'descricao_SUS' is in the third cell
+                descricao_SUS_Array.push(descricao_SUS_Value);
             }
 
             // Check if all required fields are filled
@@ -177,7 +186,8 @@
                     "atendimentoDescrição": atendimentoDescrição,
                     "responsavelProcedimento": responsavelProcedimento,
                     "componenteCurricular": componenteCurricular,
-                    "codSUSArray": codSUSArray
+                    "codSUSArray": codSUSArray,
+                    "descricao_SUS_Array": descricao_SUS_Array
                 };
 
                 console.log(formContent);

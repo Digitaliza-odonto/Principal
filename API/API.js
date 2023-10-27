@@ -291,8 +291,15 @@ const atendimentos = {
     const url = `${getApiUrl()}/atendimentos/consultarAtendimento.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultaAtendimento_ID: async (data) => {
+    const url = `${getApiUrl()}/atendimentos/consultarAtendimento_ID.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarAtendimento_resp: async (data) => {
+    const url = `${getApiUrl()}/atendimentos/consultarAtendimento_resp.php`;
+    return sendRequest(url, 'POST', data);
+  }
 };
-
 
 const cobalto = {
   disciplinas,

@@ -17,10 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $atendimentoDescrição = $data['atendimentoDescrição'];
     $responsavelProcedimento = $data['responsavelProcedimento'];
     $componenteCurricular = $data['componenteCurricular'];
-    $codSUSArray = json_encode($data['codSUSArray']); // Serialize the array to JSON before insertion
+    $codSUSArray = json_encode($data['codSUSArray']);
+    $descricao_SUS_Array = json_encode($data['descricao_SUS_Array']);
 
-    $insertQuery = "INSERT INTO `historicoatendimentos`(`id_aluno`, `cpf`, `data`, `especialidade`, `descricao`, `responsavel`, `componente_curricular`, `homologado`, `codSus`)
-        VALUES ('$aluno_id','$Cpf','$atendimentoData','$selectedEspecialidade','$atendimentoDescrição','$responsavelProcedimento','$componenteCurricular','Não','$codSUSArray');";
+    $insertQuery = "INSERT INTO `historicoatendimentos`(`id_aluno`, `cpf`, `data`, `especialidade`, `descricao`, `responsavel`, `componente_curricular`, `homologado`, `codSus`, `descricao_SUS`)
+        VALUES ('$aluno_id','$Cpf','$atendimentoData','$selectedEspecialidade','$atendimentoDescrição','$responsavelProcedimento','$componenteCurricular','Não','$codSUSArray', '$descricao_SUS_Array');";
     
     db($insertQuery);
 

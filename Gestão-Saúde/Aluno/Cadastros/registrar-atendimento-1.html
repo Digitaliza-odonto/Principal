@@ -91,15 +91,6 @@
               <tbody id="table-body2">
                   <!-- Table body rows will be populated here -->
               </tbody>
-              <tr>
-                  <td colspan="9" style="text-align: center;">
-                      <div id="pagination" class="ui-state-default">
-                          <button id="prev-page">Previous</button>
-                          <span id="page-info">Pág. 1</span>
-                          <button id="next-page">Next</button>
-                      </div>
-                  </td>
-              </tr>
             </table>
         </div>
        </div>
@@ -108,37 +99,7 @@
 
     <script src="/API/API.js"></script>
 
-        <script>
-        // buscar pacientes do aluno logado
-        const aluno = JSON.parse(localStorage.getItem('usuario'));
-        api.alunos.pacientes({ Matricula: aluno.Matricula })
-          .then((pacientes) => {
-            const tbody = document.querySelector('.ui-jqgrid-htable');
-          //  limparTabela(tbody);
-            
-            if (pacientes.length === 0) {
-              alert("Nenhum paciente encontrado");
-            } else {
-              pacientes.forEach(paciente => {
-                adicionarNovaLinha(
-                  paciente.Nome,
-                  paciente.Tel,
-                  paciente.CPF,
-                  paciente.Rg,
-                  paciente.Demanda
-                );
-              });
-            }
-          })
-          .catch((error) => {
-            console.error('Erro ao consultar pacientes:', error);
-          });
-          function limparTabela(tbody) {
-        while (tbody.children.length > 1) {
-          tbody.removeChild(tbody.lastChild);
-        }
-      }
-   </script>
+     
 
 
 
@@ -152,21 +113,22 @@
           const aluno = JSON.parse(localStorage.getItem('usuario'));
   
           function loadTableData() {
-              api.agenda.consultarNoLocalUsuario({ id: aluno.Matricula })
-                  .then((data) => {
-                      if (data.erro) {
-                          showCustomAlert(data.erro);
-                          return;
-                      }
-  
-                      console.log(data);
-                      totalRows = data.length;
-                      tableRows = data;
-                      showAllRows();
+            api.agenda.consultarNoLocalUsuario({ id: aluno.Matricula })
+              .then((data) => {
+                console.log("API Response:", data);
+                    if (data.erro) {
+                        showCustomAlert(data.erro);
+                        return;
+                    }
+
+                    console.log(data);
+                    totalRows = data.length;
+                    tableRows = data;
+                    showAllRows();
                   })
                   .catch((error) => {
-                      showCustomAlert('Error fetching data');
-                  });
+                        console.error("Error fetching data:", error);
+                    });
           }
   
           function showAllRows() {

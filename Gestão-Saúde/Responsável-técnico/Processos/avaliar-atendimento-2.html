@@ -3,7 +3,7 @@
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Avaliar atendimento</title>
+      <title>Homologar e avaliar atendimento</title>
   
   <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
       var BASE_URL = 'https://cobalto.ufpel.edu.br/';
@@ -53,10 +53,11 @@
     <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
       <div class="breadCrumb module">
         <ul>
-          <li><a href="index.html"></a></li><li>Gestão Saúde</li>
-          <li>Responsável técnico/li>
+          <li><a href="index.html"></a></li>
+          <li>Gestão Saúde</li>
+          <li>Responsável técnico</li>
           <li>Processos</li>
-          <li>Avaliar atendimento</li>
+          <li>Homologar e avaliar atendimento</li>
         </ul>
         <div style="clear: both;"></div>
       </div>
@@ -116,6 +117,109 @@
           <div id="registrarAtendimento">
             <?php echo file_get_contents('../../tabsProntuarios/registrarAtendimento.html');     ?>
           </div>
+
+
+          <script>
+            function getAtendimentoData() {
+              const queryString = window.location.search;
+              const urlParams = new URLSearchParams(queryString);
+              const ID = urlParams.get('id');
+
+              api.atendimentos.consultaAtendimento_ID({ ID: ID })
+                  .then((data) => {
+                      console.log(data); // Log the data to see what is being received
+                      if (data.erro) {
+                          showCustomAlert(data.erro);
+                          return;
+                      }
+
+                      console.log(data);
+                      // Call the function with the API response data
+                      populateForm(data);
+                  })
+                  .catch((error) => {
+                      console.error(error); // Log the error to the console
+                  });
+            }
+
+            getAtendimentoData();
+
+
+            function populateForm(jsonData) {
+    // Assuming jsonData is an array with a single object
+    const data = jsonData[0];
+
+    // Populate the select element with id 'especialidade'
+    const especialidadeSelect = document.getElementById('especialidade');
+    const especialidadeOptions = ["Escolher", "Prótese Dentária", "Odontopediatria", "Periodontia", "Dentística", "Cirurgia"];
+    especialidadeOptions.forEach(option => {
+        const newOption = document.createElement('option');
+        newOption.value = option;
+        newOption.textContent = option;
+        especialidadeSelect.appendChild(newOption);
+    });
+    especialidadeSelect.value = data.especialidade;
+
+    // Populate the textarea with id 'atendimentoDescrição'
+    const atendimentoDescricaoTextarea = document.getElementById('atendimentoDescrição');
+    atendimentoDescricaoTextarea.value = data.descricao;
+
+    // Populate the input with id 'atendimentoData'
+    const atendimentoDataInput = document.getElementById('atendimentoData');
+    atendimentoDataInput.value = data.data;
+
+    // Populate the input with id 'responsavelProcedimento'
+    const responsavelProcedimentoInput = document.getElementById('responsavelProcedimento');
+    responsavelProcedimentoInput.value = data.responsavel;
+
+    // Populate the input with id 'componenteCurricular'
+    const componenteCurricularInput = document.getElementById('componenteCurricular');
+    componenteCurricularInput.value = data.componente_curricular;
+
+    // Populate the input with id 'atendimentoCodSUS'
+    const atendimentoCodSUSInput = document.getElementById('atendimentoCodSUS');
+    atendimentoCodSUSInput.value = ''; // Clear the input field first
+
+    // Populate the table with id 'listaCodSUS'
+    const susTbody = document.getElementById('sus-tbody');
+    susTbody.innerHTML = ''; // Clear the tbody first
+
+    if (data.codSus) {
+        const codSusArray = JSON.parse(data.codSus);
+        const descricaoSusArray = JSON.parse(data.descricao_SUS);
+
+        codSusArray.forEach((codSus, index) => {
+            // Add a new row to the tbody for each codSus and descricaoSus value
+            const row = susTbody.insertRow();
+            const checkboxCell = row.insertCell();
+            const procedimentoCell = row.insertCell();
+            const descricaoSusCell = row.insertCell();
+
+            // Apply specific class to cells
+            row.classList.add('ui-state-default', 'ui-th-column', 'ui-th-ltr');
+
+            // Create checkbox element for row selection
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkboxCell.appendChild(checkbox);
+
+            // Set the value of procedimentoCell and descricaoSusCell
+            procedimentoCell.textContent = codSus;
+            descricaoSusCell.textContent = descricaoSusArray[index];
+        });
+    }
+}
+
+
+ 
+
+          </script>
+
+          
+
+
+
+
         </div> 
             
       

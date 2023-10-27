@@ -156,7 +156,7 @@
             var atendimentoDescrição = document.getElementById("atendimentoDescrição").value;
             var responsavelProcedimento = document.getElementById("responsavelProcedimento").value;
             var componenteCurricular = document.getElementById("componenteCurricular").value;
-            var CPF = document.getElementById("Cpf").value;
+            var cpf = document.getElementById("Cpf").value;
             var codSUSArray = [];
 
             // Iterate over the table rows and extract 'cod_sus' values
@@ -168,10 +168,10 @@
             }
 
             // Check if all required fields are filled
-            if (atendimentoData && especialidade && especialidade !='Escolher' && atendimentoDescrição && responsavelProcedimento && componenteCurricular && CPF && codSUSArray != []) {
+            if (atendimentoData ) {
                 var formContent = {
                     "aluno_id": aluno_id,
-                    "Cpf": CPF,
+                    "cpf": cpf,
                     "atendimentoData": atendimentoData,
                     "selectedEspecialidade": especialidade,
                     "atendimentoDescrição": atendimentoDescrição,
@@ -186,6 +186,7 @@
                     .then(function (response) {
                         if (response.message) {
                             console.log(response.message);
+                            setAtendidoStatus();
                             showCustomAlert(response.message);
                         } else {
                             console.log(response);
@@ -197,6 +198,33 @@
             } else {
                 // If any of the required fields are empty, display an alert message
                 showCustomAlert("Por favor, preencha todos os campos da aba 'Atendimento realizado'.");
+            }
+          }
+
+          function setAtendidoStatus() {
+            // Extract 'id' parameter from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            // Check if 'id' parameter is available in the URL
+            if (id) {
+                const requestData = { id: id }; // Prepare the request data as a JSON object
+
+                // Perform API request using api.agenda.setAtendido() with JSON data
+                api.agenda.setAtendido(requestData)
+                    .then(function (response) {
+                        // Handle successful response
+                        console.log(response); // Log the response if needed
+                    })
+                    .catch(function (error) {
+                        // Handle error response
+                        console.error('Error:', error); // Log the error for debugging
+                        // Display an error message to the user
+                    });
+            } else {
+                // Handle invalid or missing 'id' parameter in the URL
+                console.error('ID de agendamento inválido ou ausente na URL.');
+                // Display an error message to the user if needed
             }
           }
         </script>

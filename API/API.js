@@ -213,6 +213,10 @@ const agenda = {
   admitirPaciente: async (data) => {
     const url = `${getApiUrl()}/agenda/admitir-paciente.php`;
     return sendRequest(url, 'POST', data);
+  },
+  setAtendido: async (data) => {
+    const url = `${getApiUrl()}/agenda/setAtendido.php`;
+    return sendRequest(url, 'POST', data);
   }
 };
 

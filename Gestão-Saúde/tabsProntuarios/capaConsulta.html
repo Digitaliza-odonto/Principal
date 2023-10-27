@@ -196,37 +196,40 @@
           document.getElementById("Cidade").value = dados.Cidade;
         }
     
-        // Função para buscar o perfil usando a API
-        function buscarPerfil() {
-          const cpf = getUrlVars()['cpf'];
-          if (cpf) {
-            api.pacientes.consultar({ CPF: cpf })
-              .then((pacientes) => {
-                if (pacientes.length === 0) {
-                  console.log('Nenhum paciente encontrado');
-                } else {
-                  preencherFormulario(pacientes[0]);
-                }
-              })
-              .catch((error) => {
-                console.error('Erro ao consultar perfil:', error);
-              });
-          } else {
-            console.log('CPF não encontrado na URL.');
-          }
-        }
-    
         // Função para obter parâmetros da URL
         function getUrlVars() {
-          var vars = {};
-          var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-            vars[key] = value;
-          });
-          return vars;
-      
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                vars[key] = decodeURIComponent(value); // Decode URI component to handle special characters
+            });
+            return vars;
         }
-    
+
+        // Função para buscar o perfil usando a API
+        function buscarPerfil() {
+            const params = getUrlVars();
+            const cpf = params['cpf'];
+            const id = params['id'];
+
+            if (cpf) {
+                api.pacientes.consultar({ CPF: cpf, ID: id }) // Ensure that your API supports both 'cpf' and 'id' parameters
+                    .then((pacientes) => {
+                        if (pacientes.length === 0) {
+                            console.log('Nenhum paciente encontrado');
+                        } else {
+                            preencherFormulario(pacientes[0]);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Erro ao consultar perfil:', error);
+                    });
+            } else {
+                console.log('CPF não encontrado na URL.');
+            }
+        }
+
         // Chamar a função para buscar o perfil
         buscarPerfil();
+
     </script>
 </div>

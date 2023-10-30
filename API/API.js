@@ -125,6 +125,10 @@ const procedimentos = {
     const url = `${getApiUrl()}/procedimentos/consultar.php`;
     return sendRequest(url, 'POST', data);
   },
+  relatorioSUS: async (data) => {
+    const url = `${getApiUrl()}/procedimentos/relatorio-SUS.php`;
+    return sendRequest(url, 'POST', data);
+  },
   options: async (data) => {
     const url = `${getApiUrl()}/procedimentos/procedimento-options.php`;
     return sendRequest(url, 'POST', data);

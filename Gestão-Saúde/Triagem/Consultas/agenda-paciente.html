@@ -118,124 +118,6 @@
                         </td>
                     </tr>
                 </table>
-                                
-                <script>
-                    function searchPatients() {
-                        var cpf = document.getElementById("cpf").value;
-                        var nome = document.getElementById("nome").value;
-                        var tbody = document.getElementById("table-body");
-                        tbody.innerHTML = ''; // Clear previous results
-
-                        // Call the API function to fetch data based on search criteria
-                        api.pacientes.consultar({
-                            CPF: cpf,
-                            Nome: nome
-                        })
-                        .then(data => {
-                            if (data.error) {
-                                // Handle error
-                            } else {
-                                data.forEach(function(paciente) {
-                                    var row = tbody.insertRow();
-                                    row.classList.add("ui-state-default"); // Add the class to the row
-                                    var cell1 = row.insertCell();
-                                    var cell2 = row.insertCell();
-                                    var cell3 = row.insertCell();
-                                    cell1.textContent = paciente.Nome;
-                                    cell2.textContent = paciente.CPF;
-                                    cell3.textContent = paciente.Disciplina;
-
-                                    // Add click event listener to each row
-                                    row.addEventListener('click', function() {
-                                        loadAgenda(paciente.CPF); // Call loadAgenda function with CPF as parameter
-                                    });
-                                });
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
-                    }
-
-                    function loadAgenda(cpf) {
-                        // Assume fetching agenda data based on the selected patient's CPF
-                        api.agenda.consultarAgendaPaciente({ cpf_paciente: cpf })
-                            .then(data => {
-                                var tableBody = document.getElementById('table-body2');
-                                tableBody.innerHTML = ''; // Clear previous results
-
-                                data.forEach(function (item) {
-                                    var row = tableBody.insertRow();
-                                    row.classList.add("ui-state-default"); // Add the class to the row
-                                    var cell1 = row.insertCell();
-                                    var cell2 = row.insertCell();
-                                    var cell3 = row.insertCell();
-                                    var cell4 = row.insertCell();
-                                    var cell5 = row.insertCell();
-                                    var cell6 = row.insertCell();
-                                                                    
-                                    cell1.textContent = item.data_agendamento;
-                                    cell2.textContent = item.horario_agendamento + ':' + item.minuto_agendamento;
-                                    cell3.textContent = item.local;
-                                    cell4.textContent = item.atividade_curricular;
-                                    cell5.textContent = item.agendado_por;
-                                    cell6.textContent = item.descricao;
-                                });
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
-
-                            var tableBody = document.getElementById('table-body2');
-                            var clearButton = document.getElementById('clear');
-
-                            // Function to filter rows based on provided criteria
-                            function filterRows() {
-                                var filtroDataAgendamento = document.getElementById('filtroDataAgendamento').value;
-                                var filtroTurnoAgendamento = document.getElementById('filtroTurnoAgendamento').value;
-                                var filtroLocalAgendamento = document.getElementById('filtroLocalAgendamento').value;
-                                var filtroDisciplina = document.getElementById('filtroDisciplina').value;
-
-                                var rows = tableBody.getElementsByTagName('tr');
-                                for (var i = 0; i < rows.length; i++) {
-                                    var row = rows[i];
-                                    var data = row.cells[0].textContent;
-                                    var turno = row.cells[1].textContent.split(':')[0];
-                                    var local = row.cells[2].textContent;
-                                    var disciplina = row.cells[3].textContent;
-
-                                    // Check if the row meets the filter criteria
-                                    var isMatch = data.includes(filtroDataAgendamento) &&
-                                                turno.includes(filtroTurnoAgendamento) &&
-                                                local.includes(filtroLocalAgendamento) &&
-                                                disciplina.includes(filtroDisciplina);
-
-                                    // Show/hide the row based on the filter result
-                                    row.style.display = isMatch ? '' : 'none';
-                                }
-                            }
-
-                            // Attach event listeners to filter input fields
-                            document.getElementById('filtroDataAgendamento').addEventListener('input', filterRows);
-                            document.getElementById('filtroTurnoAgendamento').addEventListener('input', filterRows);
-                            document.getElementById('filtroLocalAgendamento').addEventListener('input', filterRows);
-                            document.getElementById('filtroDisciplina').addEventListener('input', filterRows);
-
-                            // Clear filter inputs and show all rows
-                            clearButton.addEventListener('click', function () {
-                                document.getElementById('filtroDataAgendamento').value = '';
-                                document.getElementById('filtroTurnoAgendamento').value = '';
-                                document.getElementById('filtroLocalAgendamento').value = '';
-                                document.getElementById('filtroDisciplina').value = '';
-                                filterRows(); // Show all rows
-                            });
-                    }
-
-                    // Load patients when the page is loaded
-                    window.onload = function () {
-                        loadPatients();
-                    };
-                </script>
             </div>
         </div>
     </div>
@@ -298,7 +180,7 @@
         
             <hr class="ui-state-default">
 
-            <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin-left: 50px; margin-top: 25px; margin-bottom: 15px;">
+            <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 85%; font-size: 14px; margin-left: 50px; margin-top: 25px; margin-bottom: 15px;">
                 <thead>
                     <tr class="ui-jqgrid-labels" role="rowheader">
                         <th style="display: none;">ID</th>
@@ -325,93 +207,124 @@
             </table>
         </div>
     </div>
-    
-    <!-- <script>
-                
-            function applyFilters() {
-                var filteredRows = tableRows;
 
-                // Apply the filtroDataAgendamento filter
-                if (filtroDataAgendamento !== '') {
-                    filteredRows = filteredRows.filter(function (item) {
-                        return item.data_agendamento === filtroDataAgendamento;
+    <script>
+        function searchPatients() {
+            var cpf = document.getElementById("cpf").value;
+            var nome = document.getElementById("nome").value;
+            var tbody = document.getElementById("table-body");
+            tbody.innerHTML = ''; // Clear previous results
+
+            // Call the API function to fetch data based on search criteria
+            api.pacientes.consultar({
+                CPF: cpf,
+                Nome: nome
+            })
+            .then(data => {
+                if (data.error) {
+                    // Handle error
+                } else {
+                    data.forEach(function(paciente) {
+                        var row = tbody.insertRow();
+                        row.classList.add("ui-state-default"); // Add the class to the row
+                        var cell1 = row.insertCell();
+                        var cell2 = row.insertCell();
+                        var cell3 = row.insertCell();
+                        cell1.textContent = paciente.Nome;
+                        cell2.textContent = paciente.CPF;
+                        cell3.textContent = paciente.Disciplina;
+
+                        // Add click event listener to each row
+                        row.addEventListener('click', function() {
+                            loadAgenda(paciente.CPF); // Call loadAgenda function with CPF as parameter
+                        });
                     });
                 }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
 
-                // Apply the filtroTurnoAgendamento filter
-                if (filtroTurnoAgendamento !== '') {
-                    filteredRows = filteredRows.filter(function (item) {
-                        if (filtroTurnoAgendamento === 'Manhã') {
-                            return parseInt(item.horario_agendamento) < 12;
-                        } else if (filtroTurnoAgendamento === 'Tarde') {
-                            return parseInt(item.horario_agendamento) >= 12 && parseInt(item.horario_agendamento) < 18;
-                        } else if (filtroTurnoAgendamento === 'Noite') {
-                            return parseInt(item.horario_agendamento) >= 18;
-                        }
-                        return true; // If 'Todos' selected, no filtering based on time
+        function loadAgenda(cpf) {
+            // Assume fetching agenda data based on the selected patient's CPF
+            api.agenda.consultarAgendaPaciente({ cpf_paciente: cpf })
+                .then(data => {
+                    var tableBody = document.getElementById('table-body2');
+                    tableBody.innerHTML = ''; // Clear previous results
+
+                    data.forEach(function (item) {
+                        var row = tableBody.insertRow();
+                        row.classList.add("ui-state-default"); // Add the class to the row
+                        var cell1 = row.insertCell();
+                        var cell2 = row.insertCell();
+                        var cell3 = row.insertCell();
+                        var cell4 = row.insertCell();
+                        var cell5 = row.insertCell();
+                        var cell6 = row.insertCell();
+                                                        
+                        cell1.textContent = item.data_agendamento;
+                        cell2.textContent = item.horario_agendamento + ':' + item.minuto_agendamento;
+                        cell3.textContent = item.local;
+                        cell4.textContent = item.atividade_curricular;
+                        cell5.textContent = item.agendado_por;
+                        cell6.textContent = item.descricao;
                     });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+                var tableBody = document.getElementById('table-body2');
+                var clearButton = document.getElementById('clear');
+
+                // Function to filter rows based on provided criteria
+                function filterRows() {
+                    var filtroDataAgendamento = document.getElementById('filtroDataAgendamento').value;
+                    var filtroTurnoAgendamento = document.getElementById('filtroTurnoAgendamento').value;
+                    var filtroLocalAgendamento = document.getElementById('filtroLocalAgendamento').value;
+                    var filtroDisciplina = document.getElementById('filtroDisciplina').value;
+
+                    var rows = document.getElementById('table-body2').getElementsByTagName('tr');
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = rows[i];
+                        var data = row.cells[0].textContent.trim();
+                        var turno = parseInt(row.cells[1].textContent.split(':')[0].trim());
+                        var local = row.cells[2].textContent.trim();
+                        var disciplina = row.cells[3].textContent.trim();
+
+                        var isDataMatch = data.includes(filtroDataAgendamento) || filtroDataAgendamento === '';
+                        var isTurnoMatch =
+                            filtroTurnoAgendamento === 'Todos' ||
+                            (filtroTurnoAgendamento === 'Manhã' && turno < 12) ||
+                            (filtroTurnoAgendamento === 'Tarde' && turno >= 12 && turno < 18) ||
+                            (filtroTurnoAgendamento === 'Noite' && turno >= 18);
+                        var isLocalMatch = local.includes(filtroLocalAgendamento) || filtroLocalAgendamento === 'Todos';
+                        var isDisciplinaMatch = disciplina.includes(filtroDisciplina) || filtroDisciplina === 'Todos';
+
+                        var isMatch = isDataMatch && isTurnoMatch && isLocalMatch && isDisciplinaMatch;
+
+                        // Show/hide the row based on the filter result
+                        row.style.display = isMatch ? '' : 'none';
+                    }
                 }
 
-                // Apply the filtroLocalAgendamento filter
-                if (filtroLocalAgendamento !== '') {
-                    filteredRows = filteredRows.filter(function (item) {
-                        return item.local === filtroLocalAgendamento;
-                    });
-                }
+                // Attach event listeners to filter input fields
+                document.getElementById('filtroDataAgendamento').addEventListener('input', filterRows);
+                document.getElementById('filtroTurnoAgendamento').addEventListener('change', filterRows);
+                document.getElementById('filtroLocalAgendamento').addEventListener('change', filterRows);
+                document.getElementById('filtroDisciplina').addEventListener('change', filterRows);
 
-                // Apply the filtroDisciplina filter
-                if (filtroDisciplina !== '') {
-                    filteredRows = filteredRows.filter(function (item) {
-                        return item.atividade_curricular === filtroDisciplina;
-                    });
-                }
-
-                showPage(currentPage, filteredRows);
-            }
-
-                    
-            // Listen for changes to filtroDataAgendamento filter
-            $('#filtroDataAgendamento').change(function () {
-                filtroDataAgendamento = $(this).val();
-                currentPage = 1; // Reset to the first page when the filter changes
-                applyFilters();
+                // Clear filter inputs and show all rows
+                var clearButton = document.getElementById('clear');
+                clearButton.addEventListener('click', function () {
+                    document.getElementById('filtroDataAgendamento').value = '';
+                    document.getElementById('filtroTurnoAgendamento').value = 'Todos';
+                    document.getElementById('filtroLocalAgendamento').value = 'Todos';
+                    document.getElementById('filtroDisciplina').value = 'Todos';
+                    filterRows(); // Show all rows
             });
-
-            // Listen for changes to filtroTurnoAgendamento filter
-            $('#filtroTurnoAgendamento').change(function () {
-                filtroTurnoAgendamento = $(this).val();
-                currentPage = 1; // Reset to the first page when the filter changes
-                applyFilters();
-            });
-
-            // Listen for changes to filtroLocalAgendamento filter
-            $('#filtroLocalAgendamento').change(function () {
-                filtroLocalAgendamento = $(this).val();
-                currentPage = 1; // Reset to the first page when the filter changes
-                applyFilters();
-            });
-
-            // Listen for changes to filtroDisciplina filter
-            $('#filtroDisciplina').change(function () {
-                filtroDisciplina = $(this).val();
-                currentPage = 1; // Reset to the first page when the filter changes
-                applyFilters();
-            });
-
-                // Clear button click event
-                $('#clear').click(function () {
-                $('#filtroDataAgendamento').val('');
-                $('#filtroTurnoAgendamento').val('');
-                $('#filtroLocalAgendamento').val('');
-                $('#filtroDisciplina').val('');
-                
-                filtroDataAgendamento = '';
-                filtroTurnoAgendamento = '';
-                filtroLocalAgendamento = '';
-                filtroDisciplina = '';
-                currentPage = 1; // Reset to the first page when clearing filters
-                applyFilters();
-            });
-    </script> -->
-  </body>
+        };
+    </script>
+    </body>
 </html>

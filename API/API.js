@@ -194,7 +194,7 @@ const agenda = {
     const url = `${getApiUrl()}/agenda/consultar-futuredates.php`;
     return sendRequest(url, 'POST', data);
   },
-  consultarPaciente: async (data) => {
+  consultarAgendaPaciente: async (data) => {
     const url = `${getApiUrl()}/agenda/agenda-CPFpaciente.php`;
     return sendRequest(url, 'POST', data);
   },

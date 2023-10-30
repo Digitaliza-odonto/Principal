@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $id = $data['id'];  // Use lowercase 'id' to match the JSON key
     
-    $query = "SELECT * FROM `historicoAtendimentos` WHERE `responsavel` = '$id'";
+    $query = "SELECT * FROM `historicoAtendimentos` WHERE `responsavel` = '$id' AND `homologado` = 0";
     
     $result = db($query);
 

@@ -287,6 +287,10 @@ const atendimentos = {
     const url = `${getApiUrl()}/atendimentos/criarAtendimento.php`;
     return sendRequest(url, 'POST', data);
   },
+  homologar: async (data) => {
+    const url = `${getApiUrl()}/atendimentos/homologarAtendimento.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarAtendimento: async (data) => {
     const url = `${getApiUrl()}/atendimentos/consultarAtendimento.php`;
     return sendRequest(url, 'POST', data);

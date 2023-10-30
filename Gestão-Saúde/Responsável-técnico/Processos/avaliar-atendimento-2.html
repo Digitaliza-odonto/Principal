@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -115,9 +115,11 @@
         <!--INÍCIO DA TAB DESCRIÇÃO DO ATENDIMENTO/PLANO DE TRATAMENTO-->
         <div id="tab-3" class="ui-widget tab tab-3 tab-3 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 1100px;">
           <div id="registrarAtendimento">
-            <?php echo file_get_contents('../../tabsProntuarios/registrarAtendimento.html');     ?>
+            <?php echo file_get_contents('../../tabsProntuarios/homologarAtendimento.html');     ?>
           </div>
 
+          <input type="hidden" id="id_aluno" value="">
+          <input type="hidden" id="id_atendimentos" value="">
 
           <script>
             function getAtendimentoData() {
@@ -146,82 +148,77 @@
 
 
             function populateForm(jsonData) {
-    // Assuming jsonData is an array with a single object
-    const data = jsonData[0];
+            // Assuming jsonData is an array with a single object
+            const data = jsonData[0];
 
-    // Populate the select element with id 'especialidade'
-    const especialidadeSelect = document.getElementById('especialidade');
-    const especialidadeOptions = ["Escolher", "Prótese Dentária", "Odontopediatria", "Periodontia", "Dentística", "Cirurgia"];
-    especialidadeOptions.forEach(option => {
-        const newOption = document.createElement('option');
-        newOption.value = option;
-        newOption.textContent = option;
-        especialidadeSelect.appendChild(newOption);
-    });
-    especialidadeSelect.value = data.especialidade;
+            // Populate the select element with id 'especialidade'
+            const especialidadeSelect = document.getElementById('especialidade');
+            const especialidadeOptions = ["Escolher", "Prótese Dentária", "Odontopediatria", "Periodontia", "Dentística", "Cirurgia"];
+            especialidadeOptions.forEach(option => {
+                const newOption = document.createElement('option');
+                newOption.value = option;
+                newOption.textContent = option;
+                especialidadeSelect.appendChild(newOption);
+            });
+            especialidadeSelect.value = data.especialidade;
 
-    // Populate the textarea with id 'atendimentoDescrição'
-    const atendimentoDescricaoTextarea = document.getElementById('atendimentoDescrição');
-    atendimentoDescricaoTextarea.value = data.descricao;
+            // Populate the textarea with id 'atendimentoDescrição'
+            const atendimentoDescricaoTextarea = document.getElementById('atendimentoDescrição');
+            atendimentoDescricaoTextarea.value = data.descricao;
 
-    // Populate the input with id 'atendimentoData'
-    const atendimentoDataInput = document.getElementById('atendimentoData');
-    atendimentoDataInput.value = data.data;
+            // Populate the input with id 'atendimentoData'
+            const atendimentoDataInput = document.getElementById('atendimentoData');
+            atendimentoDataInput.value = data.data;
 
-    // Populate the input with id 'responsavelProcedimento'
-    const responsavelProcedimentoInput = document.getElementById('responsavelProcedimento');
-    responsavelProcedimentoInput.value = data.responsavel;
+            // Populate the input with id 'responsavelProcedimento'
+            const responsavelProcedimentoInput = document.getElementById('responsavelProcedimento');
+            responsavelProcedimentoInput.value = data.responsavel;
 
-    // Populate the input with id 'componenteCurricular'
-    const componenteCurricularInput = document.getElementById('componenteCurricular');
-    componenteCurricularInput.value = data.componente_curricular;
+            // Populate the input with id 'componenteCurricular'
+            const componenteCurricularInput = document.getElementById('componenteCurricular');
+            componenteCurricularInput.value = data.componente_curricular;
 
-    // Populate the input with id 'atendimentoCodSUS'
-    const atendimentoCodSUSInput = document.getElementById('atendimentoCodSUS');
-    atendimentoCodSUSInput.value = ''; // Clear the input field first
+            // Populate the input with id 'periodo'
+            const periodoInput = document.getElementById('periodo');
+            periodoInput.value = data.periodo;
 
-    // Populate the table with id 'listaCodSUS'
-    const susTbody = document.getElementById('sus-tbody');
-    susTbody.innerHTML = ''; // Clear the tbody first
+            // Populate the input with id 'id_aluno'
+            const id_alunoInput = document.getElementById('id_aluno');
+            id_alunoInput.value = data.id_aluno;
 
-    if (data.codSus) {
-        const codSusArray = JSON.parse(data.codSus);
-        const descricaoSusArray = JSON.parse(data.descricao_SUS);
+            // Populate the input with id 'id_atendimentos'
+            const id_atendimentosInput = document.getElementById('id_atendimentos');
+            id_atendimentosInput.value = data.id_atendimentos;
 
-        codSusArray.forEach((codSus, index) => {
-            // Add a new row to the tbody for each codSus and descricaoSus value
-            const row = susTbody.insertRow();
-            const checkboxCell = row.insertCell();
-            const procedimentoCell = row.insertCell();
-            const descricaoSusCell = row.insertCell();
+            // Populate the input with id 'atendimentoCodSUS'
+            const atendimentoCodSUSInput = document.getElementById('atendimentoCodSUS');
+            atendimentoCodSUSInput.value = ''; // Clear the input field first
 
-            // Apply specific class to cells
-            row.classList.add('ui-state-default', 'ui-th-column', 'ui-th-ltr');
+            // Populate the table with id 'listaCodSUS'
+            const susTbody = document.getElementById('sus-tbody');
+            susTbody.innerHTML = ''; // Clear the tbody first
 
-            // Create checkbox element for row selection
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkboxCell.appendChild(checkbox);
+            if (data.codSus) {
+                const codSusArray = JSON.parse(data.codSus);
+                const descricaoSusArray = JSON.parse(data.descricao_SUS);
 
-            // Set the value of procedimentoCell and descricaoSusCell
-            procedimentoCell.textContent = codSus;
-            descricaoSusCell.textContent = descricaoSusArray[index];
-        });
-    }
-}
+                codSusArray.forEach((codSus, index) => {
+                    // Add a new row to the tbody for each codSus and descricaoSus value
+                    const row = susTbody.insertRow();
+                    const procedimentoCell = row.insertCell();
+                    const descricaoSusCell = row.insertCell();
 
+                    // Apply specific class to cells
+                    row.classList.add('ui-state-default', 'ui-th-column', 'ui-th-ltr');
 
- 
-
+                    // Set the value of procedimentoCell and descricaoSusCell
+                    procedimentoCell.textContent = codSus;
+                    descricaoSusCell.textContent = descricaoSusArray[index];
+                });
+              }
+            }
           </script>
-
-          
-
-
-
-
         </div> 
-            
       
          <!--INÍCIO DA TAB ANEXAR DOCUMENTOS/EXAMES COMPLEMENTARES-->
          <div id="tab-4" class="ui-widget tab tab-4 tab-4 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 450px;">
@@ -230,163 +227,139 @@
               <?php echo file_get_contents('../../tabsProntuarios/anexarExames.html');     ?>
             </div>
         </div>
-      
-        <!--INÍCIO DA TAB AVALIAR ATENDIMENTO-->
-        <div id="tab-5" class="ui-widget tab tab-5 tab-5 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-6" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 450px;">
 
-          <h2>Avaliação de atendimento</h2>
-          <br>
+        <script>
+          function addExame() {
+              var exameData = document.getElementById("exameData").value;
+              var exameTipo = document.getElementById("exameTipo").value;
+              var exameDescrição = document.getElementById("exameDescrição").value;
+              var exameFile = 'criar um script para pegar o filename';
           
-          <label  style="width: 550px; margin: 5px;">1- Quanto ao cumprimento do horário e ao comparecimento às aulas:</label>
-          <select id="avaliarPontualidade" class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;">
-            <option>Insatisfatório</option>
-            <option>Parcialmente</option>
-            <option selected>Satisfatório</option>
-            <option>Bom</option>
-            <option>Muito bom</option>
-          </select>
-          <br>
-              
-          <label style="width: 550px; margin: 5px;">2- Quanto ao comportamento do aluno no ambiente de atendimento:</label>
-          <select id="avaliarComportamento" class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;">
-            <option>Insatisfatório</option>
-            <option>Parcialmente</option>
-            <option selected>Satisfatório</option>
-            <option>Bom</option>
-            <option>Muito bom</option>
-          </select>
-          <br>
-              
-          <label style="width: 550px; margin: 5px;">3- Quanto a apresentação dos materiais/instrumentais necessários para a realização do atendimento:</label>
-          <select id="avaliarMateriais" class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;">
-            <option>Insatisfatório</option>
-            <option>Parcialmente</option>
-            <option selected>Satisfatório</option>
-            <option>Bom</option>
-            <option>Muito bom</option>
-          </select>
-          <br>
-
-          <label style="width: 550px; margin: 5px;">4- Quanto ao conhecimento do aluno sobre o conteúdo da disciplina e a forma como o relaciona os atendimentos:</label>
-          <select id="avaliarConhecimento" class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;">
-            <option>Insatisfatório</option>
-            <option>Parcialmente</option>
-            <option selected>Satisfatório</option>
-            <option>Bom</option>
-            <option>Muito bom</option>
-          </select>
-          <br>
-
-          <label style="width: 550px; margin: 5px;">5- Quanto ao cuidado e respeito para com o paciente:</label>
-          <select id="avaliarCuidado" class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;">
-            <option>Insatisfatório</option>
-            <option>Parcialmente</option>
-            <option selected>Satisfatório</option>
-            <option>Bom</option>
-            <option>Muito bom</option>
-          </select>
-          <br>
-
-          <label style="width: 550px; margin: 5px;">6- Quanto ao comportamento do aluno frente a eventuais limitações ou insucessos nos atendimentos:</label>
-          <select id="avaliarAdversidades" class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;">
-            <option>Insatisfatório</option>
-            <option>Parcialmente</option>
-            <option selected>Satisfatório</option>
-            <option>Bom</option>
-            <option>Muito bom</option>
-          </select>
-          <br>
-
-          <label style="width: 550px; margin: 5px;">7- Quanto ao comportamento da dupla/auxiliar do aluno durante o atendimento:</label>
-          <select id="avaliarDupla" class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;">
-          <option>Insatisfatório</option>
-          <option>Parcialmente</option>
-          <option selected>Satisfatório</option>
-          <option>Bom</option>
-          <option>Muito bom</option>
-          </select>
-          <br>
-
-          <label style="width: 550px; margin: 5px;">8- Quanto à autoavaliação do aluno sobre o atendimento:</label>
-          <select id="avaliarAuto" class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;">
-            <option>Insatisfatório</option>
-            <option>Parcialmente</option>
-            <option selected>Satisfatório</option>
-            <option>Bom</option>
-            <option>Muito bom</option>
-          </select>
-          <br>
-
-          <label style="width: 550px; margin: 5px;">9- Observações sobre o procedimento:</label><br>
-          <textarea style="width: 750px; margin: 5px;" id="avaliarObservações" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
-          <br>
-        </div>   
-      </div>
-    </div>
-  
-    <script>
-      function addExame() {
-          var exameData = document.getElementById("exameData").value;
-          var exameTipo = document.getElementById("exameTipo").value;
-          var exameDescrição = document.getElementById("exameDescrição").value;
-          var exameFile = 'criar um script para pegar o filename';
-      
-          if (exameData && exameTipo && exameDescrição) {
-              var table = document.getElementById("listaExames");
-              var newRow = table.insertRow(-1);
-      
-              var checkBoxCell = newRow.insertCell(0);
-              checkBoxCell.innerHTML = '<input type="checkbox">';
-              checkBoxCell.className = "ui-state-default ui-th-column ui-th-ltr";
-      
-              var exameDataCell = newRow.insertCell(1);
-              exameDataCell.innerHTML = exameData;
-              exameDataCell.className = "ui-state-default ui-th-column ui-th-ltr";
-      
-              var exameDescriçãoCell = newRow.insertCell(2);
-              exameDescriçãoCell.innerHTML = exameDescrição;
-              exameDescriçãoCell.className = "ui-state-default ui-th-column ui-th-ltr";
-      
-              var exameTipoCell = newRow.insertCell(3);
-              exameTipoCell.innerHTML = exameTipo;
-              exameTipoCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
-              var exameFileCell = newRow.insertCell(4);
-              exameFileCell.innerHTML = exameFile;
-              exameFileCell.className = "ui-state-default ui-th-column ui-th-ltr";
-      
-              // Clear input fields after adding row
+              if (exameData && exameTipo && exameDescrição) {
+                  var table = document.getElementById("listaExames");
+                  var newRow = table.insertRow(-1);
+          
+                  var checkBoxCell = newRow.insertCell(0);
+                  checkBoxCell.innerHTML = '<input type="checkbox">';
+                  checkBoxCell.className = "ui-state-default ui-th-column ui-th-ltr";
+          
+                  var exameDataCell = newRow.insertCell(1);
+                  exameDataCell.innerHTML = exameData;
+                  exameDataCell.className = "ui-state-default ui-th-column ui-th-ltr";
+          
+                  var exameDescriçãoCell = newRow.insertCell(2);
+                  exameDescriçãoCell.innerHTML = exameDescrição;
+                  exameDescriçãoCell.className = "ui-state-default ui-th-column ui-th-ltr";
+          
+                  var exameTipoCell = newRow.insertCell(3);
+                  exameTipoCell.innerHTML = exameTipo;
+                  exameTipoCell.className = "ui-state-default ui-th-column ui-th-ltr";
+    
+                  var exameFileCell = newRow.insertCell(4);
+                  exameFileCell.innerHTML = exameFile;
+                  exameFileCell.className = "ui-state-default ui-th-column ui-th-ltr";
+          
+                  // Clear input fields after adding row
+                  document.getElementById("exameData").value = "";
+                  document.getElementById("exameTipo").value = "";
+                  document.getElementById("exameDescrição").value = "";
+                  document.getElementById("exameFile").value = "";
+              }
+          }
+          
+          function limparCamposExame() {
               document.getElementById("exameData").value = "";
               document.getElementById("exameTipo").value = "";
               document.getElementById("exameDescrição").value = "";
               document.getElementById("exameFile").value = "";
           }
-      }
-      
-      function limparCamposExame() {
-          document.getElementById("exameData").value = "";
-          document.getElementById("exameTipo").value = "";
-          document.getElementById("exameDescrição").value = "";
-          document.getElementById("exameFile").value = "";
-      }
-
-      function deleteSelectedRows() {
-          var table = document.getElementById("listaExames");
-          var rowsToDelete = [];
-
-          // Find selected checkboxes and collect their parent row indexes
-          for (var i = 1; i < table.rows.length; i++) { // Start from 1 to skip the header row
-              var checkbox = table.rows[i].cells[0].querySelector('input[type="checkbox"]');
-              if (checkbox.checked) {
-                  rowsToDelete.push(i);
+    
+          function deleteSelectedRows() {
+              var table = document.getElementById("listaExames");
+              var rowsToDelete = [];
+    
+              // Find selected checkboxes and collect their parent row indexes
+              for (var i = 1; i < table.rows.length; i++) { // Start from 1 to skip the header row
+                  var checkbox = table.rows[i].cells[0].querySelector('input[type="checkbox"]');
+                  if (checkbox.checked) {
+                      rowsToDelete.push(i);
+                  }
+              }
+    
+              // Delete the selected rows in reverse order to avoid index shifting
+              for (var j = rowsToDelete.length - 1; j >= 0; j--) {
+                  table.deleteRow(rowsToDelete[j]);
               }
           }
+        </script>
+      
+        <!--INÍCIO DA TAB AVALIAR ATENDIMENTO-->
+        <div id="tab-5" class="ui-widget tab tab-5 tab-5 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-6" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 450px;">
 
-          // Delete the selected rows in reverse order to avoid index shifting
-          for (var j = rowsToDelete.length - 1; j >= 0; j--) {
-              table.deleteRow(rowsToDelete[j]);
-          }
-      }
-    </script>
+          <div id="avaliarAtendimento">
+            <?php echo file_get_contents('../../tabsProntuarios/tabAvaliacaoAtendimento.html');     ?>
+          </div>
+
+          <script>
+            function submitAvaliacao() {
+              var formAvaliacao = {
+                
+                // Identificação do atendimento
+                id_aluno: $('#id_aluno').val(),
+                id_responsavel: $('#responsavelProcedimento').val(),
+                componente_curricular: $('#componente_curricular').val(),
+                periodo: $('#periodo').val(),
+          
+                // Avaliação de atendimento
+                avaliarPontualidade: $('#avaliarPontualidade').val(),
+                avaliarComportamento: $('#avaliarComportamento').val(),
+                avaliarMateriais: $('#avaliarMateriais').val(),
+                avaliarConhecimento: $('#avaliarConhecimento').val(),
+                avaliarCuidado: $('#avaliarCuidado').val(),
+                avaliarAdversidades: $('#avaliarAdversidades').val(),
+                avaliarDupla: $('#avaliarDupla').val(),
+                avaliarAuto: $('#avaliarAuto').val(),
+                avaliarObservações: $('#avaliarObservações').val(),
+              };
+              
+              // Perform API request
+              api.avaliacoes.criar(formAvaliacao)
+                .then(function(response) {
+                  if (response.message) {
+                    console.log(response.message);
+                    showCustomAlert(response.message);
+                  } else {
+                    console.log(response);
+                  }
+                  })
+                .catch(function(error) {
+                  showCustomAlert(error);
+                });
+            
+              
+              //HOMOLOGAR ATENDIMENTO
+              var formHomologacao = {
+                id_atendimentos: $('#id_atendimentos').val(),
+                atendimentoDescrição: $('#atendimentoDescrição').val(),
+              };
+
+              // Perform API request - HOMOLOGAR ATENDIMENTO
+              api.atendimentos.homologar(formHomologacao)
+                .then(function(response) {
+                  if (response.message) {
+                    console.log(response.message);
+                    showCustomAlert(response.message);
+                  } else {
+                    console.log(response);
+                  }
+                  })
+                .catch(function(error) {
+                  showCustomAlert(error);
+                });
+            }
+          </script>
+        </div>   
+      </div>
+    </div>
   </body>
 </html>

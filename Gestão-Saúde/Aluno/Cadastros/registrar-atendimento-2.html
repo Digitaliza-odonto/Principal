@@ -113,11 +113,12 @@
         <!--INÍCIO DA TAB DESCRIÇÃO DO ATENDIMENTO/PLANO DE TRATAMENTO-->
         <div id="tab-3" class="ui-widget tab tab-3 tab-3 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-3" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 1100px;">
           <div id="registrarAtendimento">
-            <?php echo file_get_contents('../../tabsProntuarios/registrarAtendimento.html');     ?>
+            <?php echo file_get_contents('../../tabsProntuarios/tabCriarAtendimento.html');     ?>
           </div>
 
-          <!-- POPULATE THE HIDDEN ID FOR 'selectedEspecialidade' -->
+          <!-- POPULATE THE HIDDEN ID FOR 'selectedEspecialidade' & 'Cpf'-->
           <input id="selectedEspecialidade" type="hidden">
+          
           <script>
             // Get the select element and the input element
             var selectEspecialidade = document.getElementById("especialidade");
@@ -135,49 +136,43 @@
             // Call the function initially to set the default value
             updateSelectedEspecialidade();
           </script>
-        </div> 
-            
-      
-         <!--INÍCIO DA TAB ANEXAR DOCUMENTOS/EXAMES COMPLEMENTARES-->
-         <div id="tab-4" class="ui-widget tab tab-4 tab-4 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 450px;">
-                    
-            <div id="anexoExames">
-              <?php echo file_get_contents('../../tabsProntuarios/anexarExames.html');     ?>
-            </div>
-        </div>
 
-        <!-- API REQUEST - CRIAR ATENDIMENTO -->
-        <script>
-          function criarAtendimento() {
-            var aluno_id = JSON.parse(localStorage.getItem("usuario"))['Matricula'];
-            document.getElementById("aluno_id").value = aluno_id;
-            var atendimentoData = document.getElementById("atendimentoData").value;
-            var especialidade = document.getElementById("selectedEspecialidade").value;
-            var atendimentoDescrição = document.getElementById("atendimentoDescrição").value;
-            var responsavelProcedimento = document.getElementById("responsavelProcedimento").value;
-            var componenteCurricular = document.getElementById("componenteCurricular").value;
-            var cpf = document.getElementById("Cpf").value;
-            var codSUSArray = [];
-            var descricao_SUS_Array = [];
+          <!-- API REQUEST - CRIAR ATENDIMENTO -->
+          <script>
+            function criarAtendimento() {
+              var aluno_id = JSON.parse(localStorage.getItem("usuario"))['Matricula'];
+              document.getElementById("aluno_id").value = aluno_id;
 
-            // Iterate over the table rows and extract 'cod_sus' values
-            var listaCodSUSTable = document.getElementById("listaCodSUS");
-            var rows = listaCodSUSTable.getElementsByTagName("tr");
-            for (var i = 1; i < rows.length; i++) {
-                var codSUSValue = rows[i].cells[1].textContent; // Assuming 'cod_sus' is in the second cell
-                codSUSArray.push(codSUSValue);
-            }
+              const params = getUrlVars();
+              const cpf = params['cpf'];
+    
+              var atendimentoData = document.getElementById("atendimentoData").value;
+              var especialidade = document.getElementById("selectedEspecialidade").value;
+              var atendimentoDescrição = document.getElementById("atendimentoDescrição").value;
+              var responsavelProcedimento = document.getElementById("responsavelProcedimento").value;
+              var componenteCurricular = document.getElementById("componenteCurricular").value;
+              var periodo = document.getElementById("periodo").value;
+              var codSUSArray = [];
+              var descricao_SUS_Array = [];
 
-            // Iterate over the table rows and extract 'descricao_SUS' values (assuming it's in the third cell)
-            var listaCodSUSTable = document.getElementById("listaCodSUS");
-            var rows = listaCodSUSTable.getElementsByTagName("tr");
-            for (var i = 1; i < rows.length; i++) {
-                var descricao_SUS_Value = rows[i].cells[2].textContent; // Assuming 'descricao_SUS' is in the third cell
-                descricao_SUS_Array.push(descricao_SUS_Value);
-            }
+              // Iterate over the table rows and extract 'cod_sus' values
+              var listaCodSUSTable = document.getElementById("listaCodSUS");
+              var rows = listaCodSUSTable.getElementsByTagName("tr");
+              for (var i = 1; i < rows.length; i++) {
+                  var codSUSValue = rows[i].cells[1].textContent; // Assuming 'cod_sus' is in the second cell
+                  codSUSArray.push(codSUSValue);
+              }
 
-            // Check if all required fields are filled
-            if (atendimentoData ) {
+              // Iterate over the table rows and extract 'descricao_SUS' values (assuming it's in the third cell)
+              var listaCodSUSTable = document.getElementById("listaCodSUS");
+              var rows = listaCodSUSTable.getElementsByTagName("tr");
+              for (var i = 1; i < rows.length; i++) {
+                  var descricao_SUS_Value = rows[i].cells[2].textContent; // Assuming 'descricao_SUS' is in the third cell
+                  descricao_SUS_Array.push(descricao_SUS_Value);
+              }
+
+              // Check if all required fields are filled
+              if (atendimentoData ) {
                 var formContent = {
                     "aluno_id": aluno_id,
                     "cpf": cpf,
@@ -186,6 +181,7 @@
                     "atendimentoDescrição": atendimentoDescrição,
                     "responsavelProcedimento": responsavelProcedimento,
                     "componenteCurricular": componenteCurricular,
+                    "periodo": periodo,
                     "codSUSArray": codSUSArray,
                     "descricao_SUS_Array": descricao_SUS_Array
                 };
@@ -195,49 +191,68 @@
                 api.atendimentos.criar(formContent)
                     .then(function (response) {
                         if (response.message) {
-                            console.log(response.message);
-                            setAtendidoStatus();
-                            showCustomAlert(response.message);
+                          console.log(response.message);
+                          setAtendidoStatus();
+                          showCustomAlert(response.message);
                         } else {
-                            console.log(response);
+                          console.log(response);
                         }
                     })
                     .catch(function (error) {
-                        showCustomAlert(error);
-                    });
-            } else {
-                // If any of the required fields are empty, display an alert message
-                showCustomAlert("Por favor, preencha todos os campos da aba 'Atendimento realizado'.");
+                      showCustomAlert(error);
+                  });
+                } else {
+                  // If any of the required fields are empty, display an alert message
+                  showCustomAlert("Por favor, preencha todos os campos da aba 'Atendimento realizado'.");
+               }
+              }
+
+              function setAtendidoStatus() {
+              // Extract 'id' parameter from the URL
+              const urlParams = new URLSearchParams(window.location.search);
+              const id = urlParams.get('id');
+
+              // Check if 'id' parameter is available in the URL
+              if (id) {
+                  const requestData = { id: id }; // Prepare the request data as a JSON object
+
+                  // Perform API request using api.agenda.setAtendido() with JSON data
+                  api.agenda.setAtendido(requestData)
+                      .then(function (response) {
+                          // Handle successful response
+                          console.log(response); // Log the response if needed
+                      })
+                      .catch(function (error) {
+                          // Handle error response
+                          console.error('Error:', error); // Log the error for debugging
+                          // Display an error message to the user
+                      });
+              } else {
+                  // Handle invalid or missing 'id' parameter in the URL
+                  console.error('ID de agendamento inválido ou ausente na URL.');
+                  // Display an error message to the user if needed
+              }
             }
-          }
 
-          function setAtendidoStatus() {
-            // Extract 'id' parameter from the URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const id = urlParams.get('id');
-
-            // Check if 'id' parameter is available in the URL
-            if (id) {
-                const requestData = { id: id }; // Prepare the request data as a JSON object
-
-                // Perform API request using api.agenda.setAtendido() with JSON data
-                api.agenda.setAtendido(requestData)
-                    .then(function (response) {
-                        // Handle successful response
-                        console.log(response); // Log the response if needed
-                    })
-                    .catch(function (error) {
-                        // Handle error response
-                        console.error('Error:', error); // Log the error for debugging
-                        // Display an error message to the user
-                    });
-            } else {
-                // Handle invalid or missing 'id' parameter in the URL
-                console.error('ID de agendamento inválido ou ausente na URL.');
-                // Display an error message to the user if needed
+            // Função para obter parâmetros da URL
+            function getUrlVars() {
+                var vars = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                    vars[key] = decodeURIComponent(value); // Decode URI component to handle special characters
+                });
+                return vars;
             }
-          }
-        </script>
+          </script>
+        </div> 
+      
+         <!--INÍCIO DA TAB ANEXAR DOCUMENTOS/EXAMES COMPLEMENTARES-->
+         <div id="tab-4" class="ui-widget tab tab-4 tab-4 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-4" role="tabpanel" aria-expanded="true" aria-hidden="false" style="height: 450px;">
+                    
+            <div id="anexoExames">
+              <?php echo file_get_contents('../../tabsProntuarios/anexarExames.html');     ?>
+            </div>
+        </div>
+
       </div>
     </div>
   </body>

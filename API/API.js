@@ -112,6 +112,10 @@ const materiais = {
   apresentacaoMaterialOptions: async (data) => {
     const url = `${getApiUrl()}/materiais/apresentacao-material-options.php`;
     return sendRequest(url, 'POST', data);
+  },
+  relatorioConsumoSemestral: async (data) => {
+    const url = `${getApiUrl()}/materiais/relatorio-consumo-semestral.php`;
+    return sendRequest(url, 'POST', data);
   }
 };
 
@@ -125,8 +129,12 @@ const procedimentos = {
     const url = `${getApiUrl()}/procedimentos/consultar.php`;
     return sendRequest(url, 'POST', data);
   },
-  relatorioSUS: async (data) => {
-    const url = `${getApiUrl()}/procedimentos/relatorio-SUS.php`;
+  relatorioSusSemestral: async (data) => {
+    const url = `${getApiUrl()}/procedimentos/relatorio-SUS-semestre.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  relatorioSusMensal: async (data) => {
+    const url = `${getApiUrl()}/procedimentos/relatorio-SUS-mensal.php`;
     return sendRequest(url, 'POST', data);
   },
   options: async (data) => {

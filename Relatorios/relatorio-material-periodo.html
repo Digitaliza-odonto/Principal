@@ -3,10 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Relatório de materiais por período</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script>
-        <script type="text/javascript">
+        <title>Relatório de consumo de material por Ano/Semestre</title>
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
             var BASE_URL = 'https://cobalto.ufpel.edu.br/';
             var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
             var PATH_COOKIE = '/';
@@ -16,8 +14,36 @@
         <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
         <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
         <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+        <!--ALERT MESSAGES-->
+        <link href="../scripts/alert-message.css" type="text/css" rel="stylesheet">
+        <script src="../scripts/alertMessage.js"></script>
+
+        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+        <div id="customAlert" class="modal">
+        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+            <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+                <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+            </button>
+            </div>
+            <p></p>
+            <br>
+            <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+            <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+            <p id="alertMessage"></p>
+            </div>
+            <p> </p><br>
+            <p> </p><br>
+            <p> </p><br>
+            <div><button id="okButton" class="centered-button">OK</button></div>
+        </div>
+        </div>
+        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
     </head>
 
     <body>
@@ -26,9 +52,10 @@
             
             <div class="breadCrumb module">
                 <ul>
-                <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+                <li><a href="index.html"></a></li>
+                <li>Gestão Saúde</li>
                 <li>Relatórios</li>
-                <li>Uso de material por ano/semestre</li>
+                <li>Relatório de consumo de material por Ano/Semestre</li>
                 </ul>
                 <div style="clear: both;"></div>
             </div>
@@ -36,46 +63,126 @@
             
             <div class="ui-widget-content ui-corner-all toolbar">
             <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-            <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button>
             <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
             <span style="clear: both; display: block"></span>
             </div>
 
-        <div id="tabMateriais" class="tabs">
-            <div id="tabMateriais-0" class="ui-widget tabMateriais tabMateriais-0 tabMateriais-0">
-                <ul>
-                    <li class="labeltabMateriais"><a href="#tabMateriais-0" accessKey="tabMateriais-0">Filtro</a></li>
-                </ul>
-                <br>
-                <p></p>
-                <br>
+            <div id="tabRelatorio" class="tabs">
+                <div id="tabRelatorio-0" class="ui-widget tabRelatorio tabRelatorio-0 tabRelatorio-0">
+                    <ul>
+                        <li class="labeltabRelatorio"><a href="#tabRelatorio-0" accessKey="tabRelatorio-0">Filtro</a></li>
+                    </ul>
+                    <br>
+                    <p></p>
+                    <br>
+                    
+                    <label style="width: 80px;">Ano</label>
+                    <input type="text" id="ano" value="" maxlength="4" class="ui-state-default ui-corner-all mousetrap" style="width: 80px;" />
+                    <br>
+
+                    <label style="width: 80px; margin-top: 10px;">Semestre</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 80px; height: 20px; margin-top: 10px;" name="semestre" id="semestre">
+                        <option value="Escolher">Escolher</option>
+                        <option value="1">1º Semestre</option>
+                        <option value="2">2º Semestre</option>
+                    </select>
+                    
+                    <button id="filterButton" onclick="getRelatorio()" style="margin-left: 10px">Gerar relatório</button>
                 
-                <label style="width: 80px;">Ano</label>
-                <input type="text" id="year" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 120px;" />
-                <br>
+                </div>
+            </div>
 
-                <label style="width: 80px; margin-top: 10px;">Semestre</label>
-                <select class="ui-state-default ui-corner-all" style="width: 120px; height: 20px; margin-top: 10px;" name="semester" id="semester">
-                    <option value="">Escolher</option>
-                    <option value="1st">1º Semestre</option>
-                    <option value="2nd">2º Semestre</option>
-                </select>
-                <br>
+            <div id="relatorio" style="display: none;">
+                <h1 style="margin: 30px; margin-left: 20%;"></h1>
+                <table id="listaMaterial" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 60%; font-size: 14px; margin: 30px;">
+                    <thead>
+                        <tr class="ui-jqgrid-labels" role="rowheader">
+                            <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 10%;">Cód.</th>
+                            <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 70%;">Material</th>
+                            <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 20%;">Qtd. consumida</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Table body rows will be populated here -->
+                    </tbody>
+                    <tr>
+                        <td colspan="6" style="text-align: center;">
+                            <div id="pagination" class="ui-state-default">
+                                <button id="prev-page">Previous</button>
+                                <span id="page-info">Pág. 1</span>
+                                <button id="next-page">Next</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 
-                <label style="width: 80px; margin-top: 10px;">Setor</label>
-                <select class="ui-state-default ui-corner-all" style="width: 120px; height: 20px; margin-top: 10px" name="setor" id="setor">
-                    <option value=''>Escolher</option>
-                    <option value="Clínica 1º Andar - Sul">1º Andar - Sul</option>
-                    <option value="Clínica Oeste">Clínica Oeste</option>
-                    <option value="Clínica Sul 2º Andar">Clínica Sul 2º Andar</option>
-                    <option value="Enfermagem 3º Andar">Enfermagem 3º Andar</option>
-                    <option value="Clínica 4º Andar">Clínica 4º Andar</option>
-                    <option value="Laboratórios pré-clínica">Laboratórios pré-clínica</option>
-                    <option value="Laboratórios patologia">Laboratórios patologia</option>
-                </select>
+        <!-- API -->
+        <script src="../API/API.js"></script>
 
-                <!-- Add a button to trigger the data loading with selected filters -->
-                <button id="filterButton" style="margin-left: 10px">Filtrar</button>
+        <!-- API -->
+        <script src="../API/API.js"></script>
+
+        <script>
+        function getRelatorio() {
+            var ano = $('#ano').val();
+            var semestre = $('#semestre').val();
+
+            // Check if 'semestre' is equal to "Escolher" or 'ano' is empty
+            if (semestre === "Escolher" || ano === "") {
+                showCustomAlert("Por favor, selecione um ano e semestre válidos.");
+                return; // Exit the function early if conditions are not met
+            }
+
+            var formRelatorio = {
+                ano: ano,
+                semestre: semestre,
+            };
+
+            // Set the text for the h1 tag with 'ano' and 'semestre' values
+            $('#relatorio h1').text(`Relatório de consumo de materiais no período ${ano}/${semestre}`);
+
+            // Perform API request
+            api.materiais.relatorioConsumoSemestral(formRelatorio)
+            .then(function (response) {
+                try {
+                if (typeof response !== 'string') {
+                    response = JSON.stringify(response); // Convert response to string if it's not already
+                }
+                response = JSON.parse(response.trim()); // Trim the response before parsing
+                } catch (error) {
+                console.error('Error parsing JSON response:', error);
+                return; // Exit the function if JSON parsing fails
+                }
+                if (response.error) {
+                console.log(response.error);
+                showCustomAlert(response.error);
+                } else {
+                // Clear existing table rows
+                $('#table-body').empty();
+                // Iterate through the response and populate the table
+                response.forEach(function (material) {
+                    var row = '<tr>' +
+                    '<td class="ui-state-default ui-th-column ui-th-ltr">' + material.id_atendido + '</td>' +
+                    '<td class="ui-state-default ui-th-column ui-th-ltr">' + material.nome + '</td>' +
+                    '<td class="ui-state-default ui-th-column ui-th-ltr">' + material.sum + '</td>' +
+                    '</tr>';
+                    $('#table-body').append(row);
+                });
+
+                // Show the div with id "relatorio" when the response is successful
+                $('#relatorio').show();
+                // Update pagination or other UI elements if necessary
+                }
+            })
+            .catch(function (error) {
+                console.error('API request failed:', error);
+                showCustomAlert("Erro na solicitação da API.");
+            });
+        }
+        </script>
+
     </body>
 </html>
 

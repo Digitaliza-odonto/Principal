@@ -5,12 +5,13 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE");
 header("Access-Control-Allow-Headers: X-Requested-With, Content-Type");
 header("Access-Control-Allow-Credentials: true");
 
-require_once '../db.php';   // Importa o arquivo de conexão com o banco de dados
+require_once '../db.php';   // Import the database connection file
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $CPF = $data['CPF'];
-    $Data = $data['Data'];
+    $OriginalDate = $data['Data'];
+    $FormattedDate = DateTime::createFromFormat('d/m/Y', $OriginalDate)->format('Y-m-d'); // Convert to YYYY-MM-DD format
     $Especialidade = $data['Especialidade'];
     $Demanda = $data['Demanda'];
     $Status = $data['Status'];
@@ -18,9 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $Complexidade = $data['Complexidade'];
     $Observacoes = $data['Observacoes'];
 
-    $insertQuery = "INSERT INTO encaminhamentos (CPF, Data, Especialidade, Demanda, Status, Curso, Complexidade, Observacoes) VALUES ('$CPF', '$Data', '$Especialidade', '$Demanda', '$Status', '$Curso', '$Complexidade', '$Observacoes')";
+    $insertQuery = "INSERT INTO encaminhamentos (CPF, Data, Especialidade, Demanda, Status, Curso, Complexidade, Observacoes) VALUES ('$CPF', '$FormattedDate', '$Especialidade', '$Demanda', '$Status', '$Curso', '$Complexidade', '$Observacoes')";
 
-    
     echo json_encode(array("message" => "Encaminhamento criado com sucesso"));
     
     db($insertQuery);

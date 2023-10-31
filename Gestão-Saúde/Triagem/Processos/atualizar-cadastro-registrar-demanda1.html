@@ -198,12 +198,11 @@
           <textarea id="Demanda" style="width: 380px;" name="txtdemanda" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" ></textarea>
           <br>
 
-          <p>
+          <label style="width: 180px;">Data do atendimento</label>
+          <input type="text" name="Data" id="Data" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 80px;" />
+          <br>
 
-          <label name="lblData"  style="width: 180px;"  >Data do registro da demanda</label>
-                <input id="Data" type="text" name="dtencaminhamento" id="dtencaminhamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 180px;" />
-            <br>
-        <p></p>
+          <p></p>
           <button name="btnAdicionar" onClick="encaminhar()" id="btnAdicionar" value="Adicionar" class="button"  >Adicionar</button>
           <button name="btnCancelar" onClick="limpar()" id="btnCancelar" value="Cancelar" class="button"  >Cancelar</button>
           <br>
@@ -292,9 +291,9 @@
             Encaminhamentos.Curso = codtonome[Encaminhamentos.Curso]
             console.log(Encaminhamentos)
             api.encaminhamentos.criar(Encaminhamentos).then((result)=>{
-        showCustomAlert(result.message)
-        console.log(result)
-        adicionarNovaLinha(Encaminhamentos)
+              showCustomAlert(result.message)
+              console.log(result)
+              adicionarNovaLinha(Encaminhamentos)
             })
           }
           const CPF = getUrlVars()["cpf"]

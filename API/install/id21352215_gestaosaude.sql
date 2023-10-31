@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 30/10/2023 às 19:43
+-- Tempo de geração: 31/10/2023 às 21:03
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -200,7 +200,7 @@ INSERT INTO `disciplinas` (`id`, `cod_disciplina`, `Nome`, `turma`, `periodo`, `
 CREATE TABLE `encaminhamentos` (
   `id` int(11) NOT NULL,
   `CPF` varchar(255) DEFAULT NULL,
-  `Data` varchar(255) NOT NULL,
+  `Data` date NOT NULL,
   `Curso` varchar(255) DEFAULT NULL,
   `Especialidade` varchar(255) DEFAULT NULL,
   `Demanda` varchar(255) DEFAULT NULL,
@@ -216,11 +216,12 @@ CREATE TABLE `encaminhamentos` (
 --
 
 INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Curso`, `Especialidade`, `Demanda`, `Status`, `Observacoes`, `Complexidade`, `homologado`, `tramitado`) VALUES
-(1, '112.289.390-63', '01/01/2020', 'Odontologia', 'Cirurgia', 'Exodontia do 38', 'Em espera', 'Tratamento de rotina.', 'Média', '', ''),
-(2, '790.588.720-09', '01/01/2020', 'Odontologia', 'Prótese dentária', 'Coroa unitária no dente 24', 'Em espera', 'Tratamento de rotina de odontopediatria.', 'Média', '', ''),
-(3, '112.289.390-63', '01/01/2020', 'Odontologia', 'Prótese Dentária', 'Confeccção de PPR superior', 'Em espera', 'Necessita de acompanhamento constante.', 'Baixa', '', ''),
-(4, '790.588.720-09', '01/01/2020', 'Odontologia', 'Periodontia', 'Aumento de coroa clínica no 24', 'Em espera', 'Problema identificado durante a consulta inicial.', 'Média', '', ''),
-(5, '112.289.390-63', '01/01/2020', 'Odontologia', 'Periodontia', 'Raspagem subgengival em todos os sextantes', 'Em espera', 'Paciente relatou dor intensa.', 'Média', '', '');
+(1, '112.289.390-63', '2023-10-31', 'Odontologia', 'Cirurgia', 'Exodontia do 38', 'Em espera', 'Tratamento de rotina.', 'Média', '', ''),
+(2, '790.588.720-09', '2023-10-31', 'Odontologia', 'Prótese dentária', 'Coroa unitária no dente 24', 'Em espera', 'Tratamento de rotina de odontopediatria.', 'Média', '', ''),
+(3, '112.289.390-63', '2023-04-04', 'Odontologia', 'Prótese Dentária', 'Confeccção de PPR superior', 'Em espera', 'Necessita de acompanhamento constante.', 'Baixa', '', ''),
+(4, '790.588.720-09', '2023-10-31', 'Odontologia', 'Periodontia', 'Aumento de coroa clínica no 24', 'Alta', 'Problema identificado durante a consulta inicial.', 'Média', '', ''),
+(5, '112.289.390-63', '2023-04-04', 'Odontologia', 'Periodontia', 'Raspagem subgengival em todos os sextantes', 'Em espera', 'Paciente relatou dor intensa.', 'Média', '', ''),
+(13, '112.289.390-63', '2023-10-30', '', 'Dentística', 'Demanda nova', 'Em espera', '', 'Baixa', '', '');
 
 -- --------------------------------------------------------
 
@@ -359,12 +360,12 @@ CREATE TABLE `historicoatendimentos` (
 --
 
 INSERT INTO `historicoatendimentos` (`id_atendimentos`, `id_aluno`, `cpf`, `data`, `especialidade`, `descricao`, `responsavel`, `componente_curricular`, `periodo`, `codSus`, `descricao_SUS`, `homologado`, `data_homolog`) VALUES
-(1, 'Pedro', '112.289.390-63', '2023-10-31', 'Periodontia', 'Descrição 01', 'Pedro', 'componente', '2023/1', '[\"101020090\",\"201010232\"]', '[\"IMUNOHISTOQUIMICA DE NEOPLASIAS MALIGNAS (POR MARCADOR)\",\"IMUNOHISTOQUIMICA DE NEOPLASIAS MALIGNAS (POR MARCADOR)\"]', 0, NULL),
+(1, 'Pedro', '112.289.390-63', '2023-11-22', 'Periodontia', 'Descrição 01', 'Pedro', 'componente', '2023/1', '[\"101020090\",\"201010232\"]', '[\"IMUNOHISTOQUIMICA DE NEOPLASIAS MALIGNAS (POR MARCADOR)\",\"IMUNOHISTOQUIMICA DE NEOPLASIAS MALIGNAS (POR MARCADOR)\"]', 0, NULL),
 (2, 'Aluno', '112.289.390-63', '2023-10-27', 'Dentística', 'Descrição 02', 'Pedro', 'componente', '2023/1', '[\"204010055\",\"301100152\"]', '[\"IMUNOHISTOQUIMICA DE NEOPLASIAS MALIGNAS (POR MARCADOR)\",\"IMUNOHISTOQUIMICA DE NEOPLASIAS MALIGNAS (POR MARCADOR)\"]', 0, NULL),
 (3, 'Aluno', '112.289.390-63', '2023-10-26', 'Cirurgia', 'Descrição 03', 'Pedro', 'disc', '2023/1', '[\"204010055\",\"301100152\"]', '[\"IMUNOHISTOQUIMICA DE NEOPLASIAS MALIGNAS (POR MARCADOR)\",\"IMUNOHISTOQUIMICA DE NEOPLASIAS MALIGNAS (POR MARCADOR)\"]', 1, '2023-10-30'),
 (4, 'Pedro', '112.289.390-63', '2023-10-27', 'Prótese Dentária', 'aaaaaa', 'Pedro', 'componente', '2023/2', '[\"101020090\",\"201010526\"]', '[\"SELAMENTO PROVISu00d3RIO DE CAVIDADE DENTu00c1RIA\"]', 0, NULL),
 (5, 'Pedro', '112.289.390-63', '2023-10-27', 'Prótese Dentária', 'aaaaaa', 'Pedro', 'componente', '2023/2', '[\"101020090\",\"201010526\"]', '[\"SELAMENTO PROVISu00d3RIO DE CAVIDADE DENTu00c1RIA\"]', 0, NULL),
-(6, 'Pedro', '112.289.390-63', '2023-10-27', 'Prótese Dentária', 'descrição de atendimento', 'Professor', 'Componente', '2022/2', '[]', '[\"SELAMENTO PROVISu00d3RIO DE CAVIDADE DENTu00c1RIA\"]', 0, NULL),
+(6, 'Pedro', '112.289.390-63', '2023-10-27', 'Prótese Dentária', 'descrição de atendimento', 'Professor', 'Componente', '2022/2', '[]', '[]', 0, NULL),
 (7, 'Pedro', '790.588.720-09', '2023-10-27', 'Prótese Dentária', 'descrição de atendimento', 'Professor', 'Componente', '2022/2', '[\"201010232\",\"204010128\"]', '[\"SELAMENTO PROVISu00d3RIO DE CAVIDADE DENTu00c1RIA\"]', 0, NULL),
 (8, 'Pedro', '790.588.720-09', '2023-10-27', 'Prótese Dentária', 'descrição de atendimento', 'Professor', 'Componente', '2022/2', '[\"201010232\",\"204010128\"]', '[\"SELAMENTO PROVISu00d3RIO DE CAVIDADE DENTu00c1RIA\"]', 0, NULL),
 (9, 'Pedro', '790.588.720-09', '2023-10-27', 'Prótese Dentária', 'descrição de atendimento', 'Professor', 'Componente', '2022/2', '[\"201010232\",\"101020090\"]', '[\"SELAMENTO PROVISu00d3RIO DE CAVIDADE DENTu00c1RIA\"]', 0, NULL),
@@ -606,7 +607,7 @@ CREATE TABLE `solicitacao_materiais` (
   `id_solicitacao` bigint(20) NOT NULL,
   `setor` varchar(30) NOT NULL,
   `nome_solicitante` varchar(40) NOT NULL,
-  `id_solicitante` int(11) NOT NULL,
+  `id_solicitante` varchar(55) NOT NULL,
   `data_pedido` date NOT NULL,
   `data_tramite` date DEFAULT NULL,
   `lista_ids` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
@@ -623,17 +624,17 @@ CREATE TABLE `solicitacao_materiais` (
 --
 
 INSERT INTO `solicitacao_materiais` (`id_solicitacao`, `setor`, `nome_solicitante`, `id_solicitante`, `data_pedido`, `data_tramite`, `lista_ids`, `lista_materiais`, `lista_qtd`, `statusSolicitacao`, `ids_atendidos`, `qtd_atendida`, `obs_tramite`) VALUES
-(59, 'Clínica 1º Andar - Sul', 'Beltrano', 123456, '2023-09-26', NULL, '1', 'Fosfato de zinco', '1', 'Solicitado', '0', NULL, NULL),
-(60, 'Clínica 1º Andar - Sul', 'Fulano', 987654, '2023-09-26', '2023-10-13', '1,4', 'Fosfato de zinco,Teste', '1,2', 'Atendido', '0', NULL, ''),
-(61, 'Clínica 1º Andar - Sul', 'Beltrano', 123456, '2023-09-26', '2023-10-13', '11,1', 'rolo de algodão,Fosfato de zinco', '2,1', 'Parcialmente atendido', '0', NULL, ''),
-(62, 'Clínica Oeste', 'Fulano', 987654, '2023-09-26', NULL, '1,20', 'Fosfato de zinco,ionomero de vidro', '1,3', 'Solicitado', '0', NULL, NULL),
-(63, 'Clínica Oeste', 'Beltrano', 123456, '2023-09-26', '2023-10-24', '20,19', 'ionomero de vidro,testedenovo', '3,2', '', '0', NULL, 'aaa'),
-(64, 'Clínica 4º Andar', 'Ciclano', 654321, '2023-09-26', NULL, '24,26', 'silicone de condensação,resina acrílica', '1,5', 'Solicitado', '0', NULL, NULL),
-(65, 'Laboratórios pré-clínica', 'Ciclano', 654321, '2023-09-26', '2023-10-03', '24,26,23,22', 'silicone de condensação,resina acrílica,polieter,alginato', '1,5,2,2', 'Parcialmente atendido', '24,26,23,22', '1,5,2,2', 'Observação teste'),
-(66, 'Clínica 1º Andar - Sul', 'Fulano', 987654, '2023-09-27', NULL, '7,5', 'teste3,teste2', '1,2', 'Solicitado', '0', NULL, NULL),
-(67, 'Clínica Oeste', 'João da Silva', 321789, '2023-10-05', NULL, '3', 'Resina Composta cor A1', '1', 'Solicitado', NULL, NULL, NULL),
-(68, 'Clínica Oeste', 'João da Silva', 321789, '2023-10-05', '2023-10-13', '2,3,21,22', 'Resina Acrílica,Resina Composta cor A1,fosfato de zinco,alginato', '3,1,2,1', 'Atendido', NULL, NULL, ''),
-(69, 'Clínica 4º Andar', 'João da Silva', 321789, '2023-10-05', NULL, '1,17,13', 'Fosfato de zinco,testematerial,bbbbbbbbb', '1,2,2', 'Solicitado', NULL, NULL, NULL);
+(59, 'Clínica 1º Andar - Sul', 'Pedro', 'Pedro', '2023-09-26', NULL, '1', 'Fosfato de zinco', '1', 'Solicitado', NULL, NULL, NULL),
+(60, 'Clínica 1º Andar - Sul', 'Pedro', '987654', '2023-09-26', '2023-10-13', '1,4', 'Fosfato de zinco,Teste', '1,2', 'Atendido', NULL, NULL, ''),
+(61, 'Clínica 1º Andar - Sul', 'Beltrano', '123456', '2023-09-26', '2023-10-13', '11,1', 'rolo de algodão,Fosfato de zinco', '2,1', 'Parcialmente atendido', NULL, NULL, ''),
+(62, 'Clínica Oeste', 'Administrador', 'Administrador', '2023-09-26', NULL, '1,20', 'Fosfato de zinco,ionomero de vidro', '1,3', 'Solicitado', NULL, NULL, NULL),
+(63, 'Clínica Oeste', 'Beltrano', '123456', '2023-09-26', '2023-10-24', '20,19', 'ionomero de vidro,testedenovo', '3,2', 'Atendido', '20,19', '3,2', NULL),
+(64, 'Clínica 4º Andar', 'Administrador', 'Administrador', '2023-09-26', NULL, '24,26', 'silicone de condensação,resina acrílica', '1,5', 'Solicitado', NULL, NULL, NULL),
+(65, 'Laboratórios pré-clínica', 'Ciclano', '654321', '2023-09-26', '2023-10-03', '24,26,23,22', 'silicone de condensação,resina acrílica,polieter,alginato', '1,5,2,2', 'Parcialmente atendido', '24,26,23,22', '1,5,2,2', 'Observação teste'),
+(66, 'Clínica 1º Andar - Sul', 'Fulano', '987654', '2023-09-27', NULL, '7,5', 'teste3,teste2', '1,2', 'Solicitado', NULL, NULL, NULL),
+(67, 'Clínica Oeste', 'João da Silva', '321789', '2023-10-05', NULL, '3', 'Resina Composta cor A1', '1', 'Solicitado', NULL, NULL, NULL),
+(68, 'Clínica Oeste', 'João da Silva', '321789', '2023-10-05', '2023-10-13', '2,3,21,22', 'Resina Acrílica,Resina Composta cor A1,fosfato de zinco,alginato', '3,1,2,1', 'Atendido', '2,3,21,22', '3,1,2,1', ''),
+(69, 'Clínica 4º Andar', 'João da Silva', '321789', '2023-10-05', NULL, '1,17,13', 'Fosfato de zinco,testematerial,bbbbbbbbb', '1,2,2', 'Solicitado', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -811,7 +812,7 @@ ALTER TABLE `disciplinas`
 -- AUTO_INCREMENT de tabela `encaminhamentos`
 --
 ALTER TABLE `encaminhamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de tabela `entrevista`

@@ -48,6 +48,10 @@ const encaminhamentos = {
     const url = `${getApiUrl()}/encaminhamentos/consultar.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultarEvolucaoStatus: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/relatorio-evolucao.php`;
+    return sendRequest(url, 'POST', data);
+  },
   atualizar: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/atualizar.php`;
     return sendRequest(url, 'POST', data);
@@ -95,6 +99,10 @@ const materiais = {
   },
   buscaRequisicoesID: async (data) => {
     const url = `${getApiUrl()}/materiais/busca-requisicoes-id.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  buscaRequisicoesSolicitante: async (data) => {
+    const url = `${getApiUrl()}/materiais/busca-requisicoes-Solicitante.php`;
     return sendRequest(url, 'POST', data);
   },
   requestMaterial: async (data) => {

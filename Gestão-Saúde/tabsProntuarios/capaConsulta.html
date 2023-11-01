@@ -2,34 +2,9 @@
     <br>
     <div>
       <p></p>
-      <label style="width: 180px; margin: 5px; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
-      <input type="text" id="informacoesImportantes" maxlength="255" style="width: 340px; margin: 5px;" readonly="readonly"><br>
-    
-      <script>
-          // TROCAR STYLE SE O CAMPO 'informaçõesImportantes' for preenchido
-        document.addEventListener('DOMContentLoaded', function() {
-          const inputField = document.getElementById('informacoesImportantes');
-      
-          function applyStyles() {
-            if (inputField.value.trim() === '') {
-              inputField.classList.add('ui-state-default');
-              inputField.classList.remove('important-ui');
-            } else {
-              inputField.classList.add('important-ui');
-              inputField.classList.remove('ui-state-default');
-            }
-          }
-      
-          inputField.addEventListener('input', applyStyles);
-      
-          // Apply styles once the page loads
-          applyStyles();
-        });
-      </script>
-      <p style="margin: 10px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
-      <p></p>
-      <br>
-    
+      <label style="width: 160px; margin: 5px; font-weight: bold; color: red; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
+      <input type="text" id="informacoesImportantes" class="ui-state-default ui-corner-all mousetrap" maxlength="255" style="width: 340px; margin: 5px;" readonly="readonly"><br>
+      <p style="margin: 5px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
       <p></p>
       <br>
     </div>
@@ -45,19 +20,19 @@
     <br>
   
     <label style="width: 120px; ;margin: 5px;">Nome</label>
-    <input type="text" name="Nome" id="Nome" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+    <input type="text" name="Nome" id="Nome" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;" readonly="readonly">
     <br>
 
     <label style="width: 120px; ;margin: 5px;">Nome social</label>
-    <input type="text" name="nomeSocial" id="nomeSocial" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+    <input type="text" name="nomeSocial" id="nomeSocial" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;" readonly="readonly">
     <br>
     
     <label style="width: 120px; ;margin: 5px;">RG</label>
-    <input type="text" name="Rg" id="Rg" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;" readonly="readonly">
+    <input type="text" name="Rg" id="Rg" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;" readonly="readonly">
     <br>
   
     <label style="width: 120px; ;margin: 5px;">Cartão SUS (CNS)</label>
-    <input type="text" name="CNS" id="CNS" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;" readonly="readonly">
+    <input type="text" name="CNS" id="CNS" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;" readonly="readonly">
     <br>
     
     <label style="width: 120px; ;margin: 5px;"  >Dt. nascimento</label>
@@ -65,7 +40,7 @@
     <br>
   
     <label style="width: 120px; ;margin: 5px;">E-mail</label>
-    <input type="text" name="Email" id="Email" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+    <input type="text" name="Email" id="Email" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;" readonly="readonly">
     <br>
   
     <label style="width: 120px; ;margin: 5px;">Telefone</label>
@@ -73,11 +48,11 @@
     <br>
   
     <label style="width: 120px; ;margin: 5px;">Telefone 2 (Opcional)</label>
-    <input type="text" name="Tel2" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
+    <input type="text" name="Tel2" id="Tel2" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
     <br>
   
     <label style="width: 120px; ;margin: 5px;">Telefone 3 (Opcional)</label>
-    <input type="text" name="Tel3" id="Tel" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
+    <input type="text" name="Tel3" id="Tel3" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;" readonly="readonly">
     <br>
     
 
@@ -114,11 +89,11 @@
     <br>
 
     <label style="width: 120px; margin: 5px;">Nome da mãe</label>
-    <input type="text" name="NomeMae" id="NomeMae" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+    <input type="text" name="NomeMae" id="NomeMae" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;" readonly="readonly">
 
     <br>
     <label style="width: 120px;margin: 5px;">Nome do pai</label>
-    <input type="text" name="NomePai" id="NomePai" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 400px;" readonly="readonly">
+    <input type="text" name="NomePai" id="NomePai" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;" readonly="readonly">
     
     <br>
     <hr class="ui-state-default">
@@ -147,23 +122,23 @@
     <br>
 
     <label style="width: 120px;">Endereço</label>
-    <input type="text" name="Rua" id="Rua" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;" readonly="readonly">
+    <input type="text" name="Rua" id="Rua" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
     <br>
 
     <label style="width: 120px;">Número</label>
-    <input type="text" name="EndNumero" id="EndNumero" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 100px;" readonly="readonly">
+    <input type="text" name="EndNumero" id="EndNumero" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;" readonly="readonly">
     <br>
 
     <label style="width: 120px;">Complemento</label>
-    <input type="text" name="EndComplemento" id="EndComplemento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;" readonly="readonly">
+    <input type="text" name="EndComplemento" id="EndComplemento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
     <br>
 
     <label style="width: 120px;">Bairro</label>
-    <input type="text" name="Bairro" id="Bairro" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;" readonly="readonly">
+    <input type="text" name="Bairro" id="Bairro" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
     <br>
 
     <label style="width: 120px;">Cidade</label>
-    <input type="text" name="Cidade" id="Cidade" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;" readonly="readonly">
+    <input type="text" name="Cidade" id="Cidade" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
     <br>
 
     <script src="/API/API.js"></script>
@@ -173,14 +148,18 @@
         // Função para preencher o formulário com os dados do perfil
         function preencherFormulario(dados) {
           console.log(dados)
+          document.getElementById("informacoesImportantes").value = dados.informacoesImportantes;
           document.getElementById("Cpf").value = dados.CPF;
           document.getElementById("Nome").value = dados.Nome;
           document.getElementById("nomeSocial").value = dados.nomeSocial;
           document.getElementById("Nometab").innerText = dados.Nome;
           document.getElementById("Rg").value = dados.Rg;
+          document.getElementById("CNS").value = dados.CNS;
           document.getElementById("DataNasc").value = dados.DataNasc;
           document.getElementById("Email").value = dados.Email;
           document.getElementById("Tel").value = dados.Tel;
+          document.getElementById("Tel2").value = dados.Tel2;
+          document.getElementById("Tel3").value = dados.Tel3;
           document.getElementById("EstadoCivil").value = dados.EstadoCivil;
           document.getElementById("Sexo").value = dados.Sexo;
           document.getElementById("CorRaca").value = dados.CorRaca;
@@ -230,6 +209,5 @@
 
         // Chamar a função para buscar o perfil
         buscarPerfil();
-
     </script>
 </div>

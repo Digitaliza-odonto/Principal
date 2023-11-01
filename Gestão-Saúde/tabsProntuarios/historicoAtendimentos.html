@@ -1,23 +1,61 @@
 <div id="historicoAtendimento">
-    <p></p>
-    <table id="historicoPaciente" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;">
-        <thead class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="font-size: larger; height: 10px;">
-            <th style="width: 7.5%;">Data</th>
-            <th style="width: 7.5%;">Especialidade</th>
-            <th style="width: 55%;">Descrição</th>
-            <th style="width: 10%;">Aluno</th>
-            <th style="width: 10%;">Responsável</th>
-            <th style="width: 10%;">Componente curricular</th>
-        </thead>
-        <tbody>
-            <!-- NEW ROWS TO BE ADDED HERE -->
-        </tbody>
-    </table>
+    
+    <div style="margin: 30px; width: 100%;">
+        <table id="gridHistorico"></table>
+        <div id="gridHistoricoPager" style="margin-bottom: 5px;"></div>
+    </div>
 </div>
+    
+<script>
+    var gridHistoricoId = 'gridHistorico';
+    var gridHistoricoPagerId = 'gridHistoricoPager';
+    var historicoHeaderColumns = ["ID", "Data", "Especialidade", "Descrição", "Aluno", "Responsável", "Componente curricular"];
+    var historicoColumnNames = ["id", "data", "especialidade", "descricao", "id_aluno", "responsavel", "componente_curricular"];
+    var historicoColumnWidths = [0, 120, 200, 350, 150, 250];
+    var historicoRowHeight = 300; // Set the height of each row in pixels
+
+    $(document).ready(function () {
+        $('#' + gridHistoricoId).jqGrid({
+            "sortname": historicoColumnNames[1],
+            "autoload": false,
+            "autowidth": true,
+            "pager": "#" + gridHistoricoPagerId,
+            "rowNum": 25,
+            "toppager": false,
+            "caption": "Lista de pacientes",
+            "height": "auto",
+            "jsonReader": { "repeatitems": false, "id": 0 },
+            "colNames": historicoHeaderColumns,
+            "colModel": [
+                { "sortable": true, "hidden": true, "name": historicoColumnNames[0], "index": historicoColumnNames[0], "width": historicoColumnWidths[0], "align": "right" },
+                { "sortable": true, "name": historicoColumnNames[1], "index": historicoColumnNames[1], "width": historicoColumnWidths[1], "align": "left" },
+                { "sortable": true, "name": historicoColumnNames[2], "index": historicoColumnNames[2], "width": historicoColumnWidths[2], "align": "center" },
+                { "sortable": true, "name": historicoColumnNames[3], "index": historicoColumnNames[3], "width": historicoColumnWidths[3], "align": "center" },
+                { "sortable": true, "name": historicoColumnNames[4], "index": historicoColumnNames[4], "width": historicoColumnWidths[4], "align": "center" },
+                { "sortable": true, "name": historicoColumnNames[5], "index": historicoColumnNames[5], "width": historicoColumnWidths[5], "align": "center" },
+                { "sortable": true, "name": historicoColumnNames[6], "index": historicoColumnNames[6], "width": historicoColumnWidths[6], "align": "center" }
+
+            ],
+            "rowHeight": historicoRowHeight
+        });
+
+        $('#' + gridHistoricoId).setGridParam({ datatype: 'json' });
+        $('#' + gridHistoricoId).setGridParam({ autoload: true });
+
+        function gridHistoricoResize() {
+            $('#' + gridHistoricoId).setGridWidth($('#gbox_' + gridHistoricoId).width());
+        }
+
+        $(window).bind('resize', gridHistoricoResize);
+        $('#tabFiltroCurso').bind('tabsshow', gridHistoricoResize);
+    });
+</script>
+
 
 
 <script type="text/javascript">
-    function consultaHistorico() {
+        // Call the populateHistoricoFields function after the API request is successful
+        function consultaHistorico() {
         // Extract CPF parameter from the URL
         const urlParams = new URLSearchParams(window.location.search);
         const cpf = urlParams.get('cpf');
@@ -46,28 +84,21 @@
     consultaHistorico();
 
     function populateHistoricoFields(data) {
-    const tableBody = document.getElementById('historicoPaciente').getElementsByTagName('tbody')[0];
-
-    data.forEach(atendimento => {
-        const newRow = tableBody.insertRow();
-        newRow.classList.add('ui-state-default', 'ui-th-column', 'ui-th-ltr');
-
-        const cellData = [
-            atendimento.data,
-            atendimento.especialidade,
-            atendimento.descricao,
-            atendimento.id_aluno,
-            atendimento.responsavel,
-            atendimento.componente_curricular,
-        ];
-
-        cellData.forEach((cellValue, index) => {
-            const cell = newRow.insertCell(index);
-            cell.textContent = cellValue;
-            // Optionally, you can add classes or styles to the cells here if needed.
-        });
-    });
-}
-
-
+        for (var i = 0; i < data.length; i++) {
+            var rowData = data[i];
+            var rowId = 'row' + i; // Unique row ID for each row
+            $('#' + gridHistoricoId).jqGrid('addRowData', rowId, {
+                id: rowData.id_atendimentos,
+                data: rowData.data,
+                especialidade: rowData.especialidade,
+                descricao: rowData.descricao,
+                id_aluno: rowData.id_aluno,
+                responsavel: rowData.responsavel,
+                componente_curricular: rowData.componente_curricular
+            });
+            
+            // Apply CSS class to the cells in the newly added row
+            $('#' + rowId).find('td').addClass('ui-state-default ui-th-column ui-th-ltr');
+        }
+    }
 </script>

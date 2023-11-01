@@ -45,7 +45,7 @@ const encaminhamentos = {
     return sendRequest(url, 'POST', data);
   },
   consultar: async (data) => {
-    const url = `${getApiUrl()}/encaminhamentos/consultar.php`;
+    const url = `${getApiUrl()}/encaminhamentos/consultarDemanda.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarEvolucaoStatus: async (data) => {
@@ -246,7 +246,7 @@ const arquivos = {
     return sendRequest(url, 'POST', data);
   },
   consultar: async (data) => {
-    const url = `${getApiUrl()}/arquivos/consultar.php`;
+    const url = `${getApiUrl()}/arquivos/consultarExames.php`;
     return sendRequest(url, 'POST', data);
   },
   criar: async (data) => {

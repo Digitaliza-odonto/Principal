@@ -1,53 +1,93 @@
 <div id="examesVisualizar">
 
-    <table id="Exames" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;">
-        <thead class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="font-size: larger; height: 10px;">
-        <th style="width: 5%;">Data</th>
-        <th style="width: 80%;">Descrição</th>
-        <th style="width: 15%;">Tipo</th>
-        <th style="width: 10%;">Baixar</th>
-        </thead>
-    </table>
+    <div style="margin: 30px; width: 100%;">
+        <table id="gridExames"></table>
+        <div id="gridExamesPager" style="margin-bottom: 5px;"></div>
+    </div>
+    
+    <script>
+        var gridExamesId = 'gridExames';
+        var gridExamesPagerId = 'gridExamesPager';
+        var examesHeaderColumns = ["ID", "Data", "Tipo", "Descrição", "Baixar"];
+        var examesColumnNames = ["id", "data", "tipo", "descricao", "result.Link"];
+        var examesColumnWidths = [0, 100, 200, 450, 150];
+        var examesRowHeight = 300; // Set the height of each row in pixels
+    
+        $(document).ready(function () {
+            $('#' + gridExamesId).jqGrid({
+                "sortname": examesColumnNames[1],
+                "autoload": false,
+                "autowidth": true,
+                "pager": "#" + gridExamesPagerId,
+                "rowNum": 25,
+                "toppager": false,
+                "caption": "Lista de exames",
+                "height": "auto",
+                "jsonReader": { "repeatitems": false, "id": 0 },
+                "colNames": examesHeaderColumns,
+                "colModel": [
+                    { "sortable": true, "hidden": true, "name": examesColumnNames[0], "index": examesColumnNames[0], "width": examesColumnWidths[0], "align": "right" },
+                    { "sortable": true, "name": examesColumnNames[1], "index": examesColumnNames[1], "width": examesColumnWidths[1], "align": "left" },
+                    { "sortable": true, "name": examesColumnNames[2], "index": examesColumnNames[2], "width": examesColumnWidths[2], "align": "center" },
+                    { "sortable": true, "name": examesColumnNames[3], "index": examesColumnNames[3], "width": examesColumnWidths[3], "align": "center" },
+                    { "sortable": true, "name": examesColumnNames[4], "index": examesColumnNames[4], "width": examesColumnWidths[4], "align": "center" },
+                ],
+                "rowHeight": examesRowHeight
+            });
+    
+            $('#' + gridExamesId).setGridParam({ datatype: 'json' });
+            $('#' + gridExamesId).setGridParam({ autoload: true });
+    
+            function gridExamesResize() {
+                $('#' + gridExamesId).setGridWidth($('#gbox_' + gridExamesId).width());
+            }
+    
+            $(window).bind('resize', gridExamesResize);
+            $('#tabFiltroCurso').bind('tabsshow', gridExamesResize);
+        });
+    </script>
+    
+
+
 
     <script>
-    function adicionarNovaLinhaArquivos(data) {
-        console.log(data)
-    // Seleciona o corpo da tabela usando o id historicoPaciente
-    const tbody = document.getElementById("Exames")
-    // Cria um novo elemento de linha (<tr>)
-    const novaLinha = document.createElement('tr');
-    novaLinha.style.alignItems = 'center';
-    novaLinha.classList.add('ui-state-default')
+        function adicionarNovaLinhaArquivos(data) {
+        // Seleciona o corpo da tabela usando o id gridExames
+        const tbody = document.getElementById("gridExames").getElementsByTagName('tbody')[0];
+        // Cria um novo elemento de linha (<tr>)
+        const novaLinha = document.createElement('tr');
+        novaLinha.style.textAlign = 'center';
 
-    // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
-    novaLinha.innerHTML = `
-        <td role="gridcell" style="text-align:center;">${data.Data}</td>
-        <td role="gridcell" style="text-align:center;">${data.Descricao}</td>
-        <td role="gridcell" style="text-align:center;">${data.Tipo}</td>
-        <td role="gridcell" style="text-align:center;"><input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" value="Baixar exame" style="margin: 2px 2px 2px 0px;" onclick="baixarExame(${data.id})"></td>
-    `;
-    // Adiciona a nova linha ao corpo da tabela
-    tbody.appendChild(novaLinha);
-    }
-    function baixarExame(id){
-    api.arquivos.baixar({id}).then((result)=>{
-        console.log(result)
-        const link = document.createElement('a');
-        link.href = window.location.origin + '/api/arquivos/' + result.Link;
-        //abre a visualização do arquivo em uma nova aba
-        link.setAttribute('target', '_blank');
-        document.body.appendChild(link);
-        link.click();
-    })
+        // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
+        novaLinha.innerHTML = `
+             <td class="ui-state-default ui-th-column ui-th-ltr">${data.Data}</td>
+             <td class="ui-state-default ui-th-column ui-th-ltr">${data.Tipo}</td>
+             <td class="ui-state-default ui-th-column ui-th-ltr">${data.Descricao}</td>
+             <td class="ui-state-default ui-th-column ui-th-ltr"><input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" type="button" value="Baixar exame" style="margin: 2px 2px 2px 20px;" onclick="baixarExame(${data.id})"></td>
+        `;
+        // Adiciona a nova linha ao corpo da tabela
+        tbody.appendChild(novaLinha);
     }
 
-    api.arquivos.consultar({CPF: getUrlVars()['cpf']}).then((arquivos)=>{
-        console.log(arquivos)
-        arquivos.forEach(arquivo => {
-        adicionarNovaLinhaArquivos(arquivo)
+    
+        function baixarExame(id){
+        api.arquivos.baixar({id}).then((result)=>{
+            console.log(result)
+            const link = document.createElement('a');
+            link.href = window.location.origin + '/api/arquivos/' + result.Link;
+            //abre a visualização do arquivo em uma nova aba
+            link.setAttribute('target', '_blank');
+            document.body.appendChild(link);
+            link.click();
         })
-        
-    })
+        }
 
+        api.arquivos.consultar({CPF: getUrlVars()['cpf']}).then((arquivos)=>{
+            console.log(arquivos)
+            arquivos.forEach(arquivo => {
+            adicionarNovaLinhaArquivos(arquivo)
+            })
+            
+        })
     </script>
 </div>

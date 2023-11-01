@@ -1,20 +1,55 @@
 <div id="faltasTab">
     <p></p>
-    <table id="faltasPaciente" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;">
-        <thead class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="font-size: larger; height: 10px;">
-            <tr>
-                <th style="width: 7.5%;">Data</th>
-                <th style="width: 7.5%;">Especialidade</th>
-                <th style="width: 10%;">Aluno</th>
-                <th style="width: 10%;">Componente curricular</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- NEW ROWS TO BE ADDED HERE -->
-        </tbody>
-    </table>
+    
 </div>
 
+
+<div style="margin: 30px; width: 100%;">
+    <table id="gridFaltasTable"></table>
+    <div id="gridFaltasPager" style="margin-bottom: 5px;"></div>
+</div>
+
+<script>
+    var gridFaltasId = 'gridFaltasTable';
+    var gridFaltasPagerId = 'gridFaltasPager';
+    var faltasHeaderColumns = ["ID", "Data", "Componente Curricular", "Agendado por:", "Local"];
+    var faltasColumnNames = ["id", "data_agendamento", "atividade_curricular", "agendado_por", "local"];
+    var faltasColumnWidths = [0, 100, 200, 450, 150];
+    var faltasRowHeight = 300; // Set the height of each row in pixels
+
+    $(document).ready(function () {
+        $('#' + gridFaltasId).jqGrid({
+            "sortname": faltasColumnNames[1],
+            "autoload": false,
+            "autowidth": true,
+            "pager": "#" + gridFaltasPagerId,
+            "rowNum": 25,
+            "toppager": false,
+            "caption": "Lista de faltas",
+            "height": "auto",
+            "jsonReader": { "repeatitems": false, "id": 0 },
+            "colNames": faltasHeaderColumns,
+            "colModel": [
+                { "sortable": true, "hidden": true, "name": faltasColumnNames[0], "index": faltasColumnNames[0], "width": faltasColumnWidths[0], "align": "right" },
+                { "sortable": true, "name": faltasColumnNames[1], "index": faltasColumnNames[1], "width": faltasColumnWidths[1], "align": "center" },
+                { "sortable": true, "name": faltasColumnNames[2], "index": faltasColumnNames[2], "width": faltasColumnWidths[2], "align": "center" },
+                { "sortable": true, "name": faltasColumnNames[3], "index": faltasColumnNames[3], "width": faltasColumnWidths[3], "align": "center" },
+                { "sortable": true, "name": faltasColumnNames[4], "index": faltasColumnNames[4], "width": faltasColumnWidths[4], "align": "center" },
+            ],
+            "rowHeight": faltasRowHeight
+        });
+
+        $('#' + gridFaltasId).setGridParam({ datatype: 'json' });
+        $('#' + gridFaltasId).setGridParam({ autoload: true });
+
+        function gridFaltasResize() {
+            $('#' + gridFaltasId).setGridWidth($('#gbox_' + gridFaltasId).width());
+        }
+
+        $(window).bind('resize', gridFaltasResize);
+        $('#tabFiltroCurso').bind('tabsshow', gridFaltasResize);
+    });
+</script>
 
 <script type="text/javascript">
     function consultaFaltas() {
@@ -46,24 +81,19 @@
     consultaFaltas();
 
     function populateFaltas(data) {
-     const tableBody = document.getElementById('faltasPaciente').getElementsByTagName('tbody')[0];
-
-        data.forEach(atendimento => {
-            const newRow = tableBody.insertRow();
-            newRow.classList.add('ui-state-default', 'ui-th-column', 'ui-th-ltr');
-
-            const cellData = [
-                atendimento.data_agendamento,
-                atendimento.atividade_curricular,
-                atendimento.agendado_por,
-                atendimento.local,
-            ];
-
-            cellData.forEach((cellValue, index) => {
-                const cell = newRow.insertCell(index);
-                cell.textContent = cellValue;
-                // Optionally, you can add classes or styles to the cells here if needed.
+        for (var i = 0; i < data.length; i++) {
+            var rowData = data[i];
+            var rowId = 'faltasRow' + i; // Unique row ID for each row
+            $('#' + gridFaltasId).jqGrid('addRowData', rowId, {
+                id: rowData.id,
+                data_agendamento: rowData.data_agendamento,
+                atividade_curricular: rowData.atividade_curricular,
+                agendado_por: rowData.agendado_por,
+                local: rowData.local
             });
-        });
+
+            // Apply CSS class to the cells in the newly added row
+            $('#' + rowId).find('td').addClass('ui-state-default ui-th-column ui-th-ltr');
+        }
     }
 </script>

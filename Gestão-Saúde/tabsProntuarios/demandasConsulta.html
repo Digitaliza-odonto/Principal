@@ -27,7 +27,7 @@
                 "colNames": demandaHeaderColumns,
                 "colModel": [
                     { "sortable": true, "hidden": true, "name": demandaColumnNames[0], "index": demandaColumnNames[0], "width": demandaColumnWidths[0], "align": "right" },
-                    { "sortable": true, "name": demandaColumnNames[1], "index": demandaColumnNames[1], "width": demandaColumnWidths[1], "align": "left" },
+                    { "sortable": true, "name": demandaColumnNames[1], "index": demandaColumnNames[1], "width": demandaColumnWidths[1], "align": "center" },
                     { "sortable": true, "name": demandaColumnNames[2], "index": demandaColumnNames[2], "width": demandaColumnWidths[2], "align": "center" },
                     { "sortable": true, "name": demandaColumnNames[3], "index": demandaColumnNames[3], "width": demandaColumnWidths[3], "align": "center" },
                     { "sortable": true, "name": demandaColumnNames[4], "index": demandaColumnNames[4], "width": demandaColumnWidths[4], "align": "center" },
@@ -64,17 +64,21 @@
             const { id, Data, Especialidade, Demanda, Status, Observacoes } = encaminhamento;
             // Convert Data from YYYY-MM-DD to DD-MM-YYYY
             const formattedData = new Date(Data).toLocaleDateString('en-GB');
-            
-            const linha = `
-                <tr>
-                    <td class="ui-state-default ui-th-column ui-th-ltr">${formattedData}</td>
-                    <td class="ui-state-default ui-th-column ui-th-ltr">${Especialidade}</td>
-                    <td class="ui-state-default ui-th-column ui-th-ltr">${Demanda}</td>
-                    <td class="ui-state-default ui-th-column ui-th-ltr">${Status}</td>
-                    <td class="ui-state-default ui-th-column ui-th-ltr">${Observacoes}</td>
-                </tr>
-            `;
-            $("#gridDemanda").append(linha);
+
+            const rowData = {
+                id: id,
+                Data: formattedData,
+                Especialidade: Especialidade,
+                Demanda: Demanda,
+                Status: Status,
+                Observacoes: Observacoes
+            };
+
+            $('#' + gridDemandaId).jqGrid('addRowData', id, rowData);
+
+            // Apply CSS class to the cells in the newly added row
+            $('#' + id).find('td').addClass('ui-state-default ui-th-column ui-th-ltr');
         }
+
     </script>
 </div>

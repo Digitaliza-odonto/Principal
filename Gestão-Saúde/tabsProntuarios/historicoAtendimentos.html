@@ -1,6 +1,6 @@
 <div id="historicoAtendimento">
     
-    <div style="margin: 30px; width: 100%;">
+    <div style="margin-left: 10px; margin-top: 30px;  width: 100%;">
         <table id="gridHistorico"></table>
         <div id="gridHistoricoPager" style="margin-bottom: 5px;"></div>
     </div>
@@ -11,7 +11,7 @@
     var gridHistoricoPagerId = 'gridHistoricoPager';
     var historicoHeaderColumns = ["ID", "Data", "Especialidade", "Descrição", "Aluno", "Responsável", "Componente curricular"];
     var historicoColumnNames = ["id", "data", "especialidade", "descricao", "id_aluno", "responsavel", "componente_curricular"];
-    var historicoColumnWidths = [0, 120, 200, 350, 150, 250];
+    var historicoColumnWidths = [0, 80, 200, 350, 150, 250];
     var historicoRowHeight = 300; // Set the height of each row in pixels
 
     $(document).ready(function () {
@@ -22,7 +22,7 @@
             "pager": "#" + gridHistoricoPagerId,
             "rowNum": 25,
             "toppager": false,
-            "caption": "Lista de pacientes",
+            "caption": "Histórico de atendimentos do paciente",
             "height": "auto",
             "jsonReader": { "repeatitems": false, "id": 0 },
             "colNames": historicoHeaderColumns,

@@ -1,30 +1,24 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE");
+header("Access-Control-Allow-Headers: X-Requested-With, Content-Type");
+header("Access-Control-Allow-Credentials: true");
 
-include_once('../config.php');
+require_once '../db.php';
 
-// Initialize an array to store the data
-$data = array();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+    $query = "SELECT * FROM procedimentos_sus";
+    
+    $result = db($query);
 
-// Fetch data from the database
-$consulta = mysqli_query($connection, "SELECT * FROM procedimentos_sus");
-
-if ($consulta) {
-    while ($linha = mysqli_fetch_assoc($consulta)) {
-        $data[] = $linha;
+    if (count($result) === 0) {
+        echo json_encode(array("error" => "Nenhum procedimento SUS cadastrado."));
+    } else {
+        echo json_encode($result);
     }
-
-    // Output the data as JSON
-    echo json_encode($data);
 } else {
-    // Handle the error gracefully and return an error JSON response
-    $error = array("error" => "Database query error: " . mysqli_error($connection));
-    echo json_encode($error);
+    echo json_encode(array("message" => "Método inválido"));
 }
-
-// Close the database connection
-mysqli_close($connection);
 ?>

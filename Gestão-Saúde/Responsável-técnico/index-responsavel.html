@@ -1,164 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index Responsável técnico</title>
-  <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-    var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-    var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-    var PATH_COOKIE = '/';
-    var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-    var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-  </script>
-  <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-  <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-  <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-  <link href="../../stylecobalto.css" type="text/css" rel="stylesheet">
-</head>
-
-
-<!-- CABEÇALHO COBALTO - WIDGET SUPERIOR -->
-<body class="ui-widget-content" style="border: none !important;">
-  <!--<![endif]-->
-  <div class="ui-layout-north ui-widget-content">
-    <div id="carregando" class="ui-state-active ui-widget ui-state-default ui-corner-all">
-      Carregando <img src="https://cobalto.ufpel.edu.br/static/_img/ajax-loader.gif" style="margin-right: 5px; margin-left: 2px;" width="16px" height="11px">
-    </div>
-    <div class="logo" title="ir para tela inicial">
-      <!-- -->
-    </div>
-
-        <div class="" style="float:right; padding: 10px 0px; margin: 18px 0px;">
-      <div id="avatar-menu" style="float: left;cursor: pointer;padding-right: 5px;">
-                        <img src="/Gestão-Saúde/src/Unknown_Member.jpg" style="border-radius: 50%;" width="48px">
-                      </div>
-      <div style="display: block; float:left; margin: 0px;">
-        <h2 style="margin: 0px 6px 11px; font-size: 15px;">USUÁRIO TESTE</h2>
-
-        <button id="btnMensagensRecebidas" onclick="mensagensRecebidas()" style="margin: 0px 0px 0px 5px; display: block; float: left;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-mail-closed"></span><span class="ui-button-text">
-          Mensagens
-                  </span></button>
-        <button id="btnConfiguracoes" onclick="configuracoesUsuario()" style="margin: 0px 0px 0px 5px; display: block; float: left;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-person"></span><span class="ui-button-text">Perfil</span></button>
-        <button id="btnSair" onclick="logout(true)" title="Ctrl + Q" style="margin: 0px 5px 0px; display: block; float: left;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-power"></span><span class="ui-button-text">Sair</span></button>
-      </div>
-    </div>
-      </div>
-  <span style="clear:both;">
-    <!-- -->
-  </span>
-  <div id="warning-sei-extension" class="ui-widget ui-widget-content" style="background: none !important; border-left: medium none; border-right: medium none; border-top: medium none; display: none;">
-    <div id="sei_info_warning" class="ui-widget" style="margin-bottom: 5px;"> <div class="ui-state-error ui-corner-all" style="padding: 1px;">    <span class="ui-icon ui-icon-alert" style="display: block; float: left; margin: 5px;"></span>   <p style="margin: 6px 5px 5px 30px;"><b>Atenção:</b>Detectamos que você está utilizando a extensão <b>SEI++</b>. Ela pode causar problemas nos componentes visuais durante o uso do Cobalto.</p>  </div></div><script type="text/javascript">var sei_info_warning = $('#sei_info_warning');$.extend(sei_info_warning, String.prototype);$.extend(sei_info_warning, {toString:function(){return 'sei_info_warning';}});$(document).ready(function(){sei_info_warning.showMessageWarning();});</script>    <script>
-      if (localStorage.getItem('sei-extension-warning') != 'true') $("#warning-sei-extension").hide()
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Responsável técnico</title>
+    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+      var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+      var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+      var PATH_COOKIE = '/';
+      var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+      var JS = 'https://cobalto.ufpel.edu.br/static/_js';
     </script>
-  </div>
+    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+    <link href="../../stylecobalto.css" type="text/css" rel="stylesheet">
+  </head>
 
-  <div class="ui-widget ui-widget-content" style="background: none !important; border-left: none; border-right: none; border-top: none;">
-    <div style="margin-left: 5px; float: left;">
-            <button id="btnCloseOpenMenu" style="margin: 3px 5px 3px 0px; height: 24px;" title="F9" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-pin-s"></span><span class="ui-button-text">Esconder menu</span></button>
+
+  <body class="ui-widget-content" style="border: none !important;">
+    <div class="ui-layout-north ui-widget-content">
+      <div id="carregando" class="ui-state-active ui-widget ui-state-default ui-corner-all">
+        Carregando <img src="https://cobalto.ufpel.edu.br/static/_img/ajax-loader.gif" style="margin-right: 5px; margin-left: 2px;" width="16px" height="11px">
+      </div>
+      <div class="logo" title="ir para tela inicial">
+        <!-- -->
+      </div>
+
+      <div class="" style="float:right; padding: 10px 0px; margin: 18px 0px;">
+        <div id="avatar-menu" style="float: left;cursor: pointer;padding-right: 5px;">
+          <img src="src/Unknown_Member.jpg" style="border-radius: 50%;" width="48px">
+        </div>
+
+        <div style="display: block; float:left; margin: 0px;">
+          <h2 style="margin: 0px 6px 11px; font-size: 15px;"><span id="Nome_usuario"></span></h2>
+
+          <button id="btnMensagensRecebidas" onclick="mensagensRecebidas()" style="margin: 0px 0px 0px 5px; display: block; float: left;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-mail-closed"></span>
+            <span class="ui-button-text">Mensagens</span></button>
+            <button id="btnConfiguracoes" onclick="configuracoesUsuario()" style="margin: 0px 0px 0px 5px; display: block; float: left;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-person"></span><span class="ui-button-text">Perfil</span></button>
+            <button id="btnSair" onclick="logout(true)" title="Ctrl + Q" style="margin: 0px 5px 0px; display: block; float: left;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-power"></span><span class="ui-button-text">Sair</span></button>
+        </div>
+      </div>
     </div>
-          
     
-    
-    <div style="clear: both;">
-      <!-- -->
+    <span style="clear:both;"><!-- --></span>
+
+    <div id="warning-sei-extension" class="ui-widget ui-widget-content" style="background: none !important; border-left: medium none; border-right: medium none; border-top: medium none; display: none;">
+      <div id="sei_info_warning" class="ui-widget" style="margin-bottom: 5px;">
+        <div class="ui-state-error ui-corner-all" style="padding: 1px;">
+          <span class="ui-icon ui-icon-alert" style="display: block; float: left; margin: 5px;"></span>
+          <p style="margin: 6px 5px 5px 30px;"><b>Atenção:</b>Detectamos que você está utilizando a extensão <b>SEI++</b>. Ela pode causar problemas nos componentes visuais durante o uso do Cobalto.</p>
+        </div>
+      </div>
+      <script type="text/javascript">var sei_info_warning = $('#sei_info_warning');$.extend(sei_info_warning, String.prototype);$.extend(sei_info_warning, {toString:function(){return 'sei_info_warning';}});$(document).ready(function(){sei_info_warning.showMessageWarning();});</script>
+      <script>
+        if (localStorage.getItem('sei-extension-warning') != 'true') $("#warning-sei-extension").hide()
+      </script>
     </div>
-  </div>
-  <span style="clear:both;">
-    <!-- -->
-  </span>
-<!-- CABEÇALHO COBALTO - WIDGET SUPERIOR -->
 
-<!-- ÁRVORE LATERAL - MENU GESTÃO SAÚDE -->
-<div class="ui-layout-west ui-widget ui-widget-content " style="padding-left: 0px; padding-right: 0px; background: none !important; float: left; width: 200px; overflow:hidden !important; display: block;">
-  <ul id="menu" class="ui-widget treeview treeview-gray" style="background: none !important; background-color:none !important; overflow: auto !important; margin-top: 2px;">
-    <li class="collapsable"><div class="hitarea collapsable-hitarea"></div><span>UFPEL</span>
-      <ul style="background: none !important;"><li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><div class="hitarea closed-hitarea collapsable-hitarea"></div><span>Gestão Saúde</span><ul style="background: none !important; display: block;"></span><ul style="background: none !important; display: block;"><li class="closed expandable">
-      <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
-        <span>Responsável técnico</span><ul style="background: none !important; display: block;"><li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
-          <span>Consultas</span><ul style="background: none !important; display: none;">
-            <li><a href="Gestão-Saúde/Triagem/Consultas/Pacientes.html">Pacientes</a></li>
-            <li><a href="Gestão-Saúde/Responsável-técnico/Consultas/avaliação-meus-alunos.html">Avaliações de atendimento dos meus alunos</a>
-            <!-- <li><a href="Gestão-Saúde/consulta-publico-alvo.html">Público-alvo de disciplinas/estágios</a></li> -->
-            <li><a href="Gestão-Saúde/consulta-codSUS.html">Lista de procedimentos SUS</a></li>
-          </ul>
-          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
-          <span>Cadastro</span><ul style="background: none !important; display: none;">
-           <li><a href="Gestão-Saúde/Aluno/Cadastros/minha-agenda.html">Cadastrar atendimento / Minha agenda</a> </li>
-            <li><a href="Gestão-Saúde/Responsável-técnico/Cadastros/registrar-atendimento-1.html">Registrar atendimento realizado</a> </li>
-          </ul>
-          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
-          <span>Processos</span><ul style="background: none !important; display: none;">
-            <li><a href="Gestão-Saúde/Responsável-técnico/Processos/avaliar-atendimento-1.html">Avaliar atendimento</a></li>
-            <li><a href="Gestão-Saúde/Responsável-técnico/Processos/aprovar-encaminhamento-1.html">Aprovar encaminhamento ou alta de paciente</a></li>
-          </ul>
-</div>
-
-
-<!-- CONTEÚDO DA PÁGINA/TELA PRINCIPAL COBALTO -->
-
-<div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
-<style>
-  #iframe{overflow: hidden;}
-</style>
- <iframe id="iframe" src="../../Apresentação.html"style="width: 100%; height: 5000px; overflow: hidden;" frameborder="0"></iframe>
-  </div>
-
-
-  <script>
-function corrigirLinksRelativos() {
-    const links = document.querySelectorAll('a');
-    const isRoot = location.pathname === '/'; // Verifica se a página está na raiz do servidor
-    const isGithub = location.href.includes('github.io'); // Verifica se a URL da página contém "github.io"
-
-    links.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && !href.startsWith('http') && !href.startsWith('#') && !href.startsWith('mailto')) {
-            let newHref = href;
-            if (!isRoot) {
-              const pathSegments = location.pathname.split('/').filter(segment => segment !== ''); // Divide o caminho atual da página em segmentos
-              let depth = pathSegments.length - 1; // Calcula a profundidade da pasta atual em relação à raiz
+    <div class="ui-widget ui-widget-content" style="background: none !important; border-left: none; border-right: none; border-top: none;">
+      <div style="margin-left: 5px; float: left;">
+        <button id="btnCloseOpenMenu" style="margin: 3px 5px 3px 0px; height: 24px;" title="F9" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-primary" role="button" aria-disabled="false"><span class="ui-button-icon-primary ui-icon ui-icon-pin-s"></span><span class="ui-button-text">Esconder menu</span></button>
+      </div>
               
-              if (isGithub) {
-                 depth -= 1; 
-                }
+      <div style="clear: both;">
+        <!-- -->
+      </div>
+    </div>
+      
+    <span style="clear:both;">
+      <!-- -->
+    </span>
+    
 
-                const prefix = Array(depth).fill('..').join('/'); // Cria a marcação de retorno
+    <!-- ÁRVORE LATERAL - MENU GESTÃO SAÚDE -->
+    <div class="ui-layout-west ui-widget ui-widget-content " style="padding-left: 0px; padding-right: 0px; background: none !important; float: left; width: 200px; overflow:hidden !important; display: block;">
+      <ul id="menu" class="ui-widget treeview treeview-gray" style="background: none !important; background-color:none !important; overflow: auto !important; margin-top: 2px;">
+        <li class="collapsable">
+          <div class="hitarea collapsable-hitarea"></div>
+          <span>UFPEL</span>
+          <ul style="background: none !important;">
+            <li class="closed expandable">
+              <div class="hitarea closed-hitarea expandable-hitarea"></div>
+              <div class="hitarea closed-hitarea collapsable-hitarea"></div>
+              <span>Gestão Saúde</span>
+              <ul style="background: none !important; display: block;"></span>
+                <ul style="background: none !important; display: block;">
+                  <li class="closed expandable">
+                  
+                    <div id="menuResp">
+                      <?php echo file_get_contents('../multiUsuarios/menu-responsavel.html');     ?>
+                    </div>
+    </div>
 
-                newHref = prefix + '/' + href; // Adiciona a marcação de retorno ao caminho relativo
-            }
-            link.setAttribute('href', newHref);
-        }
-    });
-}
+    <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
+    <style>
+      #iframe{overflow: hidden;}
+    </style>
+    <iframe id="iframe" src="../../Apresentação.html"style="width: 100%; height: 5000px; overflow: hidden;" frameborder="0"></iframe>
+      </div>
 
-// Chame a função para corrigir os links relativos quando a página carregar
-window.addEventListener('load', corrigirLinksRelativos);
-
-    // Função para executar quando uma tag âncora for clicada
-    function handleClick(event) {
-      // Evitando o comportamento padrão de seguir o link
-      event.preventDefault();
-
-      // Obtendo o valor do atributo href da âncora clicada
-      const linkHref = event.target.getAttribute('href');
-
-      // Obtendo o elemento iframe
-      const iframe = document.getElementById('iframe');
-
-      // Carregando o link no iframe
-      iframe.src = linkHref;
-    }
-
-    // Selecionando todos os elementos âncora da página
-    const anchorLinks = document.querySelectorAll('a');
-
-    // Adicionando o evento de clique a cada âncora
-    anchorLinks.forEach(anchorLink => {
-      anchorLink.addEventListener('click', handleClick);
-    });
-  </script>
- 
-
-</body>
+    <script src="../../index.js"></script>
+  </body>
 </html>

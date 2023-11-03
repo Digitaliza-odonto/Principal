@@ -64,6 +64,8 @@
 
             const innerDiv = document.createElement('div');
             innerDiv.classList.add('content');
+            innerDiv.style.width = '60%';
+
             innerDiv.innerHTML = `
                 <label for="queixa">Queixa Principal e síntese diagnóstica</label><br>
                 <textarea id="queixa" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 49%;" readonly>${plano.queixa}</textarea>

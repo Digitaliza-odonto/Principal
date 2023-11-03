@@ -1,0 +1,55 @@
+<div id="registrarAtendimento">
+    
+    <br>
+    <p></p>
+    <label style="font-weight:bold;width: 180px;">Lista de especialidades</label>
+    <input class="ui-state-default ui-corner-all" style="width: 120px; height: 20px;" name="especialidade" id="especialidade" readonly>
+        
+        
+    <hr class="ui-state-default">
+    <p></p>
+    <br>
+    
+    <label style="width: 400px; ;">Descrição do plano de tratamento ou procedimento realizado:</label><br>
+    <textarea style="width: 460px;" id="atendimentoDescrição" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" ></textarea>
+    <br>
+
+    <!-- <label style="width: 180px; ;">Código SUS:</label> -->
+    <!-- <div style="height: 22px; width: 25px; margin: 0px -1px 5px 0px; display: block; float: left; position: relative; padding: 0; text-decoration: none !important; text-align: center; zoom: 1; overflow: visible; border-right: none;" class="ui-widget ui-state-default ui-corner-tl ui-corner-bl ui-button-icon-only"><span class=" ui-icon ui-icon-search"></span></div> -->
+    <input type="hidden" value="" class="ui-state-default ui-corner-tr ui-corner-br mousetrap" id="atendimentoCodSUS" placeholder="Digite o código SUS" style="width: 240px;" />
+    <br>
+
+    <label style="width: 180px;">Responsável técnico</label>
+    <input type="text" id="responsavelProcedimento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" readonly>
+    <br>
+
+    <label style="width: 180px;">Data do atendimento</label>
+    <input type="text" id="atendimentoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 120px;" readonly>
+    <br>
+    
+    <label style="width: 180px;">Componente curricular</label>
+    <input type="text" id="componenteCurricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 120px;" readonly>
+    <br>
+
+    <label style="width: 180px;">Período</label>
+    <input type="text" id="periodo" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 120px;" readonly>
+    <br>
+    
+    <p></p>
+    <hr class="ui-state-default">
+    <p></p>
+    
+    <div style="margin: 10px;"></div>
+    <h2> Listagem de procedimentos SUS realizados</h2>
+    <table id="listaCodSUS" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 40%; font-size: 14px; margin: 15px;">
+    <thead>
+        <tr class="ui-jqgrid-labels" role="rowheader">
+            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 20%;">Código</th>
+            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 80%;">Procedimento SUS</th>
+        </tr>
+        </thead>
+        <tbody id="sus-tbody">
+            <!-- Table body rows go here -->
+        </tbody>
+    </table>
+</div>

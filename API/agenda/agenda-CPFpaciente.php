@@ -8,10 +8,15 @@ include_once('../config.php');
 
 // Initialize an array to store the data
 $data = array();
+$stmt = null; // Define $stmt variable here
 
-// Check if the 'cpf_paciente' parameter is set in the request
-if(isset($_GET['cpf_paciente'])){
-    $cpf_paciente = $_GET['cpf_paciente'];
+// Get the JSON data from the request body
+$json_data = file_get_contents("php://input");
+$request_data = json_decode($json_data, true);
+
+// Check if 'cpf_paciente' parameter is present in the JSON data
+if(isset($request_data['cpf_paciente'])){
+    $cpf_paciente = $request_data['cpf_paciente'];
 
     // Use a prepared statement to prevent SQL injection
     $stmt = mysqli_prepare($connection, "SELECT * FROM `agenda-clinicas` WHERE `cpf_paciente` = ?");
@@ -37,6 +42,8 @@ if(isset($_GET['cpf_paciente'])){
 }
 
 // Close the prepared statement and the database connection
-mysqli_stmt_close($stmt);
+if ($stmt != null) {
+    mysqli_stmt_close($stmt);
+}
 mysqli_close($connection);
 ?>

@@ -37,7 +37,11 @@
     <br>
     
     <label style="width: 180px;">Componente curricular</label>
-    <input type="text" id="componenteCurricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO">
+    <input type="text" id="componenteCurricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="BUSCAR AUTOMATICAMENTE">
+    <br>
+
+    <label style="width: 180px;">Período</label>
+    <input type="text" id="periodo" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="BUSCAR AUTOMATICAMENTE ">
     <br>
     
     <p></p>
@@ -46,9 +50,7 @@
 
     <p></p>
     <hr class="ui-state-default">
-    <p></p>
     
-    <hr class="ui-state-default">
     <div style="margin: 10px;"></div>
     <h2> Listagem de procedimentos SUS realizados</h2>
     <table id="listaCodSUS" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 40%; font-size: 14px; margin: 15px;">
@@ -59,7 +61,9 @@
             <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 80%;">Procedimento SUS</th>
         </tr>
         </thead>
-        <!-- Table body rows go here -->
+        <tbody id="sus-tbody">
+            <!-- Table body rows go here -->
+        </tbody>
     </table>
     
     <button name="btnDeletar" id="btnDeletar" value="Deletar" class="button" style="margin: 15px;">Remover código SUS</button>

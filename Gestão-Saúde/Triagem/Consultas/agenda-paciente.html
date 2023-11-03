@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar agenda do paciente</title>
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <!-- jQuery UI JavaScript -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+        var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+        var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+        var PATH_COOKIE = '/';
+        var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+        var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+    </script>
+    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+    <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
+
+    <!--ALERT MESSAGES-->
+    <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+    <script src="../../../scripts/alertMessage.js"></script>
+  
+    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+    <div id="customAlert" class="modal">
+        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+            <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+            </button>
+        </div>
+        <p></p>
+        <br>
+        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+            <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+            <p id="alertMessage"></p>
+        </div>
+        <p> </p><br>
+        <p> </p><br>
+        <p> </p><br>
+        <div><button id="okButton" class="centered-button">OK</button></div>
+        </div>
+    </div>
+  </head>
+  
+  <body>
+    <!-- CONTEÚDO SUPERIOR -->
+    <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
+        <li>Triagem</li>    
+        <li>Consultas</li>
+        <li>Consultar agenda do paciente</li>
+      </ul>
+          
+      <div style="clear: both;"></div>
+    </div>
+    <div style="clear: both;"></div>
+      
+    <!-- CONTEÚDO BOTÕES -->
+    <div class="ui-widget-content ui-corner-all toolbar">
+        <button id="voltar-pagina" class="voltar-pagina ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" style="float: left;" role="button" aria-disabled="false" title="Voltar página"><span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-w"></span></button>
+        <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+        <span style="clear: both; display: block"></span>
+    </div>
+ 
+    <!-- COLUNA DA ESQUERDA -->
+    <div style="width: 40%; height: 850px; float: left; box-sizing: border-box;">
+                    
+        <div id="MeusPacientes" class="tabs" style="width: 100%; height: 850px; float: left; box-sizing: border-box;">
+            <div id="MeusPacientes-0" class="ui-widget MeusPacientes-0">
+                <ul>
+                    <li class="MeusPacientes"><a href="#MeusPacientes-0" accessKey="MeusPacientes-0">Meus pacientes</a></li>
+                </ul>
+            </div>
+
+            <!-- Include API.js -->
+            <script src="/API/API.js"></script>
+
+            <div style="margin-left: 25px;">
+                <label style="width: 50px; margin: 5px;">Paciente</label>
+                <input type="text" id="nome" value="" maxlength="30" class="ui-state-default ui-corner-all mousetrap " style=" width: 60%; margin: 5px;" placeholder="Buscar paciente">
+                <br>
+
+                <label style="width: 50px; margin: 5px;">CPF</label>
+                <input type="text" id="cpf" value="" maxlength="30" class="ui-state-default ui-corner-all mousetrap " style=" width: 60%; margin: 5px;" placeholder="Buscar paciente">
+                <button id="buscar" onclick="searchPatients()">Buscar</button>
+                
+                <br>
+                <p></p>
+
+                <table id="gridPaciente" class="ui-jqgrid-htable ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
+                    <thead>
+                        <tr class="ui-jqgrid-labels" role="rowheader">
+                            <th class="ui-jqgrid-titlebar ui-widget-header">Nome.</th>
+                            <th class="ui-jqgrid-titlebar ui-widget-header">CPF</th>
+                            <th class="ui-jqgrid-titlebar ui-widget-header">Disciplina</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Table body rows will be populated here -->
+                    </tbody>
+                    <tr>
+                        <td colspan="3" style="text-align: center;">
+                            <div id="pagination" class="ui-state-default">
+                                <button id="prev-page">&lt;</button>
+                                <span id="page-info">Pág. 1</span>
+                                <button id="next-page">&gt;</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- COLUNA DA DIREITA -->
+    <div id="agendaClinicas" class="tabs" class="tabs" style="width: 60%; height: 850px; float: left; box-sizing: border-box;">
+        <div id="agendaClinicas-0" class="ui-widget agendaClinicas-0">
+            <ul>
+                <li class="agendaClinicas"><a href="#agendaClinicas-0" accessKey="agendaClinicas-0">Minha agenda</a></li>
+            </ul>
+        </div>
+
+        <div style="margin: 20px;">
+            <p></p>
+
+            <br>
+            <label style="width: 200px; margin: 5px;">Filtrar por data</label>
+            <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style="width: 15%; height: 15px;">
+                
+            <br>
+            <label style="width: 200px; margin: 5px;">Filtrar por turno</label>
+            <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px;" id="filtroTurnoAgendamento">
+                <option value="Todos">Todos</option>
+                <option value="Manhã">Manhã</option>
+                <option value="Tarde">Tarde</option>
+                <option value="Noite">Noite</option>
+            </select>
+            <br>
+
+            <label style="width: 195px; margin: 5px;">Filtrar tabela pelo Local o atendimento</label>
+            <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px; margin: 5px;" id="filtroLocalAgendamento">
+                <option value="Todos">Todos</option>
+                <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
+                <option value="Clínica Oeste">Clínica Oeste</option>
+                <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
+                <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
+                <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
+                <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
+                <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
+                <option value="Clínica 4º Andar">Clínica 4º Andar</option>
+                <option value="Radiologia">Clínica de Radiologia</option>
+            </select>
+            <br>
+
+            <label style="width: 195px; margin: 5px;">Filtrar tabela pela atividade clínica</label>
+            <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px; margin: 5px;" id="filtroDisciplina">
+                <option value="Todos">Todos</option>
+                <option value="ESTÁGIO EM PRONTO ATENDIMENTO (EPA)">ESTÁGIO EM PRONTO ATENDIMENTO (EPA)</option>
+                <option value="ODONTOPEDIATRIA">ODONTOPEDIATRIA</option>
+                <option value="PERIODONTIA CLÍNICA">PERIODONTIA CLÍNICA</option>
+                <option value="PRÓTESE DENTÁRIA PARCIAL III">PRÓTESE DENTÁRIA PARCIAL III</option>
+                <option value="CIRURGIA BUCO-MAXILAR III">CIRURGIA BUCO-MAXILAR III</option>
+                <option value="RADIOLOGIA E IMAGINOLOGIA">RADIOLOGIA E IMAGINOLOGIA</option>
+            </select>
+            <br>
+        
+            <div style="margin: 5px;"></div>
+            <button id="clear" style="margin: 10px;">Limpar filtros</button>
+                
+        
+            <hr class="ui-state-default">
+
+            <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 85%; font-size: 14px; margin-left: 50px; margin-top: 25px; margin-bottom: 15px;">
+                <thead>
+                    <tr class="ui-jqgrid-labels" role="rowheader">
+                        <th style="display: none;">ID</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Data</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Horário</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Local</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Atividade</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Agendado por:</th>
+                        <th class="ui-jqgrid-titlebar ui-widget-header">Descrição</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body2">
+                    <!-- Table body rows will be populated here -->
+                </tbody>
+                <tr>
+                    <td colspan="9" style="text-align: center;">
+                        <div id="pagination" class="ui-state-default">
+                            <button id="prev-page">Previous</button>
+                            <span id="page-info">Pág. 1</span>
+                            <button id="next-page">Next</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function searchPatients() {
+            var cpf = document.getElementById("cpf").value;
+            var nome = document.getElementById("nome").value;
+            var tbody = document.getElementById("table-body");
+            tbody.innerHTML = ''; // Clear previous results
+
+            // Call the API function to fetch data based on search criteria
+            api.pacientes.consultar({
+                CPF: cpf,
+                Nome: nome
+            })
+            .then(data => {
+                if (data.error) {
+                    // Handle error
+                } else {
+                    data.forEach(function(paciente) {
+                        var row = tbody.insertRow();
+                        row.classList.add("ui-state-default"); // Add the class to the row
+                        var cell1 = row.insertCell();
+                        var cell2 = row.insertCell();
+                        var cell3 = row.insertCell();
+                        cell1.textContent = paciente.Nome;
+                        cell2.textContent = paciente.CPF;
+                        cell3.textContent = paciente.Disciplina;
+
+                        // Add click event listener to each row
+                        row.addEventListener('click', function() {
+                            loadAgenda(paciente.CPF); // Call loadAgenda function with CPF as parameter
+                        });
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function loadAgenda(cpf) {
+            // Assume fetching agenda data based on the selected patient's CPF
+            api.agenda.consultarAgendaPaciente({ cpf_paciente: cpf })
+                .then(data => {
+                    var tableBody = document.getElementById('table-body2');
+                    tableBody.innerHTML = ''; // Clear previous results
+
+                    data.forEach(function (item) {
+                        var row = tableBody.insertRow();
+                        row.classList.add("ui-state-default"); // Add the class to the row
+                        var cell1 = row.insertCell();
+                        var cell2 = row.insertCell();
+                        var cell3 = row.insertCell();
+                        var cell4 = row.insertCell();
+                        var cell5 = row.insertCell();
+                        var cell6 = row.insertCell();
+                                                        
+                        cell1.textContent = item.data_agendamento;
+                        cell2.textContent = item.horario_agendamento + ':' + item.minuto_agendamento;
+                        cell3.textContent = item.local;
+                        cell4.textContent = item.atividade_curricular;
+                        cell5.textContent = item.agendado_por;
+                        cell6.textContent = item.descricao;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+                var tableBody = document.getElementById('table-body2');
+                var clearButton = document.getElementById('clear');
+
+                // Function to filter rows based on provided criteria
+                function filterRows() {
+                    var filtroDataAgendamento = document.getElementById('filtroDataAgendamento').value;
+                    var filtroTurnoAgendamento = document.getElementById('filtroTurnoAgendamento').value;
+                    var filtroLocalAgendamento = document.getElementById('filtroLocalAgendamento').value;
+                    var filtroDisciplina = document.getElementById('filtroDisciplina').value;
+
+                    var rows = document.getElementById('table-body2').getElementsByTagName('tr');
+                    for (var i = 0; i < rows.length; i++) {
+                        var row = rows[i];
+                        var data = row.cells[0].textContent.trim();
+                        var turno = parseInt(row.cells[1].textContent.split(':')[0].trim());
+                        var local = row.cells[2].textContent.trim();
+                        var disciplina = row.cells[3].textContent.trim();
+
+                        var isDataMatch = data.includes(filtroDataAgendamento) || filtroDataAgendamento === '';
+                        var isTurnoMatch =
+                            filtroTurnoAgendamento === 'Todos' ||
+                            (filtroTurnoAgendamento === 'Manhã' && turno < 12) ||
+                            (filtroTurnoAgendamento === 'Tarde' && turno >= 12 && turno < 18) ||
+                            (filtroTurnoAgendamento === 'Noite' && turno >= 18);
+                        var isLocalMatch = local.includes(filtroLocalAgendamento) || filtroLocalAgendamento === 'Todos';
+                        var isDisciplinaMatch = disciplina.includes(filtroDisciplina) || filtroDisciplina === 'Todos';
+
+                        var isMatch = isDataMatch && isTurnoMatch && isLocalMatch && isDisciplinaMatch;
+
+                        // Show/hide the row based on the filter result
+                        row.style.display = isMatch ? '' : 'none';
+                    }
+                }
+
+                // Attach event listeners to filter input fields
+                document.getElementById('filtroDataAgendamento').addEventListener('input', filterRows);
+                document.getElementById('filtroTurnoAgendamento').addEventListener('change', filterRows);
+                document.getElementById('filtroLocalAgendamento').addEventListener('change', filterRows);
+                document.getElementById('filtroDisciplina').addEventListener('change', filterRows);
+
+                // Clear filter inputs and show all rows
+                var clearButton = document.getElementById('clear');
+                clearButton.addEventListener('click', function () {
+                    document.getElementById('filtroDataAgendamento').value = '';
+                    document.getElementById('filtroTurnoAgendamento').value = 'Todos';
+                    document.getElementById('filtroLocalAgendamento').value = 'Todos';
+                    document.getElementById('filtroDisciplina').value = 'Todos';
+                    filterRows(); // Show all rows
+            });
+        };
+    </script>
+    </body>
+</html>

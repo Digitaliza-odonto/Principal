@@ -1,47 +1,44 @@
-<div id="entrevistaConsulta" style="margin: 5px;">
+<div id="entrevistaConsulta" style="margin: 5px; width: 75%;">
 
-    <!-- Collapsible style -->
-    <style>
-        .collapsible {
-          background-color: #dfeffc;
-          color: #2e6e9e;
-          cursor: pointer;
-          padding: 12px;
-          width: 60%;
-          border: none;
-          text-align: left;
-          outline: none;
-          font-size: 15px;
-        }
-        
-        .active, .collapsible:hover {
-          background-color: #2e6e9e;
-          color:  #dfeffc;
-        }
-        
-        .content {
-          padding: 0 18px;
-          display: none;
-          overflow: hidden;
-          background-color:  #f5fbff;
-        }
-    </style>
+  <!-- Collapsible style -->
+  <style>
+    .collapsible {
+      background-color: #dfeffc;
+      color: #2e6e9e;
+      cursor: pointer;
+      padding: 12px;
+      width: 60%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+    }
+    
+    .active, .collapsible:hover {
+      background-color: #2e6e9e;
+      color:  #dfeffc;
+    }
+    
+    .content {
+      padding: 0 18px;
+      display: none;
+      overflow: hidden;
+      background-color:  #f5fbff;
+    }
+  </style>
 
-    <div id="entrevistaContainer">
-        <h2>Adulto</h2>
-    </div>
-
-
-    <hr class="ui-state-default" style="margin-top: 50px; margin-bottom: 50px;">
-
-
-
-    <div id="entrevistaPedContainer">
-      <h2>Odontopediatria</h2>
+  <div id="entrevistaContainer">
+      <h2>Adulto</h2>
   </div>
 
+  <hr class="ui-state-default" style="margin-top: 50px; margin-bottom: 50px;">
 
-        
+
+
+  <div id="entrevistaPedContainer">
+    <h2>Odontopediatria</h2>
+  </div>
+
   <!-- Collapsible script -->
   <script>
   var coll = document.getElementsByClassName("collapsible");
@@ -129,6 +126,7 @@
         // Create inner div for content
         const innerDiv = document.createElement('div');
         innerDiv.classList.add('content');
+        innerDiv.style.width = '60%';
 
         // Populate fields inside the inner div
         innerDiv.innerHTML = `
@@ -271,6 +269,7 @@ function populateEntrevistaPedFields(data) {
         // Create inner div for content
         const innerDiv = document.createElement('div');
         innerDiv.classList.add('content');
+        innerDiv.style.width = '60%';
 
         // Populate fields inside the inner div
         innerDiv.innerHTML = `

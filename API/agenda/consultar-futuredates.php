@@ -1,30 +1,44 @@
 <?php
+
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE");
+header("Access-Control-Allow-Headers: X-Requested-With, Content-Type");
+header("Access-Control-Allow-Credentials: true");
 
-include_once('../config.php');
+require_once '../db.php';
 
-// Initialize an array to store the data
-$data = array();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        
+    $firstQuery = "SELECT * FROM `agenda-clinicas` WHERE `data_agendamento` >= CURDATE()";
+    
+    $firstResult = db($firstQuery);
 
-// Fetch data from the database based on the current date and future dates
-$consulta = mysqli_query($connection, "SELECT * FROM `agenda-clinicas` WHERE `data_agendamento` >= CURDATE()");
+    if (count($firstResult) === 0) {
+        echo json_encode(array("error" => "Nenhum procedimento SUS cadastrado."));
+    } else {
+        $finalResult = array();
 
-if ($consulta) {
-    while ($linha = mysqli_fetch_assoc($consulta)) {
-        $data[] = $linha;
+        foreach ($firstResult as $row) {
+            $cpf_paciente = $row['cpf_paciente'];
+            $agendadoPor = $row['agendado_por'];
+
+            $secondQuery = "SELECT `Nome` FROM `pacientes` WHERE `CPF` = '$cpf_paciente'";
+            $pacienteResult = db($secondQuery);
+            $nomePaciente = $pacienteResult[0]['Nome'];
+
+            $thirdQuery = "SELECT `Nome` FROM `usuarios` WHERE `Matricula` = '$agendadoPor'";
+            $usuarioResult = db($thirdQuery);
+            $nomeUsuario = $usuarioResult[0]['Nome'];
+
+            $row['nome_paciente'] = $nomePaciente;
+            $row['nome_usuario'] = $nomeUsuario;
+
+            $finalResult[] = $row;
+        }
+
+        echo json_encode($finalResult);
     }
-
-    // Output the data as JSON
-    echo json_encode($data);
 } else {
-    // Handle the error gracefully and return an error JSON response
-    $error = array("error" => "Database query error: " . mysqli_error($connection));
-    echo json_encode($error);
+    echo json_encode(array("message" => "Método inválido"));
 }
-
-// Close the database connection
-mysqli_close($connection);
 ?>

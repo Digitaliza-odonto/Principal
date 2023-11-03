@@ -9,22 +9,22 @@ include_once '../../db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
-    $Nome = $data['Nome'];
-    $turma = $data['turma'];
-    $periodo = $data['periodo'];
-    $alunos = json_encode($data['alunos']);
-    $ano = $data['ano'];
-    $curso = $data['curso'];
-    $codigo = $data['codigo'];
-    $datadecadastro = $data['datadecadastro'];
+    $cod_atividade = $data['cod_atividade'];
+    $atividade = $data['atividade'];
+    $cod_turma = $data['cod_turma'];
+    $matriculas_vagas = $data['matriculas_vagas'];
+    $nr_matricula_especial = $data['nr_matricula_especial'];
+    $nr_total_matricula = $data['nr_total_matricula'];
+    $nr_total_vagas = $data['nr_total_vagas'];
+    $id = $data['id'];
 
-    $existingDisciplina = db("SELECT * FROM disciplinas WHERE Nome = '$Nome' AND turma = '$turma' AND periodo = '$periodo'");
+    $existingDisciplina = db("SELECT * FROM disciplinas WHERE cod_atividade = '$cod_atividade' AND cod_turma = '$cod_turma'");
 
     if (count($existingDisciplina) > 0) {
         echo json_encode(array("diciplinaCriada" => false, "message" => "Disciplina já existe"));
     } else {
-        $insertQuery = "INSERT INTO disciplinas (Nome, turma, periodo, alunos, ano, curso, codigo, datadecadastro) 
-                        VALUES ('$Nome', '$turma', '$periodo', '$alunos', '$ano', '$curso', '$codigo', '$datadecadastro')";
+        $insertQuery = "INSERT INTO disciplinas (id, cod_atividade, atividade, cod_turma, matriculas_vagas, nr_matricula_especial, nr_total_matricula, nr_total_vagas) 
+                        VALUES ('$id', '$cod_atividade', '$atividade', '$cod_turma', '$matriculas_vagas', '$nr_matricula_especial', '$nr_total_matricula', '$nr_total_vagas')";
 
         try {
             db($insertQuery);

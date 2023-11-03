@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Evolução de demandas de pacientes por Ano/Semestre</title>
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+            var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+            var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+            var PATH_COOKIE = '/';
+            var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+            var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+        </script>
+        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    <!--ALERT MESSAGES-->
+    <link href="../scripts/alert-message.css" type="text/css" rel="stylesheet">
+    <script src="../scripts/alertMessage.js"></script>
+
+    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+    <div id="customAlert" class="modal">
+      <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+          <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+          <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+          </button>
+        </div>
+        <p></p>
+        <br>
+        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+          <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+          <p id="alertMessage"></p>
+        </div>
+        <p> </p><br>
+        <p> </p><br>
+        <p> </p><br>
+        <div><button id="okButton" class="centered-button">OK</button></div>
+      </div>
+    </div>
+      <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+  </head>
+
+
+
+    <body>
+        <div id="content-center" class="ui-layout-center ui-widget-content"
+            style="background: none !important; overflow: hidden !important">
+            
+            <div class="breadCrumb module">
+                <ul>
+                    <li><a href="index.html"></a></li>
+                    <li>Gestão Saúde</li>
+                    <li>Relatórios</li>
+                    <li>Evolução de demandas de pacientes no período</li>
+                </ul>
+                <div style="clear: both;"></div>
+            </div>
+            <div style="clear: both;"></div>
+            
+            <div class="ui-widget-content ui-corner-all toolbar">
+            <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+            <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+            <span style="clear: both; display: block"></span>
+            </div>
+
+            <div id="tabRelatorio" class="tabs">
+                <div id="tabRelatorio-0" class="ui-widget tabRelatorio tabRelatorio-0 tabRelatorio-0">
+                    <ul>
+                        <li class="labeltabRelatorio"><a href="#tabRelatorio-0" accessKey="tabRelatorio-0">Filtro</a></li>
+                    </ul>
+                    <br>
+                    <p></p>
+                    <br>
+                    
+                    <label style="width: 80px;">Ano</label>
+                    <input type="text" id="ano" value="" maxlength="4" class="ui-state-default ui-corner-all mousetrap" style="width: 80px;" />
+                    <br>
+
+                    <label style="width: 80px; margin-top: 10px;">Semestre</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 80px; height: 20px; margin-top: 10px;" name="semestre" id="semestre">
+                        <option value="Escolher">Escolher</option>
+                        <option value="1">1º Semestre</option>
+                        <option value="2">2º Semestre</option>
+                    </select>
+                    <br>
+
+                    <label style="width: 80px; margin-top: 10px;">Status</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 80px; height: 20px; margin-top: 10px;" name="status" id="status">
+                        <option value="">Todos</option>
+                        <option value="Em espera">Em espera</option>
+                        <option value="Alta">Alta</option>
+                        <option value="Continua na especialidade">Continua na especialidade</option>
+                        <option value="Abandono/Desistência">Abandono/Desistência</option>
+                    </select>
+                    <br>
+
+                    <label style="width: 80px; margin-top: 10px;">Especialidade</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 80px; height: 20px; margin-top: 10px;" name="especialidade" id="especialidade">
+                        <option value="">Todas</option>
+                        <option value="Cirurgia">Cirurgia</option>
+                        <option value="Prótese Dentária">Prótese Dentária</option>
+                        <option value="Periodontia">Periodontia</option>
+                    </select>
+                    <br>
+
+                    <label style="width: 80px; margin-top: 10px;">Complexidade</label>
+                    <select class="ui-state-default ui-corner-all" style="width: 80px; height: 20px; margin-top: 10px;" name="complexidade" id="complexidade">
+                        <option value="">Todas</option>
+                        <option value="Baixa">Baixa</option>
+                        <option value="Média">Média</option>
+                        <option value="Alta (Pós-graduação)">Alta (Pós-graduação)</option>
+                    </select>
+                                        
+                    <button id="filterButton" onclick="getRelatorio()" style="margin-left: 10px">Gerar relatório</button>
+                
+                </div>
+            </div>
+
+            <div id="relatorio" style="display: none;">
+                <h1 style="margin: 30px; margin-left: 20%;"></h1>
+                <table id="tabela" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 60%; font-size: 14px; margin: 30px;">
+                    <thead>
+                        <tr class="ui-jqgrid-labels" role="rowheader">
+                            <th class="ui-jqgrid-titlebar ui-widget-header">Data</th>
+                            <th class="ui-jqgrid-titlebar ui-widget-header">Nome</th>
+                            <th class="ui-jqgrid-titlebar ui-widget-header">CPF</th>
+                            <th class="ui-jqgrid-titlebar ui-widget-header">Especialidade</th>
+                            <th class="ui-jqgrid-titlebar ui-widget-header">Status</th>
+                            <th class="ui-jqgrid-titlebar ui-widget-header">Complexidade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Table body rows will be populated here -->
+                    </tbody>
+                        <tr>
+                        <td colspan="6" style="text-align: center;">
+                        <div id="pagination" class="ui-state-default">
+                            <button id="prev-page">Previous</button>
+                            <span id="page-info">Pág. 1</span>
+                            <button id="next-page">Next</button>
+                        </div>
+                        </td>
+                    </tr>
+                    </table>
+            </div>
+        </div>
+                
+        <!-- API -->
+        <script src="../API/API.js"></script>
+        
+        <script>
+            function getRelatorio() {
+                var ano = $('#ano').val();
+                var semestre = $('#semestre').val();
+                var status = $('#status').val();
+                var especialidade = $('#especialidade').val();
+                var complexidade = $('#complexidade').val();
+
+                // Check if 'semestre' is equal to "Escolher" or 'ano' is empty
+                if (semestre === "Escolher" || ano === "") {
+                    showCustomAlert("Por favor, selecione um ano e semestre válidos.");
+                    return; // Exit the function early if conditions are not met
+                }
+
+                var formRelatorio = {
+                    ano: ano,
+                    semestre: semestre,
+                    status: status,
+                    especialidade: especialidade,
+                    complexidade: complexidade
+                };
+
+                // Set the text for the h1 tag with 'ano' and 'semestre' values
+                $('#relatorio h1').text(`Evolução de demandas de pacientes no período ${ano}/${semestre}`);
+
+                // Perform API request
+                api.encaminhamentos.consultarEvolucaoStatus(formRelatorio)
+                    .then(function (response) {
+                        if (Array.isArray(response)) {
+                            // Clear existing table rows
+                            $('#table-body').empty();
+
+                            // Iterate through the response and populate the table
+                            response.forEach(function (item) {
+                                var cpf = item.CPF;
+                                var data = item.Data;
+                                var nome = item.Nome; // Extract 'Nome' from the response
+                                var especialidade = item.Especialidade;
+                                var status = item.Status;
+                                var complexidade = item.Complexidade;
+
+                                var row = '<tr>' +
+                                    '<td class="ui-state-default ui-th-column ui-th-ltr">' + data + '</td>' +
+                                    '<td class="ui-state-default ui-th-column ui-th-ltr">' + nome + '</td>' + // Insert 'Nome' here
+                                    '<td class="ui-state-default ui-th-column ui-th-ltr">' + cpf + '</td>' +
+                                    '<td class="ui-state-default ui-th-column ui-th-ltr">' + especialidade + '</td>' +
+                                    '<td class="ui-state-default ui-th-column ui-th-ltr">' + status + '</td>' +
+                                    '<td class="ui-state-default ui-th-column ui-th-ltr">' + complexidade + '</td>' +
+                                    '</tr>';
+                                $('#table-body').append(row);
+                            });
+
+                            // Show the div with id "relatorio" when the response is successful
+                            $('#relatorio').show();
+
+                            // Update pagination or other UI elements if necessary
+                        } else {
+                            console.log("Invalid data format received");
+                            showCustomAlert("Dados inválidos recebidos da API.");
+                        }
+                    })
+                    .catch(function (error) {
+                        showCustomAlert(error);
+                    });
+            }
+
+        </script>
+    </body>
+</html>
+

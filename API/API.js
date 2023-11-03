@@ -45,7 +45,11 @@ const encaminhamentos = {
     return sendRequest(url, 'POST', data);
   },
   consultar: async (data) => {
-    const url = `${getApiUrl()}/encaminhamentos/consultar.php`;
+    const url = `${getApiUrl()}/encaminhamentos/consultarDemanda.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarEvolucaoStatus: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/relatorio-evolucao.php`;
     return sendRequest(url, 'POST', data);
   },
   atualizar: async (data) => {
@@ -97,6 +101,10 @@ const materiais = {
     const url = `${getApiUrl()}/materiais/busca-requisicoes-id.php`;
     return sendRequest(url, 'POST', data);
   },
+  buscaRequisicoesSolicitante: async (data) => {
+    const url = `${getApiUrl()}/materiais/busca-requisicoes-Solicitante.php`;
+    return sendRequest(url, 'POST', data);
+  },
   requestMaterial: async (data) => {
     const url = `${getApiUrl()}/materiais/request-material.php`;
     return sendRequest(url, 'POST', data);
@@ -112,6 +120,10 @@ const materiais = {
   apresentacaoMaterialOptions: async (data) => {
     const url = `${getApiUrl()}/materiais/apresentacao-material-options.php`;
     return sendRequest(url, 'POST', data);
+  },
+  relatorioConsumoSemestral: async (data) => {
+    const url = `${getApiUrl()}/materiais/relatorio-consumo-semestral.php`;
+    return sendRequest(url, 'POST', data);
   }
 };
 
@@ -123,6 +135,14 @@ const procedimentos = {
   },
   consultar: async (data) => {
     const url = `${getApiUrl()}/procedimentos/consultar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  relatorioSusSemestral: async (data) => {
+    const url = `${getApiUrl()}/procedimentos/relatorio-SUS-semestre.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  relatorioSusMensal: async (data) => {
+    const url = `${getApiUrl()}/procedimentos/relatorio-SUS-mensal.php`;
     return sendRequest(url, 'POST', data);
   },
   options: async (data) => {
@@ -194,7 +214,7 @@ const agenda = {
     const url = `${getApiUrl()}/agenda/consultar-futuredates.php`;
     return sendRequest(url, 'POST', data);
   },
-  consultarPaciente: async (data) => {
+  consultarAgendaPaciente: async (data) => {
     const url = `${getApiUrl()}/agenda/agenda-CPFpaciente.php`;
     return sendRequest(url, 'POST', data);
   },
@@ -213,6 +233,10 @@ const agenda = {
   admitirPaciente: async (data) => {
     const url = `${getApiUrl()}/agenda/admitir-paciente.php`;
     return sendRequest(url, 'POST', data);
+  },
+  setAtendido: async (data) => {
+    const url = `${getApiUrl()}/agenda/setAtendido.php`;
+    return sendRequest(url, 'POST', data);
   }
 };
 
@@ -222,7 +246,7 @@ const arquivos = {
     return sendRequest(url, 'POST', data);
   },
   consultar: async (data) => {
-    const url = `${getApiUrl()}/arquivos/consultar.php`;
+    const url = `${getApiUrl()}/arquivos/consultarExames.php`;
     return sendRequest(url, 'POST', data);
   },
   criar: async (data) => {
@@ -283,12 +307,23 @@ const atendimentos = {
     const url = `${getApiUrl()}/atendimentos/criarAtendimento.php`;
     return sendRequest(url, 'POST', data);
   },
+  homologar: async (data) => {
+    const url = `${getApiUrl()}/atendimentos/homologarAtendimento.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarAtendimento: async (data) => {
     const url = `${getApiUrl()}/atendimentos/consultarAtendimento.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultaAtendimento_ID: async (data) => {
+    const url = `${getApiUrl()}/atendimentos/consultarAtendimento_ID.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarAtendimento_resp: async (data) => {
+    const url = `${getApiUrl()}/atendimentos/consultarAtendimento_resp.php`;
+    return sendRequest(url, 'POST', data);
+  }
 };
-
 
 const cobalto = {
   disciplinas,

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Acompanhamento de pedido de material de consumo</title>
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+            var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+            var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+            var PATH_COOKIE = '/';
+            var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+            var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+        </script>
+        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    </head>
+
+    <body>
+        <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+        <div id="content-center" class="ui-layout-center ui-widget-content"
+            style="background: none !important; overflow: hidden !important">
+            
+            <div class="breadCrumb module">
+                <ul>
+                <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+                <li>Consultas</li>
+                <li>Acompanhamento de pedido de material de consumo</li>
+                </ul>
+                <div style="clear: both;"></div></div><div style="clear: both;"></div>
+                
+                <div class="ui-widget-content ui-corner-all toolbar">
+                <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+                <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+                <span style="clear: both; display: block"></span>
+                </div>
+
+            <script>var tabMateriais = 'tabMateriais';</script>
+            <div id="tabMateriais" class="tabs">
+                <div id="tabMateriais-0" class="ui-widget tabMateriais tabMateriais-0 tabMateriais-0">
+                    <ul>
+                        <li class="labeltabMateriais"><a href="#tabMateriais-0" accessKey="tabMateriais-0">Filtro</a></li>
+                    </ul>
+                    <br>
+                    <p></p>
+                    <br>
+                    
+                    <div style="margin-top: 30px; margin-left: 30px;">
+                        <label name="lblStatus" id="lblStatus" style="width: 120px;">Status da solicitação</label>
+                        <select class="mousetrap" style="width: 180px;" name="solicitacaoMaterial" id="solicitacaoMaterial">
+                            <option value="Escolher">Todas</option>
+                            <option value="Solicitado">Solicitadas</option>
+                            <option value="Atendido">Atendido</option>
+                            <option value="Parcialmente atendido">Parcialmente atendido</option>
+                            <option value="Não atendido">Não atendido</option>
+                        </select>
+            
+                        <script type='text/javascript'>
+                                var solicitacaoMaterial = 'solicitacaoMaterial';
+                                $(document).ready(function(){
+                                    $('#solicitacaoMaterial').selectmenu({style:'dropdown'});
+                                });
+                            </script>
+                        <br>
+                    </div>
+                </div>
+        
+                <div style="margin: 30px; width: 80%;">
+                    <table id="gridPaciente"></table>
+                    <div id="gridPacientePager" style="margin-bottom: 5px;"></div>  
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script>
+      var gridId = 'gridPaciente';
+      var headerColumns = ["ID", "Data", "Setor", "Solicitado por:", "Status", "Observações"];
+      var columnNames = ["id", "data_pedido", "setor", "nome_solicitante", "statusSolicitacao", "obs_tramite"];
+      var columnWidths = [0, 35, 60, 100, 60, 100];
+      var rowHeight = 30; // Set the height of each row in pixels
+
+      $(document).ready(function () {
+        $('#' + gridId).jqGrid({
+            "sortname": columnNames[1],
+            "autoload": false,
+            "autowidth": true,
+            "pager": "#" + gridId + "Pager",
+            "rowNum": 25,
+            "toppager": false,
+            "caption": "Solicitações de materiais",
+            "height": "auto",
+            "jsonReader": { "repeatitems": false, "id": 0 },
+            "colNames": headerColumns,
+            "colModel": [
+                { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "center" },
+                { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" },
+                { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" },
+                { "sortable": true, "name": columnNames[4], "index": columnNames[4], "width": columnWidths[4], "align": "center" },
+                { "sortable": true, "name": columnNames[5], "index": columnNames[5], "width": columnWidths[5], "align": "center" }
+            ],
+            "rowHeight": rowHeight
+        });
+
+        $('#' + gridId).setGridParam({ datatype: 'json' });
+        $('#' + gridId).setGridParam({ autoload: true });
+
+        function gridResize() {
+            $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+        }
+
+        $(window).bind('resize', gridResize);
+        $('#tabFiltroCurso').bind('tabsshow', gridResize);
+      });
+    </script>
+
+    <input type="hidden" id="id_solicitante" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 32%;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO"><br>
+    <script>
+        document.getElementById("id_solicitante").value = JSON.parse(localStorage.getItem("usuario"))['Matricula'];
+    </script>
+
+    <script src="/API/API.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var currentPage = 1;
+            var rowsPerPage = 25;
+            var tableRows = [];
+            var totalRows = 0;
+            var selectedFilter = ''; // Initialize the filter to an empty string
+
+        function applyFilter() {
+            console.log(selectedFilter);
+            var filteredData = tableRows.filter(function (item) {
+                return selectedFilter === 'Escolher' || item.statusSolicitacao === selectedFilter;
+            });
+
+            // Clear the grid before populating it with filtered data
+            $('#' + gridId).jqGrid('clearGridData');
+
+            // Populate the grid with filtered data
+            populatePacienteFields(filteredData);
+            totalRows = filteredData.length;
+        }
+
+        function loadTableData() {
+            var id_solicitante = document.getElementById("id_solicitante").value;
+
+            var requestData = {
+                id_solicitante: id_solicitante
+            };
+
+            // Make the API request with the JSON object as data
+            api.materiais.buscaRequisicoesSolicitante(requestData).then(function (data) {
+                totalRows = data.length;
+                tableRows = data;
+                populatePacienteFields(data)
+                });
+        }
+
+        function populatePacienteFields(data) {
+            for (var i = 0; i < data.length; i++) {
+                var rowData = data[i];
+                var rowId = 'rowPaciente' + i;
+                $('#' + gridId).jqGrid('addRowData', rowId, {
+                    id: rowData.id,
+                    data_pedido: formatDate(rowData.data_pedido),
+                    setor: rowData.setor,
+                    nome_solicitante: rowData.nome_solicitante,
+                    statusSolicitacao: rowData.statusSolicitacao,
+                    obs_tramite: rowData.obs_tramite ? rowData.obs_tramite : ''
+                });
+
+                // Apply CSS class to the cells in the newly added row
+                $('#' + rowId).find('td').addClass('ui-state-default ui-th-column ui-th-ltr');
+            }
+        }
+
+
+        function formatDate(dateString) {
+            var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            return new Date(dateString).toLocaleDateString('pt-BR', options);
+        }
+
+        // Initial load of table data
+        loadTableData();
+
+        // Event listener for changes in the dropdown
+        $('#solicitacaoMaterial').change(function () {
+                    // Get the selected filter option
+                    selectedFilter = $('#solicitacaoMaterial').val();
+
+                    // Apply the filter
+                    applyFilter();
+                });
+        });
+    </script>
+</html>
+

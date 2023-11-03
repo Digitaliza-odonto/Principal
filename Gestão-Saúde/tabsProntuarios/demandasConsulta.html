@@ -1,92 +1,84 @@
 <div id="demandasConsulta">
 
-    <p></p>
-    <table class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;">
-    <thead class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="font-size: larger; height: auto;">
-        <th style="width: 5%;">Data</th>
-        <!-- <th style="width: 10%;">Curso</th> -->
-        <th style="width: 15%;">Especialidade</th>
-        <th style="width: 60%;">Demanda</th>
-        <th style="width: 20%;">Status</th>
-    </thead>
-    <thead id="tabelaencaminhamentos" class="ui-state-default"><tr style="align-items: center;"></thead>
-    </table>
+    <div style="margin: 30px; width: 100%;">
+        <table id="gridDemanda"></table>
+        <div id="gridDemandaPager" style="margin-bottom: 5px;"></div>
+    </div>
+    
+    <script>
+        var gridDemandaId = 'gridDemanda';
+        var gridDemandaPagerId = 'gridDemandaPager';
+        var demandaHeaderColumns = ["ID", "Data", "Especialidade", "Demanda", "Status", "Observacoes"];
+        var demandaColumnNames = ["id", "Data", "Especialidade", "Demanda", "Status", "Observacoes"];
+        var demandaColumnWidths = [0, 120, 200, 350, 150, 250];
+        var demandaRowHeight = 300; // Set the height of each row in pixels
+    
+        $(document).ready(function () {
+            $('#' + gridDemandaId).jqGrid({
+                "sortname": demandaColumnNames[1],
+                "autoload": false,
+                "autowidth": true,
+                "pager": "#" + gridDemandaPagerId,
+                "rowNum": 25,
+                "toppager": false,
+                "caption": "Lista de demandas cadastradas",
+                "height": "auto",
+                "jsonReader": { "repeatitems": false, "id": 0 },
+                "colNames": demandaHeaderColumns,
+                "colModel": [
+                    { "sortable": true, "hidden": true, "name": demandaColumnNames[0], "index": demandaColumnNames[0], "width": demandaColumnWidths[0], "align": "right" },
+                    { "sortable": true, "name": demandaColumnNames[1], "index": demandaColumnNames[1], "width": demandaColumnWidths[1], "align": "center" },
+                    { "sortable": true, "name": demandaColumnNames[2], "index": demandaColumnNames[2], "width": demandaColumnWidths[2], "align": "center" },
+                    { "sortable": true, "name": demandaColumnNames[3], "index": demandaColumnNames[3], "width": demandaColumnWidths[3], "align": "center" },
+                    { "sortable": true, "name": demandaColumnNames[4], "index": demandaColumnNames[4], "width": demandaColumnWidths[4], "align": "center" },
+                    { "sortable": true, "name": demandaColumnNames[5], "index": demandaColumnNames[5], "width": demandaColumnWidths[5], "align": "center" }
+                ],
+                "rowHeight": demandaRowHeight
+            });
+    
+            $('#' + gridDemandaId).setGridParam({ datatype: 'json' });
+            $('#' + gridDemandaId).setGridParam({ autoload: true });
+    
+            function gridDemandaResize() {
+                $('#' + gridDemandaId).setGridWidth($('#gbox_' + gridDemandaId).width());
+            }
+    
+            $(window).bind('resize', gridDemandaResize);
+            $('#tabFiltroCurso').bind('tabsshow', gridDemandaResize);
+        });
+    </script>
+    
 
     <!--Script DEMANDAS-->
     <script>
-        console.log("demandasConsulta")
-    function adicionarNovaLinha(data) {
-        console.log(data)
-    // Seleciona o corpo da tabela usando o XPath
-    const tbody = document.getElementById("tabelaencaminhamentos")
-    // Cria um novo elemento de linha (<tr>)
-    const novaLinha = document.createElement('tr');
-    novaLinha.style.alignItems = 'center';
+        const CPF = getUrlVars()["cpf"];
 
-    // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
-    novaLinha.innerHTML = `
-        <td role="gridcell" style="text-align:center;">${data.Data}</td>
-        
-        <td role="gridcell" style="text-align:center;">${data.Especialidade}</td>
-        <td role="gridcell" style="text-align:center;">${data.Demanda}</td>
-        <td role="gridcell" style="text-align:center;">${data.Status}</td>
-    `;
+        api.encaminhamentos.consultar({ CPF }).then((encaminhamentos) => {
+            console.log(encaminhamentos);
+            encaminhamentos.forEach((encaminhamento) => {
+                adicionarNovaLinha(encaminhamento);
+            });
+        });
 
-    // Adiciona a nova linha ao corpo da tabela
-    tbody.appendChild(novaLinha);
-    }
+        function adicionarNovaLinha(encaminhamento) {
+            const { id, Data, Especialidade, Demanda, Status, Observacoes } = encaminhamento;
+            // Convert Data from YYYY-MM-DD to DD-MM-YYYY
+            const formattedData = new Date(Data).toLocaleDateString('en-GB');
 
+            const rowData = {
+                id: id,
+                Data: formattedData,
+                Especialidade: Especialidade,
+                Demanda: Demanda,
+                Status: Status,
+                Observacoes: Observacoes
+            };
 
-    function getDataFromTab(TabId){
-    const parentDiv = document.getElementById(TabId); 
-    const elements = parentDiv.querySelectorAll("input, select, textarea"); // Include textarea elements
-    const jsonData = {};
+            $('#' + gridDemandaId).jqGrid('addRowData', id, rowData);
 
-    for (const element of elements) {
-        if (element.tagName === "INPUT") {
-        if (element.type === "text") {
-            jsonData[element.id] = element.value;
-        } else if (element.type === "radio" && element.checked) {
-            jsonData[element.name] = element.value;
+            // Apply CSS class to the cells in the newly added row
+            $('#' + id).find('td').addClass('ui-state-default ui-th-column ui-th-ltr');
         }
-        } else if (element.tagName === "SELECT") {
-        jsonData[element.id] = element.value;
-        } else if (element.tagName === "TEXTAREA") { // Handle textarea elements
-        jsonData[element.id] = element.value;
-        }
-    }
 
-    console.log(jsonData);
-    return jsonData;
-    }
-    const codtonome = {
-    "0": "Escolher",
-    "1200": "Enfermagem",
-    "7100": "Farmácia",
-    "400": "Odontologia",
-    "7200": "Terapia Ocupacional"
-    }
-
-
-    function encaminhar(){
-        let Encaminhamentos = getDataFromTab("encaminhamento") 
-        Encaminhamentos.CPF = getUrlVars()["cpf"]
-        Encaminhamentos.Status = "Em espera"
-        Encaminhamentos.Curso = codtonome[Encaminhamentos.Curso]
-        console.log(Encaminhamentos)
-        api.encaminhamentos.criar(Encaminhamentos).then((result)=>{
-    alert(result.message)
-    console.log(result)
-    adicionarNovaLinha(Encaminhamentos)
-        })
-    }
-    const CPF = getUrlVars()["cpf"]
-    api.encaminhamentos.consultar({CPF}).then((encaminhamentos)=>{
-        console.log(encaminhamentos)
-        encaminhamentos.forEach(encaminhamento => {
-        adicionarNovaLinha(encaminhamento)
-        })
-        
-    })
     </script>
 </div>

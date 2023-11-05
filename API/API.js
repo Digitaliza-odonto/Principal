@@ -48,6 +48,10 @@ const encaminhamentos = {
     const url = `${getApiUrl()}/encaminhamentos/consultarDemanda.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultarFiltro: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/consultarDemandaFiltro.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarEvolucaoStatus: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/relatorio-evolucao.php`;
     return sendRequest(url, 'POST', data);
@@ -78,8 +82,16 @@ const alunos = {
     const url = `${getApiUrl()}/alunos/pacientes.php`;
     return sendRequest(url, 'POST', data);
   },
-  vincular: async (data) => {
+  vincularPaciente: async (data) => {
     const url = `${getApiUrl()}/alunos/vincular.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  desvincularPaciente: async (data) => {
+    const url = `${getApiUrl()}/alunos/desvincular.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarVinculos: async (data) => {
+    const url = `${getApiUrl()}/alunos/vinculos.php`;
     return sendRequest(url, 'POST', data);
   }
 };
@@ -162,6 +174,11 @@ const disciplinas = {
   },
   consultarID: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultarID.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  // Recebe o id da turma e retorna os alunos matriculados
+  constutarMatriculados: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultar_matriculados.php`;
     return sendRequest(url, 'POST', data);
   }
 };

@@ -164,16 +164,16 @@
     <script src="/API/API.js"></script>
 
     <script>
-      function adicionarNovaLinha(id, cod_disciplina, Nome, turma, periodo) {
+      function adicionarNovaLinha(data) {
         var table = document.getElementById("gridTurma");
 
         const novaLinha = document.createElement('tr');
         novaLinha.innerHTML = `
         
-        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="vincular-2.html?id=${id}">${cod_disciplina}</a></td>
-        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="vincular-2.html?id=${id}">${turma}</a></td>
-        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="vincular-2.html?id=${id}">${Nome}</a></td>
-        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="vincular-2.html?id=${id}">${periodo}</a></td>
+        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="vincular-2.html?turma_id=${data.id}">${data.cod_atividade}</a></td>
+        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="vincular-2.html?turma_id=${data.id}">${data.cod_turma}</a></td>
+        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="vincular-2.html?turma_id=${data.id}">${data.atividade}</a></td>
+        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="vincular-2.html?turma_id=${data.id}">${data.matriculas_vagas}</a></td>
         `;
         table.appendChild(novaLinha);
       }
@@ -181,7 +181,7 @@
         console.log(disciplinas);
         disciplinas.forEach(function (disciplina) {
           console.log(disciplina);
-          adicionarNovaLinha(disciplina.id, disciplina.cod_disciplina, disciplina.turma, disciplina.Nome, disciplina.periodo);
+          adicionarNovaLinha(disciplina);
         });
         
       });

@@ -111,37 +111,45 @@
                   </th>
                 </tr>
               </thead>
-              <tr>
-                  <td class="ui-state-default ui-th-column ui-th-ltr"><input for="alunoSelecionado" type="radio"></td>
-                  <td class="ui-state-default ui-th-column ui-th-ltr">'matrículaAluno'</td>
-                  <td class="ui-state-default ui-th-column ui-th-ltr">'nomeAluno'</td>
-              </tr>
-              <tr>
-                <td class="ui-state-default ui-th-column ui-th-ltr"><input for="alunoSelecionado" type="radio"></td>
-                <td class="ui-state-default ui-th-column ui-th-ltr">0000981</td>
-                <td class="ui-state-default ui-th-column ui-th-ltr">Ciclano da Luz</td>
-              </tr>
-              <tr>
-                <td class="ui-state-default ui-th-column ui-th-ltr"><input for="alunoSelecionado" type="radio"></td>
-                  <td class="ui-state-default ui-th-column ui-th-ltr">0000071</td>
-                  <td class="ui-state-default ui-th-column ui-th-ltr">Eder da Silva</td>
-              </tr>
-              <tr>
-                <td class="ui-state-default ui-th-column ui-th-ltr"><input for="alunoSelecionado" type="radio"></td>
-                <td class="ui-state-default ui-th-column ui-th-ltr">0000009</td>
-                <td class="ui-state-default ui-th-column ui-th-ltr">Beltrano de Souza</td>
-              </tr>
-              <!-- Table body rows go here -->
               </table>
-
-              
-
-
             </div>
           </div>
       </div>
     </div>
-      
+    <script src="/API/API.js"></script>
+      <script>
+        const turma_id = getUrlVars()["turma_id"];
+        api.disciplinas.constutarMatriculados({turma_id}).then((data) => {
+         // data é um array de objetos com matricula e nome
+         // for para percorer o array e adicionar na tabela
+          for (let i = 0; i < data.length; i++) {
+            const newRow = tableAlunos.insertRow(-1);
+            newRow.className = "ui-state-default ui-th-column ui-th-ltr";
+
+            const checkBoxCell = newRow.insertCell(0);
+            checkBoxCell.innerHTML = `<input type="radio" name="alunoSelecionado" value='${JSON.stringify(data[i])}'>`;
+            checkBoxCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+            const matriculaCell = newRow.insertCell(1);
+            matriculaCell.textContent = data[i].matricula;
+            matriculaCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+            const nomeCell = newRow.insertCell(2);
+            nomeCell.textContent = data[i].nome;
+            nomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+          }            
+        });
+        
+
+        function getUrlVars() {
+          var vars = {};
+          var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+          function(m,key,value) {
+            vars[key] = value;
+          });
+          return vars;
+        }
+      </script>
 
     <!-- CONTEÚDO COLUNA DA DIREITA -->
     <div id="pacientesEspera" class="tabs" style="width: 65%; float: left; padding-bottom: 8px; box-sizing: border-box;">
@@ -243,47 +251,76 @@
           <td class="ui-state-default ui-th-column ui-th-ltr">'nomePaciente'</td>
           <td class="ui-state-default ui-th-column ui-th-ltr">'demandaDescrição'</td>
         </tr>
-        <tr>
-          <td class="ui-state-default ui-th-column ui-th-ltr" style="text-align: center;"><input type="checkbox"></td>
-          <td class="ui-state-default ui-th-column ui-th-ltr">Maria da Luz</td>
-          <td class="ui-state-default ui-th-column ui-th-ltr">Exodontia do 28</td>
-        </tr>
-        <tr>
-          <td class="ui-state-default ui-th-column ui-th-ltr" style="text-align: center;"><input type="checkbox"></td>
-          <td class="ui-state-default ui-th-column ui-th-ltr">Pedro Santos</td>
-          <td class="ui-state-default ui-th-column ui-th-ltr">Exodontia do 45</td>
-        </tr>
-        <tr>
-          <td class="ui-state-default ui-th-column ui-th-ltr" style="text-align: center;"><input type="checkbox"></td>
-          <td class="ui-state-default ui-th-column ui-th-ltr">Odair José</td>
-          <td class="ui-state-default ui-th-column ui-th-ltr">Exodontia do 22</td>
-        </tr>
-        <!-- ... More rows ... -->
         </table>
           </div>
         </div>
       </div>
     </div>
+    <script>
+      var complexidade = document.getElementById("complexidade").value;
+      // quando o valor do select mudar, atualiza a variável
+      document.getElementById("complexidade").addEventListener("change", function() {
+        atualizarComplexidade()
+      });
+      atualizarComplexidade()
+      function atualizarComplexidade() {
+        complexidade = document.getElementById("complexidade").value;
+        limparTabela();
+        api.encaminhamentos.consultarFiltro({complexidade}).then((data) => {
+          // data é um array de objetos com demanda e nome
+          // for para percorer o array e adicionar na tabela
+          for (let i = 0; i < data.length; i++) {
+            var tabelaPacientes = document.getElementById("tablePacientes");
+            const newRow = tablePacientes.insertRow(-1);
+            newRow.className = "ui-state-default ui-th-column ui-th-ltr";
+
+            const radioCell = newRow.insertCell(0);
+            radioCell.innerHTML = `<input type="radio" name="pacienteRadio" value='${JSON.stringify(data[i])}'>`;
+            radioCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+            const pacienteNomeCell = newRow.insertCell(1);
+            pacienteNomeCell.textContent = data[i].CPF;
+            pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+            
+            const demandaDescricaoCell = newRow.insertCell(2);
+            demandaDescricaoCell.textContent = data[i].Demanda;
+            demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";                
+          }
+
+      });
+      }
+      function limparTabela() {
+        var tabelaPacientes = document.getElementById("tablePacientes");
+        var linhas = tabelaPacientes.getElementsByTagName("tr");
+        var i;
+        for (i = linhas.length - 1; i > 0; i--) {
+          tabelaPacientes.deleteRow(i);
+        }
+      }
+
+    </script>
 
 
 
     <!-- CONTEÚDO TAB-3 (ABAIXO) -->
-    <div style="display: flex; align-items: center;">
-      <button id="deleteButton" style="margin: 20px; padding: 5px;">Excluir</button>
-      <button id="submitButton" style="margin: 20px; padding: 5px;">Vincular</button>
-    </div>
+   
 
     <br>
       
     <hr class="ui-state-default">
 
     <div style="margin: 20px;">
+      <div style="display: flex; align-items: center;">
+        <button id="deleteButton" style="margin: 20px; padding: 5px;">Excluir</button>
+        <button id="submitButton" style="margin: 20px; padding: 5px;" onclick="vincular()">Vincular</button>
+      </div>
       <h2>Vinculação de paciente</h2>
+
 
       <table id="selectedTable" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 95%; font-size: 14px; margin: 15px;">
       <thead>
         <tr class="ui-jqgrid-labels" role="rowheader">
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">Selec.</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">Desvincular</th>
         <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 20%;">Aluno (matrícula)</th>
         <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 20%;">Paciente</th>
         <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">Área da Saúde</th>
@@ -295,7 +332,101 @@
       </thead>
       </table>
     </div>
+    <script>
+      // função vincular que pega o aluno e demanda selecionados e vincula
+      function vincular() {
+        const alunoSelecionado = JSON.parse(document.querySelector("#tableAlunos input[type='radio']:checked").getAttribute("value"));
+        const pacienteSelecionado = JSON.parse(document.querySelector("#tablePacientes input[type='radio']:checked").getAttribute("value"));
 
+        const dadosCombinados = Object.assign({}, alunoSelecionado, pacienteSelecionado);
+
+        console.log(dadosCombinados);
+
+        api.alunos.vincularPaciente(dadosCombinados).then((data) => {
+          console.log(data);
+          if (data.vinculoCriado == true) {
+            showCustomAlert("Paciente vinculado com sucesso!");
+            atualizartabela(turma_id);
+          } else {
+            showCustomAlert("Erro ao vincular paciente.");
+          }
+        });
+
+        
+      }
+      atualizartabela(turma_id);
+      function atualizartabela(turma_id){
+        api.alunos.consultarVinculos({turma_id}).then((data) => {
+          console.log(data);
+          // limpar tabela
+          var tabelaPacientes = document.getElementById("selectedTable");
+          var linhas = tabelaPacientes.getElementsByTagName("tr");
+          var i;
+          for (i = linhas.length - 1; i > 0; i--) {
+            tabelaPacientes.deleteRow(i);
+          }
+          
+
+          // data é um array de objetos com matricula e nome
+          // for para percorer o array e adicionar na tabela
+          for (let i = 0; i < data.length; i++) {
+            // usa a função adicionarNovaLinha para adicionar na tabela
+            adicionarNovaLinhaselectedTable(data[i]);
+          }
+      });
+      }
+      function adicionarNovaLinhaselectedTable(data) {
+        const selectedTable = document.getElementById("selectedTable");
+        const newRow = selectedTable.insertRow(-1);
+        newRow.className = "ui-state-default ui-th-column ui-th-ltr";
+
+        const checkBoxCell = newRow.insertCell(0);
+        const button = document.createElement("button");
+        button.textContent = "Desvincular";
+        button.onclick = function() {
+          desvincular(data.id);
+          newRow.remove();
+        };
+        button.className = "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only";
+        checkBoxCell.appendChild(button);
+
+        const alunoMatriculaCell = newRow.insertCell(1);
+        alunoMatriculaCell.textContent = data.Matricula_aluno;
+        alunoMatriculaCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+        const pacienteNomeCell = newRow.insertCell(2);
+        pacienteNomeCell.textContent = data.CPF_paciente;
+        pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+                        
+        const areaSaúdeCell = newRow.insertCell(3);
+       // areaSaúdeCell.textContent = dadosCombinados.Curso;
+        areaSaúdeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+        const especAreaSaúdeCell = newRow.insertCell(4);
+        especAreaSaúdeCell.textContent = data.Especialidade;
+        especAreaSaúdeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+        const demandaDescricaoCell = newRow.insertCell(5);
+        demandaDescricaoCell.textContent = data['Descrição'];
+        demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";
+        
+        const complexidadeCell = newRow.insertCell(6);
+        complexidadeCell.textContent = data.Complexidade;
+        complexidadeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+        
+        const dateCell = newRow.insertCell(7);
+        dateCell.textContent = new Date().toLocaleDateString();
+        dateCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+
+      }
+
+      function desvincular(id_vinculo) {
+        api.alunos.desvincularPaciente({id_vinculo}).then((data) => {
+          console.log(data);
+        });
+      }
+    </script>
       
 
     <!-- FUNCTION BIND INFORMATION IN 'selectedTable' -->
@@ -432,12 +563,12 @@
     });
     </script> -->
 
-    <h2 style="padding: 40px; line-height: 150%; color: rgb(211, 39, 39);">
+    <!-- <h2 style="padding: 40px; line-height: 150%; color: rgb(211, 39, 39);">
       FUNCIONALIDADE PREVISTA: <br>
       1) AO CRIAR O VÍNCULO O 'statusPaciente' automaticamente altera de 'em espera' ou 'continuaTratamento' para 'Em atendimento' <br>
       2) ATUALIZA LISTAGEM NA VARIÁVEL DO ALUNO 'vinculoPacientes' (INCLUI O PACIENTE NA LISTAGEM) E TAMBÉM NA VARIÁVEL 'pacientesAtendidos'<br>
       3) ATUALIZA LISTAGEM NA VARIÁVEL 'pacientesDisciplina' no 'ano/semestre' vigente'<br>
-    </h2>
+    </h2> -->
 
   </body>
 </html>

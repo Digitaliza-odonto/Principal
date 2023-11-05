@@ -1,51 +1,39 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE");
+header("Access-Control-Allow-Headers: X-Requested-With, Content-Type");
+header("Access-Control-Allow-Credentials: true");
 
-include_once('../db.php');
+include_once '../db.php';
 
-// Get the JSON data from the request body
-$jsonData = file_get_contents('php://input');
-$data = json_decode($jsonData);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = json_decode(file_get_contents('php://input'), true);
+    $id_demanda = $data['id_demanda'];
+    $CPF_paciente = $data['CPF'];
+    $Matricula_aluno = $data['matricula'];
+    $Status = 'Ativo';
+    $Turma = $data['turma_id'];
+    $Complexidade = $data['Complexidade'];
+    $Especialidade = $data['Especialidade'];
+    $Descricao = $data['Demanda'];
 
-// Check if 'Matricula' and 'CPF' keys exist in the JSON data
-if (isset($data->Matricula) && isset($data->CPF)) {
-    // Get the values of 'Matricula' and 'CPF' from the JSON data
-    $Matricula = $data->Matricula;
-    $CPF = $data->CPF;
+    $existingVinculo = db("SELECT * FROM vinculo_aluno_paciente WHERE CPF_paciente = '$CPF_paciente' AND Matricula_aluno = '$Matricula_aluno'");
 
-    // Check if the aluno (Matricula) exists in the database
-    $alunoQuery = "SELECT * FROM alunos WHERE Matricula = $Matricula";
-    $alunoResult = db($alunoQuery);
-
-    if ($alunoResult) {
-        // Retrieve the current list of patients associated with the aluno
-        $currentPatients = json_decode($alunoResult[0]['Pacientes'], true);
-        
-        // Check if the patient (CPF) is not already associated with the aluno
-        if (!in_array($CPF, $currentPatients)) {
-            $currentPatients[] = $CPF; // Add the patient to the list
-            $updatedPatients = json_encode($currentPatients); // Convert the list back to JSON
-
-            // Update the aluno's record with the updated list of patients
-            $updateAlunoQuery = "UPDATE alunos SET Pacientes = $updatedPatients WHERE Matricula = $Matricula";
-            if (db($updateAlunoQuery)) {
-                // Return a success message
-                echo json_encode(array("message" => "Paciente vinculado ao aluno com sucesso."));
-            } else {
-                echo json_encode(array("error" => "Erro ao atualizar o aluno."));
-            }
-        } else {
-            echo json_encode(array("message" => "Paciente já vinculado ao aluno."));
-        }
+    if (count($existingVinculo) > 0) {
+        echo json_encode(array("vinculoCriado" => false, "message" => "Vínculo já existe"));
     } else {
-        echo json_encode(array("error" => "Aluno não encontrado."));
+        $insertQuery = "INSERT INTO vinculo_aluno_paciente (id_demanda, CPF_paciente, Matricula_aluno, Status, Turma, Complexidade, Especialidade, Descrição) 
+                        VALUES ('$id_demanda', '$CPF_paciente', '$Matricula_aluno', '$Status', '$Turma', '$Complexidade', '$Especialidade', '$Descricao')";
+
+        try {
+            db($insertQuery);
+            $lastInsertedId = db("SELECT id FROM vinculo_aluno_paciente ORDER BY id DESC LIMIT 1");
+            echo json_encode(array("vinculoCriado" => true, "message" => "Vínculo criado com sucesso", "id_vinculo" => $lastInsertedId[0]['id']));
+        } catch (PDOException $e) {
+            echo json_encode(array("message" => "Erro ao criar vínculo: " . $e->getMessage()));
+        }
     }
 } else {
-    echo json_encode(array("error" => "Parâmetros inválidos ou ausentes no corpo da requisição."));
+    echo json_encode(array("message" => "Método inválido"));
 }
-
-$connection->close();
 ?>

@@ -4,8 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Consulta procedimentos e códigos SUS</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
         var BASE_URL = 'https://cobalto.ufpel.edu.br/';
         var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
         var PATH_COOKIE = '/';
@@ -15,9 +14,8 @@
         <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
         <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
         <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+        <link href="../stylecobalto.css" type="text/css" rel="stylesheet">
+        <link href="../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
     </head>
 
     <body>
@@ -27,221 +25,174 @@
             
             <div class="breadCrumb module">
                 <ul>
-                <li><a href="index.html"></a></li><li>Gestão Saúde</li>
-                <li>Consultas</li>
-                <li>Procedimentos SUS</li>
+                    <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+                    <li>Consulta</li>    
+                    <li>Procedimentos e códigos SUS</li>
                 </ul>
-                <div style="clear: both;"></div>
-            </div><div style="clear: both;"></div>
+                <div style="clear: both;"></div></div><div style="clear: both;"></div>
                 
-            <div class="ui-widget-content ui-corner-all toolbar">
-                <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-                <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-                <span style="clear: both; display: block"></span>
+                <div class="ui-widget-content ui-corner-all toolbar">
+                    <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+                    <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+                    <span style="clear: both; display: block"></span>
+                </div>
+
+   
+          <!-- CONTEÚDO TAB E BOTÕES DA FUNCIONALIDADE -->
+            <div id="procedimentosSUS" class="tabs" style="height: fit-content;">
+                <div id="procedimentosSUS-0" class="ui-widget procedimentosSUS-0">
+                    <ul>
+                        <li class="procedimentosSUS"><a href="#procedimentosSUS-0" accessKey="procedimentosSUS-0">Agenda de clínicas</a></li>
+                    </ul>
+                </div>
+
+            <div style="margin: 20px;">
+            <p></p>
+            <br>
+
+            <!-- <label style="width: 120px;">Código</label> -->
+            <input type="hidden" id="codSus" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 120px; height: 17px;"  />
+            <!-- <p></p><br> -->
+
+            <label style="width: 120px;">Descrição</label>
+            <input type="text" id="DescricaoSUS" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;"  />
+            <br>
+
+            <label style="width: 120px; margin-top: 10px;">Tipo de procedimento</label>
+            <select class="ui-state-default ui-corner-all" style="width: 120px; height: 20px;" name="tipoSUS" id="tipoSUS">
+                <option id="Escolher" value="">Escolher</option>
+                <option id="AMB" value="AMB">AMB</option>
+                <option id="CEO" value="CEO">CEO</option>
+                <option id="PNE" value="PNE">PNE</option>
+            </select>
+                        
+            <button id="clearFilters" style="margin: 10px;">Limpar filtros</button>
+                    
+            
+            <hr class="ui-state-default">
+        
+            <div style="margin: 30px; width: 60%;">
+                <table id="gridAgenda"></table>
+                <div id="gridAgendaPager" style="margin-bottom: 5px;"></div>  
             </div>
 
-            <!-- SCRIPT PARA BUSCA - PESQUISA ALTERAR/REFAZER -->
-            <script>var tabSUS = 'tabSUS';</script>
-            <div id="tabSUS" class="tabs">
-                <div id="tabSUS-0" class="ui-widget tabSUS tabSUS-0 tabSUS-0">
-                    <ul>
-                        <li class="labeltabSUS"><a href="#tabSUS-0" accessKey="tabSUS-0">Filtro</a></li>
-                    </ul>
-                    <br>
-                    <p></p>
-                    <br>
-                    
+            <script>
+                var gridId = 'gridAgenda';
+                var headerColumns = ["ID", "Cód", "Descrição do procedimento", "Tipo"];
+                var columnNames = ["id", "cod_sus", "nome", "tipo"];
+                var columnWidths = [0, 20, 100, 20];
+                var rowHeight = 30; // Set the height of each row in pixels
+            
+                $(document).ready(function () {
+                $('#' + gridId).jqGrid({
+                    "sortname": columnNames[1],
+                    "autoload": false,
+                    "autowidth": true,
+                    "pager": "#" + gridId + "Pager",
+                    "rowNum": 25, // Limit the number of rows per page to 25
+                    "toppager": false,
+                    "caption": "Lista de procedimentos SUS",
+                    "height": "auto",
+                    "jsonReader": { "repeatitems": false, "id": 0 },
+                    "colNames": headerColumns,
+                    "colModel": [
+                        { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                        { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "center" },
+                        { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "left" },
+                        { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" },
+                    ],
+                    "rowHeight": rowHeight
+                });
 
-                    <label style="width: 80px;">Código</label>
-                    <input  id="codSUS" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 120px; height: 17px;"  />
-                    <p></p><br>
-
-                    <label style="width: 80px;">DescricaoSUS</label>
-                    <input type="text" id="DescricaoSUS" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;"  />
-                    <button id="clear" class="clear" style="margin-left: 30px;">Limpar filtros</button>
-                    <br>
-
-                    <label style="width: 80px;">Tipo de procedimento</label>
-                    <select class="ui-state-default ui-corner-all" style="width: 120px; height: 20px;" name="tipoSUS" id="tipoSUS">
-                        <option id="Escolher" value="">Escolher</option>
-                        <option id="AMB" value="AMB">AMB</option>
-                        <option id="CEO" value="CEO">CEO</option>
-                        <option id="PNE" value="PNE">PNE</option>
-                    </select>
-
-                                            
-                    <hr class="ui-state-default">
-                
-                    <table id="listaProcedimentos" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
-                    <thead>
-                        <tr class="ui-jqgrid-labels" role="rowheader">
-                            <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 15%;">Cód.</th>
-                            <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 75%;">Descrição</th>
-                            <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 10%;">Tipo de procedimento</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                        <!-- Table body rows will be populated here -->
-                    </tbody>
-                        <tr>
-                        <td colspan="6" style="text-align: center;">
-                        <div id="pagination" class="ui-state-default">
-                            <button id="prev-page">Previous</button>
-                            <span id="page-info">Pág. 1</span>
-                            <button id="next-page">Next</button>
-                        </div>
-                        </td>
-                    </tr>
-                    </table>
-                </div>
+                       
+                    $('#' + gridId).setGridParam({ datatype: 'json' });
+                    $('#' + gridId).setGridParam({ autoload: true });
+            
+                    function gridResize() {
+                        $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+                    }
+            
+                    $(window).bind('resize', gridResize);
+                    $('#tabFiltroCurso').bind('tabsshow', gridResize);
+                });
+                </script>
             </div>
         </div>
 
         <!-- API -->
-        <script src="../API/API.js"></script>
+       <script src="../API/API.js"></script>
 
         <script>
-            // DADOS DO BANCO PREENCHEM DA TABELA
             $(document).ready(function () {
-                var currentPage = 1;
-                var rowsPerPage = 30;
-                var tableRows = [];
-                var totalRows = 0;
-                var selectedtipoSUS = ''; // Store the selected tipoSUS filter
-                var DescricaoSUSFilter = ''; // Store the DescricaoSUS filter
-                var codSUSFilter = ''; // Store the codSUS filter
-            
-                function loadTableData() {
-                    api.procedimentos.consultar().then(function(data) {
-                        totalRows = data.length;
-                        tableRows = data;
-                        applyFilters();
-                        updateButtons();
-                    }).catch(function(error) {
+                var originalData; // Store the original data from the API response
+
+                // Function to populate the grid with filtered data
+                function populateGrid(data) {
+                    var tableBody = $('#gridAgenda');
+                    tableBody.empty();
+
+                    for (var i = 0; i < data.length; i++) {
+                        var item = data[i];
+                        var row = '<tr>';
+                            var row = '<tr>';
+                            row += '<td class="ui-state-default ui-th-column ui-th-ltr" style="width: ' + columnWidths[1] + 'px;">' + item.cod_sus + '</td>';
+                            row += '<td class="ui-state-default ui-th-column ui-th-ltr" style="width: ' + columnWidths[2] + 'px;">' + item.nome + '</td>';
+                            row += '<td class="ui-state-default ui-th-column ui-th-ltr" style="width: ' + columnWidths[3] + 'px;">' + item.tipo + '</td>';
+                            row += '</tr>';
+                        tableBody.append(row);
+                    }
+                }
+
+                
+                // Function to load data from the API and populate the gridAgenda
+                function loadDataAndPopulateGrid() {
+                    api.procedimentos.consultar().then(function (data) {
+                        originalData = data; // Store original data for filtering
+                        // Initial populate grid with original data
+                        populateGrid(data);
+                    }).catch(function (error) {
                         console.log('Error fetching data');
                     });
                 }
-            
-                function applyFilters() {
-                    var filteredRows = tableRows;
-            
-                    // Apply the tipoSUS filter
-                    if (selectedtipoSUS !== '') {
-                        filteredRows = filteredRows.filter(function (item) {
-                            return item.tipo === selectedtipoSUS;
-                        });
-                    }
-            
-                    // Apply the DescricaoSUS filter
-                    if (DescricaoSUSFilter !== '') {
-                        var DescricaoSUSFilterLC = DescricaoSUSFilter.toLowerCase();
-                        filteredRows = filteredRows.filter(function (item) {
-                            return item.nome.toLowerCase().includes(DescricaoSUSFilterLC);
-                        });
-                    }
-            
-                    // Apply the codSUS filter
-                    if (codSUSFilter !== '') {
-                        var codSUSFilterLC = codSUSFilter.toLowerCase();
-                        filteredRows = filteredRows.filter(function (item) {
-                            return item.cod_sus.toLowerCase().includes(codSUSFilterLC);
-                        });
-                    }
-            
-                    showPage(currentPage, filteredRows);
-                }
-            
-                function showPage(page, data) {
-                    var startIndex = (page - 1) * rowsPerPage;
-                    var endIndex = Math.min(startIndex + rowsPerPage, data.length);
-                    var tableBody = $('#table-body');
-            
-                    tableBody.empty(); // Clear the table body
-            
-                    for (var i = startIndex; i < endIndex; i++) {
-                        var item = data[i];
-                        var row = '<tr>';
-                        row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.cod_sus + '</td>';
-                        row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.nome + '</td>';
-                        row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.tipo + '</td>';
-                        row += '</tr>';
-                        tableBody.append(row);
-                    }
-            
-                    $('#page-info').text('Pág. ' + page);
-                }
-            
-                function updateButtons() {
-                    if (currentPage === 1) {
-                        $('#prev-page').prop('disabled', true);
-                    } else {
-                        $('#prev-page').prop('disabled', false);
-                    }
-            
-                    if (currentPage * rowsPerPage >= totalRows) {
-                        $('#next-page').prop('disabled', true);
-                    } else {
-                        $('#next-page').prop('disabled', false);
-                    }
-                }
-            
+
                 // Initial load of table data
-                loadTableData();
-            
-                // Listen for changes to the tipoSUS filter
-                $('#tipoSUS').change(function () {
-                    selectedtipoSUS = $(this).val();
-                    currentPage = 1; // Reset to the first page when the filter changes
+                loadDataAndPopulateGrid();
+
+                // Event listener for clearFilters button
+                $('#clearFilters').click(function () {
+                    // Clear filter inputs
+                    $('#codSus').val('');
+                    $('#DescricaoSUS').val('');
+                    $('#tipoSUS').val('');
+
+                    // Reset grid to original data
+                    populateGrid(originalData);
+                });
+
+
+                // Event listener for changes in filter inputs
+                $('#codSus, #DescricaoSUS, #tipoSUS').on('input', function () {
+                    // Apply filters and update the grid
                     applyFilters();
-                    updateButtons();
                 });
-            
-                // Listen for input in the DescricaoSUS filter
-                $('#DescricaoSUS').on('input', function () {
-                    DescricaoSUSFilter = $(this).val();
-                    currentPage = 1; // Reset to the first page when the filter changes
-                    applyFilters();
-                    updateButtons();
-                });
-            
-                // Listen for input in the codSUS filter
-                $('#codSUS').on('input', function () {
-                    codSUSFilter = $(this).val();
-                    currentPage = 1; // Reset to the first page when the filter changes
-                    applyFilters();
-                    updateButtons();
-                });
-            
-                // Clear button click event
-                $('#clear').click(function () {
-                    $('#DescricaoSUS').val(''); // Clear the DescricaoSUS input
-                    $('#tipoSUS').val(''); // Reset the tipoSUS select to the default
-                    $('#codSUS').val(''); // Clear the codSUS input
-                    selectedtipoSUS = ''; // Clear the selectedtipoSUS filter
-                    DescricaoSUSFilter = ''; // Clear the DescricaoSUS filter
-                    codSUSFilter = ''; // Clear the codSUS filter
-                    currentPage = 1; // Reset to the first page when clearing filters
-                    applyFilters();
-                    updateButtons();
-                });
-            
-                $('#prev-page').click(function () {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        applyFilters();
-                        updateButtons();
-                    }
-                });
-            
-                $('#next-page').click(function () {
-                    if (currentPage * rowsPerPage < totalRows) {
-                        currentPage++;
-                        applyFilters();
-                        updateButtons();
-                    }
-                });
+
+                // Function to apply filters
+                function applyFilters() {
+                    var filtrocodSus = $('#codSus').val();
+                    var filtroDescricaoSUS = $('#DescricaoSUS').val();
+                    var filtroTipoSUS = $('#tipoSUS').val();
+                    
+                    // Apply filters
+                    var filteredData = originalData.filter(function (item) {
+                        return (filtrocodSus === '' || item.cod_sus.includes(filtrocodSus)) &&
+                            (filtroDescricaoSUS === '' || item.nome.toLowerCase().includes(filtroDescricaoSUS.toLowerCase())) &&
+                            (filtroTipoSUS === '' || item.tipo === filtroTipoSUS);
+                    });
+                    
+                    // Populate grid with filtered data
+                    populateGrid(filteredData);
+                }
             });
         </script>
-    </body>
+  </body>
 </html>
-

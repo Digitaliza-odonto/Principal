@@ -9,7 +9,7 @@ require_once '../db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
-    $firstQuery = "SELECT * FROM `agenda-clinicas` WHERE `data_agendamento` >= CURDATE()";
+    $firstQuery = "SELECT * FROM `agenda-clinicas`";
     
     $firstResult = db($firstQuery);
 

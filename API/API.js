@@ -199,7 +199,7 @@ const agenda = {
     return sendRequest(url, 'POST', data);
   },
   consultarGeral: async (data) => {
-    const url = `${getApiUrl()}/agenda/consultar.php`;
+    const url = `${getApiUrl()}/agenda/consultarAgendaGeral.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarUsuario: async (data) => {

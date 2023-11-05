@@ -9,14 +9,11 @@ include_once '../../db.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $matricula = $data['matricula'];
-    $nome_aluno = $data['nome_aluno'];
-    $codigo_disciplina = $data['codigo_disciplina'];
+    $nome = $data['nome'];
     $turma_id = $data['turma_id'];
-    $turma = $data['turma'];
-    $nome_disciplina = $data['nome_disciplina'];
 
-    $insertQuery = "INSERT INTO relação_alunos_disciplinas (matricula, nome_aluno, codigo_disciplina, turma_id, turma, nome_disciplina) 
-                    VALUES ('$matricula', '$nome_aluno', '$codigo_disciplina', '$turma_id', '$turma', '$nome_disciplina')";
+    $insertQuery = "INSERT INTO `relação_alunos_disciplinas` (`matricula`, `nome`, `turma_id`) 
+                    VALUES ('$matricula', '$nome', '$turma_id')";
 
     try {
         db($insertQuery);

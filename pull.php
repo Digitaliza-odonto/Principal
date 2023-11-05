@@ -56,8 +56,13 @@ function limparPasta($destPath) {
 // Limpa a pasta antes de continuar
 limparPasta($destPath);
 
-// Baixa o arquivo ZIP do GitHub e o salva
-file_put_contents($zipFilename, file_get_contents($zipUrl));
+$ch = curl_init($zipUrl);
+$fp = fopen($zipFilename, 'wb');
+curl_setopt($ch, CURLOPT_FILE, $fp);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+curl_exec($ch);
+curl_close($ch);
+fclose($fp);
 
 // Extrai o arquivo ZIP para a pasta de destino
 $zip = new ZipArchive;

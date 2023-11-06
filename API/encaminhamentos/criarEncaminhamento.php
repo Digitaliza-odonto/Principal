@@ -10,22 +10,21 @@ require_once '../db.php';   // Import the database connection file
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     
+    $alunoEncaminhamento = $data['alunoEncaminhamento'];
+    $Complexidade = $data['Complexidade'];
     $CPF = $data['CPF'];
     $OriginalDate = $data['Data'];
     $FormattedDate = DateTime::createFromFormat('d/m/Y', $OriginalDate)->format('Y-m-d'); // Convert to YYYY-MM-DD format
-    $Especialidade = $data['Especialidade'];
-    $Complexidade = $data['Complexidade'];
     $Demanda = $data['Demanda'];
-    $encaminhamentoOrigem = 'Triagem';
-    $responsavelEncaminhamento = 'Triagem';
+    $encaminhamentoOrigem = $data['encaminhamentoOrigem'];
+    $Especialidade = $data['Especialidade'];
+    $responsavelEncaminhamento = $data['responsavelEncaminhamento'];
     $Status = $data['Status'];
-    $Observacoes = $data['Observacoes'];
-    $tramitado = 'Sim';
-    
-   
-    $insertQuery = "INSERT INTO `encaminhamentos`(`CPF`, `Data`, `Especialidade`, `Complexidade`, `Demanda`, `encaminhamentoOrigem`, `responsavelEncaminhamento`, `Status`, `Observacoes`, `tramitado`, `data_tramite`)
-        VALUES ('$CPF', '$FormattedDate', '$Especialidade', '$Complexidade', '$Demanda', '$encaminhamentoOrigem', '$responsavelEncaminhamento', '$Status', '$Observacoes', '$tramitado', '$FormattedDate')";
-    
+        
+
+    $insertQuery = "INSERT INTO `encaminhamentos`(`CPF`, `Data`, `Especialidade`, `Complexidade`, `Demanda`, `encaminhamentoOrigem`, `alunoEncaminhamento`, `responsavelEncaminhamento`, `Status`) 
+            VALUES ('$CPF', '$FormattedDate', '$Especialidade', '$Complexidade', '$Demanda', '$encaminhamentoOrigem', '$alunoEncaminhamento', '$responsavelEncaminhamento', '$Status')";
+        
     echo json_encode(array("message" => "Encaminhamento criado com sucesso"));
     
     db($insertQuery);

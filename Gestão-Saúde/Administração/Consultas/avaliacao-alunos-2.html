@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação de aluno em disciplina</title>
+    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+      var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+      var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+      var PATH_COOKIE = '/';
+      var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+      var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+    </script>
+    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  </head>
+
+  <body>
+    <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+    <div id="content-center" class="ui-layout-center ui-widget-content"
+    style="background: none !important; overflow: hidden !important">
+    
+    <div class="breadCrumb module">
+      <ul>
+        <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+        <li>Administração</li>
+        <li>Consultas</li>
+        <li>Avaliação de aluno em disciplina</li>
+        <li><span id="turma_id"></span></li>
+      </ul>
+    <div style="clear: both;"></div></div><div style="clear: both;"></div>
+    
+    <div class="ui-widget-content ui-corner-all toolbar">
+      <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+      <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+      <span style="clear: both; display: block"></span>
+    </div>
+
+    <div id="tabAvaliações" class="tabs">
+      <div id="tabAvaliações-0" class="ui-widget tabAvaliações tabAvaliações-0 tabAvaliações-0">
+        <ul>
+          <li class="labeltabAvaliações"><a href="#tabAvaliações-0" accessKey="tabAvaliações-0">Avaliações do aluno</a></li>
+        </ul>
+        <br>
+        <p></p>
+        <br>
+
+        <div class="table-container">
+          <table id="tableAlunos" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 40%; font-size: 14px; margin: 20px;">
+            <thead>
+              <tr class="ui-jqgrid-labels" role="rowheader">
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 15%;">Matrícula</th>
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 75%;">Aluno</th>
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">Período</th>
+              </tr>
+            </thead>
+            </table>
+          </div>
+        </div>
+    </div>
+  </div>
+  <script src="/API/API.js"></script>
+    <script>
+      const turma_id = getUrlVars()["turma_id"];
+      api.disciplinas.constutarMatriculados({turma_id}).then((data) => {
+       // data é um array de objetos com matricula e nome
+       // for para percorer o array e adicionar na tabela
+        for (let i = 0; i < data.length; i++) {
+          const newRow = tableAlunos.insertRow(-1);
+          newRow.className = "ui-state-default ui-th-column ui-th-ltr";
+
+          const matriculaCell = newRow.insertCell(0);
+          matriculaCell.textContent = data[i].matricula;
+          matriculaCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+          const nomeCell = newRow.insertCell(1);
+          nomeCell.textContent = data[i].nome;
+          nomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+          
+        }            
+      });
+      
+      function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+        function(m,key,value) {
+          vars[key] = value;
+        });
+        return vars;
+      }
+    </script>
+
+      </div>
+    </div>
+</html>

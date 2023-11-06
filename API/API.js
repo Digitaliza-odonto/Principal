@@ -44,8 +44,20 @@ const encaminhamentos = {
     const url = `${getApiUrl()}/encaminhamentos/criar.php`;
     return sendRequest(url, 'POST', data);
   },
+  criarEncaminhamento: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/criarEncaminhamento.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultar: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/consultarDemanda.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarEncaminhamentoResp: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/consultarEncaminhamentoResp.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarEncaminhamentoID: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/consultarEncaminhamentoID.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarFiltro: async (data) => {
@@ -58,6 +70,10 @@ const encaminhamentos = {
   },
   atualizar: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/atualizar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  homologarEncaminhamento: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/homologarEncaminhamento.php`;
     return sendRequest(url, 'POST', data);
   },
 };

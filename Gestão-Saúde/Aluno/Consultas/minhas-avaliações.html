@@ -14,7 +14,7 @@
         <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
         <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
         <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-        <link href="stylecobalto.css" type="text/css" rel="stylesheet">
+        <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
 
         <!--ALERT MESSAGES-->
         <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
@@ -41,21 +41,17 @@
             <div><button id="okButton" class="centered-button">OK</button></div>
             </div>
         </div>
-        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-    <!--ALERT MESSAGES-->
     </head>
 
     <body>
-
-
         <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
             
 
         <!-- CONTEÚDO SUPERIOR -->
         <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-            <li>Aluno</li>    
-            <li>Consultas</li>
-            <li>Minhas avaliações de atendimento</li>
+                <li>Aluno</li>    
+                <li>Consultas</li>
+                <li>Minhas avaliações de atendimento</li>
             </ul>
             
         <div style="clear: both;"></div></div><div style="clear: both;"></div>
@@ -69,47 +65,105 @@
         </div>
 
 
-        <div id="tabFiltroCurso" class="tabs"><ul></ul>
-            <div id="tabFiltroCurso-0" class="ui-widget tabFiltroCurso tabFiltroCurso-0 tabFiltroCurso-0">
-                <ul>
-                    <li class="labeltabFiltroCurso"><a href="#tabFiltroCurso-0" accessKey="tabFiltroCurso-0">Filtro</a></li>
-                </ul>
-                    
-                <h2>Lista de disciplinas com avaliação de atendimento</h2>
-                    
-                <hr class="ui-state-default">
-                    
-                <div style="margin: 20px;">
-                    
-                    
-                    <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3470016&periodo=2023/1">PERIODONTIA CLÍNICA 2023/1</a></p>
-                    <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3470016&periodo=2023/2">PERIODONTIA CLÍNICA 2023/2</a></p>
-                    <p><a href="minhas-avaliações-2.html?id=2010123&cod_disciplina=3500053&periodo=2023/1">ODONTOPEDIATRIA</a></p>
-                    
+        <div id="tabMinhasAvaliações" class="tabs">
+                    <div id="tabMinhasAvaliações-0" class="ui-widget tabMinhasAvaliações tabMinhasAvaliações-0 tabMinhasAvaliações-0">
+                      <ul>
+                        <li class="labeltabMinhasAvaliações"><a href="#tabMinhasAvaliações-0" accessKey="tabMinhasAvaliações-0">Filtro</a></li>
+                      </ul>
+                      <br>
+                      <p></p>
+                      <br>
+                      <div style="margin: 30px; width: 50%;">
+                        <table id="gridAvaliacoes"></table>
+                        <div id="gridAvaliacoesPager" style="margin-bottom: 5px;"></div>  
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
-
-                <h1 style="color: red;">QUANDO UNIFICAR COM BANCO DE ALUNOS - O VALOR DE MATRICULA DEVE SER OBTIDO DO USUÁRIO E INSERIDO COMO 'id' NA URL</h1>
-                <h1 style="color: red;">QUANDO UNIFICAR COM BANCO DE DISCIPLINAS - MOSTRAR APENAS AS DISCIPLINAS QUE O ALUNO TEVE AO MENOS UMA AVALIAÇÃO</h1>
-
+            
                 <script>
-                    // Extract 'agendado_por' value from the logged-in user's Matricula
-                    const aluno = JSON.parse(localStorage.getItem('usuario'));
-                    const id = aluno.Matricula;
+                  var gridId = 'gridAvaliacoes';
+                  var headerColumns = ["ID", "Cód.", "Disciplina", "Período"];
+                  var columnNames = ["id", "cod_disciplina", "disciplina", "periodo"];
+                  var columnWidths = [0, 10, 70, 20];
+                  var rowHeight = 30; // Set the height of each row in pixels
+            
+                  $(document).ready(function () {
+                    $('#' + gridId).jqGrid({
+                        "sortname": columnNames[1],
+                        "autoload": false,
+                        "autowidth": true,
+                        "pager": "#" + gridId + "Pager",
+                        "rowNum": 25,
+                        "toppager": false,
+                        "caption": "Lista de avaliações recebidas",
+                        "height": "auto",
+                        "jsonReader": { "repeatitems": false, "id": 0 },
+                        "colNames": headerColumns,
+                        "colModel": [
+                            { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                            { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "center" },
+                            { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" },
+                            { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" }
 
-                    // Get cod_disciplina and periodo from the user's selection or other sources
-                    const cod_disciplina = "3470016"; // Example value, replace it with the actual selected value
-                    const periodo = "2023/1"; // Example value, replace it with the actual selected value
-
-                    // Construct the link with parameters
-                    const link = `minhas-avaliacoes-2.html?id=${id}&cod_disciplina=${cod_disciplina}&periodo=${periodo}`;
-
-                    // Set the link's href attribute
-                    const linkElement = document.getElementById("avaliacoesLink");
-                    linkElement.href = link;
+                        ],
+                        "rowHeight": rowHeight
+                    });
+            
+                    $('#' + gridId).setGridParam({ datatype: 'json' });
+                    $('#' + gridId).setGridParam({ autoload: true });
+            
+                    function gridResize() {
+                        $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+                    }
+            
+                    $(window).bind('resize', gridResize);
+                    $('#tabFiltroCurso').bind('tabsshow', gridResize);
+                  });
                 </script>
+            
+                 <script src="/API/API.js"></script>
+            
+                <script>
+                    const aluno = JSON.parse(localStorage.getItem('usuario'));
+
+                    api.avaliacoes.selectDistinct({ Matricula: aluno.Matricula })
+                    .then((avaliacoes) => {
+                        if (avaliacoes.length === 0) {
+                        show("Nenhum paciente encontrado");
+                        } else {
+                        avaliacoes.forEach(avaliacao => {
+                            adicionarNovaLinha(
+                            avaliacao.cod_disciplina,
+                            avaliacao.disciplina,
+                            avaliacao.periodo
+                            );
+                        });
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Erro ao consultar avaliações:', error);
+                    });
 
 
+                    function adicionarNovaLinha(cod_disciplina, disciplina, periodo) {
+                        // Seleciona o corpo da tabela usando jQuery
+                        const tbody = $('#' + gridId + ' tbody');
+
+                        // Cria um novo elemento de linha (<tr>) com as classes desejadas para <td> elementos
+                        const novaLinha = `
+                            <tr id="${cod_disciplina}">
+                                <td style="display: none;">${cod_disciplina}</td>
+                                <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Consultas/minhas-avaliações-2.html?id=${aluno.Matricula}&cod_disciplina=${cod_disciplina}&periodo=${periodo}">${cod_disciplina}</a></td>
+                                <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Consultas/minhas-avaliações-2.html?id=${aluno.Matricula}&cod_disciplina=${cod_disciplina}&periodo=${periodo}">${disciplina}</a></td>
+                                <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Consultas/minhas-avaliações-2.html?id=${aluno.Matricula}&cod_disciplina=${cod_disciplina}&periodo=${periodo}">${periodo}</a></td>
+                            </tr>
+                        `;
+
+                        // Adiciona a nova linha ao corpo da tabela
+                        tbody.append(novaLinha);
+                    }
+                </script>
             </div>
         </div>
 	</body>

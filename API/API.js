@@ -76,6 +76,10 @@ const encaminhamentos = {
     const url = `${getApiUrl()}/encaminhamentos/homologarEncaminhamento.php`;
     return sendRequest(url, 'POST', data);
   },
+  solicitarRegulacao: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/solicitarRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  }
 };
 
 const usuarios = {
@@ -109,7 +113,15 @@ const alunos = {
   consultarVinculos: async (data) => {
     const url = `${getApiUrl()}/alunos/vinculos.php`;
     return sendRequest(url, 'POST', data);
-  }
+  },
+  consultarMatriculaAluno: async (data) => {
+    const url = `${getApiUrl()}/alunos/consultarMatriculaAluno.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarAlunoDisciplina: async (data) => {
+    const url = `${getApiUrl()}/alunos/consultarAlunoDisciplina.php`;
+    return sendRequest(url, 'POST', data);
+  },
 };
 
 const materiais = {
@@ -219,7 +231,11 @@ const avaliacoes = {
   consultarIdPeriodoDisciplina: async (data) => {
     const url = `${getApiUrl()}/avaliacoes/avaliacoes-id-periodo-disciplina.php`;
     return sendRequest(url, 'POST', data);
-  }
+  },
+  selectDistinct: async (data) => {
+    const url = `${getApiUrl()}/avaliacoes/selectDistinctAvaliacoes.php`;
+    return sendRequest(url, 'POST', data);
+  },
 };
 
 const agenda = {

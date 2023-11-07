@@ -1,125 +1,170 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Solicitar regulação interna</title>
-  
-  <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-      var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-      var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-      var PATH_COOKIE = '/';
-      var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-      var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-      </script>
-      <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-      <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-      <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Solicitar regulação interna</title>
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+            var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+            var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+            var PATH_COOKIE = '/';
+            var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+            var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+        </script>
+        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+        <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
 
-      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-  <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+        <!--ALERT MESSAGES-->
+        <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+        <script src="../../../scripts/alertMessage.js"></script>
 
-    <!--ALERT MESSAGES-->
-    <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
-    <script src="../../../scripts/alertMessage.js"></script>
-
-    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-    <div id="customAlert" class="modal">
-      <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
-        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-          <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
-          <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
-            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
-          </button>
+        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+        <div id="customAlert" class="modal">
+            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+                <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+                <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+                </button>
+            </div>
+            <p></p>
+            <br>
+            <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+                <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+                <p id="alertMessage"></p>
+            </div>
+            <p> </p><br>
+            <p> </p><br>
+            <p> </p><br>
+            <div><button id="okButton" class="centered-button">OK</button></div>
+            </div>
         </div>
-        <p></p>
-        <br>
-        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
-          <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
-          <p id="alertMessage"></p>
-        </div>
-        <p> </p><br>
-        <p> </p><br>
-        <p> </p><br>
-        <div><button id="okButton" class="centered-button">OK</button></div>
-      </div>
-    </div>
-      <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-  </head>
+    </head>
 
   <body>
-    <!-- CONTEÚDO DA PÁGINA/TELA PRINCIPAL COBALTO -->
     <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
-      <div class="breadCrumb module">
-        <ul>
-          <li><a href="index.html"></a></li><li>Gestão Saúde</li>
-          <li>Aluno</li>
-          <li>Cadastros</li>
-          <li>Solicitar regulação interna</li>
-        </ul>
-        <div style="clear: both;"></div>
-      </div>
-      <div style="clear: both;"></div>
         
-      <div class="ui-widget-content ui-corner-all toolbar">
-        <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-        <span style="clear: both; display: block"></span>
-      </div>
-
-
-      <div id="tabMinhasAvaliações" class="tabs">
-      <div id="tabMinhasAvaliações-0" class="ui-widget tabMinhasAvaliações tabMinhasAvaliações-0 tabMinhasAvaliações-0">
-          <ul>
-          <li class="labeltabMinhasAvaliações"><a href="#tabMinhasAvaliações-0" accessKey="tabMinhasAvaliações-0">Filtro</a></li>
+      <!-- CONTEÚDO SUPERIOR -->
+      <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
+            <li>Gestão Saúde</li>
+            <li>Aluno</li>    
+            <li>Cadastros</li>
+            <li>Solicitar regulação interna</li>
           </ul>
-      <br>
-      <p></p>
-      <br>
-  
-
-
-
-			<label name="lblAno" id="lblAno" style="width: 60px;"  >Ano</label>
-			<input type="text" name="txtAno" id="txtAno" value="2023" maxlength="" class="ui-state-default ui-corner-all mousetrap ano" style="text-align: right;width: 50px;"  />
-<script>var txtAno = $('#txtAno');</script>
-			<br />
-			<label name="lblBasePeriodo" id="lblBasePeriodo" style="width: 60px;"  >Período</label>
-			<select class="mousetrap" style="width: 100px;" name="cmbBasePeriodo" id="cmbBasePeriodo" ><option value=''>&nbsp;</option>
-<option value="1" selected="selected">1º SEMESTRE</option>
-<option value="2">2º SEMESTRE</option>
-<option value="3">ANUAL</option>
-<option value="4">SEMESTRAL</option>
-</select><script type='text/javascript'>
-            var cmbBasePeriodo = 'cmbBasePeriodo';
-            $(document).ready(function(){
-                $('#cmbBasePeriodo').selectmenu({style:'dropdown'});
-            });
-        </script>
-		<br /></div>	</div>
-	<table id="gridTurma"></table><div id="gridTurmaPager" style="margin-bottom: 5px"></div>													<script>var gridTurma =  'gridTurma';$(document).ready(function (){$('#gridTurma').jqGrid({"sortname":"cod_atividade","autowidth":true,"autoload":false,"multiselect":false,"caption":"Lista de turmas","height":"auto","jsonReader":{"repeatitems":false,"id":0},"onSelectRow":function(rowid){try{gridTurma_onSelectRow(rowid);}catch(err){}},"onCellSelect":function(rowid, iRow, iCol, e){if(iRow != 0){$("#gridTurma").resetSelection();try{gridTurma_click(rowid);}catch(err){}}},"ondblClickRow":function(rowid, iRow, iCol, e){if(iRow != 0){$("#gridTurma").resetSelection();try{gridTurma_dblClick(rowid);}catch(err){}}},"loadBeforeSend":function(xhr){try{gridTurma_loadBeforeSend();}catch(err){}},"loadComplete":function(data){if($("#gridTurma").jqGrid('getGridParam','datatype') != 'local'){try{gridTurma_loadComplete();}catch(err){}}},"gridComplete":function(data){generateTabs();try{gridTurma_init();}catch(err){}},"loadError":function(xhr,st,err) {var url = $("#gridTurma").jqGrid('getGridParam','url');if(!$.cookie('logout'))if(xhr.status==200 && st=="parsererror"){try{console.log("Grid: gridTurma; URL: "+url+"; Type: "+st+"; Response: O resultado não está no formato esperado");}catch(err){}}else{try{console.log("Grid: gridTurma; URL: "+url+"; Type: "+st+"; Response: "+ xhr.status + " "+xhr.statusText);}catch(err){}}},"url":"https://cobalto.ufpel.edu.br/academico/professores/resultadoAvaliacaoDocente/turmas/","altRows":true,"altclass":"ui-state-default jqgrow-alt","rowNum":-1,"rownumbers":false,"viewrecords":true,"datatype":"local","sortorder":"asc","forceFit":true,"headertitles":true,"colNames":["ID","Cód. atividade","Cód. Turma","Atividade curricular","Ano","Período"],"colModel":[{"sortable":true,"hidden":true,"name":"id","index":"id","colName":"ID","width":0,"align":"right"},{"sortable":true,"name":"cod_atividade","index":"cod_atividade","colName":"Cód. atividade","width":50,"align":"center"},{"sortable":true,"name":"cod_turma","index":"cod_turma","colName":"Cód. Turma","width":40,"align":"center"},{"sortable":true,"name":"atividade_curricular","index":"atividade_curricular","colName":"Atividade curricular","width":200,"align":"left"},{"sortable":true,"name":"ano","index":"ano","colName":"Ano","width":40,"align":"center"},{"sortable":true,"name":"base_periodo","index":"base_periodo","colName":"Período","width":50,"align":"center"}]});$('#gridTurma').setGridParam({datatype: 'json'});$('#gridTurma').setGridParam({autoload: true});});function gridTurma_resize() {$('#gbox_gridTurma').width('auto');$('#gridTurma').setGridWidth($('#gbox_gridTurma').width());};$(window).bind('resize', gridTurma_resize);$('#tabFiltroConsultaTurma').bind('tabsshow', gridTurma_resize);</script>
-    <script type="text/javascript">var globalData = {"controllerURL":"https:\/\/cobalto.ufpel.edu.br\/academico\/professores\/resultadoAvaliacaoDocente\/"};</script><script type="text/javascript" src="https://cobalto.ufpel.edu.br/academico/assets/professores/resultadoAvaliacaoDocenteFiltroView.js?QTYmrDPy"></script>
-		</div>		
-		<div style="clear: both; margin-top: 10px;"><!----></div>
-		<div id="footer" style="z-index: 99999999;" class="ui-state-highlight ui-widget">
-			&copy;2010 - 2023 Cobalto
-		</div>
-
-        
-
-
-
-				
-
-   
-<h2 style="padding: 40px; line-height: 150%; color: rgb(211, 39, 39);">
-    FUNCIONALIDADE PREVISTA: <br>
-    1) ABRIR AUTOMATICAMENTE A LISTA DE DISCIPLINAS QUE O ALUNO ESTÁ MATRICULADO<br>
-    2) <a href="solicitar-regulação-interna-2.html">ALUNO SELECIONA UMA DISCIPLINA DA LISTA E AVANÇA PARA A PRÓXIMA PÁGINA</a> 
-   
-</h2>
+          
+      <div style="clear: both;"></div></div><div style="clear: both;"></div>
       
+      <!-- CONTEÚDO BOTÕES -->
+      <div class="ui-widget-content ui-corner-all toolbar">
+          <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+          <!-- <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button> -->
+          <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+          <span style="clear: both; display: block"></span>
+      </div>
 
+
+      <div id="tabMinhasDisciplinas" class="tabs">
+        <div id="tabMinhasDisciplinas-0" class="ui-widget tabMinhasDisciplinas tabMinhasDisciplinas-0 tabMinhasDisciplinas-0">
+          <ul>
+            <li class="labeltabMinhasDisciplinas"><a href="#tabMinhasDisciplinas-0" accessKey="tabMinhasDisciplinas-0">Filtro</a></li>
+          </ul>
+          <br>
+          <p></p>
+          <br>
+
+          <div style="margin: 30px; width: 50%;">
+            <table id="gridDisciplinas"></table>
+            <div id="gridDisciplinasPager" style="margin-bottom: 5px;"></div>  
+          </div>
+        </div>
+      </div>
+    </div>
+              
+          
+    <script>
+      var gridId = 'gridDisciplinas';
+      var headerColumns = ["ID", "Cód.", "Disciplina", "Turma"];
+      var columnNames = ["id", "cod_atividade", "atividade", "cod_turma"];
+      var columnWidths = [0, 10, 70, 20];
+      var rowHeight = 30; // Set the height of each row in pixels
+
+      $(document).ready(function () {
+        $('#' + gridId).jqGrid({
+            "sortname": columnNames[1],
+            "autoload": false,
+            "autowidth": true,
+            "pager": "#" + gridId + "Pager",
+            "rowNum": 25,
+            "toppager": false,
+            "caption": "Lista de disciplinas matriculadas",
+            "height": "auto",
+            "jsonReader": { "repeatitems": false, "id": 0 },
+            "colNames": headerColumns,
+            "colModel": [
+                { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "center" },
+                { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" },
+                { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" }
+              ],
+            "rowHeight": rowHeight
+        });
+
+        $('#' + gridId).setGridParam({ datatype: 'json' });
+        $('#' + gridId).setGridParam({ autoload: true });
+
+        function gridResize() {
+            $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+        }
+
+        $(window).bind('resize', gridResize);
+        $('#tabFiltroCurso').bind('tabsshow', gridResize);
+      });
+    </script>
+
+    <script src="/API/API.js"></script>
+
+    <script>
+        const aluno = JSON.parse(localStorage.getItem('usuario'));
+
+        api.alunos.consultarMatriculaAluno({ Matricula: aluno.Matricula })
+        .then((matriculasAluno) => {
+            if (matriculasAluno.length === 0) {
+            show("Nenhum paciente encontrado");
+            } else {
+            matriculasAluno.forEach(matriculaAluno => {
+                adicionarNovaLinha(
+                matriculaAluno.id,
+                matriculaAluno.cod_atividade,
+                matriculaAluno.atividade,
+                matriculaAluno.cod_turma
+                );
+            });
+            }
+        })
+        .catch((error) => {
+            console.error('Erro ao consultar avaliações:', error);
+        });
+
+
+        function adicionarNovaLinha(id, cod_atividade, atividade, cod_turma) {
+          // Seleciona o corpo da tabela usando jQuery
+          const tbody = $('#' + gridId + ' tbody');
+
+          // Cria um novo elemento de linha (<tr>) com as classes desejadas para <td> elementos
+          const novaLinha = `
+              <tr id="${id}">
+                  <td style="display: none;">${id}</td>
+                  <td class="ui-state-default ui-th-column ui-th-ltr"><a href="solicitar-regulação-interna-2.html?Matricula=${aluno.Matricula}&Turma=${id}">${cod_atividade}</a></td>
+                  <td class="ui-state-default ui-th-column ui-th-ltr"><a href="solicitar-regulação-interna-2.html?Matricula=${aluno.Matricula}&Turma=${id}">${atividade}</a></td>
+                  <td class="ui-state-default ui-th-column ui-th-ltr"><a href="solicitar-regulação-interna-2.html?Matricula=${aluno.Matricula}&Turma=${id}">${cod_turma}</a></td>
+              </tr>
+          `;
+
+          // Adiciona a nova linha ao corpo da tabela
+          tbody.append(novaLinha);
+      }
+    </script>
 	</body>
 </html>

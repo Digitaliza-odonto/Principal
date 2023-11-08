@@ -94,10 +94,11 @@
           <p></p>
           <label style="width: 100px;margin-top: 5px; font-weight: bold;">Regulação interna</label>
           <br>
-          
-          <label style="width: 100px;margin-top: 5px;">Data da solicitação</label>
-          <input type="text" id="solicitacaoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap datepicker" style="width: 150px;margin-top: 5px;">
-          <br>
+
+          <label style="margin-top: 20px;font-weight: bold;">Tipo de tramitação:</label>
+          <label style="margin-top: 20px;"><input type="radio" class="tipoTramite" name="vinculo" value="Desvincular">Desvinculação</label>
+          <label style="margin-top: 20px;"><input type="radio" class="tipoTramite" name="vinculo" value="Novo vínculo" checked>Vinculação (Paciente novo)</label>
+          <p></p><br>
           
           <label style="width: 450px;margin-top: 5px;">Descrição da solicitação:</label><br>
           <textarea style="width: 40%; height: 100px;margin-top: 5px;" id="solicitacaoDescricao" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" placeholder="DESCREVER A SOLICITAÇÃO DE REGULAÇÃO INTERNA. EX: PACIENTE NOVO, DESVINCULAR PACIENTE POR DESISTÊNCIA OU JUSTIFICATIVA, ETC."></textarea>
@@ -155,8 +156,8 @@
           atividade: $('#atividade').val(),
           cod_turma: $('#cod_turma').val(),
           Turma: $('#Turma').val(),
-          solicitacaoData: $('#solicitacaoData').val(),
-          solicitacaoDescricao: $('#solicitacaoDescricao').val()
+          solicitacaoDescricao: $('#solicitacaoDescricao').val(),
+          tipoTramite: $('input[name=vinculo]:checked').val()
         };
         
                         

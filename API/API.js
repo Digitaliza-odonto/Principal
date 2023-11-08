@@ -79,7 +79,15 @@ const encaminhamentos = {
   solicitarRegulacao: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/solicitarRegulacao.php`;
     return sendRequest(url, 'POST', data);
-  }
+  },
+  consultarRegulacao: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/consultarRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarRegulacaoID: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/consultarRegulacaoID.php`;
+    return sendRequest(url, 'POST', data);
+  },
 };
 
 const usuarios = {
@@ -204,11 +212,14 @@ const disciplinas = {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultarID.php`;
     return sendRequest(url, 'POST', data);
   },
-  // Recebe o id da turma e retorna os alunos matriculados
-  constutarMatriculados: async (data) => {
+  consultarMatriculados: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultar_matriculados.php`;
     return sendRequest(url, 'POST', data);
-  }
+  },
+  consultar_IDturma: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultar_IDturma.php`;
+    return sendRequest(url, 'POST', data);
+  },
 };
 
 const avaliacoes = {

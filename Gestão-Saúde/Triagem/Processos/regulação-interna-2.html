@@ -60,7 +60,7 @@
       <div class="ui-widget-content ui-corner-all toolbar">
           <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
           <!-- <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button> -->
-          <button id="salvar" class="salvar" title="Salvar paciente" onclick="" style="float: left;">Tramitar regulação</button>
+          <button id="salvar" class="salvar" title="Salvar paciente" onclick="vincular()" style="float: left;">Tramitar regulação</button>
           <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
           <span style="clear: both; display: block"></span>
       </div>
@@ -360,50 +360,7 @@
 
     </script>
             
-            
-          
-          
-        
-        
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    
+   
     <script>
         // Function to extract URL parameters by name
         function getParameterByName(name, url) {
@@ -520,6 +477,7 @@
     </script>
 
     <script>
+      
       // função vincular que pega o aluno e demanda selecionados e vincula
       function vincular() {
         const alunoSelecionado = JSON.parse(document.querySelector("#tableAlunos input[type='radio']:checked").getAttribute("value"));

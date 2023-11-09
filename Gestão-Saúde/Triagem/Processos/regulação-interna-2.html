@@ -51,7 +51,7 @@
             <li>Gestão Saúde</li>
             <li>Triagem/Almoxarifado</li>    
             <li>Processos</li>
-            <li>Desvincular paciente de aluno</li>
+            <li>Regulação interna</li>
           </ul>
           
       <div style="clear: both;"></div></div><div style="clear: both;"></div>
@@ -100,12 +100,19 @@
         <input type="text" id="solicitaçãoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap" style=" width: 100px;;margin-top: 5px;" readonly>
         <br>
 
+        <label style="width: 140px;margin-top: 5px;">Data prevista de consulta:</label>
+        <input type="text" id="consultaPrevista" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap" style=" width: 100px;;margin-top: 5px;" readonly>
+        <br>
+
         <label style="width: 450px;margin-top: 5px;">Descrição da solicitação:</label><br>
         <textarea style="width: 40%; height: 100px;margin-top: 5px;" id="solicitacaoDescricao" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" placeholder="DESCREVER A SOLICITAÇÃO DE REGULAÇÃO INTERNA. EX: PACIENTE NOVO, DESVINCULAR PACIENTE POR DESISTÊNCIA OU JUSTIFICATIVA, ETC."></textarea>
         <br>
 
         <!-- ID_REGULAÇÃO APENAS PARA CONFERÊNCIA -->
         <input type="hidden" id="id_regulacao" readonly="readonly"/>
+
+        <!-- 'id_turma' PARA ENVIO NA API -->
+        <input type="hidden" id="id_turma" readonly="readonly"/>
       </div>
 
       
@@ -393,6 +400,7 @@
                   const regulacaoData = response[0]; // Assuming the JSON response contains only one object
 
                   document.getElementById('id_regulacao').value = regulacaoData.id_regulacao;
+                  document.getElementById('id_turma').value = regulacaoData.id_turma;
                   document.getElementById('matriculaAluno').value = regulacaoData.id_matricula;
                   document.getElementById('nomeAluno').value = regulacaoData.nomeAluno;
                   document.getElementById('cod_atividade').value = regulacaoData.disciplinas.cod_atividade;
@@ -400,7 +408,8 @@
                   document.getElementById('cod_turma').value = regulacaoData.disciplinas.cod_turma;
                   document.getElementById('solicitacaoDescricao').value = regulacaoData.solicitacaoDescricao;
                   document.getElementById('tipoTramite').value = regulacaoData.tipo_regulacao;
-                  document.getElementById('solicitaçãoData').value = regulacaoData.data_pedido;
+                  document.getElementById('solicitaçãoData').value = formatDate(regulacaoData.data_pedido); // DD/MM/YYYY
+                  document.getElementById('consultaPrevista').value = formatDate(regulacaoData.consultaPrevista); // DD/MM/YYYY
 
                   // Call the function to hide/display the tabs after getting the tipoTramite value from the API response
                   initializePage();
@@ -410,6 +419,12 @@
           }).catch(function (error) {
               console.error('Error fetching data:', error);
           });
+      }
+
+      function formatDate(dateString) {
+          const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+          const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+          return formattedDate;
       }
 
       consultarAlunoRegulacao();
@@ -480,26 +495,34 @@
       
       // função vincular que pega o aluno e demanda selecionados e vincula
       function vincular() {
-        const alunoSelecionado = JSON.parse(document.querySelector("#tableAlunos input[type='radio']:checked").getAttribute("value"));
-        const pacienteSelecionado = JSON.parse(document.querySelector("#tablePacientes input[type='radio']:checked").getAttribute("value"));
+          const matriculaAluno = document.getElementById("matriculaAluno").value;
+          const pacienteSelecionado = JSON.parse(document.querySelector("#tablePacientes input[type='radio']:checked").getAttribute("value"));
+          const turma_id = document.getElementById("id_turma").value;
 
-        const dadosCombinados = Object.assign({}, alunoSelecionado, pacienteSelecionado);
+          // Assuming you have alunoSelecionado stored somewhere in your code
+          const alunoSelecionado = {
+              matricula: matriculaAluno,
+              turma_id: turma_id,
+              
+          };
 
-        console.log(dadosCombinados);
+          const dadosCombinados = Object.assign({}, alunoSelecionado, pacienteSelecionado);
 
-        api.alunos.vincularPaciente(dadosCombinados).then((data) => {
-          console.log(data);
-          if (data.vinculoCriado == true) {
-            showCustomAlert("Paciente vinculado com sucesso!");
-            atualizartabela(turma_id);
-          } else {
-            showCustomAlert("Erro ao vincular paciente.");
-          }
-        });
+          console.log(dadosCombinados);
+
+          api.alunos.vincularPaciente(dadosCombinados).then((data) => {
+              console.log(data);
+              if (data.vinculoCriado == true) {
+                  showCustomAlert("Paciente vinculado com sucesso!");
+                  atualizartabela(turma_id);
+              } else {
+                  showCustomAlert("Erro ao vincular paciente.");
+              }
+          });
       }
       
       function desvincular(id_vinculo) {
-        api.alunos.desvincularPaciente({id_vinculo}).then((data) => {
+        api.alunos.desvincularRegulacao({id_vinculo}).then((data) => {
           console.log(data);
         });
       }

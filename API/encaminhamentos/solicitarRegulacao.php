@@ -18,8 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $solicitacaoDescricao = $requestData['solicitacaoDescricao'];
     $status_regulacao = 'Solicitado';
     $tipoTramite = $requestData['tipoTramite'];
+    $consultaPrevista = $requestData['consultaPrevista'];
 
-    $insertQuery = "INSERT INTO `regulacaointerna`(`id_turma`, `id_matricula`, `data_pedido`, `tipo_regulacao`, `solicitacaoDescricao`, `status_regulacao`) VALUES (:Turma, :matricula, :solicitacaoData, :tipoTramite, :solicitacaoDescricao, :status_regulacao)";
+    $insertQuery = "INSERT INTO `regulacaointerna`(`id_turma`, `id_matricula`, `data_pedido`, `tipo_regulacao`, `solicitacaoDescricao`, `consultaPrevista`, `status_regulacao`) VALUES (:Turma, :matricula, :solicitacaoData, :tipoTramite, :solicitacaoDescricao, :consultaPrevista, :status_regulacao)";
     
     try {
         $pdo = new PDO("mysql:host=localhost;dbname=id21352215_gestaosaude", "id21352215_pedroaf", "33551047pP!");
@@ -30,6 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':matricula', $matricula);
         $stmt->bindParam(':solicitacaoData', $solicitacaoData);
         $stmt->bindParam(':solicitacaoDescricao', $solicitacaoDescricao);
+        $stmt->bindParam(':consultaPrevista', $consultaPrevista);
         $stmt->bindParam(':status_regulacao', $status_regulacao);
         $stmt->bindParam(':tipoTramite', $tipoTramite);
         

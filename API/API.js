@@ -118,6 +118,10 @@ const alunos = {
     const url = `${getApiUrl()}/alunos/desvincular.php`;
     return sendRequest(url, 'POST', data);
   },
+  desvincularRegulacao: async (data) => {
+    const url = `${getApiUrl()}/alunos/desvincularRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarVinculos: async (data) => {
     const url = `${getApiUrl()}/alunos/vinculos.php`;
     return sendRequest(url, 'POST', data);

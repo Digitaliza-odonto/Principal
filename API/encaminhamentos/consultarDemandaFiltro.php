@@ -22,6 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $query .= " AND Especialidade = '$Especialidade'";
     }
 
+    // Add condition to exclude 'Em atendimento' status
+    $query .= " AND Status != 'Em atendimento'";
+
     $result = db($query);
 
     if (count($result) === 0) {
@@ -32,5 +35,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(array("message" => "Método inválido"));
 }
-
 ?>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 06/11/2023 às 19:19
+-- Tempo de geração: 09/11/2023 às 20:09
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -45,8 +45,8 @@ CREATE TABLE `agenda-clinicas` (
 --
 
 INSERT INTO `agenda-clinicas` (`id_agendamento`, `agendado_por`, `cpf_paciente`, `data_agendamento`, `horario_agendamento`, `minuto_agendamento`, `atividade_curricular`, `local`, `descricao`, `status_agendamento`) VALUES
-(1, '2010123', '111222333', '2023-10-16', '09', '00', 'ODONTOPEDIATRIA', 'Clínica Oeste', 'Primeira consulta', 'Agendado'),
-(2, '2010123', '2147483647', '2018-10-23', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'Clínica Oeste', 'Primeira consulta', 'Agendado'),
+(1, '2010123', '111222333', '2023-11-09', '09', '00', 'ODONTOPEDIATRIA', 'Clínica Oeste', 'Primeira consulta', 'Agendado'),
+(2, '2010123', '2147483647', '2023-11-09', '14', '00', 'CIRURGIA BUCO-MAXILAR III', 'Clínica Oeste', 'Primeira consulta', 'Agendado'),
 (3, '2010123', '654123789', '2023-10-26', '08', '00', 'PERIODONTIA CLÍNICA', 'Bloco - 3o Andar', 'Primeira consulta', 'Atendido'),
 (4, '2010123', '321456789', '2023-10-23', '15', '15', 'RADIOLOGIA E IMAGINOLOGIA', 'Radiologia', 'Primeira consulta', 'No local'),
 (5, '2014321', '789987654', '2016-10-23', '09', '30', 'ODONTOPEDIATRIA', 'Clínica Oeste', 'Primeira consulta', 'Agendado'),
@@ -66,10 +66,7 @@ INSERT INTO `agenda-clinicas` (`id_agendamento`, `agendado_por`, `cpf_paciente`,
 (19, '1111', '3333', '2024-09-11', '08', '15', '55555', 'Clínica Sul - 1º Andar', '4444', 'Agendado'),
 (20, '2010123', '123456', '2023-11-11', '14', '00', 'disciplina', 'Clínica Sul - 1º Andar', 'aaaaa', 'Agendado'),
 (21, '2010123', '123456', '2023-11-11', '14', '00', 'disciplina', 'Clínica Sul - 1º Andar', 'aaaaa', 'Agendado'),
-(22, '2010123', '999999999', '2023-12-11', '08', '00', 'wwwwwwwwww', 'Clínica Sul - 1º Andar', '888888888888', 'Agendado'),
-(23, '2010123', '999999999', '2023-12-11', '08', '00', 'wwwwwwwww', 'Clínica Sul - 1º Andar', '888888888888', 'Agendado'),
-(33, '2010123', '987654321', '2024-11-12', '19', '15', 'qqqqqqqqqq', '0', 'aaaaaaaaaaaa', 'Agendado'),
-(62, '2010123', '964.940.820', '2023-10-25', '08', '15', 'undefined', 'Clínica Sul - 1º Andar', 'zzzzzzz', 'Agendado');
+(64, '2010123', '790.588.720-09', '2023-11-16', '08', '00', 'undefined', 'Clínica Sul - 1º Andar', 'Descrição de atendimento', 'Agendado');
 
 -- --------------------------------------------------------
 
@@ -578,21 +575,25 @@ CREATE TABLE `encaminhamentos` (
   `homologado` varchar(3) NOT NULL,
   `data_homolog` date NOT NULL,
   `tramitado` varchar(3) NOT NULL,
-  `data_tramite` date NOT NULL
+  `data_tramite` date NOT NULL,
+  `contato1` datetime DEFAULT NULL,
+  `contato2` datetime DEFAULT NULL,
+  `contato3` datetime DEFAULT NULL,
+  `obsContato` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `encaminhamentos`
 --
 
-INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Especialidade`, `Complexidade`, `Demanda`, `encaminhamentoOrigem`, `alunoEncaminhamento`, `responsavelEncaminhamento`, `Status`, `Observacoes`, `homologado`, `data_homolog`, `tramitado`, `data_tramite`) VALUES
-(1, '112.289.390-63', '2023-11-06', 'Prótese Dentária', 'Baixa', 'Confeccção de PPR superior', '', '', '', 'Em espera', 'Necessita de acompanhamento constante.', '', '0000-00-00', '', '0000-00-00'),
-(2, '790.588.720-09', '2023-11-01', 'Periodontia', 'Média', 'Aumento de coroa clínica no 24', '', '', '', 'Em espera', 'Problema identificado durante a consulta inicial.', '', '0000-00-00', '', '0000-00-00'),
-(3, '112.289.390-63', '2023-10-06', 'Periodontia', 'Média', 'Raspagem subgengival em todos os sextantes', '', '', '', 'Em espera', 'Paciente relatou dor intensa.', '', '0000-00-00', '', '0000-00-00'),
-(4, '112.289.390-63', '2023-09-12', 'Cirurgia', 'Média', 'Exodontia do 38', '', '', '', 'Em espera', 'Tratamento de rotina.', '', '0000-00-00', '', '0000-00-00'),
-(5, '790.588.720-09', '2023-11-06', 'Prótese dentária', 'Média', 'Coroa unitária no dente 24', '', '', '', 'Em espera', 'Tratamento de rotina de odontopediatria.', '', '0000-00-00', '', '0000-00-00'),
-(12, '790.588.720-09', '2023-11-06', 'Cirurgia', 'Média', 'Dados atualizados de novo', 'Origem', '2010123', '2010123', 'Encaminhamento homologado pelo Responsável técnico', NULL, 'Sim', '2023-11-06', '', '0000-00-00'),
-(13, '790.588.720-09', '2023-11-06', 'Cirurgia', 'Média', 'Descrição da demanda feita no teste', 'Origem', '2010123', '2010123', 'Aguardando homologação do encaminhamento', NULL, '', '0000-00-00', '', '0000-00-00');
+INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Especialidade`, `Complexidade`, `Demanda`, `encaminhamentoOrigem`, `alunoEncaminhamento`, `responsavelEncaminhamento`, `Status`, `Observacoes`, `homologado`, `data_homolog`, `tramitado`, `data_tramite`, `contato1`, `contato2`, `contato3`, `obsContato`) VALUES
+(1, '112.289.390-63', '2023-11-06', 'Prótese Dentária', 'Baixa', 'Confeccção de PPR superior', '', '', '', 'Em espera', 'Necessita de acompanhamento constante.', '', '0000-00-00', '', '0000-00-00', NULL, NULL, NULL, NULL),
+(2, '790.588.720-09', '2023-11-01', 'Periodontia', 'Média', 'Aumento de coroa clínica no 24', '', '', '', 'Em espera', 'Problema identificado durante a consulta inicial.', '', '0000-00-00', '', '0000-00-00', NULL, NULL, NULL, NULL),
+(3, '112.289.390-63', '2023-10-06', 'Periodontia', 'Média', 'Raspagem subgengival em todos os sextantes', '', '', '', 'Em espera', 'Paciente relatou dor intensa.', '', '0000-00-00', '', '0000-00-00', NULL, NULL, NULL, NULL),
+(4, '112.289.390-63', '2023-09-12', 'Cirurgia', 'Média', 'Exodontia do 38', '', '', '', 'Em espera', 'Tratamento de rotina.', '', '0000-00-00', '', '0000-00-00', NULL, NULL, NULL, NULL),
+(5, '790.588.720-09', '2023-11-06', 'Prótese dentária', 'Média', 'Coroa unitária no dente 24', '', '', '', 'Em espera', 'Tratamento de rotina de odontopediatria.', '', '0000-00-00', '', '0000-00-00', NULL, NULL, NULL, NULL),
+(12, '790.588.720-09', '2023-11-06', 'Cirurgia', 'Média', 'Dados atualizados de novo', 'Origem', '2010123', '2010123', 'Encaminhamento homologado pelo Responsável técnico', NULL, 'Sim', '2023-11-06', '', '0000-00-00', NULL, NULL, NULL, NULL),
+(13, '790.588.720-09', '2023-11-06', 'Cirurgia', 'Média', 'Descrição da demanda feita no teste', 'Origem', '2010123', '2010123', 'Aguardando homologação do encaminhamento', NULL, '', '0000-00-00', '', '0000-00-00', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -995,6 +996,35 @@ INSERT INTO `procedimentos_sus` (`cod_sus`, `nome`, `tipo`) VALUES
 (701070056, 'COROA PROVISÓRIA', 'AMB'),
 (701070072, 'PLACA OCLUSAL', 'CEO'),
 (701070080, 'PLANO INCLINADO', 'AMB');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para tabela `regulacaointerna`
+--
+
+CREATE TABLE `regulacaointerna` (
+  `id_regulacao` bigint(20) NOT NULL,
+  `id_turma` varchar(255) NOT NULL,
+  `id_matricula` varchar(50) NOT NULL,
+  `data_pedido` date NOT NULL,
+  `tipo_regulacao` varchar(50) NOT NULL,
+  `solicitacaoDescricao` text NOT NULL,
+  `consultaPrevista` date DEFAULT NULL,
+  `status_regulacao` varchar(255) NOT NULL,
+  `data_tramite` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `regulacaointerna`
+--
+
+INSERT INTO `regulacaointerna` (`id_regulacao`, `id_turma`, `id_matricula`, `data_pedido`, `tipo_regulacao`, `solicitacaoDescricao`, `consultaPrevista`, `status_regulacao`, `data_tramite`) VALUES
+(4, '309151', '14200737', '2023-11-09', 'Desvincular', 'Desvincular paciente', NULL, 'Solicitado', NULL),
+(5, '308403', '14200737', '2023-11-08', 'Desvincular', 'Desistência/Abandono', NULL, 'Solicitado', NULL),
+(6, '309155', '14200737', '2023-11-08', 'Novo vínculo', 'Paciente novo', NULL, 'Solicitado', NULL),
+(7, '309155', '14200737', '2023-11-08', 'Novo vínculo', 'Paciente novo', NULL, 'Solicitado', NULL),
+(9, '308403', '14200737', '2023-11-09', 'Novo vínculo', 'Teste com data', '2023-11-10', 'Solicitado', NULL);
 
 -- --------------------------------------------------------
 
@@ -2667,7 +2697,7 @@ INSERT INTO `usuarios` (`id`, `Matricula`, `Nome`, `Tipo`, `Pacientes`) VALUES
 (3, 'Administrador', 'Administrador', 'Administrador', 'null'),
 (4, '2010123', 'Pedro', 'Aluno', '\"[\"790.588.720-09\", \"964.940.820-76\"]\"'),
 (5, 'Aluno', 'Aluno', 'Aluno', '\"[\"112.289.390-63\", \"964.940.820-76\"]\"'),
-(6, 'Bruno', 'Bruno Souza', 'Aluno', 'null'),
+(6, '14200737', 'Bruno Souza', 'Aluno', 'null'),
 (7, 'Ana', 'Ana Lima', 'Aluno', 'null'),
 (8, 'Carlos', 'Carlos Santana', 'Aluno', 'null'),
 (9, 'João', 'João da Silva', 'Aluno', 'null'),
@@ -2697,19 +2727,22 @@ CREATE TABLE `vinculo_aluno_paciente` (
   `id_demanda` varchar(255) NOT NULL,
   `CPF_paciente` varchar(255) NOT NULL,
   `Matricula_aluno` varchar(255) NOT NULL,
-  `Status` varchar(255) NOT NULL,
   `Turma` varchar(255) NOT NULL,
   `Complexidade` varchar(255) NOT NULL,
   `Especialidade` varchar(255) NOT NULL,
-  `Descrição` varchar(255) NOT NULL
+  `Descrição` varchar(255) NOT NULL,
+  `StatusVinculo` varchar(255) NOT NULL,
+  `inicioVinculo` date DEFAULT NULL,
+  `fimVinculo` date DEFAULT NULL,
+  `motivoDesvinculacao` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `vinculo_aluno_paciente`
 --
 
-INSERT INTO `vinculo_aluno_paciente` (`id`, `id_demanda`, `CPF_paciente`, `Matricula_aluno`, `Status`, `Turma`, `Complexidade`, `Especialidade`, `Descrição`) VALUES
-(19, '', '790.588.720-09', '22103481', 'Ativo', '308166', 'Média', 'Prótese dentária', 'Coroa unitária no dente 24');
+INSERT INTO `vinculo_aluno_paciente` (`id`, `id_demanda`, `CPF_paciente`, `Matricula_aluno`, `Turma`, `Complexidade`, `Especialidade`, `Descrição`, `StatusVinculo`, `inicioVinculo`, `fimVinculo`, `motivoDesvinculacao`) VALUES
+(43, '3', '112.289.390-63', '14200737', '308403', 'Média', 'Periodontia', 'Raspagem subgengival em todos os sextantes', 'Ativo', '2023-11-09', NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -2800,6 +2833,12 @@ ALTER TABLE `procedimentos_sus`
   ADD PRIMARY KEY (`cod_sus`);
 
 --
+-- Índices de tabela `regulacaointerna`
+--
+ALTER TABLE `regulacaointerna`
+  ADD PRIMARY KEY (`id_regulacao`);
+
+--
 -- Índices de tabela `solicitacao_materiais`
 --
 ALTER TABLE `solicitacao_materiais`
@@ -2825,7 +2864,7 @@ ALTER TABLE `vinculo_aluno_paciente`
 -- AUTO_INCREMENT de tabela `agenda-clinicas`
 --
 ALTER TABLE `agenda-clinicas`
-  MODIFY `id_agendamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id_agendamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT de tabela `arquivos`
@@ -2882,6 +2921,12 @@ ALTER TABLE `plano_tto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT de tabela `regulacaointerna`
+--
+ALTER TABLE `regulacaointerna`
+  MODIFY `id_regulacao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT de tabela `solicitacao_materiais`
 --
 ALTER TABLE `solicitacao_materiais`
@@ -2897,7 +2942,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vinculo_aluno_paciente`
 --
 ALTER TABLE `vinculo_aluno_paciente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 DELIMITER $$
 --

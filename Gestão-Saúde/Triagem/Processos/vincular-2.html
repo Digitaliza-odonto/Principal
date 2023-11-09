@@ -38,8 +38,15 @@
             <p> </p><br>
             <p> </p><br>
             <p> </p><br>
-            <div><button id="okButton" class="centered-button">OK</button></div>
-            </div>
+          <div>
+            <button id="okButton" class="centered-button">OK</button></div>
+            <script>
+              // RECALL THE API TO UPDATE THE LIST OF PATIENTS
+              document.getElementById("okButton").addEventListener("click", function() {
+                atualizarFiltro(''); // Call the atualizarFiltro function with an empty parameter
+              });
+            </script>
+          </div>
         </div>
     </head>
 
@@ -196,11 +203,6 @@
                 </th>
                 </tr>
               </thead>
-            <tr>
-              <td class="ui-state-default ui-th-column ui-th-ltr" style="text-align: center;"><input type="checkbox"></td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">'nomePaciente'</td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">'demandaDescrição'</td>
-            </tr>
             </table>
             </div>
           </div>
@@ -404,7 +406,12 @@
 
       function desvincular(id_vinculo) {
         api.alunos.desvincularPaciente({id_vinculo}).then((data) => {
-          console.log(data);
+          if (data.vinculoExcluido == true) {
+            showCustomAlert("Paciente desvinculado com sucesso!");
+            atualizartabela(turma_id);
+          } else {
+            showCustomAlert("Erro ao desvincular paciente.");
+          }
         });
       }
     </script>

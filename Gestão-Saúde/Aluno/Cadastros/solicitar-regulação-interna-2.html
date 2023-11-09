@@ -99,10 +99,15 @@
           <label style="margin-top: 20px;"><input type="radio" class="tipoTramite" name="vinculo" value="Desvincular">Desvinculação</label>
           <label style="margin-top: 20px;"><input type="radio" class="tipoTramite" name="vinculo" value="Novo vínculo" checked>Vinculação (Paciente novo)</label>
           <p></p><br>
+
+          <label style="width: 300px;">Data prevista para agendamento (em caso de novo vínculo):</label>
+          <input type="date" id="consultaPrevista" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 200px; height: 15px;">
+          <br>
           
           <label style="width: 450px;margin-top: 5px;">Descrição da solicitação:</label><br>
           <textarea style="width: 40%; height: 100px;margin-top: 5px;" id="solicitacaoDescricao" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" placeholder="DESCREVER A SOLICITAÇÃO DE REGULAÇÃO INTERNA. EX: PACIENTE NOVO, DESVINCULAR PACIENTE POR DESISTÊNCIA OU JUSTIFICATIVA, ETC."></textarea>
           <br>
+ 
         </div>
       </div>
     </div>
@@ -157,6 +162,7 @@
           cod_turma: $('#cod_turma').val(),
           Turma: $('#Turma').val(),
           solicitacaoDescricao: $('#solicitacaoDescricao').val(),
+          consultaPrevista: $('#consultaPrevista').val(),
           tipoTramite: $('input[name=vinculo]:checked').val()
         };
         

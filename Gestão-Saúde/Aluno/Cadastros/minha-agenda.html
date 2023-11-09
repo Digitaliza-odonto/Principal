@@ -349,8 +349,7 @@
     </div>
     
     <script>
-        // DADOS DO BANCO PREENCHEM DA TABELA
-        $(document).ready(function () {
+        
             var currentPage = 1;
             var rowsPerPage = 25;
             var tableRows = [];
@@ -362,9 +361,6 @@
             var filtroLocalAgendamento = '';
             var filtroDisciplina = '';
                                     
-            // Extract 'agendado_por' value from the logged-in user's Matricula
-            const aluno = JSON.parse(localStorage.getItem('usuario'));
-
             function loadTableData() {
                 api.agenda.consultarAgendadosUsuario({ id: aluno.Matricula })
                     .then((data) => {
@@ -384,7 +380,14 @@
                         showCustomAlert('Error fetching data');
                     });
             }
-      
+
+            loadTableData();
+
+            // RECALL THE API TO UPDATE THE LIST OF PATIENTS
+            document.getElementById("okButton").addEventListener("click", function() {
+            loadTableData();
+            });
+                  
             function applyFilters() {
                 var filteredRows = tableRows;
 
@@ -546,8 +549,7 @@
                     updateButtons();
                 }
             });
-        });
-
+        
         function agendarAtendimento() {
     
         // Extract 'agendado_por' value from the logged-in user's Matricula

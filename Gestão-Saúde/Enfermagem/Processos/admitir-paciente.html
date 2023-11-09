@@ -85,7 +85,6 @@
         <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 200px; height: 15px;">
         
         <br>
-
         <label style="width: 200px; margin: 5px;">Filtrar por turno</label>
         <select class="ui-state-default ui-corner-all" style="width: 200px; height: 20px;" id="filtroTurnoAgendamento">
             <option value="Todos">Todos</option>
@@ -204,112 +203,114 @@
     <script src="/API/API.js"></script>
 
     <script>
-        $(document).ready(function () {
-            var originalData; // Store the original data from the API response
+        
+        var originalData; // Store the original data from the API response
+                
+        function populateGridAgenda(data) {
+            var tableBody = $('#gridAgenda');
+            tableBody.empty();
 
-                    
-            function populateGridAgenda(data) {
-              var tableBody = $('#gridAgenda');
-              tableBody.empty();
-
-              for (var i = 0; i < data.length; i++) {
-                  var item = data[i];
-                  var row = '<tr>';
-                  row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[1] + 'px;"><input type="checkbox" value=' + item.id_agendamento + '></input></td>';
-                  row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[2] + 'px;">' + item.data_agendamento + '</td>';
-                  row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[3] + 'px;">' + item.nome_paciente + '</td>';
-                  row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[4] + 'px;">' + item.cpf_paciente + '</td>';
-                  row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[5] + 'px;">' + item.nome_usuario + '</td>';
-                  row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[6] + 'px;">' + item.local + '</td>';
-                  row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[7] + 'px;">' + item.horario_agendamento + ':' + item.minuto_agendamento + '</td>';
-                  row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[8] + 'px;">' + item.atividade_curricular + '</td>';
-                  row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[9] + 'px;">' + item.descricao + '</td>';
-                  row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[10] + 'px;">' + item.status_agendamento + '</td>';
-                  row += '</tr>';
-                  tableBody.append(row);
-              }
-          }
-
-
-            function applyFilters() {
-                var filtroDataAgendamento = $('#filtroDataAgendamento').val();
-                var filtroTurnoAgendamento = $('#filtroTurnoAgendamento').val();
-                var filtroLocalAgendamento = $('#filtroLocalAgendamento').val();
-                var filtroDisciplina = $('#filtroDisciplina').val();
-                var filtroStatus = $('#filtroStatus').val();
-
-                // Filter data based on filter values
-                var filteredData = originalData.filter(function (item) {
-                    var horario = parseInt(item.horario_agendamento);
-
-                    var turno = '';
-                    if (horario < 12) {
-                        turno = 'Manhã';
-                    } else if (horario >= 12 && horario < 18) {
-                        turno = 'Tarde';
-                    } else {
-                        turno = 'Noite';
-                    }
-
-                    return (filtroDataAgendamento === 'Todos' || item.data_agendamento.includes(filtroDataAgendamento)) &&
-                        (filtroTurnoAgendamento === 'Todos' || turno === filtroTurnoAgendamento) &&
-                        (filtroLocalAgendamento === 'Todos' || item.local === filtroLocalAgendamento) &&
-                        (filtroDisciplina === 'Todos' || item.atividade_curricular === filtroDisciplina) &&
-                        (filtroStatus === 'Todos' || item.status_agendamento === filtroStatus);
-                });
-
-                // Populate grid with filtered data
-                populateGridAgenda(filteredData);
+            for (var i = 0; i < data.length; i++) {
+                var item = data[i];
+                var row = '<tr>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[1] + 'px;"><input type="checkbox" value=' + item.id_agendamento + '></input></td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[2] + 'px;">' + item.data_agendamento + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[3] + 'px;">' + item.nome_paciente + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[4] + 'px;">' + item.cpf_paciente + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[5] + 'px;">' + item.nome_usuario + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[6] + 'px;">' + item.local + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[7] + 'px;">' + item.horario_agendamento + ':' + item.minuto_agendamento + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[8] + 'px;">' + item.atividade_curricular + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[9] + 'px;">' + item.descricao + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr" style="width: ' + columnWidths[10] + 'px;">' + item.status_agendamento + '</td>';
+                row += '</tr>';
+                tableBody.append(row);
             }
+        }
 
-            // Function to load data from the API and populate the gridAgenda
-            function loadDataAndPopulateGrid() {
-                api.agenda.consultarCurrentDay().then(function (data) {
-                    originalData = data; // Store original data for filtering
-                    // Initial populate grid with original data
-                    populateGridAgenda(data);
-                }).catch(function (error) {
-                    console.log('Error fetching data');
-                });
-            }
+        function applyFilters() {
+            var filtroDataAgendamento = $('#filtroDataAgendamento').val();
+            var filtroTurnoAgendamento = $('#filtroTurnoAgendamento').val();
+            var filtroLocalAgendamento = $('#filtroLocalAgendamento').val();
+            var filtroDisciplina = $('#filtroDisciplina').val();
+            var filtroStatus = $('#filtroStatus').val();
 
-            // Initial load of table data
-            loadDataAndPopulateGrid();
+            // Filter data based on filter values
+            var filteredData = originalData.filter(function (item) {
+                var horario = parseInt(item.horario_agendamento);
 
-            function getStatusClass(status) {
-                switch (status) {
-                    case 'Agendado':
-                        return 'ui-state-default';
-                    case 'No local':
-                        return 'agendamento-ui';
-                    case 'Atendido':
-                        return 'atendido-ui';
-                    case 'Faltou':
-                        return 'faltou-ui';
-                    default:
-                        return '';
+                var turno = '';
+                if (horario < 12) {
+                    turno = 'Manhã';
+                } else if (horario >= 12 && horario < 18) {
+                    turno = 'Tarde';
+                } else {
+                    turno = 'Noite';
                 }
-            }
 
-            // Event listener for clearFilters button
-            $('#clearFilters').click(function () {
-                // Clear filter inputs
-                $('#filtroDataAgendamento').val('Todos');
-                $('#filtroTurnoAgendamento').val('Todos');
-                $('#filtroLocalAgendamento').val('Todos');
-                $('#filtroDisciplina').val('Todos');
-                $('#filtroStatus').val('Todos');
-
-                // Reset grid to original data
-                populateGridAgenda(originalData);
+                return (filtroDataAgendamento === 'Todos' || item.data_agendamento.includes(filtroDataAgendamento)) &&
+                    (filtroTurnoAgendamento === 'Todos' || turno === filtroTurnoAgendamento) &&
+                    (filtroLocalAgendamento === 'Todos' || item.local === filtroLocalAgendamento) &&
+                    (filtroDisciplina === 'Todos' || item.atividade_curricular === filtroDisciplina) &&
+                    (filtroStatus === 'Todos' || item.status_agendamento === filtroStatus);
             });
 
-            // Event listener for changes in filter inputs
-            $('#filtroDataAgendamento, #filtroTurnoAgendamento, #filtroLocalAgendamento, #filtroDisciplina, #filtroStatus').change(function () {
-                // Apply filters and update the grid
-                applyFilters();
+            // Populate grid with filtered data
+            populateGridAgenda(filteredData);
+        }
+
+        // Function to load data from the API and populate the gridAgenda
+        function loadDataAndPopulateGrid() {
+            api.agenda.consultarCurrentDay().then(function (data) {
+                originalData = data; // Store original data for filtering
+                // Initial populate grid with original data
+                populateGridAgenda(data);
+            }).catch(function (error) {
+                console.log('Error fetching data');
             });
+        }
+
+        loadDataAndPopulateGrid();
+
+        // RECALL THE API TO UPDATE THE LIST OF PATIENTS
+        document.getElementById("okButton").addEventListener("click", function() {
+        loadDataAndPopulateGrid();
         });
+
+        function getStatusClass(status) {
+            switch (status) {
+                case 'Agendado':
+                    return 'ui-state-default';
+                case 'No local':
+                    return 'agendamento-ui';
+                case 'Atendido':
+                    return 'atendido-ui';
+                case 'Faltou':
+                    return 'faltou-ui';
+                default:
+                    return '';
+            }
+        }
+
+        // Event listener for clearFilters button
+        $('#clearFilters').click(function () {
+            // Clear filter inputs
+            $('#filtroDataAgendamento').val('Todos');
+            $('#filtroTurnoAgendamento').val('Todos');
+            $('#filtroLocalAgendamento').val('Todos');
+            $('#filtroDisciplina').val('Todos');
+            $('#filtroStatus').val('Todos');
+
+            // Reset grid to original data
+            populateGridAgenda(originalData);
+        });
+
+        // Event listener for changes in filter inputs
+        $('#filtroDataAgendamento, #filtroTurnoAgendamento, #filtroLocalAgendamento, #filtroDisciplina, #filtroStatus').change(function () {
+            // Apply filters and update the grid
+            applyFilters();
+        });
+        
     </script>
 
     <script>

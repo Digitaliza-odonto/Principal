@@ -33,6 +33,13 @@
 
     consultaPlanoTto();
 
+    // CONVERTER DATA EM DD/MM/YYYY
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+        return formattedDate;
+    }
+
     function populatePlanosFields(data) {
     const container = document.getElementById('planoContainer');
 
@@ -51,7 +58,7 @@
             const button = document.createElement('button');
             button.type = 'button';
             button.classList.add('collapsible');
-            button.textContent = `+ Plano de tratamento realizado em ${plano.data}`;
+            button.textContent = `+ Plano de tratamento realizado em ${formatDate(plano.data)}`;
             button.addEventListener('click', function() {
                 this.classList.toggle('active');
                 const content = this.nextElementSibling;

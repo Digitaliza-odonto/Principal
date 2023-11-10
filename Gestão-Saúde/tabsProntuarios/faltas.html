@@ -80,13 +80,20 @@
 
     consultaFaltas();
 
+    // CONVERTER DATA EM DD/MM/YYYY
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+        return formattedDate;
+    }
+
     function populateFaltas(data) {
         for (var i = 0; i < data.length; i++) {
             var rowData = data[i];
             var rowId = 'faltasRow' + i; // Unique row ID for each row
             $('#' + gridFaltasId).jqGrid('addRowData', rowId, {
                 id: rowData.id,
-                data_agendamento: rowData.data_agendamento,
+                data_agendamento: formatDate(rowData.data_agendamento),
                 atividade_curricular: rowData.atividade_curricular,
                 agendado_por: rowData.agendado_por,
                 local: rowData.local

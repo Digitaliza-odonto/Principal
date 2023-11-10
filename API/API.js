@@ -134,6 +134,10 @@ const alunos = {
     const url = `${getApiUrl()}/alunos/consultarAlunoDisciplina.php`;
     return sendRequest(url, 'POST', data);
   },
+  buscarAlunoNomeMatricula: async (data) => {
+    const url = `${getApiUrl()}/alunos/buscarAlunoNomeMatricula.php`;
+    return sendRequest(url, 'POST', data);
+  },
 };
 
 const materiais = {
@@ -222,6 +226,10 @@ const disciplinas = {
   },
   consultar_IDturma: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultar_IDturma.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarArrayIDsTurma: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultarArrayIDsTurma.php`;
     return sendRequest(url, 'POST', data);
   },
 };

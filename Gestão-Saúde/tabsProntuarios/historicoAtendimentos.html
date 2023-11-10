@@ -83,13 +83,20 @@
 
     consultaHistorico();
 
+    // CONVERTER DATA EM DD/MM/YYYY
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+        return formattedDate;
+    }
+
     function populateHistoricoFields(data) {
         for (var i = 0; i < data.length; i++) {
             var rowData = data[i];
             var rowId = 'row' + i; // Unique row ID for each row
             $('#' + gridHistoricoId).jqGrid('addRowData', rowId, {
                 id: rowData.id_atendimentos,
-                data: rowData.data,
+                data: formatDate(rowData.data),
                 especialidade: rowData.especialidade,
                 descricao: rowData.descricao,
                 id_aluno: rowData.id_aluno,

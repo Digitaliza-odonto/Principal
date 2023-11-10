@@ -1,38 +1,3 @@
-  <!-- <script src="/API/API.js"></script>
-    <script>
-      const turma_id = getUrlVars()["turma_id"];
-      api.disciplinas.constutarMatriculados({turma_id}).then((data) => {
-       // data é um array de objetos com matricula e nome
-       // for para percorer o array e adicionar na tabela
-        for (let i = 0; i < data.length; i++) {
-          const newRow = tableAlunos.insertRow(-1);
-          newRow.className = "ui-state-default ui-th-column ui-th-ltr";
-
-          const matriculaCell = newRow.insertCell(0);
-          matriculaCell.textContent = data[i].matricula;
-          matriculaCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
-          const nomeCell = newRow.insertCell(1);
-          nomeCell.textContent = data[i].nome;
-          nomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-          
-        }            
-      });
-      
-      function getUrlVars() {
-        var vars = {};
-        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
-        function(m,key,value) {
-          vars[key] = value;
-        });
-        return vars;
-      }
-    </script> -->
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -69,7 +34,6 @@
         
       <div class="ui-widget-content ui-corner-all toolbar">
         <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="pesquisar" class="pesquisar" title="Enter" style="float: left;" onclick="buscar()">Pesquisar</button>
         <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
         <span style="clear: both; display: block"></span>
       </div>
@@ -84,15 +48,12 @@
           <br>
           <p></p>
           <br>
-
-          <h2 style="color: red;">PUXAR O VALOR DA MATRICULA DA URL E USAR ELE PARA BUSCAR AVALIAÇÕES DIRETAMENTE</h2>
-          <h2 style="color: red;">fazer select direto pro banco de avaliações por disciplina e periodo</h2>
           
           <label name="lblmatricula" id="lblmatricula" style="width: 80px;"  >Matrícula</label>
-          <input type="text" name="matricula" id="matricula" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;"  />
+          <input type="text" name="matricula" id="matricula" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 70px;" readonly/>
           <br>
           <label name="lblNome" id="lblNome" style="width: 80px;"  >Nome</label>
-          <input type="text" name="txtNome" id="txtNome" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;"  />
+          <input type="text" name="txtNome" id="txtNome" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;" readonly/>
           <br>
                         
           
@@ -105,9 +66,9 @@
     
     <script>
       var gridId = 'gridPaciente';
-      var headerColumns = ["ID", "Matrícula", "Nome", "Disciplina", "Período"];
-      var columnNames = ["id", "matricula", "nome", "atividade", "periodo"];
-      var columnWidths = [0, 50, 100, 100, 50];
+      var headerColumns = ["ID", "Disciplina", "Período"];
+      var columnNames = ["id", "atividade", "periodo"];
+      var columnWidths = [0, 100, 100];
       var rowHeight = 30; // Set the height of each row in pixels
   
       $(document).ready(function () {
@@ -126,8 +87,6 @@
                   { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
                   { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "center" },
                   { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" },
-                  { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" },
-                    { "sortable": true, "name": columnNames[4], "index": columnNames[4], "width": columnWidths[4], "align": "center" }
               ],
               "rowHeight": rowHeight
           });
@@ -143,137 +102,69 @@
           $('#tabFiltroCurso').bind('tabsshow', gridResize);
       });
     </script>
-  
+
     <script src="/API/API.js"></script>
 
     <script>
-        // Função para adicionar uma nova linha à tabela usando XPath
-        function adicionarNovaLinha(rows) {
-        // Seleciona o corpo da tabela usando o XPath
-        const tbody = document.querySelector('.ui-jqgrid-htable');
+      const matricula = getUrlVars()["matricula"];
+
+      api.avaliacoes.consultarId({ matricula }).then((data) => {
+        adicionarNovasLinhas(data);
+      });
+
+      api.alunos.buscarAlunoNomeMatricula({ matricula }).then((data) => {
+        // Check if data is not empty and has the 'nome' property
+        if (data && data.length > 0 && data[0].nome) {
+          document.getElementById('txtNome').value = data[0].nome;
+        }
+      });
+
+      document.getElementById('matricula').value = matricula;
+
+      function getUrlVars() {
+        var vars = {};
+        var parts = window.location.href.replace(
+          /[?&]+([^=&]+)=([^&]*)/gi,
+          function (m, key, value) {
+            vars[key] = value;
+          }
+        );
+        return vars;
+      }
+
+    
+
+      // Função para adicionar novas linhas à tabela
+      function adicionarNovasLinhas(rows) {
+        // Seleciona o corpo da tabela
+        const tbody = document.querySelector('.ui-jqgrid-btable');
 
         // Limpa a tabela antes de adicionar novas linhas
         limparTabela(tbody);
 
         // Loop através das linhas e adiciona cada uma à tabela
-        rows.forEach(row => {
-            // Cria um novo elemento de linha (<tr>)
-            const novaLinha = document.createElement('tr');
+        rows.forEach((row) => {
+          // Cria um novo elemento de linha (<tr>)
+          const novaLinha = document.createElement('tr');
 
-            // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
-            novaLinha.innerHTML = `
-            <td style="display: none;">ID</td>
-            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Consultas/minhas-avaliações-2.html?id=${aluno.Matricula}&cod_disciplina=${cod_disciplina}&periodo=${periodo}">${row.matricula}</a></td>
-            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Consultas/minhas-avaliações-2.html?id=${aluno.Matricula}&cod_disciplina=${cod_disciplina}&periodo=${periodo}">${row.nome}</a></td>
-            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Consultas/minhas-avaliações-2.html?id=${aluno.Matricula}&cod_disciplina=${cod_disciplina}&periodo=${periodo}">${row.atividade}</a></td>
-            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Consultas/minhas-avaliações-2.html?id=${aluno.Matricula}&cod_disciplina=${cod_disciplina}&periodo=${periodo}">${row.periodo}</a></td>
-            `;
+          // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
+          novaLinha.innerHTML = `
+            <td style="display: none;">${row.id_avaliacao}</td>
+            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="avaliacao-alunos-3.html?id=${row.matricula}&cod_disciplina=${row.cod_disciplina}&periodo=${row.periodo}">${row.disciplina}</a></td>
+            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="avaliacao-alunos-3.html?id=${row.matricula}&cod_disciplina=${row.cod_disciplina}&periodo=${row.periodo}">${row.periodo}</a></td>
+          `;
 
-            // Adiciona a nova linha ao corpo da tabela
-            tbody.appendChild(novaLinha);
+          // Adiciona a nova linha ao corpo da tabela
+          tbody.appendChild(novaLinha);
         });
+      }
+
+      // Função para limpar a tabela
+      function limparTabela(tbody) {
+        while (tbody.children.length > 0) {
+          tbody.removeChild(tbody.firstChild);
         }
-
-        // Função de busca que determina qual função de consulta chamar com base nos campos de nome e matrícula
-        function buscar() {
-            const nome = document.getElementById('txtNome').value;
-            const matricula = document.getElementById('matricula').value;
-
-            if (nome.trim() !== '') {
-                consultarAlunoPorNome(nome);
-            } else if (matricula.trim() !== '') {
-                consultarAlunoPorMatricula(matricula);
-            } else {
-            alert("Preencha o campo nome ou matrícula para realizar a busca.");
-            }
-        }
-
-        // Função para consultar alunos por nome usando a API
-        function consultarAlunoPorNome(nome) {
-        api.alunos.buscarAlunoNomeMatricula({ Nome: nome })
-            .then((alunos) => {
-            if (alunos.length === 0) {
-                alert("Nenhum aluno encontrado");
-            } else {
-                // Extract all turma_id values
-                const turmaIds = alunos.map((aluno) => aluno.turma_id);
-
-                // Call consultarIDturma once with all turma_id values
-                consultarIDturma(turmaIds, alunos);
-            }
-            })
-            .catch((error) => {
-            console.error('Erro ao consultar alunos:', error);
-            });
-        }
-
-        // Função para consultar alunos por CPF usando a API
-        function consultarAlunoPorMatricula(matricula) {
-        api.alunos.buscarAlunoNomeMatricula({ matricula: matricula })
-            .then((alunos) => {
-            if (alunos.length === 0) {
-                alert("Nenhum aluno encontrado");
-            } else {
-                // Extract all turma_id values
-                const turmaIds = alunos.map((aluno) => aluno.turma_id);
-
-                // Call consultarIDturma once with all turma_id values
-                consultarIDturma(turmaIds, alunos);
-            }
-            })
-            .catch((error) => {
-            console.error('Erro ao consultar alunos:', error);
-            });
-        }
-
-        function consultarIDturma(turmaIds, alunos) {
-        // Send the array of turma_id to the PHP endpoint
-        api.disciplinas.consultarArrayIDsTurma({ turma_ids: turmaIds })
-            .then((turmas) => {
-            if (turmas.length === 0) {
-                alert("Nenhum aluno encontrado");
-            } else {
-                // Create a mapping of turma_id to its data
-                const turmaDataMap = {};
-                turmas.forEach((turma) => {
-                turmaDataMap[turma.id] = turma;
-                });
-
-                // Combine aluno and turma data based on turma_id
-                const mergedRows = alunos.map((aluno) => {
-                const turmaData = turmaDataMap[aluno.turma_id] || {};
-                return { ...aluno, ...turmaData };
-                });
-
-                // Add the merged rows to the table
-                adicionarNovaLinha(mergedRows);
-            }
-            })
-            .catch((error) => {
-            console.error('Erro ao consultar alunos:', error);
-            });
-        }
-
-
-        // Função para limpar a tabela
-        function limparTabela(tbody) {
-            while (tbody.children.length > 1) {
-            tbody.removeChild(tbody.lastChild);
-            }
-        }
-
-        // Adicionar eventos de busca nos campos de entrada
-        document.getElementById('matricula').onkeydown = function (e) {
-            if (e.key === 'Enter') {
-                consultarAlunoPorMatricula(document.getElementById('matricula').value);
-            }
-        }
-
-        document.getElementById('txtNome').onkeydown = function (e) {
-            if (e.key === 'Enter') {
-                consultarAlunoPorNome(document.getElementById('txtNome').value);
-            }
-        }
+      }
     </script>
   </body>
 </html>

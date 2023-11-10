@@ -1,95 +1,202 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Avaliação geral do aluno</title>
-        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-            var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-            var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-            var PATH_COOKIE = '/';
-            var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-            var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-        </script>
-        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-        <link href="stylecobalto.css" type="text/css" rel="stylesheet">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultar avaliação geral de alunos</title>
+  <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+    var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+    var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+    var PATH_COOKIE = '/';
+    var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+    var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+  </script>
+  <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+  <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+  <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
 
-        <!--ALERT MESSAGES-->
-        <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
-        <script src="../../../scripts/alertMessage.js"></script>
+  <body>
+    <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+    <div id="content-center" class="ui-layout-center ui-widget-content"
+        style="background: none !important; overflow: hidden !important">
+        
+      <div class="breadCrumb module">
+        <ul>
+          <li><a href="index.html"></a></li>
+          <li>Gestão Saúde</li>
+          <li>Administração</li>
+          <li>Consultas</li>
+          <li>Avaliação geral de aluno</li>
+        </ul>
+        <div style="clear: both;"></div>
+      </div>
+      <div style="clear: both;"></div>
+        
+      <div class="ui-widget-content ui-corner-all toolbar">
+        <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+        <button id="pesquisar" class="pesquisar" title="Enter" style="float: left;" onclick="buscar()">Pesquisar</button>
+        <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+        <span style="clear: both; display: block"></span>
+      </div>
 
-        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-        <div id="customAlert" class="modal">
-            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
-            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
-                <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
-                <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
-                </button>
-            </div>
-            <p></p>
-            <br>
-            <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
-                <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
-                <p id="alertMessage"></p>
-            </div>
-            <p> </p><br>
-            <p> </p><br>
-            <p> </p><br>
-            <div><button id="okButton" class="centered-button">OK</button></div>
-            </div>
+      <!-- SCRIPT PARA BUSCA - PESQUISA ALTERAR/REFAZER -->
+      <script>var tabFiltroCurso = 'tabFiltroCurso';</script>
+      <div id="tabFiltroCurso" class="tabs">
+        <div id="tabFiltroCurso-0" class="ui-widget tabFiltroCurso tabFiltroCurso-0 tabFiltroCurso-0">
+          <ul>
+            <li class="labeltabFiltroCurso"><a href="#tabFiltroCurso-0" accessKey="tabFiltroCurso-0">Filtro</a></li>
+          </ul>
+          <br>
+          <p></p>
+          <br>
+          
+          <label name="lblmatricula" id="lblmatricula" style="width: 80px;"  >Matrícula</label>
+          <input type="text" name="matricula" id="matricula" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;"  />
+          <br>
+          <label name="lblNome" id="lblNome" style="width: 80px;"  >Nome</label>
+          <input type="text" name="txtNome" id="txtNome" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;"  />
+          <br>
+                        
+          
+          <div style="margin: 30px; width: 40%;">
+            <table id="gridPaciente"></table>
+            <div id="gridPacientePager" style="margin-bottom: 5px;"></div>  
         </div>
-    </head>
+      </div>
+    </div>
+    
+    <script>
+      var gridId = 'gridPaciente';
+      var headerColumns = ["ID", "Matrícula", "Nome"];
+      var columnNames = ["id", "matricula", "nome"];
+      var columnWidths = [0, 50, 100];
+      var rowHeight = 30; // Set the height of each row in pixels
+  
+      $(document).ready(function () {
+          $('#' + gridId).jqGrid({
+              "sortname": columnNames[1],
+              "autoload": false,
+              "autowidth": true,
+              "pager": "#" + gridId + "Pager",
+              "rowNum": 25,
+              "toppager": false,
+              "caption": "Lista de alunos",
+              "height": "auto",
+              "jsonReader": { "repeatitems": false, "id": 0 },
+              "colNames": headerColumns,
+              "colModel": [
+                  { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                  { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "center" },
+                  { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" }
+              ],
+              "rowHeight": rowHeight
+          });
+  
+          $('#' + gridId).setGridParam({ datatype: 'json' });
+          $('#' + gridId).setGridParam({ autoload: true });
+  
+          function gridResize() {
+              $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+          }
+  
+          $(window).bind('resize', gridResize);
+          $('#tabFiltroCurso').bind('tabsshow', gridResize);
+      });
+    </script>
+  
+    <script src="/API/API.js"></script>
 
-    <body>
-        <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
-                
-            <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-                <li>Administração</li>    
-                <li>Consultas</li>
-                <li>Avaliação geral do aluno</li>
-                </ul>
-                
-            <div style="clear: both;"></div></div><div style="clear: both;"></div>
-            
-            <!-- CONTEÚDO BOTÕES -->
-            <div class="ui-widget-content ui-corner-all toolbar">
-                <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-                <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button>
-                <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-                <span style="clear: both; display: block"></span>
-            </div>
+    <script>
+      // Função para adicionar uma nova linha à tabela usando XPath
+        function adicionarNovaLinha(rows) {
+        // Seleciona o corpo da tabela usando o XPath
+        const tbody = document.querySelector('.ui-jqgrid-htable');
+
+        // Limpa a tabela antes de adicionar novas linhas
+        limparTabela(tbody);
+
+        // Loop através das linhas e adiciona cada uma à tabela
+        rows.forEach(row => {
+            // Cria um novo elemento de linha (<tr>)
+            const novaLinha = document.createElement('tr');
+
+            // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
+            novaLinha.innerHTML = `
+            <td style="display: none;">ID</td>
+            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="avaliação-geral-alunos-2.html?matricula=${row.matricula}">${row.matricula}</td>
+            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="avaliação-geral-alunos-2.html?matricula=${row.matricula}">${row.nome}</a></td>
+            `;
+
+            // Adiciona a nova linha ao corpo da tabela
+            tbody.appendChild(novaLinha);
+        });
+        }
+
+      // Função de busca que determina qual função de consulta chamar com base nos campos de nome e matrícula
+      function buscar() {
+        const nome = document.getElementById('txtNome').value;
+        const matricula = document.getElementById('matricula').value;
+
+        if (nome.trim() !== '') {
+            consultarAlunoPorNome(nome);
+        } else if (matricula.trim() !== '') {
+            consultarAlunoPorMatricula(matricula);
+        } else {
+          alert("Preencha o campo nome ou matrícula para realizar a busca.");
+        }
+      }
+
+      // Função para consultar alunos por nome usando a API
+      function consultarAlunoPorNome(nome) {
+        api.alunos.buscarAlunoNomeMatricula({ Nome: nome })
+            .then((alunos) => {
+            if (alunos.length === 0) {
+                alert("Nenhum aluno encontrado");
+            } else {
+                adicionarNovaLinha(alunos);
+            }
+            })
+            .catch((error) => {
+            console.error('Erro ao consultar alunos:', error);
+            });
+        }
+
+      // Função para consultar alunos por CPF usando a API
+      function consultarAlunoPorMatricula(matricula) {
+        api.alunos.buscarAlunoNomeMatricula({ matricula: matricula })
+            .then((alunos) => {
+                if (alunos.length === 0) {
+                    alert("Nenhum aluno encontrado");
+                } else {
+                    adicionarNovaLinha(alunos);
+                }
+            })
+            .catch((error) => {
+            console.error('Erro ao consultar alunos:', error);
+            });
+        }
 
 
-        <div id="tabFiltroCurso" class="tabs"><ul></ul>
-            <div id="tabFiltroCurso-0" class="ui-widget tabFiltroCurso tabFiltroCurso-0 tabFiltroCurso-0">
-                <ul>
-                    <li class="labeltabFiltroCurso"><a href="#tabFiltroCurso-0" accessKey="tabFiltroCurso-0">Filtro</a></li></ul>
-                    
-                                
-                <div style="margin: 20px;">
-                    <label id="lblCodMatricula" style="width: 80px;" >Matricula</label>
-                    <input type="text" id="txtCodMatricula" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 80px;">
-                    <br>
+      // Função para limpar a tabela
+      function limparTabela(tbody) {
+        while (tbody.children.length > 1) {
+          tbody.removeChild(tbody.lastChild);
+        }
+      }
 
-                    <label id="lblNome" style="width: 80px;">Nome</label>
-                    <input type="text" id="txtNome" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;">
-                    <br>
-                </div>
-                
-                <hr class="ui-state-default">
-                
-                <div style="margin: 20px;">
-                    <h1 style="color: red;">QUANDO UNIFICAR COM BANCO DE ALUNOS - CRIAR TABELA E SCRIPT DE BUSCA</h1>
-                    <H2><a href="avaliação-geral-alunos-2.html?id=2010123">TESTE 2010123</a></H2>
-                    <H2><a href="avaliação-geral-alunos-2.html?id=2014321">TESTE 2014321</a></H2>
-                    <H2><a href="avaliação-geral-alunos-2.html?id=2011456">TESTE 2011456</a></H2>
-                    <H2><a href="avaliação-geral-alunos-2.html?id=2012789">TESTE 2012789</a></H2>
-                    <H2><a href="avaliação-geral-alunos-2.html?id=2013654">TESTE 2013654</a></H2>
-                </div>
-            </div>
-        </div>
-    <body>
+      // Adicionar eventos de busca nos campos de entrada
+      document.getElementById('matricula').onkeydown = function (e) {
+        if (e.key === 'Enter') {
+            consultarAlunoPorMatricula(document.getElementById('matricula').value);
+        }
+      }
+
+      document.getElementById('txtNome').onkeydown = function (e) {
+        if (e.key === 'Enter') {
+            consultarAlunoPorNome(document.getElementById('txtNome').value);
+        }
+      }
+    </script>
+  </body>
 </html>
+

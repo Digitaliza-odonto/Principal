@@ -60,7 +60,8 @@
       <div class="ui-widget-content ui-corner-all toolbar">
           <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
           <!-- <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button> -->
-          <button id="salvar" class="salvar" title="Salvar paciente" onclick="vincular()" style="float: left;">Tramitar regulação</button>
+          <button id="salvar" class="salvar" title="Salvar" onclick="vincular()" style="float: left;">Tramitar regulação</button>
+          <button id="devolver" class="devolver" title="Devolver" onclick="devolver()" style="float: left;">Devolver pedido</button>
           <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
           <span style="clear: both; display: block"></span>
       </div>
@@ -113,6 +114,9 @@
 
         <!-- 'id_turma' PARA ENVIO NA API -->
         <input type="hidden" id="id_turma" readonly="readonly"/>
+
+        <!-- 'id_demanda' PARA ENVIO NA API-->
+        <input type="text" id="id_demanda" readonly="readonly"/>
       </div>
 
       
@@ -260,6 +264,9 @@
               <thead>
                 <tr class="ui-jqgrid-labels" role="rowheader">
                   <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">
+                    ID
+                  </th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">
                     Selec.
                   </th>
                   <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 30%;">
@@ -327,17 +334,21 @@
             const newRow = tablePacientes.insertRow(-1);
             newRow.className = "ui-state-default ui-th-column ui-th-ltr";
 
-            const radioCell = newRow.insertCell(0);
+            const idDemandaCell = newRow.insertCell(0);
+            idDemandaCell.textContent = data[i].id_demanda;
+            idDemandaCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+            const radioCell = newRow.insertCell(1);
             radioCell.innerHTML = `<input type="radio" name="pacienteRadio" value='${JSON.stringify(data[i])}'>`;
             radioCell.className = "ui-state-default ui-th-column ui-th-ltr";
 
-            const pacienteNomeCell = newRow.insertCell(1);
+            const pacienteNomeCell = newRow.insertCell(2);
             pacienteNomeCell.textContent = data[i].CPF;
             pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
             
-            const demandaDescricaoCell = newRow.insertCell(2);
+            const demandaDescricaoCell = newRow.insertCell(3);
             demandaDescricaoCell.textContent = data[i].Demanda;
-            demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";                
+            demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";               
           }
 
       });
@@ -382,7 +393,7 @@
     
         // Get 'Matricula' and 'Turma' values from the URL
         var matricula = getParameterByName('Matricula');
-        var id_regulacao = getParameterByName('Turma');
+        var id_regulacao = getParameterByName('id_regulacao');
 
         // Create a request object with Matricula and Turma values
         var requestData = {
@@ -474,15 +485,19 @@
             const newRow = tablePacientes.insertRow(-1);
             newRow.className = "ui-state-default ui-th-column ui-th-ltr";
 
-            const radioCell = newRow.insertCell(0);
+            const idDemandaCell = newRow.insertCell(0);
+            idDemandaCell.textContent = data[i].id_demanda;
+            idDemandaCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+            const radioCell = newRow.insertCell(1);
             radioCell.innerHTML = `<input type="radio" name="pacienteRadio" value='${JSON.stringify(data[i])}'>`;
             radioCell.className = "ui-state-default ui-th-column ui-th-ltr";
 
-            const pacienteNomeCell = newRow.insertCell(1);
+            const pacienteNomeCell = newRow.insertCell(2);
             pacienteNomeCell.textContent = data[i].CPF;
             pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
             
-            const demandaDescricaoCell = newRow.insertCell(2);
+            const demandaDescricaoCell = newRow.insertCell(3);
             demandaDescricaoCell.textContent = data[i].Demanda;
             demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";                
           }
@@ -495,34 +510,53 @@
       
       // função vincular que pega o aluno e demanda selecionados e vincula
       function vincular() {
-          const matriculaAluno = document.getElementById("matriculaAluno").value;
-          const pacienteSelecionado = JSON.parse(document.querySelector("#tablePacientes input[type='radio']:checked").getAttribute("value"));
-          const turma_id = document.getElementById("id_turma").value;
+        const matriculaAluno = document.getElementById("matriculaAluno").value;
+        const pacienteSelecionado = JSON.parse(document.querySelector("#tablePacientes input[type='radio']:checked").getAttribute("value"));
+        const turma_id = document.getElementById("id_turma").value;
 
-          // Assuming you have alunoSelecionado stored somewhere in your code
-          const alunoSelecionado = {
-              matricula: matriculaAluno,
-              turma_id: turma_id,
-              
-          };
+        // Assuming you have alunoSelecionado stored somewhere in your code
+        const alunoSelecionado = {
+            matricula: matriculaAluno,
+            turma_id: turma_id,
+            
+        };
 
-          const dadosCombinados = Object.assign({}, alunoSelecionado, pacienteSelecionado);
+        const dadosCombinados = Object.assign({}, alunoSelecionado, pacienteSelecionado);
 
-          console.log(dadosCombinados);
+        console.log(dadosCombinados);
 
-          api.alunos.vincularPaciente(dadosCombinados).then((data) => {
-              console.log(data);
-              if (data.vinculoCriado == true) {
-                  showCustomAlert("Paciente vinculado com sucesso!");
-                  atualizartabela(turma_id);
-              } else {
-                  showCustomAlert("Erro ao vincular paciente.");
-              }
+        api.alunos.vincularPaciente(dadosCombinados).then((data) => {
+            console.log(data);
+            if (data.vinculoCriado == true) {
+              showCustomAlert("Paciente vinculado com sucesso!");
+              atualizartabela(turma_id);
+              // Assuming id_regulacao is defined somewhere in your code
+              homologarRegulacao(id_regulacao);
+            } else {
+              showCustomAlert("Vínculo já existe.");
+            }
           });
-      }
+        }
+
+        function homologarRegulacao(id_regulacao) {
+          api.encaminhamentos.homologarRegulacao({ id_regulacao })
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((error) => {
+              console.error("Error homologarRegulacao:", error);
+            });
+        }
+
       
       function desvincular(id_vinculo) {
         api.alunos.desvincularRegulacao({id_vinculo}).then((data) => {
+          console.log(data);
+        });
+      }
+
+      function devolver() {
+        api.encaminhamentos.devolverRegulacao({id_regulacao}).then((data) => {
           console.log(data);
         });
       }

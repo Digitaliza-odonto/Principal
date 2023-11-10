@@ -128,6 +128,13 @@
 
     <script>
 
+      // CONVERTER DATA EM DD/MM/YYYY
+      function formatDate(dateString) {
+          const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+          const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+          return formattedDate;
+      }
+
       function adicionarNovaLinha(data) {
             // Select the table body using jQuery
             const tbody = $('#' + gridId + ' tbody');
@@ -140,11 +147,11 @@
                 const novaLinha = `
                     <tr id="${item.id_regulacao}">
                         <td style="display: none;">${item.id_regulacao}</td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&Turma=${item.id_regulacao}">${item.data_pedido}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&Turma=${item.id_regulacao}">${item.id_turma}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&Turma=${item.id_regulacao}">${item.id_matricula}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&Turma=${item.id_regulacao}">${item.tipo_regulacao}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&Turma=${item.id_regulacao}">${item.status_regulacao}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${formatDate(item.data_pedido)}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.id_turma}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.id_matricula}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.tipo_regulacao}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.status_regulacao}</a></td>
                     </tr>
                 `;
                 tbody.append(novaLinha);

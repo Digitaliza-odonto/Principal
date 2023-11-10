@@ -88,6 +88,14 @@ const encaminhamentos = {
     const url = `${getApiUrl()}/encaminhamentos/consultarRegulacaoID.php`;
     return sendRequest(url, 'POST', data);
   },
+  homologarRegulacao: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/homologarRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  devolverRegulacao: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/devolverRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
 };
 
 const usuarios = {

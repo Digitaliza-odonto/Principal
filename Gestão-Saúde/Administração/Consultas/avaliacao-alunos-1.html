@@ -123,8 +123,8 @@
             // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
             novaLinha.innerHTML = `
             <td style="display: none;">ID</td>
-            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Administração/Consultas/avaliacao-alunos-2.html?id_aluno=${row.matricula}">${row.matricula}</td>
-            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Administração/Consultas/avaliacao-alunos-2.html?id_aluno=${row.matricula}">${row.nome}</a></td>
+            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Administração/Consultas/avaliacao-alunos-2.html?matricula=${row.matricula}">${row.matricula}</td>
+            <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Administração/Consultas/avaliacao-alunos-2.html?matricula=${row.matricula}">${row.nome}</a></td>
             `;
 
             // Adiciona a nova linha ao corpo da tabela

@@ -134,8 +134,8 @@
             <p></p>
 
             <br>
-            <label style="width: 200px; margin: 5px;">Filtrar por data</label>
-            <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style="width: 15%; height: 15px;">
+            <label style="width: 200px; ;margin: 5px;">Filtrar por data</label>
+            <input type="text" name="filtroDataAgendamento" id="filtroDataAgendamento" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 80px;">
                 
             <br>
             <label style="width: 200px; margin: 5px;">Filtrar por turno</label>
@@ -246,6 +246,13 @@
             });
         }
 
+        // CONVERTER DATA EM DD/MM/YYYY
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+            return formattedDate;
+        }
+
         function loadAgenda(cpf) {
             // Assume fetching agenda data based on the selected patient's CPF
             api.agenda.consultarAgendaPaciente({ cpf_paciente: cpf })
@@ -263,7 +270,7 @@
                         var cell5 = row.insertCell();
                         var cell6 = row.insertCell();
                                                         
-                        cell1.textContent = item.data_agendamento;
+                        cell1.textContent = formatDate(item.data_agendamento);
                         cell2.textContent = item.horario_agendamento + ':' + item.minuto_agendamento;
                         cell3.textContent = item.local;
                         cell4.textContent = item.atividade_curricular;

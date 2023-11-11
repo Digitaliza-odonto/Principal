@@ -99,57 +99,49 @@
 
     <script>
       // buscar pacientes do aluno logado
-      const aluno = JSON.parse(localStorage.getItem('usuario'));
-      api.alunos.pacientes({ Matricula: aluno.Matricula })
-        .then((pacientes) => {
-          const tbody = document.querySelector('.ui-jqgrid-htable');
-        //  limparTabela(tbody);
-          
-          if (pacientes.length === 0) {
-            show("Nenhum paciente encontrado");
-          } else {
-            pacientes.forEach(paciente => {
-              adicionarNovaLinha(
-                paciente.Nome,
-                paciente.CPF,
-                paciente.Tel,
-                paciente.Tel2,
-                paciente.Email
-              );
+      $(document).ready(function () {
+      
+        const aluno = JSON.parse(localStorage.getItem('usuario'));
+
+        api.alunos.pacientes({ Matricula: aluno.Matricula })
+            .then((data) => {
+                const vinculos = data.vinculos;
+                const pacienteInfoList = data.pacienteInfoList;
+
+                // Loop through each vinculo and corresponding pacienteInfo
+                vinculos.forEach((vinculo, index) => {
+                    const pacienteInfo = pacienteInfoList[index][0]; // Assuming that there is only one pacienteInfo for each vinculo
+
+                    adicionarNovaLinha(
+                        pacienteInfo.Nome,
+                        pacienteInfo.CPF,
+                        pacienteInfo.Tel,
+                        pacienteInfo.Tel2,
+                        pacienteInfo.Email
+                    );
+                });
+            })
+            .catch((error) => {
+                console.error('Erro ao consultar pacientes:', error);
             });
-          }
-        })
-        .catch((error) => {
-          console.error('Erro ao consultar pacientes:', error);
-        });
 
-      function limparTabela(tbody) {
-        while (tbody.children.length > 1) {
-          tbody.removeChild(tbody.lastChild);
+        function adicionarNovaLinha(nome, cpf, Tel, Tel2, Email) {
+            const tbody = document.querySelector('.ui-jqgrid-btable');
+
+            const novaLinha = document.createElement('tr');
+
+            novaLinha.innerHTML = `
+                <td style="display: none;">ID</td>
+                <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/multiUsuarios/perfil-visualização.html?cpf=${cpf}">${nome}</td>
+                <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/multiUsuarios/perfil-visualização.html?cpf=${cpf}">${cpf}</td>
+                <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/multiUsuarios/perfil-visualização.html?cpf=${cpf}">${Tel}</td>
+                <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/multiUsuarios/perfil-visualização.html?cpf=${cpf}">${Tel2}</td>
+                <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/multiUsuarios/perfil-visualização.html?cpf=${cpf}">${Email}</td>
+            `;
+
+            tbody.appendChild(novaLinha);
         }
-      }
-        
-      // Função para adicionar uma nova linha à tabela usando XPath
-      function adicionarNovaLinha(nome, cpf, Tel, Tel2, Email) {
-        // Seleciona o corpo da tabela usando o XPath
-        const tbody = document.querySelector('.ui-jqgrid-htable');
-
-        // Cria um novo elemento de linha (<tr>)
-        const novaLinha = document.createElement('tr'); 
-
-        // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
-        novaLinha.innerHTML = `
-          <td style="display: none;">ID</td>
-          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/multiUsuarios/perfil-visualização.html?cpf=${cpf}">${nome}</a></td>
-          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/multiUsuarios/perfil-visualização.html?cpf=${cpf}">${cpf}</td>
-          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/multiUsuarios/perfil-visualização.html?cpf=${cpf}">${Tel}</td>
-          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/multiUsuarios/perfil-visualização.html?cpf=${cpf}">${Tel2}</td>
-          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/multiUsuarios/perfil-visualização.html?cpf=${cpf}">${Email}</td>
-        `; 
-
-        // Adiciona a nova linha ao corpo da tabela
-        tbody.appendChild(novaLinha);
-      }
+      });
     </script>
   </body>
 </html>

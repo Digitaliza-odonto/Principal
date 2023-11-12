@@ -98,9 +98,10 @@
                     <label style="width: 200px; margin: 5px;">Descrição do procedimento</label>
                     <input type="text" id="descricao" maxlength="" class="ui-state-default ui-corner-all mousetrap" style="width: 50%;" placeholder="Descrição do procedimento">
 
+                    
                     <br>
                     <label style="width: 200px; margin: 5px;">Data do agendamento</label>
-                        <input type="date" id="data_agendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 15%; height: 15px;" />
+                    <input type="text" id="data_agendamento" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 80px;">
                     <br>
 
                     <label style="width: 200px; margin: 5px;">Horário</label>
@@ -166,95 +167,119 @@
                 </ul>
             </div>
 
-            <table id="gridPaciente" class="ui-jqgrid-htable ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 100%; font-size: 14px;">
-                <thead>
-                    <tr class="ui-jqgrid-labels" role="rowheader">
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Nome.</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">CPF</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Disciplina</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                    <!-- Table body rows will be populated here -->
-                </tbody>
-                <tr>
-                    <td colspan="3" style="text-align: center;">
-                        <div id="pagination" class="ui-state-default">
-                            <button id="prev-page">&lt;</button>
-                            <span id="page-info">Pág. 1</span>
-                            <button id="next-page">&gt;</button>
-                        </div>
-                    </td>
-                </tr>
-                </table>
-                
-                <script src="/API/API.js"></script>
-                <script>
-                    // buscar pacientes do aluno logado
-                    const aluno = JSON.parse(localStorage.getItem('usuario'));
-                    api.alunos.pacientes({ Matricula: aluno.Matricula })
-                        .then((pacientes) => {
-                            const tbody = document.getElementById('table-body');
-                            limparTabela(tbody);
-                
-                            if (pacientes.length === 0) {
-                                show("Nenhum paciente encontrado");
-                            } else {
-                                pacientes.forEach(paciente => {
-                                    adicionarNovaLinha(
-                                        paciente.Nome,
-                                        paciente.CPF,
-                                        paciente.disciplina,
-                                    );
-                                });
-                            }
-                        })
-                        .catch((error) => {
-                            console.error('Erro ao consultar pacientes:', error);
-                        });
-                
-                    function limparTabela(tbody) {
-                        tbody.innerHTML = '';
-                    }
-                
-                    function adicionarNovaLinha(nome, cpf, disciplina) {
-                        // Seleciona o corpo da tabela usando o ID
-                        const tbody = document.getElementById('table-body');
-                
-                        // Cria um novo elemento de linha (<tr>)
-                        const novaLinha = document.createElement('tr');
-                
-                        // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
-                        novaLinha.innerHTML = `
-                            <td class="ui-state-default ui-th-column ui-th-ltr">${nome}</td>
-                            <td class="ui-state-default ui-th-column ui-th-ltr">${cpf}</td>
-                            <td class="ui-state-default ui-th-column ui-th-ltr">${disciplina}</td>
-                        `;
-                
-                        // Adiciona a nova linha ao corpo da tabela
-                        tbody.appendChild(novaLinha);
-                    }
+            <div style="margin: 10px; width: 97%;">
+                <table id="gridPaciente"></table>
+                <div id="gridPacientePager" style="margin-bottom: 5px;"></div>  
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <script>
+          var gridId = 'gridPaciente';
+          var headerColumns = ["ID", "Nome", "CPF", "Telefone", "Telefone 2", "Disciplina"];
+          var columnNames = ["id", "paciente_nome", "cpf", "Tel", "Tel2", "atividade"];
+          var columnWidths = [0, 50, 50, 50, 50, 100];
+          var rowHeight = 30; // Set the height of each row in pixels
+    
+          $(document).ready(function () {
+            $('#' + gridId).jqGrid({
+                "sortname": columnNames[1],
+                "autoload": false,
+                "autowidth": true,
+                "pager": "#" + gridId + "Pager",
+                "rowNum": 25,
+                "toppager": false,
+                "caption": "Lista dos meus pacientes",
+                "height": "auto",
+                "jsonReader": { "repeatitems": false, "id": 0 },
+                "colNames": headerColumns,
+                "colModel": [
+                    { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                    { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "left" },
+                    { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" },
+                    { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" },
+                    { "sortable": true, "name": columnNames[4], "index": columnNames[4], "width": columnWidths[4], "align": "center" },
+                    { "sortable": true, "name": columnNames[5], "index": columnNames[5], "width": columnWidths[5], "align": "center" }
+                ],
+                "rowHeight": rowHeight
+            });
+    
+            $('#' + gridId).setGridParam({ datatype: 'json' });
+            $('#' + gridId).setGridParam({ autoload: true });
+    
+            function gridResize() {
+                $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+            }
+    
+            $(window).bind('resize', gridResize);
+            $('#tabFiltroCurso').bind('tabsshow', gridResize);
+          });
+        </script>
+    
+         <script src="/API/API.js"></script>
+    
+         <script>
+            // buscar pacientes do aluno logado
+            $(document).ready(function () {
+              const aluno = JSON.parse(localStorage.getItem('usuario'));
+          
+              api.alunos.pacientes({ Matricula: aluno.Matricula })
+                .then((data) => {
+                  const vinculos = data.vinculos;
+                  const pacienteInfoList = data.pacienteInfoList;
+          
+                  // Loop through each vinculo and corresponding pacienteInfo
+                  vinculos.forEach((vinculo, index) => {
+                    const pacienteInfo = pacienteInfoList[index][0]; // Assuming that there is only one pacienteInfo for each vinculo
+                    const atividadeInfo = pacienteInfoList[index].TurmaInfo[0].atividade;
+          
+                        adicionarNovaLinha(
+                        pacienteInfo.Nome,
+                        pacienteInfo.CPF,
+                        pacienteInfo.Tel,
+                        pacienteInfo.Tel2,
+                        atividadeInfo
+                        );
+                    });
+                    })
+                    .catch((error) => {
+                    console.error('Erro ao consultar pacientes:', error);
+                });
+          
+                function adicionarNovaLinha(nome, cpf, Tel, Tel2, atividade) {
+                    const tbody = document.querySelector('.ui-jqgrid-btable');
 
-                        // Function to populate input fields when a table row is clicked
-                        function populateInputFields(nome, cpf, disciplina) {
-                            document.getElementById('pacienteAgendamento').value = nome;
-                            document.getElementById('cpf_paciente').value = cpf;
-                            document.getElementById('atividade_curricular').value = disciplina;
-                        }
+                    const novaLinha = document.createElement('tr');
 
-                        // Add event listener to the table rows
-                        const tableBody = document.getElementById('table-body');
-                        tableBody.addEventListener('click', function(event) {
-                            const clickedRow = event.target.closest('tr');
-                            if (clickedRow) {
-                                const cells = clickedRow.querySelectorAll('td');
-                                const nome = cells[0].textContent;
-                                const cpf = cells[1].textContent;
-                                const disciplina = cells[2].textContent;
-                                populateInputFields(nome, cpf, disciplina);
-                            }
-                        });
-                </script>
+                    novaLinha.setAttribute('data-nome', nome);
+                    novaLinha.setAttribute('data-cpf', cpf);
+                    novaLinha.setAttribute('data-telefone', Tel);
+                    novaLinha.setAttribute('data-telefone2', Tel2);
+                    novaLinha.setAttribute('data-atividade', atividade);
+
+                    novaLinha.innerHTML = `
+                        <td style="display: none;">ID</td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr">${nome}</td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr">${cpf}</td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr">${Tel}</td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr">${Tel2}</td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr">${atividade}</td>
+                    `;
+
+                    tbody.appendChild(novaLinha);
+
+                    // Add click event listener to the new row
+                    novaLinha.addEventListener('click', function () {
+                        // Populate input fields with data from the clicked row
+                        document.getElementById('pacienteAgendamento').value = this.getAttribute('data-nome');
+                        document.getElementById('cpf_paciente').value = this.getAttribute('data-cpf');
+                        document.getElementById('atividade_curricular').value = this.getAttribute('data-atividade');
+                    });
+                }
+            });
+          </script>
+          
             </div>
         </div>
     </div>

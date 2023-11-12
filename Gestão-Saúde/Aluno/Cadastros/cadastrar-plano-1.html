@@ -55,8 +55,8 @@
   
       <script>
         var gridId = 'gridPaciente';
-        var headerColumns = ["ID", "Nome", "CPF", "Telefone", "Telefone 2", "Email"];
-        var columnNames = ["id", "paciente_nome", "cpf", "Tel", "Tel2", "Email"];
+        var headerColumns = ["ID", "Nome", "CPF", "Telefone", "Telefone 2", "Disciplina"];
+        var columnNames = ["id", "paciente_nome", "cpf", "Tel", "Tel2", "atividade"];
         var columnWidths = [0, 100, 50, 50, 50, 100];
         var rowHeight = 30; // Set the height of each row in pixels
   
@@ -104,31 +104,32 @@
           const aluno = JSON.parse(localStorage.getItem('usuario'));
   
           api.alunos.pacientes({ Matricula: aluno.Matricula })
-              .then((data) => {
-                  const vinculos = data.vinculos;
-                  const pacienteInfoList = data.pacienteInfoList;
-  
-                  // Loop through each vinculo and corresponding pacienteInfo
-                  vinculos.forEach((vinculo, index) => {
-                      const pacienteInfo = pacienteInfoList[index][0]; // Assuming that there is only one pacienteInfo for each vinculo
-  
-                      adicionarNovaLinha(
-                          pacienteInfo.Nome,
-                          pacienteInfo.CPF,
-                          pacienteInfo.Tel,
-                          pacienteInfo.Tel2,
-                          pacienteInfo.Email
-                      );
-                  });
-              })
-              .catch((error) => {
-                  console.error('Erro ao consultar pacientes:', error);
-              });
-  
-          function adicionarNovaLinha(nome, cpf, Tel, Tel2, Email) {
-              const tbody = document.querySelector('.ui-jqgrid-btable');
-  
-              const novaLinha = document.createElement('tr');
+            .then((data) => {
+              const vinculos = data.vinculos;
+              const pacienteInfoList = data.pacienteInfoList;
+      
+              // Loop through each vinculo and corresponding pacienteInfo
+              vinculos.forEach((vinculo, index) => {
+                const pacienteInfo = pacienteInfoList[index][0]; // Assuming that there is only one pacienteInfo for each vinculo
+                const atividadeInfo = pacienteInfoList[index].TurmaInfo[0].atividade;
+      
+                    adicionarNovaLinha(
+                    pacienteInfo.Nome,
+                    pacienteInfo.CPF,
+                    pacienteInfo.Tel,
+                    pacienteInfo.Tel2,
+                    atividadeInfo
+                    );
+                });
+                })
+                .catch((error) => {
+                console.error('Erro ao consultar pacientes:', error);
+            });
+      
+          function adicionarNovaLinha(nome, cpf, Tel, Tel2, atividade) {
+            const tbody = document.querySelector('.ui-jqgrid-btable');
+      
+            const novaLinha = document.createElement('tr');
   
               novaLinha.innerHTML = `
                   <td style="display: none;">ID</td>
@@ -136,7 +137,7 @@
                   <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Cadastros/cadastrar-plano-2.html?cpf=${cpf}">${cpf}</td>
                   <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Cadastros/cadastrar-plano-2.html?cpf=${cpf}">${Tel}</td>
                   <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Cadastros/cadastrar-plano-2.html?cpf=${cpf}">${Tel2}</td>
-                  <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Cadastros/cadastrar-plano-2.html?cpf=${cpf}">${Email}</td>
+                  <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Aluno/Cadastros/cadastrar-plano-2.html?cpf=${cpf}">${atividade}</td>
               `;
   
               tbody.appendChild(novaLinha);

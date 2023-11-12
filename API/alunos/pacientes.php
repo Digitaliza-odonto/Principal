@@ -26,11 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Perform the second SQL operation for each 'CPF_paciente'
             $pacienteInfo = db("SELECT * FROM pacientes WHERE CPF = '$CPF_paciente'");
 
+            // Perform the third SQL operation to get 'Turma' value
+            $turmaInfo = db("SELECT * FROM `disciplinas` WHERE `id` = '" . $vinculo['Turma'] . "'");
+
+            // Add 'Turma' information to pacienteInfo
+            $pacienteInfo['TurmaInfo'] = $turmaInfo;
+
             // Add the result to the list
             $pacienteInfoList[] = $pacienteInfo;
         }
 
-        // Include vinculos and pacienteInfoList in the JSON response
+        // Include vinculos, pacienteInfoList, and TurmaInfo in the JSON response
         echo json_encode(array("vinculos" => $vinculos, "pacienteInfoList" => $pacienteInfoList));
     } else {
         echo json_encode(array("message" => "No vinculos found"));

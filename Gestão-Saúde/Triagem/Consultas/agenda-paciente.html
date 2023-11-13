@@ -1,77 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultar agenda do paciente</title>
-    <!-- jQuery library -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- jQuery UI CSS -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-
-    <!-- jQuery UI JavaScript -->
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
-    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Agenda do paciente</title>
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
         var BASE_URL = 'https://cobalto.ufpel.edu.br/';
         var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
         var PATH_COOKIE = '/';
         var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
         var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-    </script>
-    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
-    <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
+        </script>
+        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+        <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+        <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
+    </head>
 
-    <!--ALERT MESSAGES-->
-    <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
-    <script src="../../../scripts/alertMessage.js"></script>
+    <body>
+        <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+        <div id="content-center" class="ui-layout-center ui-widget-content"
+            style="background: none !important; overflow: hidden !important">
+            
+            <div class="breadCrumb module">
+                <ul>
+                    <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+                    <li>Consulta</li>    
+                    <li>Agenda do paciente</li>
+                </ul>
+                <div style="clear: both;"></div></div><div style="clear: both;"></div>
+                
+                <div class="ui-widget-content ui-corner-all toolbar">
+                    <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+                    <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+                    <span style="clear: both; display: block"></span>
+                </div>
   
-    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-    <div id="customAlert" class="modal">
-        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
-        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-            <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
-            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
-            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
-            </button>
-        </div>
-        <p></p>
-        <br>
-        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
-            <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
-            <p id="alertMessage"></p>
-        </div>
-        <p> </p><br>
-        <p> </p><br>
-        <p> </p><br>
-        <div><button id="okButton" class="centered-button">OK</button></div>
-        </div>
-    </div>
-  </head>
-  
-  <body>
-    <!-- CONTEÚDO SUPERIOR -->
-    <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-        <li>Triagem</li>    
-        <li>Consultas</li>
-        <li>Consultar agenda do paciente</li>
-      </ul>
-          
-      <div style="clear: both;"></div>
-    </div>
-    <div style="clear: both;"></div>
-      
-    <!-- CONTEÚDO BOTÕES -->
-    <div class="ui-widget-content ui-corner-all toolbar">
-        <button id="voltar-pagina" class="voltar-pagina ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" style="float: left;" role="button" aria-disabled="false" title="Voltar página"><span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-w"></span></button>
-        <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-        <span style="clear: both; display: block"></span>
-    </div>
- 
+
     <!-- COLUNA DA ESQUERDA -->
     <div style="width: 40%; height: 850px; float: left; box-sizing: border-box;">
                     
@@ -118,6 +84,17 @@
                         </td>
                     </tr>
                 </table>
+
+
+
+
+
+
+
+
+
+
+                
             </div>
         </div>
     </div>

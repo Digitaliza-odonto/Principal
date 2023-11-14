@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Aprovar encaminhamento/alta de paciente</title>
     <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
       var BASE_URL = 'https://cobalto.ufpel.edu.br/';
       var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
@@ -43,30 +43,61 @@
             </ul>
             <br>
             
-            <div style="margin: 25px">
-              <table id="pacienteLocal" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 50%;">
-                <thead>
-                    <tr class="ui-jqgrid-labels" role="rowheader">
-                      <th style="display: none;">ID</th>
-                      <th class="ui-jqgrid-titlebar ui-widget-header">Data</th>
-                      <th class="ui-jqgrid-titlebar ui-widget-header">CPF Paciente</th>
-                      <th class="ui-jqgrid-titlebar ui-widget-header">Especialidade</th>
-                      <th class="ui-jqgrid-titlebar ui-widget-header">ID aluno</th>
-                      <th class="ui-jqgrid-titlebar ui-widget-header">Disciplina</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body2">
-                    <!-- Table body rows will be populated here -->
-                </tbody>
-  
-              </table>
+            <div style="margin: 30px; width: 80%;">
+              <table id="pacienteLocal"></table>
+              <div id="gridPacientePager" style="margin-bottom: 5px;"></div>  
             </div>
-           </div>
+  
           </div>
         </div>
+
+        <script>
+          var gridId = 'pacienteLocal';
+          var headerColumns = ["ID", "Data", "Paciente", "CPF", "Aluno", "Origem", "Especialidade"];
+          var columnNames = ["id", "data", "NomePaciente", "cpf_paciente", "NomeAluno", "encaminhamentoOrigem", "especialidade"];
+          var columnWidths = [0, 100, 100, 100, 100, 100, 100];
+          var rowHeight = 30; // Set the height of each row in pixels
+    
+          $(document).ready(function () {
+            $('#' + gridId).jqGrid({
+                "sortname": columnNames[1],
+                "autoload": false,
+                "autowidth": true,
+                "pager": "#" + gridId + "Pager",
+                "rowNum": 25,
+                "toppager": false,
+                "caption": "Lista de encaminhamentos/altas à serem aprovados",
+                "height": "auto",
+                "jsonReader": { "repeatitems": false, "id": 0 },
+                "colNames": headerColumns,
+                "colModel": [
+                    { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                    { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "center" },
+                    { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" },
+                    { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" },
+                    { "sortable": true, "name": columnNames[4], "index": columnNames[4], "width": columnWidths[4], "align": "center" },
+                    { "sortable": true, "name": columnNames[5], "index": columnNames[5], "width": columnWidths[5], "align": "center" },
+                    { "sortable": true, "name": columnNames[6], "index": columnNames[6], "width": columnWidths[6], "align": "center" },
+
+                ],
+                "rowHeight": rowHeight
+            });
+    
+            $('#' + gridId).setGridParam({ datatype: 'json' });
+            $('#' + gridId).setGridParam({ autoload: true });
+    
+            function gridResize() {
+                $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+            }
+    
+            $(window).bind('resize', gridResize);
+            $('#tabFiltroCurso').bind('tabsshow', gridResize);
+          });
+        </script>
+      </div>
+           
     
         <script src="/API/API.js"></script>
-    
     
         <script>
           $(document).ready(function () {
@@ -93,23 +124,30 @@
                           //showCustomAlert('Error fetching data');
                       });
               }
+
+              // CONVERTER DATA EM DD/MM/YYYY
+              function formatDate(dateString) {
+                  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+                  const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+                  return formattedDate;
+              }
       
               function showAllRows() {
-                var tableBody = $('#table-body2');
+                var tableBody = $('#pacienteLocal');
                 tableBody.empty();
     
                 for (var i = 0; i < totalRows; i++) {
                     var item = tableRows[i];
                     var id_atendimentos = item.id_atendimentos;
     
-                    // Create table row with the link
-                    var row = '<tr>';
+                                        var row = '<tr>';
                     row += `<td style="display: none;">${item.id_atendimentos}</td>`;
-                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.Data}</td>`;
+                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${formatDate(item.Data)}</td>`;
+                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.NomePaciente}</td>`;
                     row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.CPF}</td>`;
-                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.Especialidade}</td>`;
-                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.alunoEncaminhamento}</td>`;
+                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.NomeAluno}</td>`;
                     row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.encaminhamentoOrigem}</td>`;
+                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.Especialidade}</td>`;
                     row += '</tr>';
     
                     tableBody.append(row);

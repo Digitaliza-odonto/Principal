@@ -150,6 +150,10 @@ const alunos = {
     const url = `${getApiUrl()}/alunos/buscarAlunoNomeMatricula.php`;
     return sendRequest(url, 'POST', data);
   },
+  vinculoPorCPFpaciente: async (data) => {
+    const url = `${getApiUrl()}/alunos/vinculosCPFpaciente.php`;
+    return sendRequest(url, 'POST', data);
+  },
 };
 
 const materiais = {

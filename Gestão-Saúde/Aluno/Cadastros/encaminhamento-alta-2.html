@@ -24,6 +24,16 @@
     <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
     <script src="../../../scripts/alertMessage.js"></script>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var okButton = document.getElementById('okButton');
+    
+        okButton.addEventListener('click', function() {
+          window.history.back(); // This line performs the action of going back to the previous page
+        });
+      });
+    </script>
+
     <!-- HIDDEN DIV FOR ALERT MESSAGE -->
     <div id="customAlert" class="modal">
         <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
@@ -101,15 +111,41 @@
           <label style="font-weight:bold;width: 300px;font-size: 14px;">Origem</label><br>
 
           <label style="width: 180px;">Origem</label>
-          <input type="text" id="encaminhamentoOrigem" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="GET NOME DA DISCIPLINA">
+          <input type="text" id="encaminhamentoOrigem" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" readonly>
           <br>
+
+          <input type="hidden" id="encaminhamentoOrigemID" readonly><br>
 
           <!-- <label style="width: 180px; margin-top: 10px;">Aluno</label> -->
           <input type="hidden" id="alunoEncaminhamento">
                 
-          <label style="width: 180px; margin-top: 10px;">Responsável técnico</label>
-          <input type="text" id="responsavelEncaminhamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px; margin-top: 10px;" placeholder="SELECT BOX OU BUSCAR O NOME?">
+          <label style="width: 180px;">Responsável técnico</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px; margin-bottom: 10px;" name="responsavelProcedimento" id="responsavelProcedimento">
+              <option value="Escolher">Escolher</option>
+              <!-- OPTIONS WILL BE POPULATED HERE -->
+          </select>
           <br>
+
+          <script>
+              // Function to load data from the API and create select options
+              function listarResponsaveis() {
+                          api.usuarios.consultarResponsavel().then(function (data) {
+                              originalData = data; // Store original data for filtering
+                              console.log(data);
+                              
+                              var select = document.getElementById("responsavelProcedimento");
+                              data.forEach(function(responsavel) {
+                                  var option = document.createElement("option");
+                                  option.text = responsavel.Nome;
+                                  select.add(option);
+                              });
+                          }).catch(function (error) {
+                              console.log('Error fetching data');
+                          });
+                      }
+
+              listarResponsaveis();
+          </script>
           
           <hr class="ui-state-default">  
 
@@ -184,6 +220,14 @@
      
         <!--Script DEMANDAS-->
         <script>
+
+          // CONVERTER DATA EM DD/MM/YYYY
+          function formatDate(dateString) {
+              const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+              const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+              return formattedDate;
+          }
+
           function adicionarNovaLinha(data) {
             console.log(data)
             // Seleciona o corpo da tabela usando o XPath
@@ -195,7 +239,7 @@
 
             // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
             novaLinha.innerHTML = `
-              <td role="gridcell" style="text-align:center;">${data.Data}</td>
+              <td role="gridcell" style="text-align:center;">${formatDate(data.Data)}</td>
               <td role="gridcell" style="text-align:center;">${data.Especialidade}</td>
               <td role="gridcell" style="text-align:center;">${data.Demanda}</td>
               <td role="gridcell" style="text-align:center;">${data.Status}</td>
@@ -228,32 +272,67 @@
             return jsonData;
           }
 
-          // buscar pacientes do aluno logado
+          // Assuming 'aluno' and 'CPF' are correctly retrieved
           const aluno = JSON.parse(localStorage.getItem('usuario'));
+          const CPF = getUrlVars()["cpf"];
 
-        
-          function encaminhar(){
-            let Encaminhamentos = getDataFromTab("encaminhamento") 
-            Encaminhamentos.CPF = getUrlVars()["cpf"]
-            Encaminhamentos.Status = Encaminhamentos.Status
-            Encaminhamentos.encaminhamentoOrigem = Encaminhamentos.encaminhamentoOrigem
-            Encaminhamentos.alunoEncaminhamento = aluno.Matricula
-            Encaminhamentos.responsavelEncaminhamento = Encaminhamentos.responsavelEncaminhamento
-            Encaminhamentos.Especialidade = Encaminhamentos.Especialidade
-            Encaminhamentos.Complexidade = Encaminhamentos.Complexidade
-            Encaminhamentos.Demanda = Encaminhamentos.Demanda
-            Encaminhamentos.Data = Encaminhamentos.Data
+          function vinculoPacienteAluno(aluno, CPF) {
+            const requestData = {
+              Matricula: aluno.Matricula,
+              CPF: CPF
+            };
 
-            
-            console.log(Encaminhamentos)
-            api.encaminhamentos.criarEncaminhamento(Encaminhamentos).then((result)=>{
-              showCustomAlert(result.message)
-              console.log(result)
-              adicionarNovaLinha(Encaminhamentos)
-            })
+            api.alunos.vinculoPorCPFpaciente(requestData)
+              .then((data) => {
+                console.log(data); // Check if data is received correctly
+                if (data && data.length > 0) {
+                  const atividadeValue = data[0].atividade; // Accessing 'atividade' from the first object in the array
+                  document.getElementById("encaminhamentoOrigem").value = atividadeValue;
+                  document.getElementById("encaminhamentoOrigemID").value = data[0].id;
+                } else {
+                  console.error('No data or empty array received.');
+                }
+              })
+              .catch((error) => {
+                console.error('Error in request:', error);
+              });
           }
 
-          const CPF = getUrlVars()["cpf"]
+          vinculoPacienteAluno(aluno, CPF);
+
+          function encaminhar() {
+            let Encaminhamentos = getDataFromTab("encaminhamento");
+            Encaminhamentos.CPF = getUrlVars()["cpf"];
+            Encaminhamentos.Status = Encaminhamentos.Status;
+            Encaminhamentos.origemID = document.getElementById("encaminhamentoOrigemID").value;
+            Encaminhamentos.encaminhamentoOrigem = Encaminhamentos.encaminhamentoOrigem;
+            Encaminhamentos.alunoEncaminhamento = aluno.Matricula;
+            Encaminhamentos.responsavelEncaminhamento = Encaminhamentos.responsavelEncaminhamento;
+            Encaminhamentos.Especialidade = Encaminhamentos.Especialidade;
+            Encaminhamentos.Complexidade = Encaminhamentos.Complexidade;
+            Encaminhamentos.Demanda = Encaminhamentos.Demanda;
+            Encaminhamentos.Data = Encaminhamentos.Data;
+
+            // Check if any of the specified fields are equal to 'Escolher'
+            if (
+                Encaminhamentos.responsavelEncaminhamento === 'Escolher' ||
+                Encaminhamentos.Especialidade === 'Escolher' ||
+                Encaminhamentos.Complexidade === 'Escolher' ||
+                Encaminhamentos.Status === 'Escolher'
+            ) {
+                showCustomAlert("Por favor preencha todas os campos");
+                return; // Stop the function execution
+            }
+
+            console.log(Encaminhamentos);
+            api.encaminhamentos.criarEncaminhamento(Encaminhamentos).then((result) => {
+                showCustomAlert(result.message);
+                console.log(result);
+                adicionarNovaLinha(Encaminhamentos);
+            });
+        }
+
+
           api.encaminhamentos.consultar({CPF}).then((encaminhamentos)=>{
             console.log(encaminhamentos)
             encaminhamentos.forEach(encaminhamento => {
@@ -261,9 +340,6 @@
             })
           })
         </script>
-
-
-
         </div>
       </div>
     </div>

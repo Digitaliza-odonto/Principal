@@ -25,6 +25,17 @@
     <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
     <script src="../../../scripts/alertMessage.js"></script>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var okButton = document.getElementById('okButton');
+    
+        okButton.addEventListener('click', function() {
+          window.history.back(); // This line performs the action of going back to the previous page
+        });
+      });
+    </script>
+      
+
     <!-- HIDDEN DIV FOR ALERT MESSAGE -->
     <div id="customAlert" class="modal">
       <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
@@ -118,6 +129,52 @@
 
           <!-- POPULATE THE HIDDEN ID FOR 'selectedEspecialidade' & 'Cpf'-->
           <input id="selectedEspecialidade" type="hidden">
+
+          <script>
+            const params = getUrlVars();
+            const id = params['id'];
+
+            function getAgendamentoData(id) {
+              const requestData = { id }; // Creating a JSON object with the 'id' value
+              
+              // Perform API request using api.agenda.get() with JSON data
+              api.agenda.consultarDadosAgendamento(requestData)
+                .then(function(response) {
+                  // Handle successful response
+                  console.log(response); // Log the response if needed
+
+                  // Assuming the response is an array with a single object
+                  if (response.length > 0) {
+                    const data = response[0]; // Accessing the first object in the array
+                    
+                    // Setting input values based on JSON data
+                    document.getElementById("componenteCurricular").value = data.atividade_curricular;
+
+                    // Extracting year and month from data_agendamento
+                    const date = new Date(data.data_agendamento);
+                    const year = date.getFullYear();
+                    const month = date.getMonth() + 1; // Adding 1 because getMonth returns 0-11
+                    
+                    // Calculating semester based on the month
+                    const semester = month <= 6 ? '1' : '2'; // Assuming semesters start in January and July
+
+                    // Displaying year and semester in the desired format
+                    document.getElementById("periodo").value = `${year}/${semester}`;
+                  } else {
+                    console.error('No data found in the response');
+                  }
+                })
+                .catch(function(error) {
+                  // Handle error response
+                  console.error('Error:', error); // Log the error for debugging
+                  // Display an error message to the user
+                });
+            }
+
+            // Call the function passing the 'id' variable
+            getAgendamentoData(id);
+            
+          </script>
           
           <script>
             // Get the select element and the input element
@@ -154,6 +211,12 @@
               var periodo = document.getElementById("periodo").value;
               var codSUSArray = [];
               var descricao_SUS_Array = [];
+
+              // Check if 'responsavelProcedimento' or 'selectedEspecialidade' is equal to 'Escolher'
+              if (responsavelProcedimento === 'Escolher' || especialidade === 'Escolher') {
+                showCustomAlert("Por favor, escolha uma opção válida para responsável do procedimento e/ou especialidade.");
+                return; // Exit the function early without performing further actions
+              }
 
               // Iterate over the table rows and extract 'cod_sus' values
               var listaCodSUSTable = document.getElementById("listaCodSUS");

@@ -110,7 +110,11 @@ criar: async (data) => {
 consultar: async (data) => {
   const url = `${getApiUrl()}/cobalto/usuarios/consultar.php`;
   return sendRequest(url, 'POST', data);
-  }
+  },
+consultarResponsavel: async (data) => {
+  const url = `${getApiUrl()}/cobalto/usuarios/consultarResponsavel.php`;
+  return sendRequest(url, 'POST', data);
+  },
 };
 
 const alunos = {
@@ -304,6 +308,10 @@ const agenda = {
   },
   consultarNoLocalUsuario: async (data) => {
     const url = `${getApiUrl()}/agenda/nolocal-usuario.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarDadosAgendamento: async (data) => {
+    const url = `${getApiUrl()}/agenda/consultarDadosAgendamento.php`;
     return sendRequest(url, 'POST', data);
   },
   consultaFaltas: async (data) => {

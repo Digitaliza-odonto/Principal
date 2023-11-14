@@ -24,6 +24,16 @@
     <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
     <script src="../../../scripts/alertMessage.js"></script>
 
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var okButton = document.getElementById('okButton');
+    
+        okButton.addEventListener('click', function() {
+          window.history.back(); // This line performs the action of going back to the previous page
+        });
+      });
+    </script>
+
     <!-- HIDDEN DIV FOR ALERT MESSAGE -->
     <div id="customAlert" class="modal">
       <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
@@ -66,7 +76,7 @@
       <!-- CONTEÚDO BOTÕES -->
       <div class="ui-widget-content ui-corner-all">
         <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Homologar atendimento</button>
+        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitAvaliacao()" style="float: left;">Homologar atendimento</button>
         <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
         <span style="clear: both; display: block"></span>
       </div>
@@ -120,6 +130,8 @@
 
           <input type="hidden" id="id_aluno" value="">
           <input type="hidden" id="id_atendimentos" value="">
+          <input type="hidden" id="responsavel_matricula" value="">
+          <input type="hidden" id="distinct_cod_atividade" value="">
 
           <script>
             function getAtendimentoData() {
@@ -162,39 +174,48 @@
             });
             especialidadeSelect.value = data.especialidade;
 
-            // Populate the textarea with id 'atendimentoDescrição'
+            // Populate the textarea with 'atendimentoDescrição'
             const atendimentoDescricaoTextarea = document.getElementById('atendimentoDescrição');
             atendimentoDescricaoTextarea.value = data.descricao;
 
-            // Populate the input with id 'atendimentoData'
+            // Populate the input with 'atendimentoData'
             const atendimentoDataInput = document.getElementById('atendimentoData');
             atendimentoDataInput.value = data.data;
 
-            // Populate the input with id 'responsavelProcedimento'
+            // Populate the input with 'responsavelProcedimento'
             const responsavelProcedimentoInput = document.getElementById('responsavelProcedimento');
             responsavelProcedimentoInput.value = data.responsavel;
 
-            // Populate the input with id 'componenteCurricular'
+            // Populate the input with 'componenteCurricular'
             const componenteCurricularInput = document.getElementById('componenteCurricular');
             componenteCurricularInput.value = data.componente_curricular;
 
-            // Populate the input with id 'periodo'
+
+            // Populate the input with 'responsavel_matricula'
+            const responsavel_matriculaInput = document.getElementById('responsavel_matricula');
+            responsavel_matriculaInput.value = data.responsavel_matricula[0].Matricula;
+
+            // Populate the input with 'distinct_cod_atividade'
+            const distinct_cod_atividadeInput = document.getElementById('distinct_cod_atividade');
+            distinct_cod_atividadeInput.value = data.distinct_cod_atividade[0].cod_atividade;
+            
+            // Populate the input with 'periodo'
             const periodoInput = document.getElementById('periodo');
             periodoInput.value = data.periodo;
 
-            // Populate the input with id 'id_aluno'
+            // Populate the input with 'id_aluno'
             const id_alunoInput = document.getElementById('id_aluno');
             id_alunoInput.value = data.id_aluno;
 
-            // Populate the input with id 'id_atendimentos'
+            // Populate the input with 'id_atendimentos'
             const id_atendimentosInput = document.getElementById('id_atendimentos');
             id_atendimentosInput.value = data.id_atendimentos;
 
-            // Populate the input with id 'atendimentoCodSUS'
+            // Populate the input with 'atendimentoCodSUS'
             const atendimentoCodSUSInput = document.getElementById('atendimentoCodSUS');
             atendimentoCodSUSInput.value = ''; // Clear the input field first
 
-            // Populate the table with id 'listaCodSUS'
+            // Populate the table with 'listaCodSUS'
             const susTbody = document.getElementById('sus-tbody');
             susTbody.innerHTML = ''; // Clear the tbody first
 
@@ -306,8 +327,10 @@
                 
                 // Identificação do atendimento
                 id_aluno: $('#id_aluno').val(),
-                id_responsavel: $('#responsavelProcedimento').val(),
-                componente_curricular: $('#componente_curricular').val(),
+                responsavel: $('#responsavelProcedimento').val(),
+                id_responsavel: $('#responsavel_matricula').val(),
+                cod_disciplina: $('#distinct_cod_atividade').val(),
+                componente_curricular: $('#componenteCurricular').val(),
                 periodo: $('#periodo').val(),
           
                 // Avaliação de atendimento

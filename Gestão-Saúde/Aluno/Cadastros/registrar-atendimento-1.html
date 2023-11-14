@@ -87,7 +87,7 @@
         var gridId = 'pacienteLocal';
         var headerColumns = ["ID", "Data", "Nome", "CPF", "Local", "Horário", "Disciplina"];
         var columnNames = ["id", "data", "nome", "cpf_paciente", "local", "horario", "atividade"];
-        var columnWidths = [0, 100, 100, 100, 100, 100, 100];
+        var columnWidths = [0, 40, 100, 40, 100, 30, 100];
         var rowHeight = 30; // Set the height of each row in pixels
   
         $(document).ready(function () {
@@ -132,12 +132,6 @@
 
     <script src="/API/API.js"></script>
 
-     
-
-
-
-      
-
     <script>
       $(document).ready(function () {
         var tableRows = [];
@@ -179,6 +173,7 @@
                 var row = '<tr>';
                 row += `<td style="display: none;">${item.id_agendamento}</td>`;
                 row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="registrar-atendimento-2.html?cpf=${cpf_paciente}&id=${id_agendamento}">${item.data_agendamento}</td>`;
+                row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="registrar-atendimento-2.html?cpf=${cpf_paciente}&id=${id_agendamento}">${item.Nome}</td>`;
                 row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="registrar-atendimento-2.html?cpf=${cpf_paciente}&id=${id_agendamento}">${cpf_paciente}</td>`;
                 row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="registrar-atendimento-2.html?cpf=${cpf_paciente}&id=${id_agendamento}">${item.local}</td>`;
                 row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="registrar-atendimento-2.html?cpf=${cpf_paciente}&id=${id_agendamento}">${item.horario_agendamento}:${item.minuto_agendamento}</td>`;

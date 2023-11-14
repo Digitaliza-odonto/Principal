@@ -67,7 +67,7 @@
         <p style="margin:20px; font-size: 16px;"><button onclick="location.href='Gestão-Saúde/Enfermagem/Cadastros/incluir-exame-1.html'" style="font-size: 12px;">Serviço de Radiologia - Incluir exame</button></p>
                     
       <div class="portlet-header ui-widget-header ui-corner-all" style="font-size: 14px; margin-left:20px">Processos</div>
-        <p style="margin:20px; font-size: 16px;"><button onclick="location.href='Gestão-Saúde/Responsável-técnico/Processos/homologar-atendimento-1.html'" style="font-size: 12px;">Homologar atendimento</button><span style="color: red; font-weight: bold;margin-left: 20px;">&cross;</span>Ajustar formatação e popular inputs</p>
+        <p style="margin:20px; font-size: 16px;"><button onclick="location.href='Gestão-Saúde/Responsável-técnico/Processos/homologar-atendimento-1.html'" style="font-size: 12px;">Homologar atendimento</button></p>
         <p style="margin:20px; font-size: 16px;"><button onclick="location.href='Gestão-Saúde/Triagem/Processos/atualizar-cadastro-registrar-demanda.html'" style="font-size: 12px;">Atualizar cadastro e/ou registrar demanda</button><span style="color: red; font-weight: bold;margin-left: 20px;">&cross;</span>Remover checkbox input na primeira página/tabela</p>
         <p style="margin:20px; font-size: 16px;"><button onclick="location.href='Gestão-Saúde/Triagem/Processos/vincular-1.html'" style="font-size: 12px;">Vincular paciente à aluno e disciplina/estágio</button><span style="color: red; font-weight: bold;margin-left: 20px;">&cross;</span>Ajustar formatação da tabela e popular inputs da página</p>
         <p style="margin:20px; font-size: 16px;"><button onclick="location.href='Gestão-Saúde/Administração/Processos/tramitar-material-1.html'" style="font-size: 12px;">Tramitar requisição de material</button><span style="color: red; font-weight: bold;margin-left: 20px;">&cross;</span>Ajustar formatação das tabelas</p>
@@ -132,11 +132,17 @@
               window.open("./Gestão-Saúde/Administração/index-administração.html", '_blank');
             } else if (usuario.Tipo == "Triagem") {
               window.open("./Gestão-Saúde/Triagem/index-triagem.html", '_blank');
-            } 
-
+            } else if (usuario.Tipo == "Responsavel") {
+              window.open("./Gestão-Saúde/Responsável-técnico/index-responsavel.html", '_blank');
+            } else if (usuario.Tipo == "Enfermagem") {
+              window.open("./Gestão-Saúde/Enfermagem/index-enfermagem.html", '_blank');
+            
             } else {
                 alert("Usuario não encontrado")
             }
+          } else {
+            alert("Usuario não encontrado")
+          }
         });
     }
     </script>

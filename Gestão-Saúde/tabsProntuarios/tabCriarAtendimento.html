@@ -28,20 +28,44 @@
     <br>
     
     <label style="width: 180px;">Data do atendimento</label>
-    <input type="text" id="atendimentoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 265px;" />
+    <input type="text" id="atendimentoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 180px;" />
     <br>
     
     <br>
     <label style="width: 180px;">Responsável técnico</label>
-    <input type="text" id="responsavelProcedimento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="SELECT BOX OU BUSCAR O NOME?">
+    <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px; margin-bottom: 10px;" name="responsavelProcedimento" id="responsavelProcedimento">
+        <option value="Escolher">Escolher</option>
+        <!-- OPTIONS WILL BE POPULATED HERE -->
+    </select>
     <br>
+
+    <script>
+        // Function to load data from the API and create select options
+        function listarResponsaveis() {
+                    api.usuarios.consultarResponsavel().then(function (data) {
+                        originalData = data; // Store original data for filtering
+                        console.log(data);
+                        
+                        var select = document.getElementById("responsavelProcedimento");
+                        data.forEach(function(responsavel) {
+                            var option = document.createElement("option");
+                            option.text = responsavel.Nome;
+                            select.add(option);
+                        });
+                    }).catch(function (error) {
+                        console.log('Error fetching data');
+                    });
+                }
+
+        listarResponsaveis();
+    </script>
     
     <label style="width: 180px;">Componente curricular</label>
-    <input type="text" id="componenteCurricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="BUSCAR AUTOMATICAMENTE">
+    <input type="text" id="componenteCurricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" readonly>
     <br>
 
     <label style="width: 180px;">Período</label>
-    <input type="text" id="periodo" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="BUSCAR AUTOMATICAMENTE ">
+    <input type="text" id="periodo" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 50px;" readonly>
     <br>
     
     <p></p>
@@ -79,12 +103,20 @@
                 source: function(request, response) {
                     // Call the getProcedimentos function with user input as a parameter
                     getProcedimentos(request.term).then(function (procedimentos) {
-                        // Map the response data and format it as 'cod_sus - nome'
-                        const procedimentosList = procedimentos.map(procedimento => ({
-                            value: procedimento.cod_sus + ' - ' + procedimento.nome,
-                            cod_sus: procedimento.cod_sus, // Store the cod_sus separately for further use if needed
-                            nome: procedimento.nome // Store the nome separately for further use if needed
-                        }));
+                        // Filter results based on procedimento.nome that matches the typed letters
+                        const filteredProcedimentos = procedimentos.filter(function(procedimento) {
+                            return procedimento.nome.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+                        });
+
+                        // Map the filtered response data and format it as 'cod_sus - nome'
+                        const procedimentosList = filteredProcedimentos.map(function(procedimento) {
+                            return {
+                                value: procedimento.cod_sus + ' - ' + procedimento.nome,
+                                cod_sus: procedimento.cod_sus,
+                                nome: procedimento.nome
+                            };
+                        });
+
                         response(procedimentosList);
                     }).catch(function (error) {
                         console.error('Erro ao consultar procedimentos:', error);
@@ -101,6 +133,7 @@
 
             function getProcedimentos(term) {
                 // Fetch procedimentos from API based on user input
+                // Ensure that the backend filters the results based on the 'nome' field
                 return api.procedimentos.consultar(term)
                     .then(function (procedimentos) {
                         console.log(procedimentos);
@@ -112,7 +145,7 @@
                     });
             }
         });
-    
+
     document.getElementById("btnAddCodSus").addEventListener("click", function () {
         var atendimentoCodSUS = document.getElementById("atendimentoCodSUS").value;
         addCodSUSRow(atendimentoCodSUS);
@@ -155,10 +188,9 @@
 
     function limparCampos() {
         document.getElementById("atendimentoData").value = "";
-        document.getElementById("especialidade").value = "";
+        document.getElementById("especialidade").value = "Escolher";
         document.getElementById("atendimentoDescrição").value = "";
-        document.getElementById("responsavelProcedimento").value = "";
-        document.getElementById("componenteCurricular").value = "";
+        document.getElementById("responsavelProcedimento").value = "Escolher";
     }
     </script>
 </div>

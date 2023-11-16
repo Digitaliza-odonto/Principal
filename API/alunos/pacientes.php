@@ -5,43 +5,43 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE");
 header("Access-Control-Allow-Headers: X-Requested-With, Content-Type");
 header("Access-Control-Allow-Credentials: true");
 
-require_once '../db.php';   // Importa o arquivo de conexão com o banco de dados
+include_once '../db.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $Matricula = $data['Matricula'];
 
-    $result = db("SELECT Pacientes FROM usuarios WHERE Matricula = '$Matricula'");
+    // Fetch vinculos
+    $vinculos = db("SELECT * FROM `vinculo_aluno_paciente` WHERE `Matricula_aluno` = '$Matricula'");
 
-    if (count($result) === 0) {
-        echo json_encode(array("error" => "Usuário não encontrado."));
-    } else {
-        
-        $pacientes = $result[0]['Pacientes'];
+    // Check if there are vinculos
+    if (!empty($vinculos)) {
+        $pacienteInfoList = array();
 
-        // Remove o primeiro caractere
-        $pacientes = substr($pacientes, 1);
+        // Loop through each vinculo
+        foreach ($vinculos as $vinculo) {
+            // Extract CPF_paciente from the vinculo
+            $CPF_paciente = $vinculo['CPF_paciente'];
 
-        // Remove o último caractere
-        $pacientes = substr($pacientes, 0, -1);
+            // Perform the second SQL operation for each 'CPF_paciente'
+            $pacienteInfo = db("SELECT * FROM pacientes WHERE CPF = '$CPF_paciente'");
 
-        $pacientes = json_decode($pacientes, true);
+            // Perform the third SQL operation to get 'Turma' value
+            $turmaInfo = db("SELECT * FROM `disciplinas` WHERE `id` = '" . $vinculo['Turma'] . "'");
 
-        $patientData = array();
-        $cont = 0;
-        foreach ($pacientes as $CPF) {
-            $patientResult = db("SELECT * FROM pacientes WHERE CPF = '$CPF'");
-            
-            if (count($patientResult) > 0) {
-                $patientData[$cont] = $patientResult[0];
-                $cont++;
-            }
+            // Add 'Turma' information to pacienteInfo
+            $pacienteInfo['TurmaInfo'] = $turmaInfo;
+
+            // Add the result to the list
+            $pacienteInfoList[] = $pacienteInfo;
         }
 
-        echo json_encode($patientData);
+        // Include vinculos, pacienteInfoList, and TurmaInfo in the JSON response
+        echo json_encode(array("vinculos" => $vinculos, "pacienteInfoList" => $pacienteInfoList));
+    } else {
+        echo json_encode(array("message" => "No vinculos found"));
     }
 } else {
     echo json_encode(array("message" => "Método inválido"));
 }
-
 ?>

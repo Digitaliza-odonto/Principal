@@ -75,23 +75,56 @@
           </ul>
           <br>
           
-          <div style="margin: 25px">
-            <table id="pacienteLocal" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 50%;">
-              <thead>
-                  <tr class="ui-jqgrid-labels" role="rowheader">
-                    <th style="display: none;">ID</th>
-                    <th class="ui-jqgrid-titlebar ui-widget-header">Data</th>
-                    <th class="ui-jqgrid-titlebar ui-widget-header">CPF Paciente</th>
-                    <th class="ui-jqgrid-titlebar ui-widget-header">Local</th>
-                    <th class="ui-jqgrid-titlebar ui-widget-header">Horário</th>
-                    <th class="ui-jqgrid-titlebar ui-widget-header">Atividade</th>
-                    <th class="ui-jqgrid-titlebar ui-widget-header">Descrição</th>
-                  </tr>
-              </thead>
-              <tbody id="table-body2">
-                  <!-- Table body rows will be populated here -->
-              </tbody>
-            </table>
+          <div style="margin: 30px; width: 80%;">
+            <table id="pacienteLocal"></table>
+            <div id="gridPacientePager" style="margin-bottom: 5px;"></div>  
+          </div>
+
+        </div>
+      </div>
+  
+      <script>
+        var gridId = 'pacienteLocal';
+        var headerColumns = ["ID", "Data", "Nome", "CPF", "Local", "Horário", "Disciplina"];
+        var columnNames = ["id", "data", "nome", "cpf_paciente", "local", "horario", "atividade"];
+        var columnWidths = [0, 40, 100, 40, 100, 30, 100];
+        var rowHeight = 30; // Set the height of each row in pixels
+  
+        $(document).ready(function () {
+          $('#' + gridId).jqGrid({
+              "sortname": columnNames[1],
+              "autoload": false,
+              "autowidth": true,
+              "pager": "#" + gridId + "Pager",
+              "rowNum": 25,
+              "toppager": false,
+              "caption": "Lista dos meus pacientes listados como 'No Local'",
+              "height": "auto",
+              "jsonReader": { "repeatitems": false, "id": 0 },
+              "colNames": headerColumns,
+              "colModel": [
+                  { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                  { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "left" },
+                  { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" },
+                  { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" },
+                  { "sortable": true, "name": columnNames[4], "index": columnNames[4], "width": columnWidths[4], "align": "center" },
+                  { "sortable": true, "name": columnNames[5], "index": columnNames[5], "width": columnWidths[5], "align": "center" },
+                  { "sortable": true, "name": columnNames[6], "index": columnNames[6], "width": columnWidths[6], "align": "center" }
+              ],
+              "rowHeight": rowHeight
+          });
+  
+          $('#' + gridId).setGridParam({ datatype: 'json' });
+          $('#' + gridId).setGridParam({ autoload: true });
+  
+          function gridResize() {
+              $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+          }
+  
+          $(window).bind('resize', gridResize);
+          $('#tabFiltroCurso').bind('tabsshow', gridResize);
+        });
+      </script>
         </div>
        </div>
       </div>
@@ -99,41 +132,36 @@
 
     <script src="/API/API.js"></script>
 
-     
-
-
-
-      
-
     <script>
       $(document).ready(function () {
-          var tableRows = [];
-          var totalRows = 0;
-  
-          const aluno = JSON.parse(localStorage.getItem('usuario'));
-  
-          function loadTableData() {
-            api.agenda.consultarNoLocalUsuario({ id: aluno.Matricula })
-              .then((data) => {
-                console.log("API Response:", data);
-                    if (data.erro) {
-                        showCustomAlert(data.erro);
-                        return;
-                    }
+        var tableRows = [];
+        var totalRows = 0;
 
-                    console.log(data);
-                    totalRows = data.length;
-                    tableRows = data;
-                    showAllRows();
-                  })
-                  .catch((error) => {
-                        console.error("Error fetching data:", error);
-                    });
-          }
-  
+        const aluno = JSON.parse(localStorage.getItem('usuario'));
+
+        function loadTableData() {
+          api.agenda.consultarNoLocalUsuario({ id: aluno.Matricula })
+            .then((data) => {
+              console.log("API Response:", data);
+              if (data.erro) {
+                showCustomAlert(data.erro);
+                return;
+              }
+
+              console.log(data);
+              totalRows = data.length;
+              tableRows = data;
+              showAllRows();
+            })
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+            });
+        }
+
+          
           function showAllRows() {
-            var tableBody = $('#table-body2');
-            tableBody.empty();
+            var tableBody = $('#' + gridId);
+            tableBody.clearGridData();
 
             for (var i = 0; i < totalRows; i++) {
                 var item = tableRows[i];
@@ -145,6 +173,7 @@
                 var row = '<tr>';
                 row += `<td style="display: none;">${item.id_agendamento}</td>`;
                 row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="registrar-atendimento-2.html?cpf=${cpf_paciente}&id=${id_agendamento}">${item.data_agendamento}</td>`;
+                row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="registrar-atendimento-2.html?cpf=${cpf_paciente}&id=${id_agendamento}">${item.Nome}</td>`;
                 row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="registrar-atendimento-2.html?cpf=${cpf_paciente}&id=${id_agendamento}">${cpf_paciente}</td>`;
                 row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="registrar-atendimento-2.html?cpf=${cpf_paciente}&id=${id_agendamento}">${item.local}</td>`;
                 row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="registrar-atendimento-2.html?cpf=${cpf_paciente}&id=${id_agendamento}">${item.horario_agendamento}:${item.minuto_agendamento}</td>`;
@@ -156,7 +185,6 @@
             }
         }
 
-  
           // Initial load of table data
           loadTableData();
       });

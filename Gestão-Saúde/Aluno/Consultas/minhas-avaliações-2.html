@@ -30,7 +30,6 @@
         <li>Alunos</li>
         <li>Consultas</li>
         <li>Minhas avaliações de atendimento</li>
-        <li>'GET disciplina'</li>
       </ul>
     <div style="clear: both;"></div></div><div style="clear: both;"></div>
     
@@ -219,16 +218,23 @@
         var filteredData = data.filter(function (entry) {
           return entry.obs.trim() !== '';
         });
-  
+
+        // CONVERTER DATA EM DD/MM/YYYY
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+            return formattedDate;
+        }
+
         // Populate second table only if 'obs' is not empty
         filteredData.forEach(function (entry) {
           var row = '<tr class="ui-state-default">' +
-            '<td style="border: 1px solid white; text-align: center;">' + entry.data_avaliacao + '</td>' +
+            '<td style="border: 1px solid white; text-align: center;">' + formatDate(entry.data_avaliacao) + '</td>' +
             '<td style="border: 1px solid white; text-align: center;">' + entry.obs + '</td>' +
             '</tr>';
-          $('#obs-body').append(row);
-        });
-      }
+           $('#obs-body').append(row);
+          });
+        }
   
         // Function to create the chart
         function createChart() {

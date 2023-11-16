@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrevista dialogada</title>
+    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+      var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+      var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+      var PATH_COOKIE = '/';
+      var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+      var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+    </script>
+    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+  </head>
+
+  <body>
+    <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+    <div id="content-center" class="ui-layout-center ui-widget-content"
+        style="background: none !important; overflow: hidden !important">
+        
+      <div class="breadCrumb module">
+        <ul>
+          <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+          <li>Responsável-técnico</li>
+          <li>Cadastros</li>
+          <li>Entrevista dialogada</li>
+        </ul>
+        <div style="clear: both;"></div></div><div style="clear: both;"></div>
+        
+        <div class="ui-widget-content ui-corner-all toolbar">
+          <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+          <button id="pesquisar" class="pesquisar" title="Enter" style="float: left;" onclick="buscar()">Pesquisar</button>
+          <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+          <span style="clear: both; display: block"></span>
+        </div>
+
+    <!-- SCRIPT PARA BUSCA - PESQUISA ALTERAR/REFAZER -->
+    <div id="tabMeusPacientes" class="tabs">
+      <div id="tabMeusPacientes-0" class="ui-widget tabMeusPacientes tabMeusPacientes-0 tabMeusPacientes-0">
+        <ul>
+          <li class="labeltabMeusPacientes"><a href="#tabMeusPacientes-0" accessKey="tabMeusPacientes-0">Filtro</a></li>
+        </ul>
+        <br>
+        <p></p>
+        <br>
+
+        <label name="lblCpf" id="lblCpf" style="width: 80px;"  >CPF</label>
+          <input type="text" name="txtCpf" id="txtCpf" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap cpf" style="width: 100px;"  />
+          <br>
+          <label name="lblNome" id="lblNome" style="width: 80px;"  >Nome</label>
+          <input type="text" name="txtNome" id="txtNome" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;"  />
+          <br>
+                        
+          
+          <div style="margin: 30px; width: 80%;">
+            <table id="gridPaciente"></table>
+            <div id="gridPacientePager" style="margin-bottom: 5px;"></div>  
+        </div>
+      </div>
+    </div>
+    
+    <script>
+      var gridId = 'gridPaciente';
+      var headerColumns = ["ID", "Nome", "CPF", "Telefone", "Telefone 2", "Email"];
+      var columnNames = ["id", "paciente_nome", "cpf", "Tel", "Tel2", "Email"];
+      var columnWidths = [0, 100, 50, 50, 50, 100];
+      var rowHeight = 30; // Set the height of each row in pixels
+  
+      $(document).ready(function () {
+          $('#' + gridId).jqGrid({
+              "sortname": columnNames[1],
+              "autoload": false,
+              "autowidth": true,
+              "pager": "#" + gridId + "Pager",
+              "rowNum": 25,
+              "toppager": false,
+              "caption": "Lista de pacientes",
+              "height": "auto",
+              "jsonReader": { "repeatitems": false, "id": 0 },
+              "colNames": headerColumns,
+              "colModel": [
+                  { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                  { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "left" },
+                  { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" },
+                  { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" },
+                  { "sortable": true, "name": columnNames[4], "index": columnNames[4], "width": columnWidths[4], "align": "center" },
+                  { "sortable": true, "name": columnNames[5], "index": columnNames[5], "width": columnWidths[5], "align": "center" }
+              ],
+              "rowHeight": rowHeight
+          });
+  
+          $('#' + gridId).setGridParam({ datatype: 'json' });
+          $('#' + gridId).setGridParam({ autoload: true });
+  
+          function gridResize() {
+              $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+          }
+  
+          $(window).bind('resize', gridResize);
+          $('#tabFiltroCurso').bind('tabsshow', gridResize);
+      });
+    </script>
+  
+  
+     
+    <script src="/API/API.js"></script>
+
+    <script>
+      // Função para adicionar uma nova linha à tabela usando XPath
+      function adicionarNovaLinha(nome, cpf, Tel, Tel2, Email) {
+        // Seleciona o corpo da tabela usando o XPath
+        const tbody = document.querySelector('.ui-jqgrid-htable');
+
+        // Cria um novo elemento de linha (<tr>)
+        const novaLinha = document.createElement('tr'); 
+
+        // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
+        novaLinha.innerHTML = `
+          <td style="display: none;">ID</td>
+          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Responsável-técnico/Cadastros/cadastrar-entrevista-2.html?cpf=${cpf}">${nome}</a></td>
+          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Responsável-técnico/Cadastros/cadastrar-entrevista-2.html?cpf=${cpf}">${cpf}</td>
+          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Responsável-técnico/Cadastros/cadastrar-entrevista-2.html?cpf=${cpf}">${Tel}</td>
+          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Responsável-técnico/Cadastros/cadastrar-entrevista-2.html?cpf=${cpf}">${Tel2}</td>
+          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="/Gestão-Saúde/Responsável-técnico/Cadastros/cadastrar-entrevista-2.html?cpf=${cpf}">${Email}</td>
+        `; 
+
+        // Adiciona a nova linha ao corpo da tabela
+        tbody.appendChild(novaLinha);
+      }
+
+      // Função de busca que determina qual função de consulta chamar com base nos campos de nome e CPF
+      function buscar() {
+        const nome = document.getElementById('txtNome').value;
+        const cpf = document.getElementById('txtCpf').value;
+
+        if (nome.trim() !== '') {
+          consultarPacientesPorNome(nome);
+        } else if (cpf.trim() !== '') {
+          consultarPacientesPorCPF(cpf);
+        } else {
+          alert("Preencha o campo nome ou CPF para realizar a busca.");
+        }
+      }
+
+      // Função para consultar pacientes por nome usando a API
+      function consultarPacientesPorNome(nome) {
+        api.pacientes.consultar({ Nome: nome })
+          .then((pacientes) => {
+            const tbody = document.querySelector('.ui-jqgrid-htable');
+            limparTabela(tbody);
+            
+            if (pacientes.length === 0) {
+              alert("Nenhum paciente encontrado");
+            } else {
+              pacientes.forEach(paciente => {
+                adicionarNovaLinha(
+                  paciente.Nome,
+                  paciente.CPF,
+                  paciente.Tel,
+                  paciente.Tel2,
+                  paciente.Email
+                );
+              });
+            }
+          })
+          .catch((error) => {
+            console.error('Erro ao consultar pacientes:', error);
+          });
+      }
+
+      // Função para consultar pacientes por CPF usando a API
+      function consultarPacientesPorCPF(cpf) {
+        api.paciente.consultar({ CPF: cpf })
+          .then((pacientes) => {
+            const tbody = document.querySelector('.ui-jqgrid-htable');
+            limparTabela(tbody);
+
+            if (pacientes.length === 0) {
+              alert("Nenhum paciente encontrado");
+            } else {
+              pacientes.forEach(paciente => {
+                adicionarNovaLinha(
+                  paciente.Nome,
+                  paciente.CPF,
+                  paciente.Tel,
+                  paciente.Tel2,
+                  paciente.Email
+                );
+              });
+            }
+          })
+          .catch((error) => {
+            console.error('Erro ao consultar pacientes:', error);
+          });
+      }
+
+      // Função para limpar a tabela
+      function limparTabela(tbody) {
+        while (tbody.children.length > 1) {
+          tbody.removeChild(tbody.lastChild);
+        }
+      }
+
+      // Adicionar eventos de busca nos campos de entrada
+      document.getElementById('txtCpf').onkeydown = function (e) {
+        if (e.key === 'Enter') {
+          consultarPacientesPorCPF(document.getElementById('txtCpf').value);
+        }
+      }
+
+      document.getElementById('txtNome').onkeydown = function (e) {
+        if (e.key === 'Enter') {
+          consultarPacientesPorNome(document.getElementById('txtNome').value);
+        }
+      }
+    </script>
+  </body>
+</html>

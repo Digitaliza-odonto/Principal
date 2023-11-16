@@ -1,79 +1,83 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Requisitar material de estoque</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>  
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script>
-        <script type="text/javascript">
-            var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-            var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-            var PATH_COOKIE = '/';
-            var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-            var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-        </script>
-        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-        <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
-        
-        <!--ALERT MESSAGES-->
-        <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
-        <script src="../../../scripts/alertMessage.js"></script>
-        
-        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-        <div id="customAlert" class="modal">
-            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
-            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-                <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
-                <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
-                <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
-                </button>
-            </div>
-            <p></p>
-            <br>
-            <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
-                <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
-                <p id="alertMessage"></p>
-            </div>
-            <p> </p><br>
-            <p> </p><br>
-            <p> </p><br>
-            <div><button id="okButton" class="centered-button">OK</button></div>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requisitar material de estoque</title>
+    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+        var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+        var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+        var PATH_COOKIE = '/';
+        var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+        var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+    </script>
+    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+    <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
+
+    <!--ALERT MESSAGES-->
+    <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+    <script src="../../../scripts/alertMessage.js"></script>
+    
+    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+    <div id="customAlert" class="modal">
+        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+            <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+            </button>
         </div>
-        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-        <!--ALERT MESSAGES-->
-    </head>
+        <p></p>
+        <br>
+        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+            <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+            <p id="alertMessage"></p>
+        </div>
+        <p> </p><br>
+        <p> </p><br>
+        <p> </p><br>
+        <div><button id="okButton" class="centered-button">OK</button></div>
+        </div>
+    </div>
+    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+    <!--ALERT MESSAGES-->
+</head>
+    
+  <body>
+    <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+    <div id="content-center" class="ui-layout-center ui-widget-content"
+    style="background: none !important; overflow: hidden !important">
+    
+    <div class="breadCrumb module">
+    <ul>
+        <li><a href="index.html"></a></li>
+        <li>Gestão Saúde</li>
+        <li>Enfermagem</li>    
+        <li>Cadastros</li>
+        <li>Requisitar material</li>
+    </ul>
+    <div style="clear: both;"></div>
+    </div>
+    <div style="clear: both;"></div>
+    
+    <div class="ui-widget-content ui-corner-all toolbar">
+    <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+    <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+    <span style="clear: both; display: block"></span>
+    </div>
+
+
+
 
     <script src="/API/API.js"></script>
     
-    <body>
-        <!-- CONTEÚDO SUPERIOR -->
-        <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-            <li>Enfermagem</li>    
-            <li>Cadastros</li>
-            <li>Requisitar material</li>
-            </ul>
-            
-        <div style="clear: both;"></div></div>
         
-        <div style="clear: both;"></div>
-
-        <!-- CONTEÚDO BOTÕES -->
-        <div class="ui-widget-content ui-corner-all toolbar">
-            <button id="voltar-pagina" class="voltar-pagina ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" style="float: left;" role="button" aria-disabled="false" title="Voltar página"><span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-w"></span></button>
-            
-            <span style="clear: both; display: block"></span>
-        </div>
-
-    
         <!-- SCRIPT ADD NA TABELA -->
         <script>
-            var table = document.getElementById("materiaisAtendidos");
+           var table = document.getElementById("materiaisAtendidos");
         
             let rowCounter = 0; // Counter to track rows
 
@@ -276,12 +280,22 @@
                 </select><br>
                 <p></p><br>
 
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        const usuarioString = localStorage.getItem('usuario');
+                        const usuario = JSON.parse(usuarioString);
+                    
+                        document.getElementById("nome_solicitante").value = usuario.Nome;
+                        document.getElementById("id_solicitante").value = usuario.Matricula;
+                    });
+                </script>
+                    
                 <label style="width: 120px; margin: 5px;" for="nome_solicitante">Solicitado por:</label>
-                <input type="text" id="nome_solicitante" name="nome_solicitante" placeholder="Solicitado por" class="ui-state-default ui-corner-all mousetrap" style="width: 280px;">
+                <input type="text" id="nome_solicitante" name="nome_solicitante" class="ui-state-default ui-corner-all mousetrap" style="width: 280px;" readonly>
                 <br>
 
                 <label style="width: 120px; margin: 5px;" for="id_solicitante">CPF (ou SIAPE?)</label>
-                <input type="text" id="id_solicitante" name="id_solicitante" placeholder="PREENCHER AUTOMÁTICO" class="ui-state-default ui-corner-all mousetrap" style="width: 280px;">
+                <input type="text" id="id_solicitante" name="id_solicitante" class="ui-state-default ui-corner-all mousetrap" style="width: 120px;" readonly>
                 <br>
                 
                 <table id="materiaisAtendidos" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="margin: 30px; width: 575px;">

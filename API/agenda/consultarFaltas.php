@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = db($query);
 
     if (count($result) === 0) {
-        echo json_encode(array("error" => "Nenhum plano de tratamento encontrado."));
+        echo json_encode(array("error" => "Nenhuma falta registrada."));
     } else {
         echo json_encode($result);
     }

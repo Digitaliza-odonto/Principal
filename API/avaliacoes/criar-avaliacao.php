@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data_avaliacao = date('Y-m-d');
     $id_aluno = $data['id_aluno'];
     $id_responsavel = $data['id_responsavel'];
+    $responsavel = $data['responsavel'];
+    $cod_disciplina = $data['cod_disciplina'];
     $componente_curricular = $data['componente_curricular'];
     $periodo = $data['periodo'];
 
@@ -27,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $avaliarAuto = $data['avaliarAuto'];
     $avaliarObservações = $data['avaliarObservações'];
 
-    $insertQuery = "INSERT INTO `avaliacoesatendimento`(`data_avaliacao`, `id_aluno`, `id_responsavel`, `componente_curricular`, `periodo`, `pontualidade`, `comportamento`, `materiais`, `conhecimento`, `cuidado`, `adversidades`, `dupla`, `autoavaliacao`, `obs`) 
-        VALUES ('$data_avaliacao','$id_aluno','$id_responsavel','$componente_curricular','$periodo', '$avaliarPontualidade', '$avaliarComportamento', '$avaliarMateriais', '$avaliarConhecimento', '$avaliarCuidado', '$avaliarAdversidades', '$avaliarDupla', '$avaliarAuto', '$avaliarObservações')";
+    $insertQuery = "INSERT INTO `avaliacoesatendimento`(`data_avaliacao`, `matricula`, `id_responsavel`, `responsavel`, `cod_disciplina`, `disciplina`, `periodo`, `pontualidade`, `comportamento`, `materiais`, `conhecimento`, `cuidado`, `adversidades`, `dupla`, `autoavaliacao`, `obs`) 
+        VALUES ('$data_avaliacao','$id_aluno','$id_responsavel', '$responsavel', '$cod_disciplina', '$componente_curricular','$periodo', '$avaliarPontualidade', '$avaliarComportamento', '$avaliarMateriais', '$avaliarConhecimento', '$avaliarCuidado', '$avaliarAdversidades', '$avaliarDupla', '$avaliarAuto', '$avaliarObservações')";
     
     db($insertQuery);
 

@@ -17,7 +17,7 @@
     <p></p>
     <br>
     
-    <label style="width: 400px; ;">Descrição do plano de tratamento ou procedimento realizado:</label><br>
+    <label style="width: 400px; ;">Descrição atendimento/procedimento realizado:</label><br>
     <textarea style="width: 460px;" id="atendimentoDescrição" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" ></textarea>
     <br>
 
@@ -28,20 +28,71 @@
     <br>
     
     <label style="width: 180px;">Data do atendimento</label>
-    <input type="text" id="atendimentoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 265px;" />
+    <input type="text" id="atendimentoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 180px;" />
     <br>
     
     <br>
-    <label style="width: 180px;">Responsável técnico</label>
-    <input type="text" id="responsavelProcedimento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="SELECT BOX OU BUSCAR O NOME?">
+    <input type="hidden" name="responsavel_id" id="responsavel_id" readonly>
     <br>
     
-    <label style="width: 180px;">Componente curricular</label>
-    <input type="text" id="componenteCurricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="BUSCAR AUTOMATICAMENTE">
+    <label style="width: 180px;">Componente curricular/Projeto</label>
+    <input type="text" value="" class="ui-state-default ui-corner-all" id="componenteCurricular" placeholder="Digite o nome da disciplina/projeto" style="width: 240px;" />
     <br>
 
+    <script>
+        $(document).ready(function () {
+            function fetchAtividades() {
+                // Return a promise that fetches the atividades data from the API
+                return new Promise(function(resolve, reject) {
+                    api.disciplinas.consultarDisciplinasProjetos().then(function (data) {
+                        // Combine atividades from disciplinas and projetos
+                        const disciplinas = data.disciplinas || [];
+                        const projetos = data.projetos || [];
+                        const combinedAtividades = disciplinas.concat(projetos);
+
+                        resolve(combinedAtividades);
+                    }).catch(function (error) {
+                        console.error('Error fetching data:', error);
+                        reject(error);
+                    });
+                });
+            }
+
+            $('#componenteCurricular').autocomplete({
+                source: function(request, response) {
+                    fetchAtividades().then(function (atividades) {
+                        // Filter results based on atividade.atividade that matches the typed letters
+                        const filteredAtividades = atividades.filter(function(atividade) {
+                            return atividade.atividade.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+                        });
+
+                        // Map the filtered response data and format it as 'cod_atividade - atividade'
+                        const atividadesList = filteredAtividades.map(function(atividade) {
+                            return {
+                                value: atividade.atividade,
+                                atividade: atividade.atividade
+                            };
+                        });
+
+                        response(atividadesList);
+                    }).catch(function (error) {
+                        console.error('Error fetching or processing data:', error);
+                        response([]); // Return empty array in case of an error
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    // Handle selection
+                    $('#componenteCurricular').val(ui.item.value); // Set input value to 'cod_atividade - atividade'
+                    console.log('Selected atividade:', ui.item.atividade);
+                }
+            });
+        });
+    </script>
+
+
     <label style="width: 180px;">Período</label>
-    <input type="text" id="periodo" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="BUSCAR AUTOMATICAMENTE ">
+    <input type="text" id="periodo" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 50px;" readonly>
     <br>
     
     <p></p>
@@ -68,10 +119,6 @@
     
     <button name="btnDeletar" id="btnDeletar" value="Deletar" class="button" style="margin: 15px;">Remover código SUS</button>
 
-    <div>
-        <input type="hidden" id="aluno_id" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 32%;" placeholder="BUSCAR AUTOMATICAMENTE DO VÍNCULO"><br>
-    </div>
-    
     <!-- AUTOCOMPLETE PROCEDIMENTOS SUS & ADICIONA REMOVE LINHAS NA TABELA DE PROCEDIMENTOS-->
     <script>
         $(document).ready(function () {
@@ -79,12 +126,20 @@
                 source: function(request, response) {
                     // Call the getProcedimentos function with user input as a parameter
                     getProcedimentos(request.term).then(function (procedimentos) {
-                        // Map the response data and format it as 'cod_sus - nome'
-                        const procedimentosList = procedimentos.map(procedimento => ({
-                            value: procedimento.cod_sus + ' - ' + procedimento.nome,
-                            cod_sus: procedimento.cod_sus, // Store the cod_sus separately for further use if needed
-                            nome: procedimento.nome // Store the nome separately for further use if needed
-                        }));
+                        // Filter results based on procedimento.nome that matches the typed letters
+                        const filteredProcedimentos = procedimentos.filter(function(procedimento) {
+                            return procedimento.nome.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+                        });
+
+                        // Map the filtered response data and format it as 'cod_sus - nome'
+                        const procedimentosList = filteredProcedimentos.map(function(procedimento) {
+                            return {
+                                value: procedimento.cod_sus + ' - ' + procedimento.nome,
+                                cod_sus: procedimento.cod_sus,
+                                nome: procedimento.nome
+                            };
+                        });
+
                         response(procedimentosList);
                     }).catch(function (error) {
                         console.error('Erro ao consultar procedimentos:', error);
@@ -101,6 +156,7 @@
 
             function getProcedimentos(term) {
                 // Fetch procedimentos from API based on user input
+                // Ensure that the backend filters the results based on the 'nome' field
                 return api.procedimentos.consultar(term)
                     .then(function (procedimentos) {
                         console.log(procedimentos);
@@ -112,7 +168,7 @@
                     });
             }
         });
-    
+
     document.getElementById("btnAddCodSus").addEventListener("click", function () {
         var atendimentoCodSUS = document.getElementById("atendimentoCodSUS").value;
         addCodSUSRow(atendimentoCodSUS);
@@ -155,10 +211,10 @@
 
     function limparCampos() {
         document.getElementById("atendimentoData").value = "";
-        document.getElementById("especialidade").value = "";
+        document.getElementById("especialidade").value = "Escolher";
         document.getElementById("atendimentoDescrição").value = "";
-        document.getElementById("responsavelProcedimento").value = "";
         document.getElementById("componenteCurricular").value = "";
+        
     }
     </script>
 </div>

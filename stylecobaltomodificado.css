@@ -38,6 +38,15 @@
     color:#000000;
     }
 
+.desmarcado-ui{
+    background:#646464;
+    background-color:#646464;
+    border-style: solid;
+    border-color: #3f3f3f;
+    border-width: 1px;
+    font-weight:bold;
+    color:#000000;
+    }
 
 .container {
   height: 200px;

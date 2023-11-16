@@ -1,0 +1,206 @@
+<div id="entrevistaPed"style="margin: 5px;">
+
+  <label style="width: 170px;">Componente curricular/Projeto</label>
+    <input type="text" value="" class="ui-state-default ui-corner-all" id="id_disciplinaPed" placeholder="Digite o nome da disciplina/projeto" style="width: 200px;" />
+    <br>
+    
+    <script>
+        $(document).ready(function () {
+            function fetchDisciplinasProjetos() {
+                return new Promise(function(resolve, reject) {
+                    api.disciplinas.consultarDisciplinasProjetos().then(function (data) {
+                        const disciplinas = data.disciplinas || [];
+                        const projetos = data.projetos || [];
+                        const combinedAtividades = disciplinas.concat(projetos);
+    
+                        resolve(combinedAtividades);
+                    }).catch(function (error) {
+                        console.error('Error fetching data:', error);
+                        reject(error);
+                    });
+                });
+            }
+    
+            $('#id_disciplinaPed').autocomplete({
+                source: function(request, response) {
+                    fetchDisciplinasProjetos().then(function (atividades) {
+                        const filteredAtividades = atividades.filter(function(atividade) {
+                            return atividade.atividade.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+                        });
+    
+                        const atividadesList = filteredAtividades.map(function(atividade) {
+                            return {
+                                value: atividade.atividade,
+                                atividade: atividade.atividade
+                            };
+                        });
+    
+                        response(atividadesList);
+                    }).catch(function (error) {
+                        console.error('Error fetching or processing data:', error);
+                        response([]);
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    $('#id_disciplinaPed').val(ui.item.value);
+                    console.log('Selected atividade:', ui.item.atividade);
+                }
+            });
+        });
+        </script>
+  
+    <hr class="ui-state-default">
+  
+      <div class="question">
+          <label for="queixa" style="margin-top: 20px; font-weight: bold; font-size: larger;">Queixa Principal e Evolução da Doença Atual</label><br>
+          <textarea id="queixaPed" class="ui-state-default ui-corner-all mousetrap" rows="5" cols="50" style="width: 49%; margin-top: 10px;"></textarea>
+          <br>
+      </div>
+  
+      <p style="margin-top: 20px; font-weight: bold; font-size: larger;">História pregressa</p>
+  
+      <div class="question">
+        <label for="probGravidez_YN" style="width: 180px;">Problemas na gestação?</label>
+        <label><input type="radio" name="probGravidez_YN" value="Não" checked> Não</label>
+        <label><input type="radio" name="probGravidez_YN" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay12">
+          <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+          <input type="text" id="hemorragia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
+        </div>
+        <br>
+      </div>
+  
+      <div class="question">
+        <label for="tipParto" style="width: 180px;">Tipo de parto?</label>
+        <label><input type="radio" name="tipParto" value="Normal" checked>Normal</label>
+        <label><input type="radio" name="tipParto" value="Cesárea">Cesárea</label>
+        <label><input type="radio" name="tipParto" value="Outro">Outro</label>
+        <br>
+      </div>
+  
+      <div class="question">
+        <label for="doencaInfancia_YN" style="width: 180px;">Doenças da infância?</label>
+        <label><input type="radio" name="doencaInfancia_YN" value="Não" checked> Não</label>
+        <label><input type="radio" name="doencaInfancia_YN" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay13">
+          <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+          <input type="text" id="doencaInfancia" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 460px;">
+        </div>
+        <br>
+      </div>
+  
+      <div class="question">
+        <label for="internacao_YN" style="width: 180px;">Internação hospitalar?</label>
+        <label><input type="radio" name="internacao_YN" value="Não" checked> Não</label>
+        <label><input type="radio" name="internacao_YN" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay14">
+          <label style="width: 150px; margin-left: 5px;">Motivo(s) e idade na ocasião?</label>
+          <input type="text" id="internacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 360px;margin-top: 10px;">
+        </div>
+        <br>
+      </div>
+  
+      <div class="question">
+        <label for="historicoMedicacao_YN" style="width: 180px;">Histórico de uso de medicamentos?</label>
+        <label><input type="radio" name="historicoMedicacao_YN" value="Não" checked> Não</label>
+        <label><input type="radio" name="historicoMedicacao_YN" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay15">
+          <label style="width: 150px; margin-left: 5px;">Motivo(s) e idade na ocasião?</label>
+          <input type="text" id="historicoMedicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 360px;margin-top: 10px;">
+        </div>
+        <br>
+      </div>
+  
+      <hr class="ui-state-default">
+  
+      <p style="margin-top: 20px; font-weight: bold; font-size: larger;">Condição atual</p>
+  
+      <div class="question">
+        <label for="alergia_YN_Ped" style="width: 150px;">Alérgico?</label>
+        <label><input type="radio" name="alergia_YN_Ped" value="Não" checked> Não</label>
+        <label><input type="radio" name="alergia_YN_Ped" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay16">
+          <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+          <input type="text" id="historicoMedicacao" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 500px;margin-top: 10px;">
+        </div>
+        <br>
+      </div>
+  
+      <div class="question">
+        <label for="respiratorio_YN" style="width: 150px;">Problemas respiratórios?</label>
+        <label><input type="radio" name="respiratorio_YN" value="Não" checked> Não</label>
+        <label><input type="radio" name="respiratorio_YN" value="Sim"> Sim</label>
+        
+        <div id="displayNotdisplay17">
+          <label style="width: 50px; margin-left: 5px;">Qual(is)? </label>
+          <input type="text" id="respiratorio" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 500px;margin-top: 10px;">
+        </div>
+        <br>
+      </div>
+  
+  
+      <label for="cardiaco_YN" style="margin-top: 10px; width: 150px;">Problemas cardíacos?</label>
+      <label style="margin-top: 10px;"><input type="radio" name="cardiaco_YN" value="Não"  checked>Não</label>
+      <label style="margin-top: 10px;"><input type="radio" name="cardiaco_YN" value="Sim">Sim</label>
+        
+      <div id="displayNotdisplay18">
+        <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
+          <input type="text" id="cardiaco" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 500px;margin-top: 10px;">
+      </div>
+      <br>
+  
+      <label for="sanguineo_YN" style="margin-top: 10px; width: 150px;">Problemas sanguíneos?</label>
+      <label style="margin-top: 10px;"><input type="radio" name="sanguineo_YN" value="Não"  checked>Não</label>
+      <label style="margin-top: 10px;"><input type="radio" name="sanguineo_YN" value="Sim">Sim</label>
+        
+      <div id="displayNotdisplay19">
+        <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
+        <input type="text" id="sanguineo" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 500px;margin-top: 10px;">
+      </div>
+      <br>
+  
+      <label for="diabetes_YN" style="margin-top: 10px; width: 150px;">Diabetes?</label>
+      <label style="margin-top: 10px;"><input type="radio" name="diabetes_YN" value="Não"  checked>Não</label>
+      <label style="margin-top: 10px;"><input type="radio" name="diabetes_YN" value="Sim">Sim</label>
+        
+      <div id="displayNotdisplay20">
+        <label for="diabetes" style="margin-top: 10px; margin-left: 25px;">Está compensada?</label>
+        <label style="margin-top: 10px;"><input type="radio" name="diabetes" value="Não"  checked>Não</label>
+        <label style="margin-top: 10px;"><input type="radio" name="diabetes" value="Sim">Sim</label>
+      </div>
+      <br>
+  
+      <label for="medicacao_YN_Ped" style="margin-top: 10px; width: 150px;">Usa medicamentos atualmente?</label>
+      <label style="margin-top: 10px;"><input type="radio" name="medicacao_YN_Ped" value="Não"  checked>Não</label>
+      <label style="margin-top: 10px;"><input type="radio" name="medicacao_YN_Ped" value="Sim">Sim</label>
+      <br>
+        
+      <div id="displayNotdisplay21">
+        <label style="width: 50px; margin: 5px;margin-top: 10px;">Qual(is)? </label>
+        <textarea style="width: 45%; margin: 5px;" id="medicacao_Ped" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
+      </div>
+      <br>
+      <p></p>
+  
+      <hr class="ui-state-default">
+  
+      <label style="width: 120px; margin-top: 25px;">Nome do(a) pediatra:</label>
+      <input type="text" id="pediatra" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 300px;margin-top: 25px;">
+      <br>
+  
+      <label style="width: 120px;">Telefone: </label>
+      <input type="text" id="telPediatra" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap telefone" style="width: 100px;">
+      <br>
+  
+      <p></p><br>
+      <hr class="ui-state-default">
+      <label style="width: 550px; margin: 5px; margin-top: 25px;">Observações:</label><br>
+      <textarea style="width: 49%; margin: 5px;" id="obs_ped" rows="5" maxlength="1000" class="ui-state-default ui-corner-all" style="margin-top: 5px;" ></textarea>
+      <br>
+    </div>

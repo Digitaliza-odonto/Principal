@@ -18,8 +18,8 @@ $request_data = json_decode($json_data, true);
 if(isset($request_data['cpf_paciente'])){
     $cpf_paciente = $request_data['cpf_paciente'];
 
-    // Use a prepared statement to prevent SQL injection
-    $stmt = mysqli_prepare($connection, "SELECT * FROM `agenda-clinicas` WHERE `cpf_paciente` = ?");
+    // Modified SQL query to include the condition for 'data_agendamento'
+    $stmt = mysqli_prepare($connection, "SELECT * FROM `agenda-clinicas` WHERE `cpf_paciente` = ? AND `data_agendamento` >= CURRENT_DATE");
     mysqli_stmt_bind_param($stmt, "s", $cpf_paciente);
 
     // Execute the statement
@@ -30,11 +30,26 @@ if(isset($request_data['cpf_paciente'])){
 
     // Fetch data from the result set
     while ($linha = mysqli_fetch_assoc($result)) {
+        $agendado_por = $linha['agendado_por'];
+
+        // New SQL query to fetch 'Nome' from 'usuarios' based on 'Matricula' (agendado_por)
+        $stmt_nome = mysqli_prepare($connection, "SELECT `Nome` FROM `usuarios` WHERE `Matricula` = ?");
+        mysqli_stmt_bind_param($stmt_nome, "s", $agendado_por);
+        mysqli_stmt_execute($stmt_nome);
+        $result_nome = mysqli_stmt_get_result($stmt_nome);
+
+        // Fetching 'Nome' from the result set and adding it to the data array
+        if ($row_nome = mysqli_fetch_assoc($result_nome)) {
+            $linha['nome_usuario'] = $row_nome['Nome']; // Adding 'Nome' to the existing data
+        }
+
+        // Adding the modified row to the data array
         $data[] = $linha;
     }
 
     // Output the data as JSON
     echo json_encode($data);
+
 } else {
     // Handle the case when 'cpf_paciente' parameter is not provided
     $error = array("error" => "Missing 'cpf_paciente' parameter");
@@ -46,4 +61,5 @@ if ($stmt != null) {
     mysqli_stmt_close($stmt);
 }
 mysqli_close($connection);
+
 ?>

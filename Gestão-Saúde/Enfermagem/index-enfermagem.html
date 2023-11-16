@@ -29,7 +29,7 @@
 
       <div class="" style="float:right; padding: 10px 0px; margin: 18px 0px;">
         <div id="avatar-menu" style="float: left;cursor: pointer;padding-right: 5px;">
-          <img src="src/Unknown_Member.jpg" style="border-radius: 50%;" width="48px">
+          <img src="../src/Unknown_Member.jpg" style="border-radius: 50%;" width="48px">
         </div>
 
         <div style="display: block; float:left; margin: 0px;">
@@ -88,16 +88,38 @@
                 <ul style="background: none !important; display: block;">
                   <li class="closed expandable">
                   
-                    <div id="menuAdm">
-                      <?php echo file_get_contents('../multiUsuarios/menu-enf.html');     ?>
-                    </div>
+                    <li class="closed expandable">
+                      <div class="hitarea closed-hitarea expandable-hitarea"></div>
+                      <span>Enfermagem</span>
+                      <ul style="background: none !important; display: block;">
+                          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
+                              
+                              <span>Consultas</span>
+                              <ul style="background: none !important; display: none;">
+                                  <li><a href="Gestão-Saúde/Enfermagem/Consultas/consulta-pedido-material.html">Acompanhamento de pedido de material de consumo</a></li>
+                                  <li><a href="Gestão-Saúde/consulta-codSUS.html">Lista de procedimentos SUS</a></li>
+                              </ul>
+                  
+                          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
+                              <span>Cadastro</span>
+                              <ul style="background: none !important; display: none;">
+                                  <li><a href="Gestão-Saúde/Enfermagem/Cadastros/requisitar-material.html">Requisitar material</a></li>
+                                  <li><a href="Gestão-Saúde/Enfermagem/Cadastros/incluir-exame-1.html">Serviço de Radiologia - Incluir exame</a></li>
+                              </ul>
+                  
+                          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
+                              <span>Processos</span>
+                              <ul style="background: none !important; display: none;">
+                                  <li><a href="Gestão-Saúde/Enfermagem/Processos/admitir-paciente.html">Admitir paciente na portaria</a></li>
+                              </ul>
+                      </ul>
     </div>
 
     <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
     <style>
       #iframe{overflow: hidden;}
     </style>
-    <iframe id="iframe" src="../../Apresentação.html"style="width: 100%; height: 5000px; overflow: hidden;" frameborder="0"></iframe>
+    <iframe id="iframe" src="apresentacao-enf.html"style="width: 100%; height: 5000px; overflow: hidden;" frameborder="0"></iframe>
       </div>
 
     <script src="../../index.js"></script>

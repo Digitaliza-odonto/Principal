@@ -44,8 +44,20 @@ const encaminhamentos = {
     const url = `${getApiUrl()}/encaminhamentos/criar.php`;
     return sendRequest(url, 'POST', data);
   },
+  criarEncaminhamento: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/criarEncaminhamento.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultar: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/consultarDemanda.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarEncaminhamentoResp: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/consultarEncaminhamentoResp.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarEncaminhamentoID: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/consultarEncaminhamentoID.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarFiltro: async (data) => {
@@ -58,6 +70,30 @@ const encaminhamentos = {
   },
   atualizar: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/atualizar.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  homologarEncaminhamento: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/homologarEncaminhamento.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  solicitarRegulacao: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/solicitarRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarRegulacao: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/consultarRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarRegulacaoID: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/consultarRegulacaoID.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  homologarRegulacao: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/homologarRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  devolverRegulacao: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/devolverRegulacao.php`;
     return sendRequest(url, 'POST', data);
   },
 };
@@ -74,7 +110,11 @@ criar: async (data) => {
 consultar: async (data) => {
   const url = `${getApiUrl()}/cobalto/usuarios/consultar.php`;
   return sendRequest(url, 'POST', data);
-  }
+  },
+consultarResponsavel: async (data) => {
+  const url = `${getApiUrl()}/cobalto/usuarios/consultarResponsavel.php`;
+  return sendRequest(url, 'POST', data);
+  },
 };
 
 const alunos = {
@@ -90,10 +130,30 @@ const alunos = {
     const url = `${getApiUrl()}/alunos/desvincular.php`;
     return sendRequest(url, 'POST', data);
   },
+  desvincularRegulacao: async (data) => {
+    const url = `${getApiUrl()}/alunos/desvincularRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarVinculos: async (data) => {
     const url = `${getApiUrl()}/alunos/vinculos.php`;
     return sendRequest(url, 'POST', data);
-  }
+  },
+  consultarMatriculaAluno: async (data) => {
+    const url = `${getApiUrl()}/alunos/consultarMatriculaAluno.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarAlunoDisciplina: async (data) => {
+    const url = `${getApiUrl()}/alunos/consultarAlunoDisciplina.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  buscarAlunoNomeMatricula: async (data) => {
+    const url = `${getApiUrl()}/alunos/buscarAlunoNomeMatricula.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  vinculoPorCPFpaciente: async (data) => {
+    const url = `${getApiUrl()}/alunos/vinculosCPFpaciente.php`;
+    return sendRequest(url, 'POST', data);
+  },
 };
 
 const materiais = {
@@ -172,15 +232,26 @@ const disciplinas = {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultar.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultarDisciplinasProjetos: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultarDisciplinasProjetos.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarID: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultarID.php`;
     return sendRequest(url, 'POST', data);
   },
-  // Recebe o id da turma e retorna os alunos matriculados
-  constutarMatriculados: async (data) => {
+  consultarMatriculados: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultar_matriculados.php`;
     return sendRequest(url, 'POST', data);
-  }
+  },
+  consultar_IDturma: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultar_IDturma.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarArrayIDsTurma: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultarArrayIDsTurma.php`;
+    return sendRequest(url, 'POST', data);
+  },
 };
 
 const avaliacoes = {
@@ -203,7 +274,11 @@ const avaliacoes = {
   consultarIdPeriodoDisciplina: async (data) => {
     const url = `${getApiUrl()}/avaliacoes/avaliacoes-id-periodo-disciplina.php`;
     return sendRequest(url, 'POST', data);
-  }
+  },
+  selectDistinct: async (data) => {
+    const url = `${getApiUrl()}/avaliacoes/selectDistinctAvaliacoes.php`;
+    return sendRequest(url, 'POST', data);
+  },
 };
 
 const agenda = {
@@ -239,8 +314,16 @@ const agenda = {
     const url = `${getApiUrl()}/agenda/agendados-usuario.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultarAgendadosResponsavel: async (data) => {
+    const url = `${getApiUrl()}/agenda/agendadosResponsavel.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarNoLocalUsuario: async (data) => {
     const url = `${getApiUrl()}/agenda/nolocal-usuario.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarDadosAgendamento: async (data) => {
+    const url = `${getApiUrl()}/agenda/consultarDadosAgendamento.php`;
     return sendRequest(url, 'POST', data);
   },
   consultaFaltas: async (data) => {
@@ -322,6 +405,10 @@ const entrevistaDialogada = {
 const atendimentos = {
   criar: async (data) => {
     const url = `${getApiUrl()}/atendimentos/criarAtendimento.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  criarResponsavel: async (data) => {
+    const url = `${getApiUrl()}/atendimentos/criarAtendimentoResponsavel.php`;
     return sendRequest(url, 'POST', data);
   },
   homologar: async (data) => {

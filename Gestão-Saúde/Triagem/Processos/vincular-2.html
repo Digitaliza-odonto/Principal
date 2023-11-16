@@ -1,76 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Vincular aluno à paciente</title>
-  
-  <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-      var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-      var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-      var PATH_COOKIE = '/';
-      var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-      var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-      </script>
-      <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-      <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-      <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vincular aluno à paciente</title>
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+            var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+            var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+            var PATH_COOKIE = '/';
+            var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+            var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+        </script>
+        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+        <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
 
-      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
-      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-  <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+        <!--ALERT MESSAGES-->
+        <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+        <script src="../../../scripts/alertMessage.js"></script>
 
-    <!--ALERT MESSAGES-->
-    <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
-    <script src="../../../scripts/alertMessage.js"></script>
-
-    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-    <div id="customAlert" class="modal">
-      <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
-        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-          <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
-          <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
-            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
-          </button>
+        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+        <div id="customAlert" class="modal">
+            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+                <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+                <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+                </button>
+            </div>
+            <p></p>
+            <br>
+            <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+                <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+                <p id="alertMessage"></p>
+            </div>
+            <p> </p><br>
+            <p> </p><br>
+            <p> </p><br>
+          <div>
+            <button id="okButton" class="centered-button">OK</button></div>
+            <script>
+              // RECALL THE API TO UPDATE THE LIST OF PATIENTS
+              document.getElementById("okButton").addEventListener("click", function() {
+                atualizarFiltro(''); // Call the atualizarFiltro function with an empty parameter
+              });
+            </script>
+          </div>
         </div>
-        <p></p>
-        <br>
-        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
-          <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
-          <p id="alertMessage"></p>
-        </div>
-        <p> </p><br>
-        <p> </p><br>
-        <p> </p><br>
-        <div><button id="okButton" class="centered-button">OK</button></div>
-      </div>
-    </div>
-      <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-  </head>
+    </head>
 
   <body>
+    <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
+        
       <!-- CONTEÚDO SUPERIOR -->
       <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-        <li>Triagem/Almoxarifado</li>    
-        <li>Processos</li>
-        <li>Vincular aluno à paciente</li>
-        <li>GET "DISCIPLINA"</li>
-        <li>GET "TURMA"</li>
-      </ul>
-        
+            <li>Gestão Saúde</li>
+            <li>Triagem/Almoxarifado</li>    
+            <li>Processos</li>
+            <li>Vincular aluno à paciente</li>
+          </ul>
+          
       <div style="clear: both;"></div></div><div style="clear: both;"></div>
-
-    <!-- CONTEÚDO BOTÕES -->
-    <div class="ui-widget-content ui-corner-all toolbar">
-        <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Salvar alterações</button>
-        <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-        <span style="clear: both; display: block"></span>
+      
+      <!-- CONTEÚDO BOTÕES -->
+      <div class="ui-widget-content ui-corner-all toolbar">
+          <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+          <!-- <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button> -->
+          <!-- <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Salvar alterações</button> -->
+          <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+          <span style="clear: both; display: block"></span>
       </div>
-
-
-
-    <!-- CONTEÚDO COLUNA DA ESQUERDA -->
+    
+      <!-- CONTEÚDO COLUNA DA ESQUERDA -->
     <div id="alunosMatriculados" class="tabs" style="width: 35%; float: left; padding-bottom: 8px; box-sizing: border-box;">
       <div>
         <div id="alunosMatriculados-0" class="ui-widget alunosMatriculados alunosMatriculados-0">
@@ -116,10 +118,11 @@
           </div>
       </div>
     </div>
+    
     <script src="/API/API.js"></script>
       <script>
         const turma_id = getUrlVars()["turma_id"];
-        api.disciplinas.constutarMatriculados({turma_id}).then((data) => {
+        api.disciplinas.consultarMatriculados({turma_id}).then((data) => {
          // data é um array de objetos com matricula e nome
          // for para percorer o array e adicionar na tabela
           for (let i = 0; i < data.length; i++) {
@@ -139,7 +142,6 @@
             nomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
           }            
         });
-        
 
         function getUrlVars() {
           var vars = {};
@@ -158,115 +160,83 @@
             <li class="labeltabpacientesEspera"><a href="#pacientesEspera-0" accessKey="pacientesEspera-0">Pacientes em espera</a></li>
         </ul>
         
-      <br>
-      <p></p>
-
-      <!-- <label style="font-weight:bold;width: 180px;">Área/Curso da saúde</label>
-      <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="areaSaúde" id="areaSaúde">
-        <option value="0">Escolher</option>
-        <option value="Odontologia">Odontologia</option>
-        <option value="Enfermagem">Enfermagem</option>
-        <option value="Farmácia">Farmácia</option>
-        <option value="Terapia Ocupacional">Terapia Ocupacional</option>
-      </select> -->
-
-    <br>
-    <p></p>
-    <label style="font-weight:bold;width: 180px;">Lista de especialidades</label>
-    <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="especAreaSaúde" id="especAreaSaúde">
-      <option value="Escolher">Escolher</option>
-      <option value="Prótese Dentária">Prótese Dentária</option>
-      <option value="Odontopediatria">Odontopediatria</option>
-      <option value="Periodontia">Periodontia</option>
-      <option value="Dentística">Dentística</option>
-      <option value="Cirurgia">Cirurgia</option>
-    </select>
-
-      <!-- <script>
-        const disciplinas = [
-          {codCurso: '0', nomeEspec:'Selecione uma especialidade'},
-          {codCurso: 'Odontologia', nomeEspec:'Prótese Dentária'},
-          {codCurso: 'Odontologia', nomeEspec:'Odontopediatria'},
-          {codCurso: 'Odontologia', nomeEspec:'Periodontia'},
-          {codCurso: 'Odontologia', nomeEspec:'Dentística'},
-          {codCurso: 'Odontologia', nomeEspec:'Cirurgia'},
-          {codCurso: 'Enfermagem', nomeEspec:'Pediatria e Neonatologia'},
-          {codCurso: 'Enfermagem', nomeEspec:'Terapia Intensiva e Alta Complexidade'},
-          {codCurso: 'Enfermagem', nomeEspec:'Cardiologia e Hemodinâmica'},
-          {codCurso: 'Farmácia', nomeEspec:'Análises clínicas' },
-          {codCurso: 'Farmácia', nomeEspec:'Antroposofia' },
-          {codCurso: 'Terapia Ocupacional', nomeEspec:'Contextos sociais' },
-          {codCurso: 'Terapia Ocupacional', nomeEspec:'Saúde da família' },
-          // Add more options as needed
-        ];
-        
-        const areaSelect = document.getElementById('areaSaúde');
-        const disciplinasSelect = document.getElementById('especAreaSaúde');
-        
-        areaSelect.addEventListener('change', function() {
-          const selectedCodCurso = areaSelect.value;
-        
-          // Clear existing options
-          disciplinasSelect.innerHTML = '<option value="0">Selecione uma especialidade</option>';
-        
-          // Filter and populate the second select
-          const selectedDisciplinas = disciplinas.filter(disciplina => disciplina.codCurso === selectedCodCurso);
-          selectedDisciplinas.forEach(disciplina => {
-            const option = document.createElement('option');
-            option.value = disciplina.nomeEspec;
-            option.textContent = disciplina.nomeEspec;
-            disciplinasSelect.appendChild(option);
-          });
-        });
-      </script> -->
-
-      <br>
-      <p></p>
-      <label style="width: 180px; font-weight: bold;">Nível de complexidade</label>
-        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="complexidade" id="complexidade">
-            <option value="0">Escolher</option>
-            <option value="Baixa">Baixa</option>
-            <option value="Média">Média</option>
-            <option value="Alta (Pós-graduação)">Alta (Pós-graduação)</option>
+        <br>
+        <p></p>
+    
+        <br>
+        <p></p>
+        <label style="font-weight:bold;width: 180px;">Lista de especialidades</label>
+        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="especialidade" id="especialidade">
+          <option value="">Escolher</option>
+          <option value="Prótese Dentária">Prótese Dentária</option>
+          <option value="Odontopediatria">Odontopediatria</option>
+          <option value="Periodontia">Periodontia</option>
+          <option value="Dentística">Dentística</option>
+          <option value="Cirurgia">Cirurgia</option>
         </select>
-      <br>
 
-      <div class="table-container">
-      <table id="tablePacientes" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 85%; font-size: 14px; margin: 20px;">
-        <thead>
-          <tr class="ui-jqgrid-labels" role="rowheader">
-            <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">
-              Selec.
-            </th>
-            <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 30%;">
-              Paciente
-            </th>
-            <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 60%;">
-              Demanda
-            </th>
-            </tr>
-          </thead>
-        <tr>
-          <td class="ui-state-default ui-th-column ui-th-ltr" style="text-align: center;"><input type="checkbox"></td>
-          <td class="ui-state-default ui-th-column ui-th-ltr">'nomePaciente'</td>
-          <td class="ui-state-default ui-th-column ui-th-ltr">'demandaDescrição'</td>
-        </tr>
-        </table>
+          <br>
+          <p></p>
+          <label style="width: 180px; font-weight: bold;">Nível de complexidade</label>
+            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="complexidade" id="complexidade">
+                <option value="">Escolher</option>
+                <option value="Baixa">Baixa</option>
+                <option value="Média">Média</option>
+                <option value="Alta (Pós-graduação)">Alta (Pós-graduação)</option>
+            </select>
+
+          <button style="margin-left: 15px;" id="clearButton">Limpar filtros</button>
+          <br>
+
+          <div class="table-container">
+          <table id="tablePacientes" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 85%; font-size: 14px; margin: 20px;">
+            <thead>
+              <tr class="ui-jqgrid-labels" role="rowheader">
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">
+                  Selec.
+                </th>
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 30%;">
+                  Paciente
+                </th>
+                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 60%;">
+                  Demanda
+                </th>
+                </tr>
+              </thead>
+            </table>
+            </div>
           </div>
-        </div>
       </div>
     </div>
+    
+    
     <script>
       var complexidade = document.getElementById("complexidade").value;
-      // quando o valor do select mudar, atualiza a variável
+      var especialidade = document.getElementById("especialidade").value;
+  
+      // Quando o valor do select de complexidade mudar, atualiza a variável e chama a função com tipo 'complexidade'
       document.getElementById("complexidade").addEventListener("change", function() {
-        atualizarComplexidade()
+          atualizarFiltro('complexidade');
       });
-      atualizarComplexidade()
-      function atualizarComplexidade() {
-        complexidade = document.getElementById("complexidade").value;
+  
+      // Quando o valor do select de especialidade mudar, atualiza a variável e chama a função com tipo 'especialidade'
+      document.getElementById("especialidade").addEventListener("change", function() {
+          atualizarFiltro('especialidade');
+      });
+  
+      // Chama a função ao carregar a página com tipo 'complexidade'
+      atualizarFiltro('complexidade');
+  
+      function atualizarFiltro(tipoFiltro) {
+        if (tipoFiltro === 'complexidade') {
+            complexidade = document.getElementById("complexidade").value;
+        } else if (tipoFiltro === 'especialidade') {
+            especialidade = document.getElementById("especialidade").value;
+        }
+
         limparTabela();
-        api.encaminhamentos.consultarFiltro({complexidade}).then((data) => {
+
+        api.encaminhamentos.consultarFiltro({ complexidade: complexidade, especialidade: especialidade }).then((data) => {
           // data é um array de objetos com demanda e nome
           // for para percorer o array e adicionar na tabela
           for (let i = 0; i < data.length; i++) {
@@ -289,6 +259,7 @@
 
       });
       }
+      
       function limparTabela() {
         var tabelaPacientes = document.getElementById("tablePacientes");
         var linhas = tabelaPacientes.getElementsByTagName("tr");
@@ -298,20 +269,31 @@
         }
       }
 
+      // Function to clear the values for 'complexidade' and 'especialidade'
+      function limparFiltros() {
+          document.getElementById("complexidade").value = '';
+          document.getElementById("especialidade").value = '';
+          complexidade = '';
+          especialidade = '';
+          limparTabela();
+          atualizarFiltro(''); // Call the filter function with empty parameter to show all results
+      }
+
+      // Bind the limparFiltros function to the click event of the "Limpar filtros" button
+      document.getElementById("clearButton").addEventListener("click", limparFiltros);
+
     </script>
 
 
 
     <!-- CONTEÚDO TAB-3 (ABAIXO) -->
-   
-
     <br>
       
     <hr class="ui-state-default">
 
     <div style="margin: 20px;">
       <div style="display: flex; align-items: center;">
-        <button id="deleteButton" style="margin: 20px; padding: 5px;">Excluir</button>
+        <!-- <button id="deleteButton" style="margin: 20px; padding: 5px;">Excluir</button> -->
         <button id="submitButton" style="margin: 20px; padding: 5px;" onclick="vincular()">Vincular</button>
       </div>
       <h2>Vinculação de paciente</h2>
@@ -332,6 +314,7 @@
       </thead>
       </table>
     </div>
+
     <script>
       // função vincular que pega o aluno e demanda selecionados e vincula
       function vincular() {
@@ -423,152 +406,14 @@
 
       function desvincular(id_vinculo) {
         api.alunos.desvincularPaciente({id_vinculo}).then((data) => {
-          console.log(data);
+          if (data.vinculoExcluido == true) {
+            showCustomAlert("Paciente desvinculado com sucesso!");
+            atualizartabela(turma_id);
+          } else {
+            showCustomAlert("Erro ao desvincular paciente.");
+          }
         });
       }
     </script>
-      
-
-    <!-- FUNCTION BIND INFORMATION IN 'selectedTable' -->
-    <!-- <script>
-    document.getElementById("submitButton").addEventListener("click", function() {
-        const complexidadeValue = document.getElementById("complexidade").value;
-        const areaSaúdeValue = document.getElementById("areaSaúde").value;
-        const especAreaSaúdeValue = document.getElementById("especAreaSaúde").value;
-
-        if (complexidadeValue !== "0" && areaSaúdeValue !== "0" && especAreaSaúdeValue !== "0") {
-            const selectedAlunoRow = document.querySelector("#tableAlunos input[type='radio']:checked").closest("tr");
-            const selectedPacienteRowCheckboxes = document.querySelectorAll("#tablePacientes input[type='checkbox']:checked");
-
-            if (selectedAlunoRow && selectedPacienteRowCheckboxes.length > 0) {
-                const alunoMatricula = selectedAlunoRow.cells[2].textContent + ' ('  + selectedAlunoRow.cells[1].textContent + ')';
-                const selectedTable = document.getElementById("selectedTable");
-
-                for (const checkbox of selectedPacienteRowCheckboxes) {
-                    const selectedPacienteRow = checkbox.closest("tr");
-                    const pacienteNome = selectedPacienteRow.cells[1].textContent;
-                    const demandaDescricao = selectedPacienteRow.cells[2].textContent;
-
-                    // Check if pacienteNome already exists in the selectedTable
-                    let isDuplicate = false;
-                    const selectedTableRows = selectedTable.getElementsByTagName("tr");
-                    for (let i = 1; i < selectedTableRows.length; i++) { // Skip the header row
-                        const existingPacienteNome = selectedTableRows[i].cells[2].textContent;
-                        if (existingPacienteNome === pacienteNome) {
-                            isDuplicate = true;
-                            break;
-                        }
-                    }
-
-                    if (!isDuplicate) {
-                        const newRow = selectedTable.insertRow(-1);
-                        newRow.className = "ui-state-default ui-th-column ui-th-ltr";
-
-                        const checkBoxCell = newRow.insertCell(0);
-                        checkBoxCell.innerHTML = '<input type="checkbox">';
-                        checkBoxCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
-                        const alunoMatriculaCell = newRow.insertCell(1);
-                        alunoMatriculaCell.textContent = alunoMatricula;
-                        alunoMatriculaCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
-                        const pacienteNomeCell = newRow.insertCell(2);
-                        pacienteNomeCell.textContent = pacienteNome;
-                        pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-                                        
-                        const areaSaúdeCell = newRow.insertCell(3);
-                        areaSaúdeCell.textContent = areaSaúdeValue;
-                        areaSaúdeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
-                        const especAreaSaúdeCell = newRow.insertCell(4);
-                        especAreaSaúdeCell.textContent = especAreaSaúdeValue;
-                        especAreaSaúdeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
-                        const demandaDescricaoCell = newRow.insertCell(5);
-                        demandaDescricaoCell.textContent = demandaDescricao;
-                        demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";
-                        
-                        const complexidadeCell = newRow.insertCell(6);
-                        complexidadeCell.textContent = complexidadeValue;
-                        complexidadeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-                        
-                        const dateCell = newRow.insertCell(7);
-                        dateCell.textContent = new Date().toLocaleDateString();
-                        dateCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
-                        checkbox.closest("tr").remove(); // Remove the entire row from tablePacientes
-                    }
-                }
-
-                // Clear selected radio button
-                const radioButtons = document.querySelectorAll("#tableAlunos input[type='radio']");
-                for (const radioButton of radioButtons) {
-                    radioButton.checked = false;
-                }
-
-              
-            } else {
-                showCustomAlert("Selecione um aluno e pelo menos um paciente.");
-              }
-        } else {
-            showCustomAlert("Selecione uma área da saúde, especialidade e complexidade válidos.");
-        }
-    });
-
-
-    //DELETE ROW AND RE-ADD TO 'tablePacientes' FUNCTION
-    document.getElementById("deleteButton").addEventListener("click", function() {
-        const selectedSelectedTableRows = document.querySelectorAll("#selectedTable input[type='checkbox']:checked");
-
-        if (selectedSelectedTableRows.length > 0) {
-            const tablePacientes = document.getElementById("tablePacientes");
-
-            for (const row of selectedSelectedTableRows) {
-                const selectedRow = row.closest("tr");
-                const pacienteNome = selectedRow.cells[2].textContent;
-                const demandaDescricao = selectedRow.cells[5].textContent;
-
-                // Check if pacienteNome already exists in the tablePacientes
-                let isDuplicate = false;
-                const tablePacientesRows = tablePacientes.getElementsByTagName("tr");
-                for (let i = 1; i < tablePacientesRows.length; i++) { // Skip the header row
-                    const existingPacienteNome = tablePacientesRows[i].cells[1].textContent;
-                    if (existingPacienteNome === pacienteNome) {
-                        isDuplicate = true;
-                        break;
-                    }
-                }
-
-                if (!isDuplicate) {
-                    const newRow = tablePacientes.insertRow(-1);
-                    newRow.className = "ui-state-default ui-th-column ui-th-ltr";
-
-                    const checkBoxCell = newRow.insertCell(0);
-                    checkBoxCell.innerHTML = '<input type="checkbox">';
-                    checkBoxCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
-                    const pacienteNomeCell = newRow.insertCell(1);
-                    pacienteNomeCell.textContent = pacienteNome;
-                    pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-                    
-                    const demandaDescricaoCell = newRow.insertCell(2);
-                    demandaDescricaoCell.textContent = demandaDescricao;
-                    demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";                
-                }
-
-                // Remove the row from selectedTable
-                selectedRow.remove();
-            }
-        }
-    });
-    </script> -->
-
-    <!-- <h2 style="padding: 40px; line-height: 150%; color: rgb(211, 39, 39);">
-      FUNCIONALIDADE PREVISTA: <br>
-      1) AO CRIAR O VÍNCULO O 'statusPaciente' automaticamente altera de 'em espera' ou 'continuaTratamento' para 'Em atendimento' <br>
-      2) ATUALIZA LISTAGEM NA VARIÁVEL DO ALUNO 'vinculoPacientes' (INCLUI O PACIENTE NA LISTAGEM) E TAMBÉM NA VARIÁVEL 'pacientesAtendidos'<br>
-      3) ATUALIZA LISTAGEM NA VARIÁVEL 'pacientesDisciplina' no 'ano/semestre' vigente'<br>
-    </h2> -->
-
   </body>
 </html>

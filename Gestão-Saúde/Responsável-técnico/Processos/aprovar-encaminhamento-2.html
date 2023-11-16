@@ -18,11 +18,21 @@
 
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
       <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-  <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+      <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
 
     <!--ALERT MESSAGES-->
     <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
     <script src="../../../scripts/alertMessage.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var okButton = document.getElementById('okButton');
+    
+        okButton.addEventListener('click', function() {
+          window.history.back(); // This line performs the action of going back to the previous page
+        });
+      });
+    </script>
 
     <!-- HIDDEN DIV FOR ALERT MESSAGE -->
     <div id="customAlert" class="modal">
@@ -66,7 +76,7 @@
       <!-- CONTEÚDO BOTÕES -->
       <div class="ui-widget-content ui-corner-all toolbar">
         <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-        <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Enviar encaminhamento/alta</button>
+        <button id="salvar" class="salvar" title="Salvar paciente" onclick="aprovarEncaminhamento()" style="float: left;">Aprovar encaminhamento/alta</button>
         <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
         <span style="clear: both; display: block"></span>
       </div>
@@ -83,138 +93,204 @@
 
         </ul>
     
-        <!--INÍCIO DA TAB DADOS PESSOAIS-->
-        <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
+       <!--INÍCIO DA TAB DADOS PESSOAIS-->
+       <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
 
           <br>
-          <div>
-            <p></p>
-            <label style="width: 180px; margin: 5px; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
-            <input type="text" id="informacoesImportantes" maxlength="255" style="width: 340px; margin: 5px;" readonly="readonly"><br>
-          
-            <script>
-                // TROCAR STYLE SE O CAMPO 'informaçõesImportantes' for preenchido
-              document.addEventListener('DOMContentLoaded', function() {
-                const inputField = document.getElementById('informacoesImportantes');
-            
-                function applyStyles() {
-                  if (inputField.value.trim() === '') {
-                    inputField.classList.add('ui-state-default');
-                    inputField.classList.remove('important-ui');
-                  } else {
-                    inputField.classList.add('important-ui');
-                    inputField.classList.remove('ui-state-default');
-                  }
-                }
-            
-                inputField.addEventListener('input', applyStyles);
-            
-                // Apply styles once the page loads
-                applyStyles();
-              });
-            </script>
-            <p style="margin: 10px;"><span style="margin-left: 15px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, RELATO DE ABUSO, ETC.)</span></p>
-            <p></p>
-            <br>
-          
-            <p></p>
-            <br>
-          </div>
-            
           <div id="capaContent">
-            <!-- Imported content will be placed here -->
+            <?php echo file_get_contents('../../tabsProntuarios/capaConsulta.html');     ?>
           </div>
+        </div>
+        
+        
+    
 
-          <script>
-            fetch('/Gestão-Saúde/tabsProntuarios/capaConsulta.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('capaContent').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-          </script>
+          <!-- Script atualizar dados -->
+        <script type="text/javascript">
+          function submit() {
 
-          <script src="/API/API.js"></script>
+            const formdata = getformdata()
+            const response = api.pacientes.atualizar(formdata).then((response) => { showCustomAlert(response.message)
+                  ;});
+        }
 
-          <script type="text/javascript">
-            // Função para preencher o formulário com os dados do perfil
-            function preencherFormulario(dados) {
-                console.log(dados)
-                document.getElementById("Cpf").value = dados.CPF;
-                document.getElementById("Nome").value = dados.Nome;
-                document.getElementById("Nometab").innerText = dados.Nome;
-                document.getElementById("Rg").value = dados.Rg;
-                document.getElementById("DataNasc").value = dados.DataNasc;
-                document.getElementById("Email").value = dados.Email;
-                document.getElementById("Tel").value = dados.Tel;
-                document.getElementById("EstadoCivil").value = dados.EstadoCivil;
-                document.getElementById("Sexo").value = dados.Sexo;
-                document.getElementById("CorRaca").value = dados.CorRaca;
-                document.getElementById("NomeMae").value = dados.NomeMae;
-                document.getElementById("NomePai").value = dados.NomePai;
-                document.getElementById("PNE").value = dados.PNE;
-                document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
-                document.getElementById("Cep").value = dados.Cep;
-                document.getElementById("Rua").value = dados.Rua;
-                document.getElementById("EndNumero").value = dados.EndNumero;
-                document.getElementById("EndComplemento").value = dados.EndComplemento;
-                document.getElementById("Bairro").value = dados.Bairro;
-                document.getElementById("Cidade").value = dados.Cidade;
+        function getformdata(){
+          const parentDiv = document.getElementById("tab-0"); 
+          const elements = document.querySelectorAll("input, select");
+          const jsonData = {};
+
+          for (const element of elements) {
+            if (element.tagName === "INPUT") {
+              if (element.type === "text") {
+                jsonData[element.id] = element.value;
+              } else if (element.type === "radio" && element.checked) {
+                jsonData[element.name] = element.value;
               }
+            } else if (element.tagName === "SELECT") {
+              jsonData[element.id] = element.value;
+            }
+          }
+
+          console.log(jsonData);
+          return jsonData;
+        }
+        </script>
+
+     <!--INÍCIO TAB DEMANDAS-->
+      <div id="encaminhamento">
+        <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" style="display: none;" aria-expanded="false" aria-hidden="true">
+          <p></p>
+
+          <label style="font-weight:bold;width: 300px;font-size: 14px;">Origem</label><br>
+
+          <label style="width: 180px;">Disciplina de origem</label>
+          <input type="text" id="encaminhamentoOrigem" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px;" placeholder="GET NOME DA DISCIPLINA">
+          <br>
+
+          <label style="width: 180px; margin-top: 10px;">Matrícula aluno</label>
+          <input type="text" id="alunoEncaminhamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px; margin-top: 10px;" readonly>
+          <br>
+
+          <label style="width: 180px; margin-top: 10px;">Nome Aluno</label>
+          <input type="text" id="nomeAluno" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 265px; margin-top: 10px;" readonly>
+          <br>
+                
+          <!-- <label style="width: 180px; margin-top: 10px;">Responsável técnico</label> -->
+          <input type="hidden" id="responsavelEncaminhamento">
+          <br>
           
-              // Função para buscar o perfil usando a API
-              function buscarPerfil() {
-                const cpf = getUrlVars()['cpf'];
-                if (cpf) {
-                  api.pacientes.consultar({ CPF: cpf })
-                    .then((pacientes) => {
-                      if (pacientes.length === 0) {
-                        console.log('Nenhum paciente encontrado');
-                      } else {
-                        preencherFormulario(pacientes[0]);
-                      }
-                    })
-                    .catch((error) => {
-                      console.error('Erro ao consultar perfil:', error);
-                    });
-                } else {
-                  console.log('CPF não encontrado na URL.');
-                }
-              }
+          <hr class="ui-state-default">  
+
+          <label style="width: 300px;font-size: 14px; font-weight: bold;">Destino</label>
+    
+          <br>
+          <p></p>
+          <label style="width: 180px;">Lista de especialidades</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" id="Especialidade">
+            <option value="Escolher">Escolher</option>
+            <option value="Prótese Dentária">Prótese Dentária</option>
+            <option value="Odontopediatria">Odontopediatria</option>
+            <option value="Periodontia">Periodontia</option>
+            <option value="Dentística">Dentística</option>
+            <option value="Cirurgia">Cirurgia</option>
+          </select>
           
-              // Função para obter parâmetros da URL
-              function getUrlVars() {
-                var vars = {};
-                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                  vars[key] = value;
-                });
-                return vars;
-            
-              }
-          
-              // Chamar a função para buscar o perfil
-              buscarPerfil();
-          </script>
+          <p></p>
+          <label style="width: 180px;">Nível de complexidade</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="complexidade" id="Complexidade">
+              <option value="0">Escolher</option>
+              <option value="Baixa">Baixa</option>
+              <option value="Média">Média</option>
+              <option value="Alta">Alta (Pós-graduação)</option>
+          </select>  
+          <hr class="ui-state-default">
+          <br>
+          <label style="width: 220px; margin-bottom: 10px;">Descrição da demanda/encaminhamento</label>
+          <p></p>
+
+          <br>
+          <textarea id="Demanda" style="width: 380px; margin-bottom: 10px;" name="txtdemanda" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" ></textarea>
+          <br>
+
+          <label style="width: 180px;">Data do encaminhamento</label>
+          <input type="text" name="Data" id="Data" value="" maxlength="10" class="ui-state-default ui-corner-all" style=" width: 80px;" readonly/>
+          <br>
+
+          <p></p><br>
+          <label style="width: 180px;">Encaminhamento/Alta</label>
+          <select class="ui-state-default ui-corner-all" style="width: 120px; height: 20px;" id="Status">
+            <option value="Escolher" selected>Escolher</option>
+            <option value="Encaminhamento homologado pelo Responsável técnico">Encaminhamento</option>
+            <option value="Alta homologada pelo Responsável técnico">Alta</option>
+          </select>
+
+          <p></p>
+          <!-- <button name="btnAdicionar" onClick="aprovarEncaminhamento()" id="btnAdicionar" value="Adicionar" class="button"  >Adicionar</button> -->
+          <!-- <button name="btnCancelar" onClick="limpar()" id="btnCancelar" value="Cancelar" class="button"  >Cancelar</button> -->
+          <br>
+          <p></p>
+                   
         </div>
 
-        <!--INÍCIO DA TAB DESCRIÇÃO DO ENCAMINHAMENTO-->
-        <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
+        <script>
 
-          <div id="encaminhamentoTab">
-            <!-- Imported content will be placed here -->
-          </div>
+          // CONVERTER DATA EM DD/MM/YYYY
+          function formatDate(dateString) {
+              const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+              const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+              return formattedDate;
+          }
+          // Get the 'id' parameter from the URL
+          const urlParams = new URLSearchParams(window.location.search);
+          const id = urlParams.get('id');
 
-          <script>
-            fetch('/Gestão-Saúde/tabsProntuarios/encaminhamentoTab.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('encaminhamentoTab').innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+          function getEncaminhamento() {
+            api.encaminhamentos.consultarEncaminhamentoID({id}).then((encaminhamento) => {
+              console.log(encaminhamento);
+              document.getElementById('encaminhamentoOrigem').value = encaminhamento[0].encaminhamentoOrigem;
+              document.getElementById('alunoEncaminhamento').value = encaminhamento[0].alunoEncaminhamento;
+              document.getElementById('nomeAluno').value = encaminhamento[0].nomeAluno;
+              document.getElementById('Especialidade').value = encaminhamento[0].Especialidade;
+              document.getElementById('Complexidade').value = encaminhamento[0].Complexidade;
+              document.getElementById('Demanda').value = encaminhamento[0].Demanda;
+              document.getElementById('Data').value = formatDate(encaminhamento[0].Data);
+              
+            });
+          }
+
+          getEncaminhamento()
+        </script>
+
+
+     
+        <!--Script HOMOLOGAR ENCAMINHAMENTO-->
+        <script>
+          function getDataFromTab(TabId){
+            const parentDiv = document.getElementById(TabId); 
+            const elements = parentDiv.querySelectorAll("input, select, textarea"); // Include textarea elements
+            const jsonData = {};
+
+            for (const element of elements) {
+              if (element.tagName === "INPUT") {
+                if (element.type === "text") {
+                  jsonData[element.id] = element.value;
+                } else if (element.type === "radio" && element.checked) {
+                  jsonData[element.name] = element.value;
+                }
+              } else if (element.tagName === "SELECT") {
+                jsonData[element.id] = element.value;
+              } else if (element.tagName === "TEXTAREA") { // Handle textarea elements
+                jsonData[element.id] = element.value;
+              }
+            }
+
+            console.log(jsonData);
+            return jsonData;
+          }
+
+          function aprovarEncaminhamento() {
+            let Encaminhamentos = getDataFromTab("encaminhamento");
+            Encaminhamentos.id = id;
+            Encaminhamentos.Especialidade = Encaminhamentos.Especialidade;
+            Encaminhamentos.Complexidade = Encaminhamentos.Complexidade;
+            Encaminhamentos.Demanda = Encaminhamentos.Demanda;
+            Encaminhamentos.Status = Encaminhamentos.Status;
+
+            if (Encaminhamentos.Status === "Escolher") {
+              showCustomAlert("Por favor, escolha uma opção válida para o status.");
+              return; // Stop further execution of the function
+            }
+
+            api.encaminhamentos
+              .homologarEncaminhamento(Encaminhamentos)
+              .then((data) => {
+                showCustomAlert(data.message);
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+          }
+
           </script>
         </div>
       </div>

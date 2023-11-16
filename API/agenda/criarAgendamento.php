@@ -24,7 +24,11 @@ if (
     $agendado_por = $input_data['agendado_por'];
     $cpf_paciente = $input_data['cpf_paciente'];
     $descricao = $input_data['descricao'];
-    $data_agendamento = $input_data['data_agendamento'];
+    
+    // Convert 'data_agendamento' to YYYY-MM-DD format
+    $data_agendamento = DateTime::createFromFormat('d/m/Y', $input_data['data_agendamento']);
+    $data_agendamento = $data_agendamento->format('Y-m-d');
+    
     $horario_agendamento = $input_data['horario_agendamento'];
     $minuto_agendamento = $input_data['minuto_agendamento'];
     $atividade_curricular = $input_data['atividade_curricular'];

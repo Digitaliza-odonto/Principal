@@ -196,7 +196,7 @@
                             minLength: 1,
                             select: function (event, ui) {
                                 // Handle selection
-                                $('#idAluno').val(ui.item.matricula); // Set matricula value to idAluno input
+                                $('#txtNome').val(ui.item.matricula); // Set matricula value to txtNome input
                                 console.log('Selected:', ui.item);
                             }
                         });
@@ -222,129 +222,169 @@
             <div style="margin-left: 25px;">
                 <label style="width: 50px; margin: 5px;">Aluno</label>
                 <input type="text" id="buscarAluno" value="" maxlength="30" class="ui-state-default ui-corner-all mousetrap " style=" width: 60%; margin: 5px;" placeholder="Buscar aluno"><button id="buscar">Buscar</button>
-                <input type="hidden" id="idAluno" value="" maxlength="30" class="ui-state-default ui-corner-all mousetrap " style=" width: 60%; margin: 5px;" placeholder="idAluno">
+                <label style="width: 50px; margin: 5px;">Matrícula</label>
+                <input type="text" id="txtNome" value="" maxlength="30" class="ui-state-default ui-corner-all mousetrap " style=" width: 60%; margin: 5px;" placeholder="Matrícula autopreenchida" readonly>
                 <br>
                 <p></p>
 
-                <table id="gridPaciente" class="ui-jqgrid-htable ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
-                    <thead>
-                        <tr class="ui-jqgrid-labels" role="rowheader">
-                            <th class="ui-jqgrid-titlebar ui-widget-header">Nome.</th>
-                            <th class="ui-jqgrid-titlebar ui-widget-header">CPF</th>
-                            <th class="ui-jqgrid-titlebar ui-widget-header">Disciplina</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                        <!-- Table body rows will be populated here -->
-                    </tbody>
-                    <tr>
-                        <td colspan="3" style="text-align: center;">
-                            <div id="pagination" class="ui-state-default">
-                                <button id="prev-page">&lt;</button>
-                                <span id="page-info">Pág. 1</span>
-                                <button id="next-page">&gt;</button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                                
                 
-                <script>
-                    // Define adicionarNovaLinha function
-                    function adicionarNovaLinha(nome, CPF, disciplina) {
-                        // Seleciona o corpo da tabela usando o ID do tbody
-                        const tbody = document.getElementById('table-body');
-                
-                        // Cria um novo elemento de linha (<tr>)
-                        const novaLinha = document.createElement('tr');
-                
-                        // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
-                        novaLinha.innerHTML = `
-                            <td style="display: none;">ID</td>
-                            <td class="ui-state-default ui-th-column ui-th-ltr">${nome}</td>
-                            <td class="ui-state-default ui-th-column ui-th-ltr">${CPF}</td>
-                            <td class="ui-state-default ui-th-column ui-th-ltr">${disciplina}</td>
-                        `;
-                
-                        // Adiciona a nova linha ao corpo da tabela
-                        tbody.appendChild(novaLinha);
-                    }
-
-                    // Function to populate input fields when a table row is clicked
-                    function populateInputFields(nome, CPF, disciplina) {
-                        document.getElementById('pacienteAgendamento').value = nome;
-                        document.getElementById('cpf_paciente').value = CPF;
-                        document.getElementById('atividade_curricular').value = disciplina;
-                    }
-                
-                    // Define limparTabela function
-                    function limparTabela(tbody) {
-                        tbody.innerHTML = '';
-                    }
-                
-                    document.getElementById('buscar').addEventListener('click', function() {
-                        buscar($('#idAluno').val()); // Pass the Matricula value to the buscar function
-                    });
-                
-                    function buscar(matricula) {
-                        if (matricula.trim() !== '') {
-                            consultarPacientesPorMatricula(matricula);
-                        } else {
-                            alert("Preencha o campo Matricula para realizar a busca.");
-                        }
-                    }
-                
-                    function consultarPacientesPorMatricula(matricula) {
-                        api.alunos.pacientes({ Matricula: matricula })
-                            .then((pacientes) => {
-                                const tbody = document.getElementById('table-body');
-                                limparTabela(tbody);
-                
-                                if (pacientes.length === 0) {
-                                    alert("Nenhum paciente encontrado");
-                                } else {
-                                    pacientes.forEach(paciente => {
-                                        adicionarNovaLinha(
-                                            paciente.Nome,
-                                            paciente.CPF,
-                                            paciente.Demanda
-                                        );
-                                    });
-                                }
-                            })
-                            .catch((error) => {
-                                console.error('Erro ao consultar pacientes:', error);
-                            });
-                    }
-
-                    // Function to populate input fields when a table row is clicked
-                    function populateInputFields(nome, CPF, disciplina) {
-                            document.getElementById('pacienteAgendamento').value = nome;
-                            document.getElementById('cpf_paciente').value = CPF;
-                            document.getElementById('atividade_curricular').value = disciplina;
-                        }
-
-                        // Add event listener to the table rows
-                        const tableBody = document.getElementById('table-body');
-                        tableBody.addEventListener('click', function(event) {
-                            const clickedRow = event.target.closest('tr');
-                            if (clickedRow) {
-                                const cells = clickedRow.querySelectorAll('td');
-                                const nome = cells[1].textContent;
-                                const CPF = cells[2].textContent;
-                                const disciplina = cells[0].textContent;
-                                populateInputFields(nome, CPF, disciplina);
-                            }
-                        });
-
-
-
-
-                </script>
-                
+                <div style="margin: 30px; width: 80%;">
+                    <table id="gridPaciente"></table>
+                    <div id="gridPacientePager" style="margin-bottom: 5px;"></div>  
                 </div>
             </div>
         </div>
     </div>
+</div>
+    
+    <script>
+      var gridId = 'gridPaciente';
+      var headerColumns = ["ID", "Nome", "CPF", "Telefone", "Telefone 2", "Email"];
+      var columnNames = ["id", "paciente_nome", "cpf", "Tel", "Tel2", "Email"];
+      var columnWidths = [0, 100, 50, 50, 50, 100];
+      var rowHeight = 30; // Set the height of each row in pixels
+  
+      $(document).ready(function () {
+          $('#' + gridId).jqGrid({
+              "sortname": columnNames[1],
+              "autoload": false,
+              "autowidth": true,
+              "pager": "#" + gridId + "Pager",
+              "rowNum": 25,
+              "toppager": false,
+              "caption": "Lista de pacientes",
+              "height": "auto",
+              "jsonReader": { "repeatitems": false, "id": 0 },
+              "colNames": headerColumns,
+              "colModel": [
+                  { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                  { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "left" },
+                  { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" },
+                  { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" },
+                  { "sortable": true, "name": columnNames[4], "index": columnNames[4], "width": columnWidths[4], "align": "center" },
+                  { "sortable": true, "name": columnNames[5], "index": columnNames[5], "width": columnWidths[5], "align": "center" }
+              ],
+              "rowHeight": rowHeight
+          });
+  
+          $('#' + gridId).setGridParam({ datatype: 'json' });
+          $('#' + gridId).setGridParam({ autoload: true });
+  
+          function gridResize() {
+              $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+          }
+  
+          $(window).bind('resize', gridResize);
+          $('#tabFiltroCurso').bind('tabsshow', gridResize);
+      });
+    </script>
+  
+    <script>
+      // Função para adicionar uma nova linha à tabela usando XPath
+      function adicionarNovaLinha(nome, cpf, Tel, Tel2, Email) {
+        // Select the table body using the correct ID for the grid
+        const tbody = document.querySelector('#gridPaciente tbody');
+
+
+        const novaLinha = document.createElement('tr');
+
+        novaLinha.innerHTML = `
+            <td style="display: none;">ID</td>
+            <td class="ui-state-default ui-th-column ui-th-ltr">${nome}</td>
+            <td class="ui-state-default ui-th-column ui-th-ltr">${cpf}</td>
+            <td class="ui-state-default ui-th-column ui-th-ltr">${Tel}</td>
+            <td class="ui-state-default ui-th-column ui-th-ltr">${Tel2}</td>
+            <td class="ui-state-default ui-th-column ui-th-ltr">${Email}</td>
+        `;
+
+        tbody.appendChild(novaLinha);
+        }
+
+
+      // Função de busca que determina qual função de consulta chamar com base nos campos de nome e CPF
+      function buscar() {
+        const nome = document.getElementById('txtNome').value;
+        const cpf = document.getElementById('txtCpf').value;
+
+        if (nome.trim() !== '') {
+          consultarPacientesPorNome(nome);
+        } else if (cpf.trim() !== '') {
+          consultarPacientesPorCPF(cpf);
+        } else {
+          alert("Preencha o campo nome ou CPF para realizar a busca.");
+        }
+      }
+
+      function consultarPacientesPorNome(nome) {
+        api.pacientes.consultar({ Nome: nome })
+            .then((pacientes) => {
+            const tbody = document.querySelector('#gridPaciente tbody'); // Update selector
+            limparTabela(tbody);
+            if (pacientes.length === 0) {
+                alert("Nenhum paciente encontrado");
+            } else {
+                pacientes.forEach(paciente => {
+                adicionarNovaLinha(
+                    paciente.Nome,
+                    paciente.CPF,
+                    paciente.Tel,
+                    paciente.Tel2,
+                    paciente.Email
+                );
+                });
+            }
+            })
+            .catch((error) => {
+            console.error('Erro ao consultar pacientes:', error);
+            });
+        }
+
+        function consultarPacientesPorCPF(cpf) {
+        api.paciente.consultar({ CPF: cpf })
+            .then((pacientes) => {
+            const tbody = document.querySelector('#gridPaciente tbody'); // Update selector
+            limparTabela(tbody);
+            if (pacientes.length === 0) {
+                alert("Nenhum paciente encontrado");
+            } else {
+                pacientes.forEach(paciente => {
+                adicionarNovaLinha(
+                    paciente.Nome,
+                    paciente.CPF,
+                    paciente.Tel,
+                    paciente.Tel2,
+                    paciente.Email
+                );
+                });
+            }
+            })
+            .catch((error) => {
+            console.error('Erro ao consultar pacientes:', error);
+            });
+        }
+
+
+      // Função para limpar a tabela
+      function limparTabela(tbody) {
+        while (tbody.children.length > 1) {
+          tbody.removeChild(tbody.lastChild);
+        }
+      }
+
+      // Adicionar eventos de busca nos campos de entrada
+      document.getElementById('txtCpf').onkeydown = function (e) {
+        if (e.key === 'Enter') {
+          consultarPacientesPorCPF(document.getElementById('txtCpf').value);
+        }
+      }
+
+      document.getElementById('txtNome').onkeydown = function (e) {
+        if (e.key === 'Enter') {
+          consultarPacientesPorNome(document.getElementById('txtNome').value);
+        }
+      }
+    </script>
 
 
     <!-- COLUNA DA DIREITA -->
@@ -435,321 +475,308 @@
         </div>
     </div>
     
-    <!-- <script>
-        // DADOS DO BANCO PREENCHEM DA TABELA
-        $(document).ready(function () {
-            var currentPage = 1;
-            var rowsPerPage = 25;
-            var tableRows = [];
-            var totalRows = 0;
-                    
-            //NEW FILTERS TEST!!
-            var filtroDataAgendamento = '';
-            var filtroTurnoAgendamento = '';
-            var filtroLocalAgendamento = '';
-            var filtroDisciplina = '';
-                                    
-            // Function to load table data
-            function loadTableData() {
-                const idAluno = document.getElementById('idAluno').value; -->
+    <script>
+    
+        var currentPage = 1;
+        var rowsPerPage = 25;
+        var tableRows = [];
+        var totalRows = 0;
+                
+        //NEW FILTERS TEST!!
+        var filtroDataAgendamento = '';
+        var filtroTurnoAgendamento = '';
+        var filtroLocalAgendamento = '';
+        var filtroDisciplina = '';
+                                
+        // Extract 'agendado_por' value from the logged-in user's Matricula
+        const aluno = JSON.parse(localStorage.getItem('usuario'));
 
-        <script>
-            // DADOS DO BANCO PREENCHEM DA TABELA
-            $(document).ready(function () {
-                var currentPage = 1;
-                var rowsPerPage = 25;
-                var tableRows = [];
-                var totalRows = 0;
-                        
-                //NEW FILTERS TEST!!
-                var filtroDataAgendamento = '';
-                var filtroTurnoAgendamento = '';
-                var filtroLocalAgendamento = '';
-                var filtroDisciplina = '';
-                                        
-                // Extract 'agendado_por' value from the logged-in user's Matricula
-                const aluno = JSON.parse(localStorage.getItem('usuario'));
+        // Event listener for the "Buscar" button
+        document.getElementById('buscar').addEventListener('click', function() {
+            buscar($('#txtNome').val()); // Pass the Matricula value to the buscar function
+        });
 
-                // Event listener for the "Buscar" button
-                document.getElementById('buscar').addEventListener('click', function() {
-                    buscar($('#idAluno').val()); // Pass the Matricula value to the buscar function
-                });
-
-                function buscar(matricula) {
-                    if (matricula.trim() !== '') {
-                        loadTableData(matricula); // Pass the Matricula value to the loadTableData function
-                    } else {
-                        alert("Preencha o campo Matricula para realizar a busca.");
-                    }
-                }
-
-                function loadTableData(matricula) {
-                    api.agenda.consultarAgendadosUsuario({ id: matricula })
-                        .then((data) => {
-                            // verifica se o retorno é um erro
-                            if (data.erro) {
-                                showCustomAlert(data.erro);
-                                return;
-                            }
-
-                            console.log(data);
-                            totalRows = data.length;
-                            tableRows = data;
-                            applyFilters();
-                            updateButtons();
-                        })
-                        .catch((error) => {
-                            showCustomAlert('Error fetching data');
-                        });
-                }
-
-            
-                function applyFilters() {
-                    var filteredRows = tableRows;
-
-                    // Apply the filtroDataAgendamento filter
-                    if (filtroDataAgendamento !== '') {
-                        filteredRows = filteredRows.filter(function (item) {
-                            return item.data_agendamento === filtroDataAgendamento;
-                        });
-                    }
-
-                    // Apply the filtroTurnoAgendamento filter
-                    if (filtroTurnoAgendamento !== '') {
-                        filteredRows = filteredRows.filter(function (item) {
-                            if (filtroTurnoAgendamento === 'Manhã') {
-                                return parseInt(item.horario_agendamento) < 12;
-                            } else if (filtroTurnoAgendamento === 'Tarde') {
-                                return parseInt(item.horario_agendamento) >= 12 && parseInt(item.horario_agendamento) < 18;
-                            } else if (filtroTurnoAgendamento === 'Noite') {
-                                return parseInt(item.horario_agendamento) >= 18;
-                            }
-                            return true; // If 'Todos' selected, no filtering based on time
-                        });
-                    }
-
-                    // Apply the filtroLocalAgendamento filter
-                    if (filtroLocalAgendamento !== '') {
-                        filteredRows = filteredRows.filter(function (item) {
-                            return item.local === filtroLocalAgendamento;
-                        });
-                    }
-
-                    // Apply the filtroDisciplina filter
-                    if (filtroDisciplina !== '') {
-                        filteredRows = filteredRows.filter(function (item) {
-                            return item.atividade_curricular === filtroDisciplina;
-                        });
-                    }
-
-                    showPage(currentPage, filteredRows);
-                }
-
-                function getStatusClass(status) {
-                    switch (status) {
-                        case 'Agendado':
-                            return 'ui-state-default';
-                        case 'No local':
-                            return 'agendamento-ui';
-                        case 'Atendido':
-                            return 'atendido-ui';
-                        default:
-                            return '';
-                    }
-                }
-            
-                function showPage(page, data) {
-                    var startIndex = (page - 1) * rowsPerPage;
-                    var endIndex = Math.min(startIndex + rowsPerPage, data.length);
-                    var tableBody = $('#table-body2');
-            
-                    tableBody.empty(); // Clear the table body
-            
-                    for (var i = startIndex; i < endIndex; i++) {
-                        var item = data[i];
-                        var row = '<tr>';
-                        
-                        row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="' + item.id_agendamento + '"></td>';
-                        row += '<td style="display: none;">' + item.id_agendamento + '</td>';
-                        row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.data_agendamento + '</td>';
-                        row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.cpf_paciente + '</td>';
-                        row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.local + '</td>';
-                        row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.horario_agendamento + ':' + item.minuto_agendamento + '</td>';
-                        row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.atividade_curricular + '</td>';
-                        row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.descricao + '</td>';
-                        row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.status_agendamento + '</td>';
-                        row += '</tr>';
-                        tableBody.append(row);
-                    }
-            
-                    $('#page-info').text('Pág. ' + page);
-                }
-            
-                function updateButtons() {
-                    if (currentPage === 1) {
-                        $('#prev-page').prop('disabled', true);
-                    } else {
-                        $('#prev-page').prop('disabled', false);
-                    }
-            
-                    if (currentPage * rowsPerPage >= totalRows) {
-                        $('#next-page').prop('disabled', true);
-                    } else {
-                        $('#next-page').prop('disabled', false);
-                    }
-                }
-            
-                // Initial load of table data
-                loadTableData();
-            
-                // Listen for changes to filtroDataAgendamento filter
-                $('#filtroDataAgendamento').change(function () {
-                    filtroDataAgendamento = $(this).val();
-                    currentPage = 1; // Reset to the first page when the filter changes
-                    applyFilters();
-                    updateButtons();
-                });
-
-                // Listen for changes to filtroTurnoAgendamento filter
-                $('#filtroTurnoAgendamento').change(function () {
-                    filtroTurnoAgendamento = $(this).val();
-                    currentPage = 1; // Reset to the first page when the filter changes
-                    applyFilters();
-                    updateButtons();
-                });
-
-                // Listen for changes to filtroLocalAgendamento filter
-                $('#filtroLocalAgendamento').change(function () {
-                    filtroLocalAgendamento = $(this).val();
-                    currentPage = 1; // Reset to the first page when the filter changes
-                    applyFilters();
-                    updateButtons();
-                });
-
-                // Listen for changes to filtroDisciplina filter
-                $('#filtroDisciplina').change(function () {
-                    filtroDisciplina = $(this).val();
-                    currentPage = 1; // Reset to the first page when the filter changes
-                    applyFilters();
-                    updateButtons();
-                });
-
-                    // Clear button click event
-                    $('#clear').click(function () {
-                    $('#filtroDataAgendamento').val('');
-                    $('#filtroTurnoAgendamento').val('');
-                    $('#filtroLocalAgendamento').val('');
-                    $('#filtroDisciplina').val('');
-                    
-                    filtroDataAgendamento = '';
-                    filtroTurnoAgendamento = '';
-                    filtroLocalAgendamento = '';
-                    filtroDisciplina = '';
-                    currentPage = 1; // Reset to the first page when clearing filters
-                    applyFilters();
-                    updateButtons();
-                });
-            
-                $('#prev-page').click(function () {
-                    if (currentPage > 1) {
-                        currentPage--;
-                        applyFilters();
-                        updateButtons();
-                    }
-                });
-            
-                $('#next-page').click(function () {
-                    if (currentPage * rowsPerPage < totalRows) {
-                        currentPage++;
-                        applyFilters();
-                        updateButtons();
-                    }
-                });
-            });
-
-            function agendarAtendimento() {
-                // Extract 'agendado_por' value from the logged-in user's Matricula
-                const aluno = JSON.parse(localStorage.getItem('usuario'));
-                const agendadoPor = aluno.Matricula;
-
-                // Set 'agendado_por' value in the hidden field
-                $('#agendado_por').val(agendadoPor);
-
-                var formData = {
-                    cpf_paciente: $('#cpf_paciente').val(),
-                    descricao: $('#descricao').val(),
-                    data_agendamento: $('#data_agendamento').val(),
-                    horario_agendamento: $('#horario_agendamento_1').val(),
-                    minuto_agendamento: $('#horario_agendamento_2').val(),
-                    local: $('#local').val(),
-                    atividade_curricular: $('#atividade_curricular').val(),
-                    agendado_por: agendadoPor
-                };
-
-                // Perform an API request
-                api.agenda.criar(formData).then(function(response) {
-                    //Check if the response contains a `message` property
-                    const message = response.message || 'Agendamento realizado com sucesso.';
-                    console.log(message);
-                    showCustomAlert(message);
-            
-                    limparCampos();
-                    
-                    }).catch(function(error) {
-                    // Extract error message from the response or use a default error message
-                    const errorMessage = error.message || 'Erro ao processar a solicitação.';
-                    console.error(error);
-                });
-
-                loadTableData(matricula);
+        function buscar(matricula) {
+            if (matricula.trim() !== '') {
+                loadTableData(matricula); // Pass the Matricula value to the loadTableData function
+            } else {
+                alert("Preencha o campo Matricula para realizar a busca.");
             }
-                    
-            // Delete agendamento
-            function deleteAgendamento () {
-                const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
-                    // Get the value (ID) from the second column of the table in the same row
-                    return $(this).closest('tr').find('td:eq(1)').text();
-                }).get();
+        }
+
+        function loadTableData(matricula) {
+            api.agenda.consultarAgendadosUsuario({ id: matricula })
+                .then((data) => {
+                    // verifica se o retorno é um erro
+                    if (data.erro) {
+                        showCustomAlert(data.erro);
+                        return;
+                    }
+
+                    console.log(data);
+                    totalRows = data.length;
+                    tableRows = data;
+                    applyFilters();
+                    updateButtons();
+                })
+                .catch((error) => {
+                    showCustomAlert('Error fetching data');
+                });
+        }
+
+        loadTableData();
+
+        // RECALL THE API TO UPDATE THE LIST OF PATIENTS
+        document.getElementById("okButton").addEventListener("click", function() {
+        loadTableData();
+        });
+
+    
+        function applyFilters() {
+            var filteredRows = tableRows;
+
+            // Apply the filtroDataAgendamento filter
+            if (filtroDataAgendamento !== '') {
+                filteredRows = filteredRows.filter(function (item) {
+                    return item.data_agendamento === filtroDataAgendamento;
+                });
+            }
+
+            // Apply the filtroTurnoAgendamento filter
+            if (filtroTurnoAgendamento !== '') {
+                filteredRows = filteredRows.filter(function (item) {
+                    if (filtroTurnoAgendamento === 'Manhã') {
+                        return parseInt(item.horario_agendamento) < 12;
+                    } else if (filtroTurnoAgendamento === 'Tarde') {
+                        return parseInt(item.horario_agendamento) >= 12 && parseInt(item.horario_agendamento) < 18;
+                    } else if (filtroTurnoAgendamento === 'Noite') {
+                        return parseInt(item.horario_agendamento) >= 18;
+                    }
+                    return true; // If 'Todos' selected, no filtering based on time
+                });
+            }
+
+            // Apply the filtroLocalAgendamento filter
+            if (filtroLocalAgendamento !== '') {
+                filteredRows = filteredRows.filter(function (item) {
+                    return item.local === filtroLocalAgendamento;
+                });
+            }
+
+            // Apply the filtroDisciplina filter
+            if (filtroDisciplina !== '') {
+                filteredRows = filteredRows.filter(function (item) {
+                    return item.atividade_curricular === filtroDisciplina;
+                });
+            }
+
+            showPage(currentPage, filteredRows);
+        }
+
+        function getStatusClass(status) {
+            switch (status) {
+                case 'Agendado':
+                    return 'ui-state-default';
+                case 'No local':
+                    return 'agendamento-ui';
+                case 'Atendido':
+                    return 'atendido-ui';
+                default:
+                    return '';
+            }
+        }
+    
+        function showPage(page, data) {
+            var startIndex = (page - 1) * rowsPerPage;
+            var endIndex = Math.min(startIndex + rowsPerPage, data.length);
+            var tableBody = $('#table-body2');
+    
+            tableBody.empty(); // Clear the table body
+    
+            for (var i = startIndex; i < endIndex; i++) {
+                var item = data[i];
+                var row = '<tr>';
+                
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="' + item.id_agendamento + '"></td>';
+                row += '<td style="display: none;">' + item.id_agendamento + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.data_agendamento + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.cpf_paciente + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.local + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.horario_agendamento + ':' + item.minuto_agendamento + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.atividade_curricular + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.descricao + '</td>';
+                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.status_agendamento + '</td>';
+                row += '</tr>';
+                tableBody.append(row);
+            }
+    
+            $('#page-info').text('Pág. ' + page);
+        }
+    
+        function updateButtons() {
+            if (currentPage === 1) {
+                $('#prev-page').prop('disabled', true);
+            } else {
+                $('#prev-page').prop('disabled', false);
+            }
+    
+            if (currentPage * rowsPerPage >= totalRows) {
+                $('#next-page').prop('disabled', true);
+            } else {
+                $('#next-page').prop('disabled', false);
+            }
+        }
+    
+        // Initial load of table data
+        loadTableData();
+    
+        // Listen for changes to filtroDataAgendamento filter
+        $('#filtroDataAgendamento').change(function () {
+            filtroDataAgendamento = $(this).val();
+            currentPage = 1; // Reset to the first page when the filter changes
+            applyFilters();
+            updateButtons();
+        });
+
+        // Listen for changes to filtroTurnoAgendamento filter
+        $('#filtroTurnoAgendamento').change(function () {
+            filtroTurnoAgendamento = $(this).val();
+            currentPage = 1; // Reset to the first page when the filter changes
+            applyFilters();
+            updateButtons();
+        });
+
+        // Listen for changes to filtroLocalAgendamento filter
+        $('#filtroLocalAgendamento').change(function () {
+            filtroLocalAgendamento = $(this).val();
+            currentPage = 1; // Reset to the first page when the filter changes
+            applyFilters();
+            updateButtons();
+        });
+
+        // Listen for changes to filtroDisciplina filter
+        $('#filtroDisciplina').change(function () {
+            filtroDisciplina = $(this).val();
+            currentPage = 1; // Reset to the first page when the filter changes
+            applyFilters();
+            updateButtons();
+        });
+
+            // Clear button click event
+            $('#clear').click(function () {
+            $('#filtroDataAgendamento').val('');
+            $('#filtroTurnoAgendamento').val('');
+            $('#filtroLocalAgendamento').val('');
+            $('#filtroDisciplina').val('');
+            
+            filtroDataAgendamento = '';
+            filtroTurnoAgendamento = '';
+            filtroLocalAgendamento = '';
+            filtroDisciplina = '';
+            currentPage = 1; // Reset to the first page when clearing filters
+            applyFilters();
+            updateButtons();
+        });
+    
+        $('#prev-page').click(function () {
+            if (currentPage > 1) {
+                currentPage--;
+                applyFilters();
+                updateButtons();
+            }
+        });
+    
+        $('#next-page').click(function () {
+            if (currentPage * rowsPerPage < totalRows) {
+                currentPage++;
+                applyFilters();
+                updateButtons();
+            }
+        });
         
-                if (selectedIds.length === 0) {
-                    showCustomAlert("Por favor, selecione ao menos um agendamento para excluir.");
-                    return;
-                }
+        function agendarAtendimento() {
+            // Extract 'agendado_por' value from the logged-in user's Matricula
+            const aluno = JSON.parse(localStorage.getItem('usuario'));
+            const agendadoPor = aluno.Matricula;
+
+            // Set 'agendado_por' value in the hidden field
+            $('#agendado_por').val(agendadoPor);
+
+            var formData = {
+                cpf_paciente: $('#cpf_paciente').val(),
+                descricao: $('#descricao').val(),
+                data_agendamento: $('#data_agendamento').val(),
+                horario_agendamento: $('#horario_agendamento_1').val(),
+                minuto_agendamento: $('#horario_agendamento_2').val(),
+                local: $('#local').val(),
+                atividade_curricular: $('#atividade_curricular').val(),
+                agendado_por: agendadoPor
+            };
+
+            // Perform an API request
+            api.agenda.criar(formData).then(function(response) {
+                //Check if the response contains a `message` property
+                const message = response.message || 'Agendamento realizado com sucesso.';
+                console.log(message);
+                showCustomAlert(message);
         
-                // Create the request data as an object
-                const requestData = { selectedId: selectedIds };
-        
-                // Log the requestData for debugging
-                console.log("Request Data:", requestData);
-        
-                //Perform an API request for deletion
-                api.agenda.deletar(requestData).then(function(response) {
-                    const message = response.message || 'Agendamento excluído com sucesso.';
-                    showCustomAlert(message);
-                    
-                    limparCampos();
+                limparCampos();
                 
                 }).catch(function(error) {
-                    // Extract error message from the response or use a default error message
-                    const errorMessage = error.message || 'Erro ao processar a solicitação de exclusão.';
-                    console.error(error);
-                });
-                
-                loadTableData(matricula);
-            }
+                // Extract error message from the response or use a default error message
+                const errorMessage = error.message || 'Erro ao processar a solicitação.';
+                console.error(error);
+            });
 
-            // FUNÇÃO PARA APAGAR CAMPOS DA PÁGINA
-            function limparCampos() {
-                document.getElementById("pacienteAgendamento").value = "";
-                document.getElementById("cpf_paciente").value = "";
-                document.getElementById("descricao").value = "";
-                document.getElementById("data_agendamento").value = "";
-                document.getElementById("horario_agendamento_1").value = "HH";
-                document.getElementById("horario_agendamento_2").value = "MM";
-                document.getElementById("local").value = "Escolher";
-                document.getElementById("atividade_curricular").value = "";
+            loadTableData(matricula);
+        }
+                
+        // Delete agendamento
+        function deleteAgendamento () {
+            const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
+                // Get the value (ID) from the second column of the table in the same row
+                return $(this).closest('tr').find('td:eq(1)').text();
+            }).get();
+    
+            if (selectedIds.length === 0) {
+                showCustomAlert("Por favor, selecione ao menos um agendamento para excluir.");
+                return;
             }
-        </script>
+    
+            // Create the request data as an object
+            const requestData = { selectedId: selectedIds };
+    
+            // Log the requestData for debugging
+            console.log("Request Data:", requestData);
+    
+            //Perform an API request for deletion
+            api.agenda.deletar(requestData).then(function(response) {
+                const message = response.message || 'Agendamento excluído com sucesso.';
+                showCustomAlert(message);
+                
+                limparCampos();
+            
+            }).catch(function(error) {
+                // Extract error message from the response or use a default error message
+                const errorMessage = error.message || 'Erro ao processar a solicitação de exclusão.';
+                console.error(error);
+            });
+            
+            loadTableData(matricula);
+        }
+
+        // FUNÇÃO PARA APAGAR CAMPOS DA PÁGINA
+        function limparCampos() {
+            document.getElementById("pacienteAgendamento").value = "";
+            document.getElementById("cpf_paciente").value = "";
+            document.getElementById("descricao").value = "";
+            document.getElementById("data_agendamento").value = "";
+            document.getElementById("horario_agendamento_1").value = "HH";
+            document.getElementById("horario_agendamento_2").value = "MM";
+            document.getElementById("local").value = "Escolher";
+            document.getElementById("atividade_curricular").value = "";
+        }
+    </script>
 
   </body>
 </html>

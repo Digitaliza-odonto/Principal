@@ -21,11 +21,29 @@ if (isset($data->id)) {
     $result = db($query);
 
     if ($result) {
+        $patientsData = array();
+        
+        foreach ($result as $row) {
+            $cpf = $row['cpf_paciente'];
+            
+            $queryPatient = "SELECT `Nome` FROM `pacientes` WHERE `CPF` = '$cpf'";
+            $resultPatient = db($queryPatient);
+            
+            if ($resultPatient && count($resultPatient) > 0) {
+                $patientName = $resultPatient[0]['Nome'];
+                $row['Nome'] = $patientName;
+                $patientsData[] = $row;
+            } else {
+                $row['Nome'] = "Nome not found";
+                $patientsData[] = $row;
+            }
+        }
+        
         // Output the data as JSON
-        echo json_encode($result);
+        echo json_encode($patientsData);
     } else {
         // Handle the error gracefully and return an error JSON response
-        $error = array("error" => "Database query error: ");
+        $error = array("error" => "No data found for the given ID");
         echo json_encode($error);
     }
 } else {

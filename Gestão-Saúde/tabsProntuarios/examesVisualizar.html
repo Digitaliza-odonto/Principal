@@ -50,10 +50,18 @@
 
 
 <script>
+
+    // CONVERTER DATA EM DD/MM/YYYY
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+        return formattedDate;
+    }
+
     function adicionarNovaLinhaArquivos(data) {
         // Create a new row object
         var rowData = {
-            data: data.Data,
+            data: formatDate(data.Data),
             tipo: data.Tipo,
             descricao: data.Descricao,
             id: data.id

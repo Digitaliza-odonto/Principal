@@ -14,7 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $result = db($selectQuery);
+                
         echo json_encode($result);
+        
     } catch (PDOException $e) {
         echo json_encode(array("message" => "Erro ao consultar alunos matriculados: " . $e->getMessage()));
     }

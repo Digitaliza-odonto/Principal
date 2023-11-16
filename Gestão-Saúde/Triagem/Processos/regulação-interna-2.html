@@ -1,624 +1,566 @@
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head lang="pt-br">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
-      <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-    var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-    var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-    var PATH_COOKIE = '/';
-    var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-    var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-</script>
-<link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-<link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-<script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-<link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Tramitar regulação interna</title>
+        <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+            var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+            var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+            var PATH_COOKIE = '/';
+            var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+            var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+        </script>
+        <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+        <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+        <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+        <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
 
-<!--ALERT MESSAGES-->
-<link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
-<script src="../../../scripts/alertMessage.js"></script>
+        <!--ALERT MESSAGES-->
+        <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+        <script src="../../../scripts/alertMessage.js"></script>
 
-    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-    <div id="customAlert" class="modal">
-        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
-        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-            <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
-            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
-            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
-            </button>
+        <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+        <div id="customAlert" class="modal">
+            <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+            <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+                <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+                <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+                <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+                </button>
+            </div>
+            <p></p>
+            <br>
+            <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+                <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+                <p id="alertMessage"></p>
+            </div>
+            <p> </p><br>
+            <p> </p><br>
+            <p> </p><br>
+            <div><button id="okButton" class="centered-button">OK</button></div>
+            </div>
         </div>
-        <p></p>
-        <br>
-        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
-            <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
-            <p id="alertMessage"></p>
-        </div>
-        <p> </p><br>
-        <p> </p><br>
-        <p> </p><br>
-        <div><button id="okButton" class="centered-button">OK</button></div>
-        </div>
-    </div>
-    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-<!--ALERT MESSAGES-->
-</head>
+    </head>
 
-
-
-<!-- STYLE PÁGINA/TELA PRINCIPAL COBALTO -->
-<div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
-    <style type="text/css">
-    .columnGeral {width: 100.0%; float: left; padding-bottom: 8px;}
-    .columnGrafico {width: 33.3%; float: left; padding-bottom: 8px;}
-    .columnGrafico1 .portlet, .columnGrafico2 .portlet, .columnGrafico3 .portlet {margin-right: 1.5em;}
-    .column {width: 33.3%; float: left; padding-bottom: 100px;}
-    .column1 .portlet, .column2 .portlet {margin-right: 1.5em;}
-            @media (max-width: 900px){
-            .columnGrafico {width: 100%; float: none; padding-bottom: 0px;}
-            .columnGrafico1 .portlet, .columnGrafico2 .portlet {margin-right: 0px;}
-            .column {width: 100%; float: none; padding-bottom: 0px;}
-            .column1 .portlet, .column2 .portlet {margin-right: 0px;}
-        }
-        .column-fixed {width: 33.3%; float: left; padding-bottom: 100px;}
-    .portlet {margin: 0 0 1.5em 0;}
-    .portlet-header {margin: 0.3em; padding: 2px 3px 5px 5px; cursor:pointer;}
-    .portlet-header button {float: right; height: 18px; width: 18px;}
-    .portlet-header .ui-icon {float: right;}
-    .portlet-content {padding: 6px; background: none !important; border: none; font-size: 1.1em;}
-    .portlet-content a:hover{text-decoration: underline!important;}
-    .portlet-content a:visited{color: #bbb!important;}
-    .portlet-content ul {list-style-type: none !important; padding:0px!important; border: none!important;}
-    .portlet-content ul li {padding: 3px !important; border-right: none!important; border-left: none!important; border-top: none!important; color: inherit!important; font-weight:inherit!important;}
-    .portlet-content ul li:last-child {border-bottom: none!important;}
-    .ui-sortable-placeholder {border: 1px dotted black; visibility: visible !important; height: 50px !important;}
-    .ui-sortable-placeholder * {visibility: hidden;}
-  </style>
-
-
-<!-- CONTEÚDO SUPERIOR -->
-<div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-  <li>Triagem/Almoxarifado</li>    
-  <li>Processos</li>
-  <li>Regulação interna</li>
-  </ul>
-    
-<div style="clear: both;"></div></div><div style="clear: both;"></div>
-
-<!-- CONTEÚDO BOTÕES -->
-<div class="ui-widget-content ui-corner-all toolbar">
-    <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
-    <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Salvar alterações</button>
-    <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
-    <span style="clear: both; display: block"></span>
-  </div>
-
-
-
-<!-- INÍCIO DIVISÃO EM TABS-->
-<div id="tab" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
-  <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
-    <li class="labeltab ui-state-default ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Registrar alta ou desvincular</a></li>
-</ul>
-
-
-  <!--CONTEÚDO PARA AS DUAS TABS--> 
-  <div style="margin-left: 20px;margin-top: 20px; height: 30px;">
-    <p></p><br>
-    <p></p><br>
-    <label style="width: 50px;" >Matrícula</label>
-        <input type="text" id="matriculaAluno" value="GET MATRÍCULA DO ALUNO" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 150px;" readonly="readonly"/>
-    <label style="width: 50px;margin-left: 35px;">Aluno</label>
-        <input type="text" id="nomeAluno" value="GET NOME DO ALUNO" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;" readonly="readonly"/>
-    <p></p><br>
-    
-    <label style="margin-top: 20px;font-weight: bold;">Tipo de tramitação:</label>
-    <label style="margin-top: 20px;"><input type="radio" class="tipoTramite" name="vinculo" value="desvincular" checked>Desvinculação</label>
-    <label style="margin-top: 20px;"><input type="radio" class="tipoTramite" name="vinculo" value="novoVinculo">Vinculação</label>
-    <p></p><br>
-    
-    
-    <hr class="ui-state-default">
-    <p></p><br>
-  </div>
-
-  <!-- CONTEÚDO TAB VÍNCULOS ATUAIS DO PACIENTE-->
-  <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
-    <p></p><br>
-    
-
-    <!-- CONTEÚDO COLUNA DA ESQUERDA -->
-    <div id="tabSolicitação" class="tabs" style="width: 35%; float: left; box-sizing: border-box;margin-top: 20px;">
+  <body>
+    <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
+        
+      <!-- CONTEÚDO SUPERIOR -->
+      <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
+            <li>Gestão Saúde</li>
+            <li>Triagem/Almoxarifado</li>    
+            <li>Processos</li>
+            <li>Regulação interna</li>
+          </ul>
+          
+      <div style="clear: both;"></div></div><div style="clear: both;"></div>
       
-      <div id="tabSolicitação-0" class="ui-widget tabSolicitação tabSolicitação-0">
-        <ul>
-          <li class="tabSolicitação"><a href="#solicitação-0" accessKey="solicitação-0">Descrição da solicitação</a></li>
+      <!-- CONTEÚDO BOTÕES -->
+      <div class="ui-widget-content ui-corner-all toolbar">
+          <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+          <!-- <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button> -->
+          <button id="salvar" class="salvar" title="Salvar" onclick="vincular()" style="float: left;">Tramitar regulação</button>
+          <button id="devolver" class="devolver" title="Devolver" onclick="devolver()" style="float: left;">Devolver pedido</button>
+          <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+          <span style="clear: both; display: block"></span>
+      </div>
+
+        <!-- INÍCIO DIVISÃO EM TABS-->
+        <div id="tab" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+          <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+            <li class="labeltab ui-state-default ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Registrar alta ou desvincular</a></li>
         </ul>
+
+
+      <!--CONTEÚDO PARA AS DUAS TABS--> 
+      <div style="margin-left: 20px;margin-top: 20px; height: 30px;">
+        <p></p><br>
+        
+        <label style="width: 50px;">Matrícula</label>
+        <input type="text" id="matriculaAluno" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 70px;" readonly="readonly"/>
+        <label style="width: 45px;margin-left: 20px;">Aluno</label>
+        <input type="text" id="nomeAluno" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;" readonly="readonly"/>
+        <p></p><br>
+        
+        <label style="width: 50px;">Cód.</label>
+        <input type="text" id="cod_atividade" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 70px;" readonly="readonly"/>
+        
+        <label style="width: 45px;margin-left: 20px;">Disciplina</label>
+        <input type="text" id="atividade" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;" readonly="readonly"/>
+        
+        <label style="width: 35px;margin-left: 20px;">Turma</label>
+        <input type="text" id="cod_turma" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 35px;" readonly="readonly"/>
+        <br>
+
+        <label style="width: 120px;margin-top: 5px;">Tipo de tramitação:</label>
+        <input type="text" id="tipoTramite" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 120px; margin-top: 5px;" readonly="readonly"/>
         <p></p><br>
 
-        <label style="width: 160px;margin-left: 20px;margin-top: 5px;">Data da solicitação</label>
-        <input type="text" id="solicitaçãoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 150px;;margin-top: 5px;">
+        <label style="width: 120px;margin-top: 5px;">Data da solicitação</label>
+        <input type="text" id="solicitaçãoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap" style=" width: 100px;;margin-top: 5px;" readonly>
         <br>
-      
-        <label style="width: 450px;margin-left: 20px;margin-top: 5px;">Descrição da solicitação (Novo paciente ou desvinculação de paciente):</label><br>
-        <textarea style="width: 80%; height: 100px;margin-left: 20px;margin-top: 5px;" id="solicitaçãoDescrição" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" placeholder="GET DESCRIÇÃO DA SOLICITAÇÃO DO ALUNO"></textarea>
+
+        <label style="width: 140px;margin-top: 5px;">Data prevista de consulta:</label>
+        <input type="text" id="consultaPrevista" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap" style=" width: 100px;;margin-top: 5px;" readonly>
         <br>
-        </div>
-    </div>
-    
 
-   <!-- COLUNA DA DIREITA DESVINCULAR-->
-   <div id="desvincularTab" class="tabs" style="width: 65%; float: left; box-sizing: border-box;margin-top: 20px;">
-    <div id="desvincular-0" class="ui-widget desvincular desvincular-0">
-      <ul>
-        <li class="labeltabdesvincular"><a href="#desvincular-0" accessKey="desvincular-0">Desvincular paciente:</a></li>
-      </ul>
-    <br>
-    <p></p>
-
-    <br>
-    <p>Vínculos atuais do aluno:</p>
-    <p></p>
-    <table id="vinculadosTable" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 100%; font-size: 14px;margin-top: 15px;">
-      <thead>
-          <tr class="ui-jqgrid-labels" role="rowheader">
-          <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 3%;">Selec.</th>
-          <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 10%;">CPF</th>
-          <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 24%;">Paciente</th>
-          <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 24%;">Disciplina</th>
-          <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 14%;">Demanda</th>
-          <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 10%;">Área da Saúde</th>
-          <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 15%;">Status</th>
-          </tr>
-      </thead>
-      <tr>
-          <th class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox"></th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">0000000</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">João da Silva </th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Unidade de Prótese Dentária 2</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Prótese Dentária</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Odonto</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Em atendimento</th>
-      </tr>
-      <tr>
-          <th class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox"></th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">111111111</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Maria da Luz</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Pronto Atendimento</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Urgência</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Odonto</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Em atendimento</th>
-      </tr>
-      <tr>
-          <th class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox"></th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">88888888</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Pedro Costa</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Unidade de Clínica Odontologia 2</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Endodontia</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Odonto</th>
-          <th class="ui-state-default ui-th-column ui-th-ltr">Em atendimento</th>
-      </tr>
-      <!-- Table body rows go here -->
-      </table>
-      <p></p><br>
-  
-      <label>(Selecionar uma ou mais linhas na tabela para modificar o vínculo)</label>
-      <br>
-  
-      <label style="width: 185px; height: 30px; font-size: 12px;font-weight: bold;margin-top: 25px;margin-left: 5%;">Alterar status do paciente para:</label>
-      <select class="ui-state-default ui-corner-all" style="width: 255px; height: 30px; margin-left: 1px;margin-top: 25px;" name="novoStatus" id="novoStatus">
-        <option value="Escolher">Escolher</option>
-        <option value="emEspera">Em espera</option>
-        <option value="altaPaciente">Alta</option>
-        <option value="continuaTratamento">Continua em tratamento na especialidade</option>
-        <option value="abandonoPaciente">Abandono/Desistência</option>
-      </select>
-
-      <button id="btnAlterarVinculo" onclick="alterarStatus()" value="AlterarVinculo" class="button" style="margin-left: 20px; padding: 4px;">Alterar vinculo</button>
-      
-      <p></p><br>
-    
-    </div>
-      <h2 style="color: red; margin-left: 25px;">DESVINCULA O ALUNO SELECIONADO DO PACIENTE/DISCIPLINA NO BANCO DE DADOS</h2><br>
-      <h2 style="color: red; margin-left: 25PX;">EM CASO DE 'continuaTratamento' O PACIENTE VOLTA PRA LISTA DE ESPERA DA MESMA ESPECIALIDADE COM MAIOR PRIORIDADE</h2><BR>
-    </div>
-
-
-    <!-- COLUNA DA DIREITA VÍNCULO NOVO-->
-    <div id="vinculoNovoTab" class="tabs" style="width: 65%; float: left; box-sizing: border-box;margin-top: 20px;">
-      <div id="encaminhar-0" class="ui-widget encaminhar encaminhar-0">
-        <ul>
-          <li class="labeltabencaminhar"><a href="#encaminhar-0" accessKey="encaminhar-0">Vincular novo paciente:</a></li>
-        </ul>
-
+        <label style="width: 450px;margin-top: 5px;">Descrição da solicitação:</label><br>
+        <textarea style="width: 40%; height: 100px;margin-top: 5px;" id="solicitacaoDescricao" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" placeholder="DESCREVER A SOLICITAÇÃO DE REGULAÇÃO INTERNA. EX: PACIENTE NOVO, DESVINCULAR PACIENTE POR DESISTÊNCIA OU JUSTIFICATIVA, ETC."></textarea>
         <br>
-        <p></p>
-        
-        <label style="width: 150px;">Ano/Período</label>
-        <input type="text" name="lblAnoOrigem" id="lblAnoOrigem" value="GET ANO/PERÍODO" maxlength="255" class="ui-state-default ui-corner-all mousetrap ano_base_periodo_origem" style="width: 180px;" readonly="readonly"/>
 
-        <br>
-        <p></p>
-        <hr class="ui-state-default">
+        <!-- ID_REGULAÇÃO APENAS PARA CONFERÊNCIA -->
+        <input type="hidden" id="id_regulacao" readonly="readonly"/>
 
-        <br>
-        <p></p>
-        <label style="width: 150px;">Área/Curso da saúde</label>
-        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" id="areaSaude">
-          <option value="0">Escolher</option>
-          <option value="Odontologia">Odontologia</option>
-          <option value="Enfermagem">Enfermagem</option>
-          <option value="Farmácia">Farmácia</option>
-          <option value="Terapia Ocupacional">Terapia Ocupacional</option>
-        </select>
-        
-        <br>
-        <p></p>
-        <label style="width: 150px;">Lista de especialidades</label>
-        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" id="especAreaSaude">
-          <option value="0">Selecione uma especialidade</option>
-        </select>
-        
-        <script>
-          let componentesCurriculares = [
-            {codCurso: '0', nomeEspec:'Selecione uma especialidade'},
-            {codCurso: 'Odontologia', nomeEspec:'Prótese Dentária'},
-            {codCurso: 'Odontologia', nomeEspec:'Odontopediatria'},
-            {codCurso: 'Odontologia', nomeEspec:'Periodontia'},
-            {codCurso: 'Odontologia', nomeEspec:'Dentística'},
-            {codCurso: 'Odontologia', nomeEspec:'Cirurgia'},
-            {codCurso: 'Enfermagem', nomeEspec:'Pediatria e Neonatologia'},
-            {codCurso: 'Enfermagem', nomeEspec:'Terapia Intensiva e Alta Complexidade'},
-            {codCurso: 'Enfermagem', nomeEspec:'Cardiologia e Hemodinâmica'},
-            {codCurso: 'Farmácia', nomeEspec:'Análises clínicas' },
-            {codCurso: 'Farmácia', nomeEspec:'Antroposofia' },
-            {codCurso: 'Terapia Ocupacional', nomeEspec:'Contextos sociais' },
-            {codCurso: 'Terapia Ocupacional', nomeEspec:'Saúde da família' },
-            // Add more options as needed
-          ];
-          
-          const areaSelect = document.getElementById('areaSaude');
-          const componentesCurricularesSelect = document.getElementById('especAreaSaude');
-          
-          areaSelect.addEventListener('change', function() {
-            const selectedCodCurso = areaSelect.value;
-          
-            // Clear existing options
-            componentesCurricularesSelect.innerHTML = '<option value="0">Selecione uma especialidade</option>';
-          
-            // Filter and populate the second select
-            const selectedcomponentesCurriculares = componentesCurriculares.filter(disciplina => disciplina.codCurso === selectedCodCurso);
-            selectedcomponentesCurriculares.forEach(disciplina => {
-              const option = document.createElement('option');
-              option.value = disciplina.nomeEspec;
-              option.textContent = disciplina.nomeEspec;
-              componentesCurricularesSelect.appendChild(option);
-            });
-          });
-        </script>
+        <!-- 'id_turma' PARA ENVIO NA API -->
+        <input type="hidden" id="id_turma" readonly="readonly"/>
 
-        <br>
-        <p></p>
-        <div class="table-container">
-          <table id="tablePacientes" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 100%; font-size: 14px;">
-            <thead>
-              <tr class="ui-jqgrid-labels" role="rowheader">
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 5%;">
-                  Selec.
-                </th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 10%;">
-                  CPF
-                </th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 25%;">
-                  Paciente
-                </th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 50%;">
-                  Demanda
-                </th>
-              </tr>
-            </thead>
-            <tr>
-              <td class="ui-state-default ui-th-column ui-th-ltr"><input type="radio" name="pacienteRadio"></td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">'pacienteCPF'</td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">'pacienteNome'</td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">'demandaPaciente'</td>
-            </tr>
-            <tr>
-              <td class="ui-state-default ui-th-column ui-th-ltr"><input type="radio" name="pacienteRadio"></td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">0000981</td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">Ciclano da Luz</td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">'demandaPaciente'</td>
-            </tr>
-            <tr>
-              <td class="ui-state-default ui-th-column ui-th-ltr"><input type="radio" name="pacienteRadio"></td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">0000071</td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">Eder da Silva</td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">'demandaPaciente'</td>
-            </tr>
-            <tr>
-              <td class="ui-state-default ui-th-column ui-th-ltr"><input type="radio" name="pacienteRadio"></td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">0000009</td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">Beltrano de Souza</td>
-              <td class="ui-state-default ui-th-column ui-th-ltr">'demandaPaciente'</td>
-            </tr>
-          </table>
-          
-            <!-- Table body rows go here -->
-            </table>
-        </div>
-        <br>
-        <p></p>
-
-        <br>
-        <p></p>
-        <label style="width: 150px;">Componente curricular</label>
-        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" id="componenteCurricular">
-          <option value="Escolher">Escolher</option>
-          <option value="DISCIPLINA 1">DISCIPLINA 1</option>
-          <option value="DISCIPLINA 2">DISCIPLINA 2</option>
-          <option value="DISCIPLINA 3">DISCIPLINA 3</option>
-          <option value="DISCIPLINA 4">DISCIPLINA 4</option>
-          <option value="DISCIPLINA 5">DISCIPLINA 5</option>
-          <option value="DISCIPLINA 6">DISCIPLINA 6</option>
-          <option value="DISCIPLINA 7">DISCIPLINA 7</option>
-        </select>
-
-        <br>
-        <p></p>
-        <label style="width: 150px;">Turma</label>
-        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" id="componenteCurricularTurma">
-          <option value="Escolher">Escolher</option>
-          <option value="M1">M1</option>
-          <option value="M2">M2</option>
-        </select>
-        
-        <br>
-        <p></p>
-        <hr class="ui-state-default">
+        <!-- 'id_demanda' PARA ENVIO NA API-->
+        <input type="text" id="id_demanda" readonly="readonly"/>
       </div>
-   
 
-    <div class="table-container">
-        <table id="tableNovoVinculo" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 100%; font-size: 14px;">
-          <thead>
-          <tr class="ui-jqgrid-labels" role="rowheader">
-            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 3%;">Selec.</th>
-            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 20%;">Paciente</th>
-            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 5%;">CPF</th>
-            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 22;">Componente Curricular</th>
-            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 22;">Turma</th>
-            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 30%;">Demanda</th>
-            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 10%;">Especialidade</th>
-          <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 10%;">Área da Saúde</th>
-          </tr>
-          </thead>
-       
-          <!-- Table body rows go here -->
-          </table>
+      
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        
+      
+
+      <!-- CONTEÚDO TAB VÍNCULOS ATUAIS DO PACIENTE-->
+      <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
+        <p></p>
+        <br>
+        
+        <!-- DIV DESVINCULAR-->
+        <div id="desvincularTab" class="tabs">
+          <div id="desvincular-0" class="ui-widget desvincular desvincular-0">
+            <ul>
+              <li class="labeltabdesvincular"><a href="#desvincular-0" accessKey="desvincular-0">Desvincular paciente:</a></li>
+            </ul>
+            <br>
+            <p></p>
+
+            <h1>TESTE DESVINCULAR</h1>
+
+            <!-- <br>
+            <p>Vínculos atuais do aluno:</p>
+            <p></p>
+            <table id="vinculadosTable" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 100%; font-size: 14px;margin-top: 15px;">
+              <thead>
+                  <tr class="ui-jqgrid-labels" role="rowheader">
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 3%;">Selec.</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 10%;">CPF</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 24%;">Paciente</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 24%;">Disciplina</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 14%;">Demanda</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 10%;">Área da Saúde</th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 15%;">Status</th>
+                  </tr>
+              </thead>
+              <tr>
+                  <th class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox"></th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">0000000</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">João da Silva </th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Unidade de Prótese Dentária 2</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Prótese Dentária</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Odonto</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Em atendimento</th>
+              </tr>
+              <tr>
+                  <th class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox"></th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">111111111</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Maria da Luz</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Pronto Atendimento</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Urgência</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Odonto</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Em atendimento</th>
+              </tr>
+              <tr>
+                  <th class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox"></th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">88888888</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Pedro Costa</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Unidade de Clínica Odontologia 2</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Endodontia</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Odonto</th>
+                  <th class="ui-state-default ui-th-column ui-th-ltr">Em atendimento</th>
+              </tr>
+              
+              </table>
+              <p></p><br>
+          
+              <label>(Selecionar uma ou mais linhas na tabela para modificar o vínculo)</label>
+              <br>
+          
+              <label style="width: 185px; height: 30px; font-size: 12px;font-weight: bold;margin-top: 25px;margin-left: 5%;">Alterar status do paciente para:</label>
+              <select class="ui-state-default ui-corner-all" style="width: 255px; height: 30px; margin-left: 1px;margin-top: 25px;" name="novoStatus" id="novoStatus">
+                <option value="Escolher">Escolher</option>
+                <option value="emEspera">Em espera</option>
+                <option value="altaPaciente">Alta</option>
+                <option value="continuaTratamento">Continua em tratamento na especialidade</option>
+                <option value="abandonoPaciente">Abandono/Desistência</option>
+              </select>
+
+              <button id="btnAlterarVinculo" onclick="alterarStatus()" value="AlterarVinculo" class="button" style="margin-left: 20px; padding: 4px;">Alterar vinculo</button>
+              
+              <p></p><br>
+            
+            </div>
+              <h2 style="color: red; margin-left: 25px;">DESVINCULA O ALUNO SELECIONADO DO PACIENTE/DISCIPLINA NO BANCO DE DADOS</h2><br>
+              <h2 style="color: red; margin-left: 25PX;">EM CASO DE 'continuaTratamento' O PACIENTE VOLTA PRA LISTA DE ESPERA DA MESMA ESPECIALIDADE COM MAIOR PRIORIDADE</h2><BR>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+
+
+        <!-- DIV VÍNCULO NOVO-->
+        <div id="vinculoNovoTab" class="tabs">
+          <div id="encaminhar-0" class="ui-widget encaminhar encaminhar-0">
+            <ul>
+              <li class="labeltabencaminhar"><a href="#encaminhar-0" accessKey="encaminhar-0">Vincular novo paciente:</a></li>
+            </ul>
+
+            <br>
+            <p></p>
+            
+            <label style="font-weight:bold;width: 180px;">Lista de especialidades</label>
+            <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="especialidade" id="especialidade">
+              <option value="">Escolher</option>
+              <option value="Prótese Dentária">Prótese Dentária</option>
+              <option value="Odontopediatria">Odontopediatria</option>
+              <option value="Periodontia">Periodontia</option>
+              <option value="Dentística">Dentística</option>
+              <option value="Cirurgia">Cirurgia</option>
+            </select>
+
+            <br>
+            <p></p>
+            <label style="width: 180px; font-weight: bold;">Nível de complexidade</label>
+              <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="complexidade" id="complexidade">
+                  <option value="">Escolher</option>
+                  <option value="Baixa">Baixa</option>
+                  <option value="Média">Média</option>
+                  <option value="Alta (Pós-graduação)">Alta (Pós-graduação)</option>
+              </select>
+
+            <button style="margin-left: 15px;" id="clearButton">Limpar filtros</button>
+            <br>
+
+            <div class="table-container">
+            <table id="tablePacientes" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 85%; font-size: 14px; margin: 20px;">
+              <thead>
+                <tr class="ui-jqgrid-labels" role="rowheader">
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">
+                    ID
+                  </th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">
+                    Selec.
+                  </th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 30%;">
+                    Paciente
+                  </th>
+                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 60%;">
+                    Demanda
+                  </th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+      </div>
     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="/API/API.js"></script>
     
-
-    <p></p>
-    <div style="margin-left: 300px;">
-    <button id="btnAdicionar" onclick="adicionarNovaLinha()" value="Adicionar" class="button" style="margin-left: 20px; padding: 4px;">Vincular</button>
-    <button id="btnDeletar" onclick="excluirLinhasSelecionadas()" value="Remover" class="button" style="margin-left: 20px; padding: 4px;">Excluir</button>
-    <br>
-    <p></p>
-  </div>
+    <script>
+      var complexidade = document.getElementById("complexidade").value;
+      var especialidade = document.getElementById("especialidade").value;
   
-  <h2 style="color: red;">FILTRA A LISTAGEM DE ACORDO COM A ESPECIALIDADE SELECIONADA, DESCRIÇÃO DA DEMANDA, DESTINO E CRIA NOVA DEMANDA COMO 'emEspera' NO STATUS</h2><br>
+      // Quando o valor do select de complexidade mudar, atualiza a variável e chama a função com tipo 'complexidade'
+      document.getElementById("complexidade").addEventListener("change", function() {
+          atualizarFiltro('complexidade');
+      });
   
-  </div>
-</div>
+      // Quando o valor do select de especialidade mudar, atualiza a variável e chama a função com tipo 'especialidade'
+      document.getElementById("especialidade").addEventListener("change", function() {
+          atualizarFiltro('especialidade');
+      });
+  
+      // Chama a função ao carregar a página com tipo 'complexidade'
+      atualizarFiltro('complexidade');
+  
+      function atualizarFiltro(tipoFiltro) {
+        if (tipoFiltro === 'complexidade') {
+            complexidade = document.getElementById("complexidade").value;
+        } else if (tipoFiltro === 'especialidade') {
+            especialidade = document.getElementById("especialidade").value;
+        }
 
+        limparTabela();
 
+        api.encaminhamentos.consultarFiltro({ complexidade: complexidade, especialidade: especialidade }).then((data) => {
+          // data é um array de objetos com demanda e nome
+          // for para percorer o array e adicionar na tabela
+          for (let i = 0; i < data.length; i++) {
+            var tabelaPacientes = document.getElementById("tablePacientes");
+            const newRow = tablePacientes.insertRow(-1);
+            newRow.className = "ui-state-default ui-th-column ui-th-ltr";
 
+            const idDemandaCell = newRow.insertCell(0);
+            idDemandaCell.textContent = data[i].id_demanda;
+            idDemandaCell.className = "ui-state-default ui-th-column ui-th-ltr";
 
-<div id="footer" style="z-index: 99999999;" class="ui-state-highlight ui-widget">&copy;2010 - 2023 Cobalto </div>
+            const radioCell = newRow.insertCell(1);
+            radioCell.innerHTML = `<input type="radio" name="pacienteRadio" value='${JSON.stringify(data[i])}'>`;
+            radioCell.className = "ui-state-default ui-th-column ui-th-ltr";
 
+            const pacienteNomeCell = newRow.insertCell(2);
+            pacienteNomeCell.textContent = data[i].CPF;
+            pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+            
+            const demandaDescricaoCell = newRow.insertCell(3);
+            demandaDescricaoCell.textContent = data[i].Demanda;
+            demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";               
+          }
 
-
-<script>
-// FUNÇÃO PARA ALTERAR O STATUS DO PACIENTE NO FRONT-END
-function alterarStatus() {
-  const selectedRows = document.querySelectorAll("#vinculadosTable input[type='checkbox']:checked");
-  const novoStatusSelect = document.getElementById("novoStatus");
-  const selectedOption = novoStatusSelect.options[novoStatusSelect.selectedIndex];
-  const novoStatusText = selectedOption.textContent;
-
-  let success = true; // Flag to track success
-
-  if (selectedRows.length > 0 && selectedOption.value !== "Escolher") {
-    for (const checkbox of selectedRows) {
-      const selectedRow = checkbox.closest("tr");
-      const lastCell = selectedRow.cells[selectedRow.cells.length - 1];
-      lastCell.textContent = novoStatusText;
-    }
-
-    // Clear selected checkboxes
-    for (const checkbox of selectedRows) {
-      checkbox.checked = false;
-    }
-  } else {
-    if (selectedRows.length === 0) {
-      showCustomAlert("Por favor, selecione uma ou mais linhas na tabela.");
-      success = false;
-    } else if (selectedOption.value === "Escolher") {
-      showCustomAlert("Por favor, escolha uma opção válida para o novo status do paciente.");
-      success = false;
-    }
-  }
-
-  return success; // Return the success status
-}
-
-// FUNÇÃO PARA ADICIONAR UMA NOVA LINHA NA TABELA DE NOVO VÍNCULO
-function adicionarNovaLinha() {
-  const componenteCurricularInput = document.getElementById("componenteCurricular");
-  const componenteCurricularTurmaInput = document.getElementById("componenteCurricularTurma");
-  const areaSaudeInput = document.getElementById("areaSaude");
-  const especAreaSaúdeInput = document.getElementById("especAreaSaude");
-  const tableNovoVinculo = document.getElementById("tableNovoVinculo");
-
-  // Get the selected row from tablePacientes
-  const tablePacientes = document.getElementById("tablePacientes");
-  const selectedRows = Array.from(tablePacientes.querySelectorAll('input[type="radio"]:checked'));
-
-  if (selectedRows.length === 0) {
-    showCustomAlert("Selecione um aluno antes de adicionar uma nova linha.");
-    return;
-  }
-
-  // Set the same 'name' attribute for all selected radio buttons
-  const nameAttribute = "pacienteRadio";
-  selectedRows.forEach((row) => {
-    row.name = nameAttribute;
-  });
-
-  const pacienteCPFInput = selectedRows[0].parentNode.parentNode.cells[1].textContent; // Get the pacienteCPF from the third column
-  const pacienteNomeInput = selectedRows[0].parentNode.parentNode.cells[2].textContent; // Get the pacienteNome from the second column
-  const demandaDescriçãoInput = selectedRows[0].parentNode.parentNode.cells[3].textContent; // Get the demandaDescrição from the fourth column
-
-  // Check if 'areaSaude' or 'componenteCurricular' is equal to 'Escolher'
-  if (
-    (componenteCurricularInput.value.trim() === "Escolher" || areaSaudeInput.value.trim() === "Escolher") || componenteCurricularTurmaInput.value.trim() === "Escolher" ||
-    areaSaudeInput.value.trim() === "" || especAreaSaúdeInput.value.trim() === "") {
-    showCustomAlert("Por favor, complete todas as informações para adicionar uma nova linha.");
-    return;
-  }
-
-  const newRow = tableNovoVinculo.insertRow(tableNovoVinculo.rows.length);
-
-  // Add the "ui-state-default" class to the row
-  newRow.classList.add("ui-state-default");
-
-  // Insert cells and add content
-  for (let i = 0; i < 8; i++) {
-    const cell = newRow.insertCell(i);
-
-    // Check if it's the first cell
-    if (i === 0) {
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      cell.appendChild(checkbox);
-    } else {
-      switch (i) {
-        case 1:
-          cell.textContent = pacienteNomeInput;
-          break;
-        case 2:
-          cell.textContent = pacienteCPFInput;
-          break;
-        case 3:
-          cell.textContent = componenteCurricularInput.value;
-          break;
-        case 4:
-          cell.textContent = componenteCurricularTurmaInput.value;
-          break;
-        case 5:
-          cell.textContent = demandaDescriçãoInput; // Use textContent instead of demandaDescriçãoInput.value
-          break;
-        case 6:
-          cell.textContent = especAreaSaúdeInput.value;
-          break;
-        case 7:
-          cell.textContent = areaSaudeInput.value;
-          break;
-        default:
-          break;
+      });
       }
-    }
+      
+      function limparTabela() {
+        var tabelaPacientes = document.getElementById("tablePacientes");
+        var linhas = tabelaPacientes.getElementsByTagName("tr");
+        var i;
+        for (i = linhas.length - 1; i > 0; i--) {
+          tabelaPacientes.deleteRow(i);
+        }
+      }
 
-    // Add the "ui-state-default" class to each cell
-    cell.classList.add("ui-state-default");
-  }
+      // Function to clear the values for 'complexidade' and 'especialidade'
+      function limparFiltros() {
+          document.getElementById("complexidade").value = '';
+          document.getElementById("especialidade").value = '';
+          complexidade = '';
+          especialidade = '';
+          limparTabela();
+          atualizarFiltro(''); // Call the filter function with empty parameter to show all results
+      }
 
-  // Clear input fields after adding a new row
-  componenteCurricularInput.value = "";
-  componenteCurricularTurmaInput.value = "";
-  areaSaudeInput.value = "";
-  especAreaSaúdeInput.value = "";
-}
+      // Bind the limparFiltros function to the click event of the "Limpar filtros" button
+      document.getElementById("clearButton").addEventListener("click", limparFiltros);
 
+    </script>
+            
+   
+    <script>
+        // Function to extract URL parameters by name
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+    
+        // Get 'Matricula' and 'Turma' values from the URL
+        var matricula = getParameterByName('Matricula');
+        var id_regulacao = getParameterByName('id_regulacao');
 
-function excluirLinhasSelecionadas() {
-  const tableNovoVinculo = document.getElementById("tableNovoVinculo");
-  const rowsToDelete = [];
+        // Create a request object with Matricula and Turma values
+        var requestData = {
+            Matricula: matricula,
+            id_regulacao: id_regulacao
+        };
+    
+        function consultarAlunoRegulacao() {
+          // Send a JSON request with the request object as the body
+          api.encaminhamentos.consultarRegulacaoID(requestData).then(function (response) {
+              console.log(response);
 
-  // Iterate through the rows in reverse order to avoid issues with changing indices
-  for (let i = tableNovoVinculo.rows.length - 1; i >= 0; i--) {
-    const row = tableNovoVinculo.rows[i];
-    const checkbox = row.cells[0].querySelector('input[type="checkbox"]');
+              // Check if response data is not empty
+              if (response && response.length > 0) {
+                  const regulacaoData = response[0]; // Assuming the JSON response contains only one object
 
-    if (checkbox && checkbox.checked) { // Check if checkbox exists and is checked
-      // Mark rows for deletion
-      rowsToDelete.push(i);
-    }
-  }
+                  document.getElementById('id_regulacao').value = regulacaoData.id_regulacao;
+                  document.getElementById('id_turma').value = regulacaoData.id_turma;
+                  document.getElementById('matriculaAluno').value = regulacaoData.id_matricula;
+                  document.getElementById('nomeAluno').value = regulacaoData.nomeAluno;
+                  document.getElementById('cod_atividade').value = regulacaoData.disciplinas.cod_atividade;
+                  document.getElementById('atividade').value = regulacaoData.disciplinas.atividade;
+                  document.getElementById('cod_turma').value = regulacaoData.disciplinas.cod_turma;
+                  document.getElementById('solicitacaoDescricao').value = regulacaoData.solicitacaoDescricao;
+                  document.getElementById('tipoTramite').value = regulacaoData.tipo_regulacao;
+                  document.getElementById('solicitaçãoData').value = formatDate(regulacaoData.data_pedido); // DD/MM/YYYY
+                  document.getElementById('consultaPrevista').value = formatDate(regulacaoData.consultaPrevista); // DD/MM/YYYY
 
-  // Delete the marked rows
-  rowsToDelete.forEach((index) => {
-    tableNovoVinculo.deleteRow(index);
-  });
-}
+                  // Call the function to hide/display the tabs after getting the tipoTramite value from the API response
+                  initializePage();
+              } else {
+                  showCustomAlert("Não foi possível encontrar a regulação interna com o ID informado.");
+              }
+          }).catch(function (error) {
+              console.error('Error fetching data:', error);
+          });
+      }
 
+      function formatDate(dateString) {
+          const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+          const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+          return formattedDate;
+      }
 
-function submitFunction() {
-  showCustomAlert("Encaminhamento/Alta registrados com sucesso.");
-    }
+      consultarAlunoRegulacao();
 
-</script>
+      // Function to hide/display different divs on the same page location
+      function initializePage() {
+        const desvincularTab = document.querySelector('#desvincularTab');
+        const vinculoNovoTab = document.querySelector('#vinculoNovoTab');
+        const tipoTramiteInput = document.querySelector('#tipoTramite');
 
-<!-- <script>
-function submitFunction() {
-  const tipoTramiteValue = document.querySelector('.tipoTramite:checked').value;
-
-  if (tipoTramiteValue === 'novoVinculo') {
-    adicionarNovaLinha();
-  } else if (tipoTramiteValue === 'desvincular') {
-    if (alterarStatus()) {
-      showCustomAlert("Encaminhamento/Alta registrados com sucesso.");
-    }
-  }
-}
-</script> -->
-
-
-
-
-
-
-<!-- CODE FOR HIDING/SHOWING DIFFERENT DIVS ON THE SAME PAGE LOCATION -->
-<script>
-  // Define the function and immediately invoke it
-  (function initializePage() {
-    const desvincularTab = document.querySelector('#desvincularTab');
-    const vinculoNovoTab = document.querySelector('#vinculoNovoTab');
-    const tipoTramiteOptions = document.querySelectorAll('.tipoTramite');
-
-    // Initial call to hide one of the tabs based on the selected option
-    function updateTabs() {
-      tipoTramiteOptions.forEach(option => {
-        if (option.checked) {
-          if (option.value === 'desvincular') {
+        // Initial call to hide one of the tabs based on the selected option
+        function updateTabs() {
+          if (tipoTramiteInput.value === 'Desvincular') {
             desvincularTab.style.display = 'block';
             vinculoNovoTab.style.display = 'none';
-          } else if (option.value === 'novoVinculo') {
+          } else if (tipoTramiteInput.value === 'Novo vínculo') {
             desvincularTab.style.display = 'none';
             vinculoNovoTab.style.display = 'block';
           }
         }
+
+        // Call the updateTabs function on page load
+        updateTabs();
+
+        // Listen for changes in the tipoTramite input
+        tipoTramiteInput.addEventListener('change', updateTabs);
+      }
+    </script>
+
+
+    <!-- LISTA DE PACIENTES EM ESPERA / DEMANDAS REGISTRADAS -->
+    <script>
+      var complexidade = document.getElementById("complexidade").value;
+      // quando o valor do select mudar, atualiza a variável
+      document.getElementById("complexidade").addEventListener("change", function() {
+        atualizarComplexidade()
       });
-    }
+      atualizarComplexidade()
+      function atualizarComplexidade() {
+        complexidade = document.getElementById("complexidade").value;
+        
+        api.encaminhamentos.consultarFiltro({complexidade}).then((data) => {
+          // data é um array de objetos com demanda e nome
+          // for para percorer o array e adicionar na tabela
+          for (let i = 0; i < data.length; i++) {
+            var tabelaPacientes = document.getElementById("tablePacientes");
+            const newRow = tablePacientes.insertRow(-1);
+            newRow.className = "ui-state-default ui-th-column ui-th-ltr";
 
-    // Call the updateTabs function on page load
-    updateTabs();
+            const idDemandaCell = newRow.insertCell(0);
+            idDemandaCell.textContent = data[i].id_demanda;
+            idDemandaCell.className = "ui-state-default ui-th-column ui-th-ltr";
 
-    // Listen for changes in the tipoTramite options
-    tipoTramiteOptions.forEach(option => {
-      option.addEventListener('change', updateTabs);
-    });
-  })();
-</script>
+            const radioCell = newRow.insertCell(1);
+            radioCell.innerHTML = `<input type="radio" name="pacienteRadio" value='${JSON.stringify(data[i])}'>`;
+            radioCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+            const pacienteNomeCell = newRow.insertCell(2);
+            pacienteNomeCell.textContent = data[i].CPF;
+            pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+            
+            const demandaDescricaoCell = newRow.insertCell(3);
+            demandaDescricaoCell.textContent = data[i].Demanda;
+            demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";                
+          }
+
+      });
+      }
+    </script>
+
+    <script>
+      
+      // função vincular que pega o aluno e demanda selecionados e vincula
+      function vincular() {
+        const matriculaAluno = document.getElementById("matriculaAluno").value;
+        const pacienteSelecionado = JSON.parse(document.querySelector("#tablePacientes input[type='radio']:checked").getAttribute("value"));
+        const turma_id = document.getElementById("id_turma").value;
+
+        // Assuming you have alunoSelecionado stored somewhere in your code
+        const alunoSelecionado = {
+            matricula: matriculaAluno,
+            turma_id: turma_id,
+            
+        };
+
+        const dadosCombinados = Object.assign({}, alunoSelecionado, pacienteSelecionado);
+
+        console.log(dadosCombinados);
+
+        api.alunos.vincularPaciente(dadosCombinados).then((data) => {
+            console.log(data);
+            if (data.vinculoCriado == true) {
+              showCustomAlert("Paciente vinculado com sucesso!");
+              atualizartabela(turma_id);
+              // Assuming id_regulacao is defined somewhere in your code
+              homologarRegulacao(id_regulacao);
+            } else {
+              showCustomAlert("Vínculo já existe.");
+            }
+          });
+        }
+
+        function homologarRegulacao(id_regulacao) {
+          api.encaminhamentos.homologarRegulacao({ id_regulacao })
+            .then((data) => {
+              console.log(data);
+            })
+            .catch((error) => {
+              console.error("Error homologarRegulacao:", error);
+            });
+        }
+
+      
+      function desvincular(id_vinculo) {
+        api.alunos.desvincularRegulacao({id_vinculo}).then((data) => {
+          console.log(data);
+        });
+      }
+
+      function devolver() {
+        api.encaminhamentos.devolverRegulacao({id_regulacao}).then((data) => {
+          console.log(data);
+        });
+      }
+    </script>
   </body>
 </html>
 

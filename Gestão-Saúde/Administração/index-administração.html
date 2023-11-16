@@ -29,7 +29,7 @@
 
       <div class="" style="float:right; padding: 10px 0px; margin: 18px 0px;">
         <div id="avatar-menu" style="float: left;cursor: pointer;padding-right: 5px;">
-          <img src="src/Unknown_Member.jpg" style="border-radius: 50%;" width="48px">
+          <img src="../src/Unknown_Member.jpg" style="border-radius: 50%;" width="48px">
         </div>
 
         <div style="display: block; float:left; margin: 0px;">
@@ -87,17 +87,46 @@
               <ul style="background: none !important; display: block;"></span>
                 <ul style="background: none !important; display: block;">
                   <li class="closed expandable">
+                    <li class="closed expandable">
+                      <div class="hitarea closed-hitarea expandable-hitarea"></div>
+                      <span>Administração</span>
+                        <ul style="background: none !important; display: block;">
+                          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
+                            
+                            <span>Consultas</span>
+                              <ul style="background: none !important; display: none;">
+                                  <li><a href="Gestão-Saúde/Triagem/Consultas/Pacientes.html">Consultar paciente</a></li>
+                                  <li><a href="Gestão-Saúde/Administração/Consultas/avaliacao-alunos-1.html">Avaliação do aluno por disciplina</a></li>
+                                  <li><a href="Gestão-Saúde/Administração/Consultas/avaliação-geral-alunos-1.html">Avaliação geral do aluno</a></li>
+                                  <li><a href="Gestão-Saúde/Enfermagem/Consultas/consulta-pedido-material.html">Acompanhamento de pedido de material de consumo</a></li>
+                                  <li><a href="Gestão-Saúde/consulta-codSUS.html">Lista de procedimentos SUS</a></li>
+                                  <li><a href="Gestão-Saúde/agenda-clinicas.html">Agenda de clínica</a></li>
+                                  <li><a href="Gestão-Saúde/Triagem/Consultas/agenda-paciente.html">Agenda do paciente</a></li>
+                                  <li><a href="Gestão-Saúde/agenda-completa.html">Agenda completa de atendimentos</a></li>
+                              </ul>
                   
-                    <div id="menuAdm">
-                      <?php echo file_get_contents('../multiUsuarios/menu-adm.html');     ?>
-                    </div>
+                          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
+                            <span>Cadastro</span>
+                              <ul style="background: none !important; display: none;">
+                                <li><a href="Gestão-Saúde/Administração/Cadastros/cadastrar-procedimentos.html">Cadastro/Alteração de código SUS</a></li>
+                                <li><a href="Gestão-Saúde/Administração/Cadastros/cadastrar-material.html">Cadastrar material de estoque</a></li>
+                              </ul>
+                    
+                          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
+                            <span>Processos</span>
+                            <ul style="background: none !important; display: none;">
+                              <li><a href="Gestão-Saúde/Administração/Processos/tramitar-material-1.html">Tramitar requisição de materiais</li>
+                            </ul>
+                          <li><a href="Relatorios/relatorios.html">Relatórios</a></li>
+                          <!-- <li><a href="">Conceder acesso</a></li> -->
+                        </ul>
     </div>
 
     <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
     <style>
       #iframe{overflow: hidden;}
     </style>
-    <iframe id="iframe" src="../../Apresentação.html"style="width: 100%; height: 5000px; overflow: hidden;" frameborder="0"></iframe>
+    <iframe id="iframe" src="apresentacao-adm.html"style="width: 100%; height: 5000px; overflow: hidden;" frameborder="0"></iframe>
       </div>
 
     <script src="../../index.js"></script>

@@ -144,6 +144,14 @@
     <script src="/API/API.js"></script>
 
     <script type="text/javascript">
+
+       // CONVERTER DATA EM DD/MM/YYYY
+      function formatDate(dateString) {
+          const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+          const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+          return formattedDate;
+      }
+
       console.log('capaConsulta.html');
         // Função para preencher o formulário com os dados do perfil
         function preencherFormulario(dados) {
@@ -155,7 +163,7 @@
           document.getElementById("Nometab").innerText = dados.Nome;
           document.getElementById("Rg").value = dados.Rg;
           document.getElementById("CNS").value = dados.CNS;
-          document.getElementById("DataNasc").value = dados.DataNasc;
+          document.getElementById('DataNasc').value = formatDate(dados.DataNasc);
           document.getElementById("Email").value = dados.Email;
           document.getElementById("Tel").value = dados.Tel;
           document.getElementById("Tel2").value = dados.Tel2;

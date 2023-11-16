@@ -51,8 +51,8 @@
             <p></p>
 
             <br>
-            <label style="width: 200px; margin: 5px;">Filtrar por data</label>
-            <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 200px; height: 15px;">
+            <label style="width: 200px; ;margin: 5px;">Filtrar por data</label>
+            <input type="text" name="filtroDataAgendamento" id="filtroDataAgendamento" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 80px;">
             
             <br>
 
@@ -169,6 +169,13 @@
             $(document).ready(function () {
                 var originalData; // Store the original data from the API response
 
+                // CONVERTER DATA EM DD/MM/YYYY
+                function formatDate(dateString) {
+                    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+                    const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+                    return formattedDate;
+                }
+
                 // Function to populate the grid with filtered data
                 function populateGridAgenda(data) {
                     var tableBody = $('#gridAgenda');
@@ -177,7 +184,7 @@
                     for (var i = 0; i < data.length; i++) {
                         var item = data[i];
                         var row = '<tr>';
-                        row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.data_agendamento + '</td>';
+                        row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + formatDate(item.data_agendamento) + '</td>';
                         row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.nome_paciente + '</td>';
                         row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.cpf_paciente + '</td>';
                         row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.nome_usuario + '</td>';
@@ -198,6 +205,13 @@
                     var filtroDisciplina = $('#filtroDisciplina').val();
                     var filtroStatus = $('#filtroStatus').val();
 
+                    // Function to format the date as 'DD/MM/YYYY'
+                    function formatDateForDisplay(dateString) {
+                        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+                        const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+                        return formattedDate;
+                    }
+
                     // Filter data based on filter values
                     var filteredData = originalData.filter(function (item) {
                         var horario = parseInt(item.horario_agendamento);
@@ -211,11 +225,16 @@
                             turno = 'Noite';
                         }
 
-                        return (filtroDataAgendamento === 'Todos' || item.data_agendamento.includes(filtroDataAgendamento)) &&
+                        // Format the date for comparison
+                        var formattedDataAgendamento = formatDateForDisplay(item.data_agendamento);
+
+                        return (
+                            (filtroDataAgendamento === 'Todos' || formattedDataAgendamento.includes(filtroDataAgendamento)) &&
                             (filtroTurnoAgendamento === 'Todos' || turno === filtroTurnoAgendamento) &&
                             (filtroLocalAgendamento === 'Todos' || item.local === filtroLocalAgendamento) &&
                             (filtroDisciplina === 'Todos' || item.atividade_curricular === filtroDisciplina) &&
-                            (filtroStatus === 'Todos' || item.status_agendamento === filtroStatus);
+                            (filtroStatus === 'Todos' || item.status_agendamento === filtroStatus)
+                        );
                     });
 
                     // Populate grid with filtered data

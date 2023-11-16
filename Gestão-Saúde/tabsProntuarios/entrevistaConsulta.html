@@ -90,6 +90,13 @@
 
   consultaEntrevista();
 
+  // CONVERTER DATA EM DD/MM/YYYY
+  function formatDate(dateString) {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+    return formattedDate;
+  }
+
   function populateEntrevistaFields(data) {
     // Get the container element where the divs will be added
     const container = document.getElementById('entrevistaContainer');
@@ -112,7 +119,7 @@
           const button = document.createElement('button');
           button.type = 'button';
           button.classList.add('collapsible');
-          button.textContent = `+ Entrevista realizada em ${entrevista.data}`;
+          button.textContent = `+ Entrevista realizada em ${formatDate(entrevista.data)}`;
           button.addEventListener('click', function() {
               this.classList.toggle('active');
               const content = this.nextElementSibling;
@@ -255,7 +262,7 @@ function populateEntrevistaPedFields(data) {
         const button = document.createElement('button');
         button.type = 'button';
         button.classList.add('collapsible');
-        button.textContent = `+ Entrevista realizada em ${entrevistaped.data}`;
+        button.textContent = `+ Entrevista realizada em ${formatDate(entrevistaped.data)}`;
         button.addEventListener('click', function() {
             this.classList.toggle('active');
             const content = this.nextElementSibling;

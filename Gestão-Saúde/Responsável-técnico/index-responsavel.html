@@ -88,16 +88,43 @@
                 <ul style="background: none !important; display: block;">
                   <li class="closed expandable">
                   
-                    <div id="menuResp">
-                      <?php echo file_get_contents('../multiUsuarios/menu-responsavel.html');     ?>
-                    </div>
+                    <li class="closed expandable">
+                      <div class="hitarea closed-hitarea expandable-hitarea"></div>
+                      <span>Responsável técnico</span>
+                      <ul style="background: none !important; display: block;">
+                          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
+                          <span>Consultas</span>
+                          <ul style="background: none !important; display: none;">
+                              <li><a href="Gestão-Saúde/Triagem/Consultas/Pacientes.html">Consultar paciente</a></li>
+                              <li><a href="Gestão-Saúde/consulta-codSUS.html">Lista de procedimentos SUS</a></li>
+                              <li><a href="Gestão-Saúde/agenda-clinicas.html">Agenda de clínica</a></li>
+                          </ul>
+                          
+                          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
+                          <span>Cadastro</span>
+                          <ul style="background: none !important; display: none;">
+                              <li><a href="Gestão-Saúde/Triagem/Cadastros/agendar-atendimento-triagem.html">Agendar paciente</a></li>
+                              <li><a href="Gestão-Saúde/Responsável-técnico/Cadastros/cadastrar-entrevista-1.html">Entrevista dialogada</a></li>
+                              <li><a href="Gestão-Saúde/Responsável-técnico/Cadastros/cadastrar-plano-1.html">Plano de tratamento</a></li>
+                              <li><a href="Gestão-Saúde/Responsável-técnico/Cadastros/registrar-atendimento-1.html">Registrar atendimento</a></li>
+                              <li><a href="Gestão-Saúde/Responsável-técnico/Cadastros/encaminhamento-alta-1.html">Encaminhamento/Alta de paciente</a></li>
+                          </ul>
+                          
+                          <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div>
+                          <span>Processos</span>
+                          <ul style="background: none !important; display: none;">
+                              <li><a href="Gestão-Saúde/Responsável-técnico/Processos/homologar-atendimento-1.html">Homologar atendimento</a></li>
+                              <li><a href="Gestão-Saúde/Responsável-técnico/Processos/aprovar-encaminhamento-1.html">Aprovar encaminhamento ou alta de paciente</a></li>
+                          </ul>
+                      </ul>
+                  
     </div>
 
     <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
     <style>
       #iframe{overflow: hidden;}
     </style>
-    <iframe id="iframe" src="../../Apresentação.html"style="width: 100%; height: 5000px; overflow: hidden;" frameborder="0"></iframe>
+    <iframe id="iframe" src="apresentacao-resp.html"style="width: 100%; height: 5000px; overflow: hidden;" frameborder="0"></iframe>
       </div>
 
     <script src="../../index.js"></script>

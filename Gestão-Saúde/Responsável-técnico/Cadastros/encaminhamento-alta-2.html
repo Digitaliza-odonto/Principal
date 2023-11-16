@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Encaminhamento/Alta de paciente</title>
+  
+  <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+      var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+      var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+      var PATH_COOKIE = '/';
+      var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+      var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+      </script>
+      <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+      <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+      <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+
+    <!--ALERT MESSAGES-->
+    <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+    <script src="../../../scripts/alertMessage.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var okButton = document.getElementById('okButton');
+    
+        okButton.addEventListener('click', function() {
+          window.history.back(); // This line performs the action of going back to the previous page
+        });
+      });
+    </script>
+
+    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+    <div id="customAlert" class="modal">
+        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+            <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+            </button>
+        </div>
+        <p></p>
+        <br>
+        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+            <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+            <p id="alertMessage"></p>
+        </div>
+        <p> </p><br>
+        <p> </p><br>
+        <p> </p><br>
+        <div><button id="okButton" class="centered-button">OK</button></div>
+        </div>
+    </div>
+  </head>
+
+  <body>
+    <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
+        
+      <div class="breadCrumb module">
+        <ul>
+          <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+          <li>Responsável-Técnico</li>
+          <li>Cadastros</li>
+          <li>Encaminhamento/Alta de paciente</li>
+        </ul>
+        <div style="clear: both;"></div>
+      </div>
+      
+      <div style="clear: both;"></div>
+      </ul>
+        
+      <!-- CONTEÚDO BOTÕES -->
+      <div class="ui-widget-content ui-corner-all toolbar">
+        <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+        <!-- <button id="salvar" class="salvar" title="Salvar paciente" onclick="submitFunction()" style="float: left;">Enviar encaminhamento/alta</button> -->
+        <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+        <span style="clear: both; display: block"></span>
+      </div>
+
+
+      <!-- INÍCIO DIVISÃO EM TABS-->
+
+      <div id="tab" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+        <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+          
+          <li class="labeltab ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Dados pessoais</a></li>
+
+          <li class="labeltab ui-state-default ui-corner-top" role="tab" tabindex="-1" aria-controls="tab-1" aria-labelledby="ui-id-2" aria-selected="false"><a href="#tab-1" accesskey="tab-1" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Encaminhamento/Alta</a></li>
+
+        </ul>
+    
+        <!--INÍCIO DA TAB DADOS PESSOAIS-->
+        <div id="tab-0" class="ui-widget tab tab-0 tab-0 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-2" role="tabpanel" aria-expanded="true" aria-hidden="false">
+
+          <br>
+          <div id="capaContent">
+            <?php echo file_get_contents('../../tabsProntuarios/capaConsulta.html');     ?>
+          </div>
+        </div>
+            
+
+     <!--INÍCIO TAB DEMANDAS-->
+      <div id="encaminhamento">
+        <div id="tab-1" class="ui-widget tab tab-1 tab-1 ui-tabs-panel ui-widget-content ui-corner-bottom" aria-labelledby="ui-id-1" role="tabpanel" style="display: none;" aria-expanded="false" aria-hidden="true">
+          <p></p>
+
+          <label style="font-weight:bold;width: 300px;font-size: 14px;">Origem</label><br>
+
+          <input type="hidden" id="encaminhamentoOrigemID" readonly><br>
+
+          <label style="width: 170px;">Origem</label>
+          <input type="text" value="" class="ui-state-default ui-corner-all" id="encaminhamentoOrigem" placeholder="Digite o nome da disciplina/projeto" style="width: 200px;" />
+          <br>
+      
+          <script>
+              $(document).ready(function () {
+                  function fetchAtividades() {
+                      // Return a promise that fetches the atividades data from the API
+                      return new Promise(function(resolve, reject) {
+                          api.disciplinas.consultarDisciplinasProjetos().then(function (data) {
+                              // Combine atividades from disciplinas and projetos
+                              const disciplinas = data.disciplinas || [];
+                              const projetos = data.projetos || [];
+                              const combinedAtividades = disciplinas.concat(projetos);
+      
+                              resolve(combinedAtividades);
+                          }).catch(function (error) {
+                              console.error('Error fetching data:', error);
+                              reject(error);
+                          });
+                      });
+                  }
+      
+                  $('#encaminhamentoOrigem').autocomplete({
+                      source: function(request, response) {
+                          fetchAtividades().then(function (atividades) {
+                              // Filter results based on atividade.atividade that matches the typed letters
+                              const filteredAtividades = atividades.filter(function(atividade) {
+                                  return atividade.atividade.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+                              });
+      
+                              // Map the filtered response data and format it as 'cod_atividade - atividade'
+                              const atividadesList = filteredAtividades.map(function(atividade) {
+                                  return {
+                                      value: atividade.atividade,
+                                      atividade: atividade.atividade
+                                  };
+                              });
+      
+                              response(atividadesList);
+                          }).catch(function (error) {
+                              console.error('Error fetching or processing data:', error);
+                              response([]); // Return empty array in case of an error
+                          });
+                      },
+                      minLength: 1,
+                      select: function (event, ui) {
+                          // Handle selection
+                          $('#encaminhamentoOrigem').val(ui.item.value); // Set input value to 'cod_atividade - atividade'
+                          console.log('Selected atividade:', ui.item.atividade);
+                      }
+                  });
+              });
+          </script>
+
+          <!-- <label style="width: 180px; margin-top: 10px;">Aluno</label> -->
+          <input type="hidden" id="responsavelProcedimento">
+           
+          <hr class="ui-state-default">  
+
+          <label style="width: 300px;font-size: 14px; font-weight: bold;">Destino</label>
+    
+          <br>
+          <p></p>
+          <label style="width: 180px;">Lista de especialidades</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" id="Especialidade">
+            <option value="Escolher">Escolher</option>
+            <option value="Prótese Dentária">Prótese Dentária</option>
+            <option value="Odontopediatria">Odontopediatria</option>
+            <option value="Periodontia">Periodontia</option>
+            <option value="Dentística">Dentística</option>
+            <option value="Cirurgia">Cirurgia</option>
+          </select>
+          
+          <p></p>
+          <label style="width: 180px;">Nível de complexidade</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="complexidade" id="Complexidade">
+              <option value="0">Escolher</option>
+              <option value="Baixa">Baixa</option>
+              <option value="Média">Média</option>
+              <option value="Alta">Alta (Pós-graduação)</option>
+          </select>  
+          <hr class="ui-state-default">
+          <br>
+          <label style="width: 220px; margin-bottom: 10px;">Descrição da demanda/encaminhamento</label>
+          <p></p>
+
+          <br>
+          <textarea id="Demanda" style="width: 380px; margin-bottom: 10px;" name="txtdemanda" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" ></textarea>
+          <br>
+
+          <label style="width: 180px;">Data do encaminhamento</label>
+          <input type="text" name="Data" id="Data" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 80px;" />
+          <br>
+
+          <p></p><br>
+          <label style="width: 180px;">Encaminhamento/Alta</label>
+          <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" id="Status">
+            <option value="Escolher">Escolher</option>
+            <option value="Encaminhamento registrado por responsável técnico">Encaminhamento</option>
+            <option value="Alta registrada por responsável técnico">Alta</option>
+          </select>
+
+          <p></p>
+          <button name="btnAdicionar" onClick="encaminhar()" id="btnAdicionar" value="Adicionar" class="button"  >Adicionar</button>
+          <button name="btnCancelar" onClick="limpar()" id="btnCancelar" value="Cancelar" class="button"  >Cancelar</button>
+          <br>
+          <p></p>
+
+          <hr class="ui-state-default">
+
+          <p></p>
+
+          <table id="gridDemanda_Paciente" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" style="margin-left: 50px; margin-top: 15px; width: 85%; height: auto;">
+            <thead class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="font-size: larger; height: 10px;">
+                <tr>
+                    <th style="width: 7.5%;">Data</th>
+                    <th style="width: 7.5%;">Especialidade</th>
+                    <th style="width: 10%;">Demanda</th>
+                    <th style="width: 10%;">Status</th>
+                </tr>
+            </thead>
+            <tbody id="tabelaencaminhamentos">
+                <!-- NEW ROWS TO BE ADDED HERE -->
+            </tbody>
+          </table>
+       
+        </div>
+     
+        <!--Script DEMANDAS-->
+        <script>
+
+          // CONVERTER DATA EM DD/MM/YYYY
+          function formatDate(dateString) {
+              const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+              const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+              return formattedDate;
+          }
+
+          function adicionarNovaLinha(data) {
+            console.log(data)
+            // Seleciona o corpo da tabela usando o XPath
+            const tbody = document.getElementById("tabelaencaminhamentos")
+            // Cria um novo elemento de linha (<tr>)
+            const novaLinha = document.createElement('tr');
+            novaLinha.style.alignItems = 'center';
+            novaLinha.classList.add('ui-state-default', 'ui-th-column', 'ui-th-ltr');
+
+            // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
+            novaLinha.innerHTML = `
+              <td role="gridcell" style="text-align:center;">${formatDate(data.Data)}</td>
+              <td role="gridcell" style="text-align:center;">${data.Especialidade}</td>
+              <td role="gridcell" style="text-align:center;">${data.Demanda}</td>
+              <td role="gridcell" style="text-align:center;">${data.Status}</td>
+            `;
+
+            // Adiciona a nova linha ao corpo da tabela
+            tbody.appendChild(novaLinha);
+          }
+
+          function getDataFromTab(TabId){
+            const parentDiv = document.getElementById(TabId); 
+            const elements = parentDiv.querySelectorAll("input, select, textarea"); // Include textarea elements
+            const jsonData = {};
+
+            for (const element of elements) {
+              if (element.tagName === "INPUT") {
+                if (element.type === "text") {
+                  jsonData[element.id] = element.value;
+                } else if (element.type === "radio" && element.checked) {
+                  jsonData[element.name] = element.value;
+                }
+              } else if (element.tagName === "SELECT") {
+                jsonData[element.id] = element.value;
+              } else if (element.tagName === "TEXTAREA") { // Handle textarea elements
+                jsonData[element.id] = element.value;
+              }
+            }
+
+            console.log(jsonData);
+            return jsonData;
+          }
+
+          // Assuming 'aluno' and 'CPF' are correctly retrieved
+          const aluno = JSON.parse(localStorage.getItem('usuario'));
+          const CPF = getUrlVars()["cpf"];
+
+          function vinculoPacienteAluno(aluno, CPF) {
+            const requestData = {
+              Matricula: aluno.Matricula,
+              CPF: CPF
+            };
+          }
+
+          vinculoPacienteAluno(aluno, CPF);
+
+          function encaminhar() {
+            let Encaminhamentos = getDataFromTab("encaminhamento");
+            Encaminhamentos.CPF = getUrlVars()["cpf"];
+            Encaminhamentos.Status = Encaminhamentos.Status;
+            Encaminhamentos.origemID = document.getElementById("encaminhamentoOrigemID").value;
+            Encaminhamentos.encaminhamentoOrigem = Encaminhamentos.encaminhamentoOrigem;
+            Encaminhamentos.alunoEncaminhamento = 'Encaminhado por responsável técnico'
+            Encaminhamentos.responsavelProcedimento = aluno.Matricula;;
+            Encaminhamentos.Especialidade = Encaminhamentos.Especialidade;
+            Encaminhamentos.Complexidade = Encaminhamentos.Complexidade;
+            Encaminhamentos.Demanda = Encaminhamentos.Demanda;
+            Encaminhamentos.Data = Encaminhamentos.Data;
+
+            // Check if any of the specified fields are equal to 'Escolher'
+            if (
+                Encaminhamentos.responsavelEncaminhamento === '' ||
+                Encaminhamentos.Especialidade === 'Escolher' ||
+                Encaminhamentos.Complexidade === 'Escolher' ||
+                Encaminhamentos.Status === 'Escolher'
+            ) {
+                showCustomAlert("Por favor preencha todas os campos");
+                return; // Stop the function execution
+            }
+
+            console.log(Encaminhamentos);
+            api.encaminhamentos.criarEncaminhamento(Encaminhamentos).then((result) => {
+                showCustomAlert(result.message);
+                console.log(result);
+                adicionarNovaLinha(Encaminhamentos);
+            });
+        }
+
+
+          api.encaminhamentos.consultar({CPF}).then((encaminhamentos)=>{
+            console.log(encaminhamentos)
+            encaminhamentos.forEach(encaminhamento => {
+              adicionarNovaLinha(encaminhamento)
+            })
+          })
+        </script>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

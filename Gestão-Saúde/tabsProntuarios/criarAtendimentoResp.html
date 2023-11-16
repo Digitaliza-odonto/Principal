@@ -1,0 +1,220 @@
+<div id="registrarAtendimento">
+    
+    <br>
+    <p></p>
+    <label style="font-weight:bold;width: 180px;">Lista de especialidades</label>
+    <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="especialidade" id="especialidade">
+        <option value="Escolher">Escolher</option>
+        <option value="Prótese Dentária">Prótese Dentária</option>
+        <option value="Odontopediatria">Odontopediatria</option>
+        <option value="Periodontia">Periodontia</option>
+        <option value="Dentística">Dentística</option>
+        <option value="Cirurgia">Cirurgia</option>
+    </select>
+    
+    
+    <hr class="ui-state-default">
+    <p></p>
+    <br>
+    
+    <label style="width: 400px; ;">Descrição atendimento/procedimento realizado:</label><br>
+    <textarea style="width: 460px;" id="atendimentoDescrição" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" ></textarea>
+    <br>
+
+    <label style="width: 180px; ;">Código SUS:</label>
+    <button id="btnAddCodSus" value="Adicionar Cód. SUS" class="button">Adicionar Cód. SUS</button>
+    <div style="height: 22px; width: 25px; margin: 0px -1px 5px 0px; display: block; float: left; position: relative; padding: 0; text-decoration: none !important; text-align: center; zoom: 1; overflow: visible; border-right: none;" class="ui-widget ui-state-default ui-corner-tl ui-corner-bl ui-button-icon-only"><span class=" ui-icon ui-icon-search"></span></div>
+    <input type="text" value="" class="ui-state-default ui-corner-tr ui-corner-br mousetrap" id="atendimentoCodSUS" placeholder="Digite o código SUS" style="width: 240px;" />
+    <br>
+    
+    <label style="width: 180px;">Data do atendimento</label>
+    <input type="text" id="atendimentoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap  datepicker" style=" width: 180px;" />
+    <br>
+    
+    <br>
+    <input type="hidden" name="responsavel_id" id="responsavel_id" readonly>
+    <br>
+    
+    <label style="width: 180px;">Componente curricular/Projeto</label>
+    <input type="text" value="" class="ui-state-default ui-corner-all" id="componenteCurricular" placeholder="Digite o nome da disciplina/projeto" style="width: 240px;" />
+    <br>
+
+    <script>
+        $(document).ready(function () {
+            function fetchAtividades() {
+                // Return a promise that fetches the atividades data from the API
+                return new Promise(function(resolve, reject) {
+                    api.disciplinas.consultarDisciplinasProjetos().then(function (data) {
+                        // Combine atividades from disciplinas and projetos
+                        const disciplinas = data.disciplinas || [];
+                        const projetos = data.projetos || [];
+                        const combinedAtividades = disciplinas.concat(projetos);
+
+                        resolve(combinedAtividades);
+                    }).catch(function (error) {
+                        console.error('Error fetching data:', error);
+                        reject(error);
+                    });
+                });
+            }
+
+            $('#componenteCurricular').autocomplete({
+                source: function(request, response) {
+                    fetchAtividades().then(function (atividades) {
+                        // Filter results based on atividade.atividade that matches the typed letters
+                        const filteredAtividades = atividades.filter(function(atividade) {
+                            return atividade.atividade.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+                        });
+
+                        // Map the filtered response data and format it as 'cod_atividade - atividade'
+                        const atividadesList = filteredAtividades.map(function(atividade) {
+                            return {
+                                value: atividade.atividade,
+                                atividade: atividade.atividade
+                            };
+                        });
+
+                        response(atividadesList);
+                    }).catch(function (error) {
+                        console.error('Error fetching or processing data:', error);
+                        response([]); // Return empty array in case of an error
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    // Handle selection
+                    $('#componenteCurricular').val(ui.item.value); // Set input value to 'cod_atividade - atividade'
+                    console.log('Selected atividade:', ui.item.atividade);
+                }
+            });
+        });
+    </script>
+
+
+    <label style="width: 180px;">Período</label>
+    <input type="text" id="periodo" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 50px;" readonly>
+    <br>
+    
+    <p></p>
+    <button id="btnCancelar" onclick="limparCampos()" value="Cancelar" class="button">Limpar campos</button>
+    <br>
+
+    <p></p>
+    <hr class="ui-state-default">
+    
+    <div style="margin: 10px;"></div>
+    <h2> Listagem de procedimentos SUS realizados</h2>
+    <table id="listaCodSUS" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 40%; font-size: 14px; margin: 15px;">
+    <thead>
+        <tr class="ui-jqgrid-labels" role="rowheader">
+            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 5%;">Selec.</th>
+            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 15%;">Código</th>
+            <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 80%;">Procedimento SUS</th>
+        </tr>
+        </thead>
+        <tbody id="sus-tbody">
+            <!-- Table body rows go here -->
+        </tbody>
+    </table>
+    
+    <button name="btnDeletar" id="btnDeletar" value="Deletar" class="button" style="margin: 15px;">Remover código SUS</button>
+
+    <!-- AUTOCOMPLETE PROCEDIMENTOS SUS & ADICIONA REMOVE LINHAS NA TABELA DE PROCEDIMENTOS-->
+    <script>
+        $(document).ready(function () {
+            $('#atendimentoCodSUS').autocomplete({
+                source: function(request, response) {
+                    // Call the getProcedimentos function with user input as a parameter
+                    getProcedimentos(request.term).then(function (procedimentos) {
+                        // Filter results based on procedimento.nome that matches the typed letters
+                        const filteredProcedimentos = procedimentos.filter(function(procedimento) {
+                            return procedimento.nome.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+                        });
+
+                        // Map the filtered response data and format it as 'cod_sus - nome'
+                        const procedimentosList = filteredProcedimentos.map(function(procedimento) {
+                            return {
+                                value: procedimento.cod_sus + ' - ' + procedimento.nome,
+                                cod_sus: procedimento.cod_sus,
+                                nome: procedimento.nome
+                            };
+                        });
+
+                        response(procedimentosList);
+                    }).catch(function (error) {
+                        console.error('Erro ao consultar procedimentos:', error);
+                    });
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    // Handle selection
+                    $('#atendimentoCodSUS').val(ui.item.value); // Set input value to 'cod_sus - nome'
+                    console.log('Selected Cod_sus:', ui.item.cod_sus);
+                    console.log('Selected Nome:', ui.item.nome);
+                }
+            });
+
+            function getProcedimentos(term) {
+                // Fetch procedimentos from API based on user input
+                // Ensure that the backend filters the results based on the 'nome' field
+                return api.procedimentos.consultar(term)
+                    .then(function (procedimentos) {
+                        console.log(procedimentos);
+                        return procedimentos;
+                    })
+                    .catch(function (error) {
+                        console.error('Erro ao consultar procedimentos:', error);
+                        throw error;
+                    });
+            }
+        });
+
+    document.getElementById("btnAddCodSus").addEventListener("click", function () {
+        var atendimentoCodSUS = document.getElementById("atendimentoCodSUS").value;
+        addCodSUSRow(atendimentoCodSUS);
+    });
+    
+    document.getElementById("btnDeletar").addEventListener("click", function () {
+        deleteSUSRows();
+    });
+    
+    function addCodSUSRow(codSUS) {
+        var listaCodSUSTable = document.getElementById("listaCodSUS");
+        var newRow = listaCodSUSTable.insertRow(-1); // Insert at the end
+
+        const checkBoxCell = newRow.insertCell(0);
+        checkBoxCell.innerHTML = '<input type="checkbox" class="delete-checkbox">';
+        checkBoxCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+        var codesCell = newRow.insertCell(1);
+        codesCell.textContent = codSUS.split(" - ")[0];
+        codesCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+        var nomeCell = newRow.insertCell(2);
+        nomeCell.textContent = codSUS.split(" - ")[1];
+        nomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+        // Clear input field after adding row
+        document.getElementById("atendimentoCodSUS").value = "";
+    }
+    
+    function deleteSUSRows() {
+        var checkboxes = document.getElementsByClassName("delete-checkbox");
+        var table = document.getElementById("listaCodSUS");
+
+        for (var i = checkboxes.length - 1; i >= 0; i--) {
+            if (checkboxes[i].checked) {
+                table.deleteRow(i + 1); // +1 because of the header row
+            }
+        }
+    }
+
+    function limparCampos() {
+        document.getElementById("atendimentoData").value = "";
+        document.getElementById("especialidade").value = "Escolher";
+        document.getElementById("atendimentoDescrição").value = "";
+        document.getElementById("componenteCurricular").value = "";
+        
+    }
+    </script>
+</div>

@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
     <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
     <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-    <link href="stylecobalto.css" type="text/css" rel="stylesheet">
+    <link href="../../stylecobalto.css" type="text/css" rel="stylesheet">
   </head>
 
   <body>
@@ -51,61 +51,7 @@
        
     </div>
 
-    <!-- CONTEÚDO COLUNA DA DIREITA -->
-    <div class="tabs" style="margin-left: 200px; width: 30%; float: left; padding-bottom: 8px; box-sizing: border-box;">
-      <p></p>
-      <br>
-      <div id="gadget_1435802772" style="width: 310px;" class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">
-        <div class="portlet-header ui-widget-header ui-corner-all ui-state-highlight">Acessar conta</div>
-        <div class="portlet-content" style="padding: 10px;">
-          <form id="formLogin">
-            <script language="JavaScript"> function formLogin_submit() {     btnSalvarTemp = document.getElementById('salvar');    if(btnSalvarTemp){      btnSalvarTemp.disabled = true;      btnSalvarTemp.setAttribute('aria-disabled', true);      btnSalvarTemp.classList.add('ui-state-disabled');    }    _.each(document.getElementsByClassName('btn_bloqueio'), (element) => {          element.disabled = true;          element.setAttribute('aria-disabled', true);          element.classList.add('ui-state-disabled');    });    $('#formLogin').ajaxSubmit({     dataType:'json',     clearForm: false,     beforeSubmit: formLogin_beforeSubmit,    success:  formLogin_sucefull,     complete:  formLogin_complete     }); } function formLogin_confirmaSenha() {     var action = $('#formLogin').attr('action');    var dados = $('#formLogin').serialize();    openWindow(action+'/?'+dados, 'Confirmação de senha', 400); }function formLogin_sucefull(data) {    try{ formLogin_callback(data); } catch(err){}}function formLogin_complete(data) {    btnSalvarTemp = document.getElementById('salvar');    if(btnSalvarTemp){      document.getElementById('salvar').disabled = false;      document.getElementById('salvar').setAttribute('aria-disabled', false);      document.getElementById('salvar').classList.remove('ui-state-disabled');    }    _.each(document.getElementsByClassName('btn_bloqueio'), (element) => {          element.disabled = false;          element.setAttribute('aria-disabled', false);          element.classList.remove('ui-state-disabled');    });    btnCarregandoTemp = document.getElementById('carregando');    if(btnCarregandoTemp){      document.getElementById('carregando').style.display = 'none';    }}function formLogin_beforeSubmit(formData, jqForm, options) { return beforeSubmit(formData, jqForm, options, 'formLogin');}</script>
-            <label name="lblLogin" id="lblLogin" style="width: 60px;">CPF</label>
-            <input type="text" name="txtEmail" id="txtEmail" value="" maxlength="" class="ui-state-default ui-corner-all mousetrap " nomousetrap="1" style="width: 65%;">
-            <script>var txtEmail = $('#txtEmail');</script>
-            <br>
-            <label name="lblSenha" id="lblSenha" style="width: 60px;"  >Senha</label>
-            <input type="password" name="txtSenha" id="txtSenha" value="" maxlength="" class="ui-state-default ui-corner-all mousetrap " nomousetrap="1" style="width: 65%;">
-            <script>var txtSenha = $('#txtSenha');</script>
-            <br>
-            <button id="btnEntrar" name="btnEntrar" onclick="login();" style="margin-bottom: 0px;">entrar</button>
-          </form>
-        </div>
-      </div>
-    </div>
-        
-    <script src="/API/API.js"></script>
-    <script>
-    function login() {
-      console.log('login'); 
-        api.usuarios.login({
-            Matricula: txtEmail.val()
-          }).then(function (data) {
-          const usuario = data[0];
-          console.log(usuario);
-            if (data.length > 0) {
-              localStorage.setItem('usuario', JSON.stringify(usuario));        
-            if (usuario.Tipo == "Aluno") {
-              window.open("./Gestão-Saúde/Aluno/index-aluno.html", '_blank');
-            } else if (usuario.Tipo == "Administrador") {
-              window.open("./Gestão-Saúde/Administração/index-administração.html", '_blank');
-            } else if (usuario.Tipo == "Triagem") {
-              window.open("./Gestão-Saúde/Triagem/index-triagem.html", '_blank');
-            } else if (usuario.Tipo == "Responsavel") {
-              window.open("./Gestão-Saúde/Responsável-técnico/index-responsavel.html", '_blank');
-            } else if (usuario.Tipo == "Enfermagem") {
-              window.open("./Gestão-Saúde/Enfermagem/index-enfermagem.html", '_blank');
-            
-            } else {
-                alert("Usuario não encontrado")
-            }
-          } else {
-            alert("Usuario não encontrado")
-          }
-        });
-    }
-    </script>
-
+    
     <div id="footer" style="z-index: 99999999;" class="ui-state-highlight ui-widget">&copy;2010 - 2023 Cobalto </div>
   </body>
 </html>

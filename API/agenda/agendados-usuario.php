@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cpf_paciente = $queryCPF['cpf_paciente'];
 
             // Perform the second SQL operation for each 'cpf_paciente'
-            $pacienteInfo = db("SELECT `nome` FROM `pacientes` WHERE CPF = '$cpf_paciente'");
+            $pacienteInfo = db("SELECT `Nome` FROM `pacientes` WHERE CPF = '$cpf_paciente'");
 
             // Add the result to the list
             $pacienteInfoList[] = $pacienteInfo;
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Include vinculos, pacienteInfoList, and TurmaInfo in the JSON response
         echo json_encode(array("vinculos" => $query, "pacienteInfoList" => $pacienteInfoList));
     } else {
-        echo json_encode(array("message" => "No vinculos found"));
+        echo json_encode(array("message" => "Nenhum paciente encontrado"));
     }
 } else {
     echo json_encode(array("message" => "Método inválido"));

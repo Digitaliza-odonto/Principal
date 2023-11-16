@@ -232,6 +232,10 @@ const disciplinas = {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultar.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultarDisciplinasProjetos: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultarDisciplinasProjetos.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarID: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultarID.php`;
     return sendRequest(url, 'POST', data);
@@ -308,6 +312,10 @@ const agenda = {
   },
   consultarAgendadosUsuario: async (data) => {
     const url = `${getApiUrl()}/agenda/agendados-usuario.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarAgendadosResponsavel: async (data) => {
+    const url = `${getApiUrl()}/agenda/agendadosResponsavel.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarNoLocalUsuario: async (data) => {
@@ -397,6 +405,10 @@ const entrevistaDialogada = {
 const atendimentos = {
   criar: async (data) => {
     const url = `${getApiUrl()}/atendimentos/criarAtendimento.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  criarResponsavel: async (data) => {
+    const url = `${getApiUrl()}/atendimentos/criarAtendimentoResponsavel.php`;
     return sendRequest(url, 'POST', data);
   },
   homologar: async (data) => {

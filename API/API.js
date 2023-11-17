@@ -138,6 +138,10 @@ const alunos = {
     const url = `${getApiUrl()}/alunos/vinculos.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultarVinculoAluno: async (data) => {
+    const url = `${getApiUrl()}/alunos/vinculosAluno.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarMatriculaAluno: async (data) => {
     const url = `${getApiUrl()}/alunos/consultarMatriculaAluno.php`;
     return sendRequest(url, 'POST', data);

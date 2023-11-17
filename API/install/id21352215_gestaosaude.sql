@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 16/11/2023 às 21:07
+-- Tempo de geração: 17/11/2023 às 16:06
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.2.4
 
@@ -591,11 +591,11 @@ CREATE TABLE `encaminhamentos` (
 
 INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Especialidade`, `Complexidade`, `Demanda`, `origemID`, `encaminhamentoOrigem`, `alunoEncaminhamento`, `responsavelEncaminhamento`, `Status`, `Observacoes`, `homologado`, `data_homolog`, `tramitado`, `data_tramite`, `contato1`, `contato2`, `contato3`, `obsContato`) VALUES
 (1, '112.289.390-63', '2023-11-06', 'Prótese Dentária', 'Baixa', 'Confeccção de PPR superior', '', '', '', '', 'Em espera', 'Necessita de acompanhamento constante.', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, '790.588.720-09', '2023-11-01', 'Periodontia', 'Média', 'Aumento de coroa clínica no 24', '', 'Origem', '14200737', '14200737', 'Em espera', 'Problema identificado durante a consulta inicial.', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, '112.289.390-63', '2023-10-06', 'Periodontia', 'Média', 'Raspagem subgengival em todos os sextantes', '', '', '', '', 'Em espera', 'Paciente relatou dor intensa.', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, '790.588.720-09', '2023-11-01', 'Periodontia', 'Média', 'Aumento de coroa clínica no 24', '', 'Origem', '14200737', '14200737', 'Em atendimento', 'Problema identificado durante a consulta inicial.', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, '555.666.777-88', '2023-10-06', 'Periodontia', 'Média', 'Raspagem subgengival em todos os sextantes', '', '', '', '', 'Em atendimento', 'Paciente relatou dor intensa.', '', NULL, 'Sim', '2023-11-17', NULL, NULL, NULL, NULL),
 (4, '112.289.390-63', '2023-09-12', 'Cirurgia', 'Média', 'Exodontia do 38', '', '', '', '', 'Em atendimento', 'Tratamento de rotina.', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, '790.588.720-09', '2023-11-06', 'Prótese dentária', 'Média', 'Coroa unitária no dente 24', '', '', '', '', 'Em espera', 'Tratamento de rotina de odontopediatria.', '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, '790.588.720-09', '2023-11-06', 'Cirurgia', 'Média', 'Dados atualizados de novo', '', 'Origem', '2010123', '2010123', 'Encaminhamento homologado pelo Responsável técnico', NULL, 'Sim', '2023-11-06', NULL, NULL, NULL, NULL, NULL, NULL),
+(5, '790.588.720-09', '2023-11-06', 'Prótese dentária', 'Média', 'Coroa unitária no dente 24', '', '', '', '', 'Em atendimento', 'Tratamento de rotina de odontopediatria.', '', NULL, 'Sim', '2023-11-17', NULL, NULL, NULL, NULL),
+(12, '555.666.777-88', '2023-11-06', 'Cirurgia', 'Média', 'Dados atualizados de novo', '', 'Origem', '2010123', '2010123', 'Em atendimento', NULL, 'Sim', '2023-11-06', 'Sim', '2023-11-17', NULL, NULL, NULL, NULL),
 (13, '790.588.720-09', '2023-11-06', 'Cirurgia', 'Média', 'Descrição da demanda feita no teste', '', 'Origem', '2010123', '2010123', 'Em atendimento', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (27, '112.289.390-63', '2023-11-15', 'Prótese Dentária', 'Baixa', 'Descrição 15-11', '308403', 'UNIDADE DE CIRURGIA BMF III', '14200737', 'Carlos Santana', 'Aguardando homologação do encaminhamento', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (28, '112.289.390-63', '2023-11-15', 'Cirurgia', 'Baixa', 'Descrição 15-11', '308403', 'UNIDADE DE CIRURGIA BMF III', '14200737', 'João da Silva', 'Aguardando homologação da alta', NULL, '', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -1058,7 +1058,7 @@ INSERT INTO `regulacaointerna` (`id_regulacao`, `id_turma`, `id_matricula`, `dat
 (4, '309151', '14200737', '2023-11-09', 'Desvincular', 'Desvincular paciente', NULL, 'Solicitado', NULL),
 (5, '308403', '14200737', '2023-11-08', 'Desvincular', 'Desistência/Abandono', NULL, 'Solicitado', NULL),
 (6, '309155', '14200737', '2023-11-08', 'Novo vínculo', 'Paciente novo', NULL, 'Re-encaminhado por pendência', NULL),
-(7, '309155', '14200737', '2023-11-08', 'Novo vínculo', 'Paciente novo', NULL, 'Solicitado', NULL),
+(7, '309155', '14200737', '2023-11-08', 'Novo vínculo', 'Paciente novo', NULL, 'Tramitado', '2023-11-17'),
 (9, '308403', '14200737', '2023-11-09', 'Novo vínculo', 'Teste com data', '2023-11-10', 'Solicitado', NULL);
 
 -- --------------------------------------------------------
@@ -2793,7 +2793,8 @@ CREATE TABLE `vinculo_aluno_paciente` (
 INSERT INTO `vinculo_aluno_paciente` (`id`, `id_demanda`, `CPF_paciente`, `Matricula_aluno`, `Turma`, `Complexidade`, `Especialidade`, `Descrição`, `StatusVinculo`, `inicioVinculo`, `fimVinculo`, `motivoDesvinculacao`) VALUES
 (43, '3', '112.289.390-63', '14200737', '308403', 'Média', 'Periodontia', 'Raspagem subgengival em todos os sextantes', 'Ativo', '2023-11-09', NULL, NULL),
 (45, '4', '112.289.390-63', '20103079', '308212', 'Média', 'Cirurgia', 'Exodontia do 38', 'Ativo', '2023-11-16', NULL, NULL),
-(46, '13', '790.588.720-09', '20202045', '308212', 'Média', 'Cirurgia', 'Descrição da demanda feita no teste', 'Ativo', '2023-11-16', NULL, NULL);
+(52, '5', '790.588.720-09', '14200737', '309155', 'Média', 'Prótese dentária', 'Coroa unitária no dente 24', 'Ativo', '2023-11-17', NULL, NULL),
+(53, '3', '555.666.777-88', '14200737', '309155', 'Média', 'Periodontia', 'Raspagem subgengival em todos os sextantes', 'Ativo', '2023-11-17', NULL, NULL);
 
 --
 -- Índices para tabelas despejadas
@@ -3023,7 +3024,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `vinculo_aluno_paciente`
 --
 ALTER TABLE `vinculo_aluno_paciente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 DELIMITER $$
 --

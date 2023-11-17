@@ -20,6 +20,16 @@
         <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
         <script src="../../../scripts/alertMessage.js"></script>
 
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            var okButton = document.getElementById('okButton');
+        
+            okButton.addEventListener('click', function() {
+              window.history.back(); // This line performs the action of going back to the previous page
+            });
+          });
+        </script>
+
         <!-- HIDDEN DIV FOR ALERT MESSAGE -->
         <div id="customAlert" class="modal">
             <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
@@ -60,7 +70,6 @@
       <div class="ui-widget-content ui-corner-all toolbar">
           <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
           <!-- <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button> -->
-          <button id="salvar" class="salvar" title="Salvar" onclick="vincular()" style="float: left;">Tramitar regulação</button>
           <button id="devolver" class="devolver" title="Devolver" onclick="devolver()" style="float: left;">Devolver pedido</button>
           <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
           <span style="clear: both; display: block"></span>
@@ -115,12 +124,20 @@
         <!-- 'id_turma' PARA ENVIO NA API -->
         <input type="hidden" id="id_turma" readonly="readonly"/>
 
-        <!-- 'id_demanda' PARA ENVIO NA API-->
-        <input type="text" id="id_demanda" readonly="readonly"/>
+
       </div>
 
       
           
+
+
+
+
+
+
+
+
+
 
 
 
@@ -152,77 +169,239 @@
             <br>
             <p></p>
 
-            <h1>TESTE DESVINCULAR</h1>
 
-            <!-- <br>
-            <p>Vínculos atuais do aluno:</p>
-            <p></p>
-            <table id="vinculadosTable" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 100%; font-size: 14px;margin-top: 15px;">
-              <thead>
-                  <tr class="ui-jqgrid-labels" role="rowheader">
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 3%;">Selec.</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 10%;">CPF</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 24%;">Paciente</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 24%;">Disciplina</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 14%;">Demanda</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 10%;">Área da Saúde</th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-helper-clearfix" style="width: 15%;">Status</th>
-                  </tr>
-              </thead>
-              <tr>
-                  <th class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox"></th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">0000000</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">João da Silva </th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Unidade de Prótese Dentária 2</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Prótese Dentária</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Odonto</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Em atendimento</th>
-              </tr>
-              <tr>
-                  <th class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox"></th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">111111111</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Maria da Luz</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Pronto Atendimento</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Urgência</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Odonto</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Em atendimento</th>
-              </tr>
-              <tr>
-                  <th class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox"></th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">88888888</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Pedro Costa</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Unidade de Clínica Odontologia 2</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Endodontia</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Odonto</th>
-                  <th class="ui-state-default ui-th-column ui-th-ltr">Em atendimento</th>
-              </tr>
-              
-              </table>
-              <p></p><br>
+            <div style="margin-left: 10px; margin-top: 30px; width: 90%;">
+              <table id="gridVinculados"></table>
+              <div id="gridVinculadosPager" style="margin-bottom: 5px;"></div>
+          </div>
           
-              <label>(Selecionar uma ou mais linhas na tabela para modificar o vínculo)</label>
-              <br>
+          <script src="/API/API.js"></script>
           
-              <label style="width: 185px; height: 30px; font-size: 12px;font-weight: bold;margin-top: 25px;margin-left: 5%;">Alterar status do paciente para:</label>
-              <select class="ui-state-default ui-corner-all" style="width: 255px; height: 30px; margin-left: 1px;margin-top: 25px;" name="novoStatus" id="novoStatus">
-                <option value="Escolher">Escolher</option>
-                <option value="emEspera">Em espera</option>
-                <option value="altaPaciente">Alta</option>
-                <option value="continuaTratamento">Continua em tratamento na especialidade</option>
-                <option value="abandonoPaciente">Abandono/Desistência</option>
-              </select>
+          <script>
+              var gridVinculadosId = 'gridVinculados';
+              var gridVinculadosPagerId = 'gridVinculadosPager';
+              var historicoHeaderColumns = ["ID", "Selec.", "Paciente", "CPF", "Disciplina", "Demanda", "Status"];
+              var historicoColumnNames = ["id", "selec", "paciente_nome", "cpf", "atividade", "Demanda", "status"];
+              var historicoColumnWidths = [0, 40, 150, 100, 100, 300, 100, 100, 100, 100];
+              var historicoRowHeight = 300; // Set the height of each row in pixels
+          
+                $(document).ready(function () {
+                    $('#' + gridVinculadosId).jqGrid({
+                      "sortname": historicoColumnNames[1],
+                    "autoload": false,
+                    "autowidth": false,
+                    "pager": "#" + gridVinculadosPagerId,
+                    "rowNum": 25,
+                    "toppager": false,
+                    "caption": "Lista de pacientes vinculados ao aluno",
+                    "height": "auto",
+                    "jsonReader": { "repeatitems": false, "id": 0 },
+                    "colNames": historicoHeaderColumns,
+                    "colModel": [
+                        { "sortable": true, "hidden": true, "name": historicoColumnNames[0], "index": historicoColumnNames[0], "width": historicoColumnWidths[0], "align": "right" },
+                        { "sortable": false, "name": historicoColumnNames[1], "index": historicoColumnNames[1], "width": historicoColumnWidths[1], "align": "center" },
+                        { "sortable": true, "name": historicoColumnNames[2], "index": historicoColumnNames[2], "width": historicoColumnWidths[2], "align": "center" },
+                        { "sortable": true, "name": historicoColumnNames[3], "index": historicoColumnNames[3], "width": historicoColumnWidths[3], "align": "center" },
+                        { "sortable": true, "name": historicoColumnNames[4], "index": historicoColumnNames[4], "width": historicoColumnWidths[4], "align": "center" },
+                        { "sortable": true, "name": historicoColumnNames[5], "index": historicoColumnNames[5], "width": historicoColumnWidths[5], "align": "center" },
+                        { "sortable": true, "name": historicoColumnNames[6], "index": historicoColumnNames[6], "width": historicoColumnWidths[6], "align": "center" }
+                    ],
+                    "rowHeight": historicoRowHeight
+                  });
+          
+                  $('#' + gridVinculadosId).setGridParam({ datatype: 'json' });
+                  $('#' + gridVinculadosId).setGridParam({ autoload: true });
+          
+                  function gridVinculadosResize() {
+                      // Calculate the total width of columns
+                      var totalWidth = historicoColumnWidths.reduce(function (acc, width) {
+                          return acc + width;
+                      }, 0);
+                      $('#' + gridVinculadosId).setGridWidth(totalWidth);
+                  }
+          
+                  $(window).bind('resize', gridVinculadosResize);
+                  $('#tabFiltroCurso').bind('tabsshow', gridVinculadosResize);
 
-              <button id="btnAlterarVinculo" onclick="alterarStatus()" value="AlterarVinculo" class="button" style="margin-left: 20px; padding: 4px;">Alterar vinculo</button>
-              
-              <p></p><br>
+                  //Call the API and populate the grid
+                  consultarVinculos();
+              });
+          
+              // Function to extract URL parameters by name
+              function getParameterByName(name, url) {
+                  if (!url) url = window.location.href;
+                  name = name.replace(/[\[\]]/g, "\\$&");
+                  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                      results = regex.exec(url);
+                  if (!results) return null;
+                  if (!results[2]) return '';
+                  return decodeURIComponent(results[2].replace(/\+/g, " "));
+              }
+          
+              var matricula = getParameterByName('Matricula');
+              var id_regulacao = getParameterByName('id_regulacao');
+          
+              var requestData = {
+                  Matricula: matricula,
+                  id_regulacao: id_regulacao
+              };
+          
+              function consultarVinculos() {
+              // Set the datatype before calling the API
+              $('#' + gridVinculadosId).jqGrid('setGridParam', { datatype: 'local' });
+
+              api.alunos.consultarVinculoAluno({ matricula: matricula }).then((data) => {
+                  
+                  if (data.length > 0) {
+                      const gridData = data.map((item) => ({
+                          id: item.vinculo.id,
+                          selec: `<input type="checkbox" data-id="${item.vinculo.id}">`,
+                          paciente_nome: item.pacientes && item.pacientes.length > 0 ? item.pacientes[0].Nome : '',
+                          cpf: item.vinculo.CPF_paciente,
+                          atividade: item.disciplinas && item.disciplinas.length > 0 ? item.disciplinas[0].atividade : '',
+                          Demanda: item.vinculo.Descrição,
+                          status: item.vinculo.StatusVinculo
+                      }));
+
+                      // Clear the grid data and set the new data
+                      $('#' + gridVinculadosId).jqGrid('clearGridData');
+                      $('#' + gridVinculadosId).jqGrid('setGridParam', { data: gridData }).trigger('reloadGrid');
+
+                      // Add the class 'ui-state-default' to all rows
+                      $('#' + gridVinculadosId + ' tr').addClass('ui-state-default');
+                  } else {
+                      showCustomAlert("Não foi possível encontrar pacientes vinculados ao aluno.");
+                  }
+              });
+          }
+          </script>
+
+          <p></p><br>
+          <label>(Selecionar uma ou mais linhas na tabela para modificar o vínculo)</label>
+          <br>
+          
+          <label style="width: 185px; height: 30px; font-size: 12px;font-weight: bold;margin-top: 25px;margin-left: 5%;">Alterar status do paciente para:</label>
+          <select class="ui-state-default ui-corner-all" style="width: 255px; height: 30px; margin-left: 1px;margin-top: 25px;" name="novoStatus" id="novoStatus">
+            <option value="Escolher">Escolher</option>
+            <option value="emEspera">Em espera</option>
+            <option value="altaPaciente">Alta</option>
+            <option value="continuaTratamento">Continua em tratamento na especialidade</option>
+            <option value="abandonoPaciente">Abandono/Desistência</option>
+          </select>
+
+          <button id="btnAlterarVinculo" onclick="desvincular()" value="AlterarVinculo" class="button" style="margin-left: 20px; padding: 4px;">Tramitar regulação</button>
+          
+          <p></p><br>
             
             </div>
-              <h2 style="color: red; margin-left: 25px;">DESVINCULA O ALUNO SELECIONADO DO PACIENTE/DISCIPLINA NO BANCO DE DADOS</h2><br>
-              <h2 style="color: red; margin-left: 25PX;">EM CASO DE 'continuaTratamento' O PACIENTE VOLTA PRA LISTA DE ESPERA DA MESMA ESPECIALIDADE COM MAIOR PRIORIDADE</h2><BR>
-            </div> -->
+            <h2 style="color: red; margin-left: 25px;">API:</h2><br>
+            <h2 style="color: red; margin-left: 25px;">1) DESVINCULAR O ALUNO SELECIONADO DO PACIENTE/DISCIPLINA NO BANCO DE DADOS</h2><br>
+            <h2 style="color: red; margin-left: 25px;">2) Atualiza o status da 'id_regulacao' para 'Tramitado'</h2><br>
+            <h2 style="color: red; margin-left: 25PX;">3) Atualiza status da demanda => EM CASO DE 'continuaTratamento' O PACIENTE VOLTA PRA LISTA DE ESPERA DA MESMA ESPECIALIDADE COM MAIOR PRIORIDADE</h2><BR>
+            </div>
+          <br>
+
+          <script>
+
+            
+          function desvincular() {
+              const novoStatus = document.getElementById("novoStatus").value;
+              const checkboxes = document.querySelectorAll("#gridVinculados input[type='checkbox']:checked");
+              
+              if (checkboxes.length === 0) {
+                  showCustomAlert("Por favor, selecione pelo menos uma linha para desvincular.");
+                  return;
+              }
+
+              const id_vinculos = [];
+              checkboxes.forEach((checkbox) => {
+                  const id = checkbox.getAttribute("data-id");
+                  if (id) {
+                      id_vinculos.push(id);
+                  }
+              });
+
+              if (id_vinculos.length === 0) {
+                  showCustomAlert("Não foi possível encontrar os IDs dos vínculos selecionados.");
+                  return;
+              }
+
+              const combinedData = {
+                  id_vinculos: id_vinculos,
+                  novoStatus: novoStatus
+              };
+
+              api.alunos.desvincularPaciente(combinedData).then((data) => {
+                  if (data.vinculoDesfeito === true) {
+                      showCustomAlert("Pacientes desvinculados com sucesso!");
+                      consultarVinculos(id_turma);
+                      // Assuming id_regulacao is defined somewhere in your code
+                      // homologarRegulacaoDesv(id_regulacao);
+                  } else {
+                      showCustomAlert("Alguns vínculos podem não existir.");
+                  }
+              });
+          }
+
+
+
+            // function homologarRegulacaoDesv(id_regulacao) {
+            //   api.encaminhamentos.homologarRegulacao({ id_regulacao })
+            //     .then((data) => {
+            //       console.log(data);
+            //     })
+            //     .catch((error) => {
+            //       console.error("Error homologarRegulacao:", error);
+            //     });
+            // }
+
+
+          </script>
+
+
+
           </div>
         </div>
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
+
+
+
+
+
+
 
 
 
@@ -233,6 +412,8 @@
               <li class="labeltabencaminhar"><a href="#encaminhar-0" accessKey="encaminhar-0">Vincular novo paciente:</a></li>
             </ul>
 
+            <br>
+            <p></p>
             <br>
             <p></p>
             
@@ -259,46 +440,66 @@
             <button style="margin-left: 15px;" id="clearButton">Limpar filtros</button>
             <br>
 
-            <div class="table-container">
-            <table id="tablePacientes" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 85%; font-size: 14px; margin: 20px;">
-              <thead>
-                <tr class="ui-jqgrid-labels" role="rowheader">
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">
-                    ID
-                  </th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">
-                    Selec.
-                  </th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 30%;">
-                    Paciente
-                  </th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 60%;">
-                    Demanda
-                  </th>
-                  </tr>
-                </thead>
-              </table>
-            </div>
+            <button id="salvar" class="salvar" title="Salvar" onclick="vincular()" style="margin: 15px;">Tramitar regulação</button>
+            <br>
+
+            <div class="table-container" style="margin: 20px;">
+              <table id="tablePacientes"></table>
+              <div id="pagerTablePacientes"></div>
+          </div>
+          
+          <script>
+              var gridIdPacientes = 'tablePacientes';
+              var headerColumnsPacientes = ["ID", "Selec.", "Paciente", "CPF", "Demanda"];
+              var columnNamesPacientes = ["id", "selec", "paciente_nome", "cpf", "Demanda"];
+              var columnWidthsPacientes = [0, 50, 150, 100, 300];
+              var rowHeightPacientes = 30;
+          
+              $(document).ready(function () {
+                  $('#' + gridIdPacientes).jqGrid({
+                      "datatype": "local",
+                      "colNames": headerColumnsPacientes,
+                      "colModel": [
+                          { "name": columnNamesPacientes[0], "index": columnNamesPacientes[0], "width": columnWidthsPacientes[0], "align": "center", "hidden": true },
+                          { "name": columnNamesPacientes[1], "index": columnNamesPacientes[1], "width": columnWidthsPacientes[1], "align": "center" },
+                          { "name": columnNamesPacientes[2], "index": columnNamesPacientes[2], "width": columnWidthsPacientes[2], "align": "left" },
+                          { "name": columnNamesPacientes[3], "index": columnNamesPacientes[3], "width": columnWidthsPacientes[3], "align": "left" },
+                          { "name": columnNamesPacientes[4], "index": columnNamesPacientes[4], "width": columnWidthsPacientes[4], "align": "left" }
+                      ],
+                      "rowNum": 10,
+                      "pager": '#pagerTablePacientes',
+                      "rowHeight": rowHeightPacientes,
+                      "gridview": true,
+                      "height": "auto",
+                      "caption": "Lista dos meus pacientes"
+                  });
+          
+                  function atualizarFiltroPacientes(tipoFiltro) {
+                      var gridData = []; // Data to be populated in the grid
+          
+                      // Assuming 'data' is an array of objects with properties similar to columnNames
+                      for (var i = 0; i < data.length; i++) {
+                          gridData.push({
+                              id: data[i].id,
+                              paciente_nome: data[i].paciente_nome,
+                              cpf: data[i].CPF, // Update this according to your data structure
+                              Demanda: data[i].Demanda
+                          });
+                      }
+          
+                      // Clear the grid data and set new data
+                      $('#' + gridId).jqGrid('clearGridData');
+                      $('#' + gridId).jqGrid('setGridParam', { data: gridData }).trigger('reloadGrid');
+                  }
+                });
+          </script>
+          
           </div>
       </div>
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script src="/API/API.js"></script>
+    
     
     <script>
       var complexidade = document.getElementById("complexidade").value;
@@ -334,26 +535,31 @@
             const newRow = tablePacientes.insertRow(-1);
             newRow.className = "ui-state-default ui-th-column ui-th-ltr";
 
-            const idDemandaCell = newRow.insertCell(0);
-            idDemandaCell.textContent = data[i].id_demanda;
-            idDemandaCell.className = "ui-state-default ui-th-column ui-th-ltr";
+            // Add a hidden cell for the first column
+            const hiddenCell = newRow.insertCell(0);
+            hiddenCell.style.display = "none"; // Hide the cell
+            hiddenCell.textContent = data[i].id; // Assuming 'id' is the data for the hidden column
 
             const radioCell = newRow.insertCell(1);
             radioCell.innerHTML = `<input type="radio" name="pacienteRadio" value='${JSON.stringify(data[i])}'>`;
             radioCell.className = "ui-state-default ui-th-column ui-th-ltr";
 
             const pacienteNomeCell = newRow.insertCell(2);
-            pacienteNomeCell.textContent = data[i].CPF;
+            pacienteNomeCell.textContent = data[i].Nome;
             pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-            
-            const demandaDescricaoCell = newRow.insertCell(3);
-            demandaDescricaoCell.textContent = data[i].Demanda;
-            demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";               
-          }
 
-      });
+            const pacienteCPFCell = newRow.insertCell(3);
+            pacienteCPFCell.textContent = data[i].CPF;
+            pacienteCPFCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+            const demandaDescricaoCell = newRow.insertCell(4);
+            demandaDescricaoCell.textContent = data[i].Demanda;
+            demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";
+            }
+          }
+        );
       }
-      
+
       function limparTabela() {
         var tabelaPacientes = document.getElementById("tablePacientes");
         var linhas = tabelaPacientes.getElementsByTagName("tr");
@@ -380,32 +586,12 @@
             
    
     <script>
-        // Function to extract URL parameters by name
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-    
-        // Get 'Matricula' and 'Turma' values from the URL
-        var matricula = getParameterByName('Matricula');
-        var id_regulacao = getParameterByName('id_regulacao');
-
-        // Create a request object with Matricula and Turma values
-        var requestData = {
-            Matricula: matricula,
-            id_regulacao: id_regulacao
-        };
+        
     
         function consultarAlunoRegulacao() {
           // Send a JSON request with the request object as the body
           api.encaminhamentos.consultarRegulacaoID(requestData).then(function (response) {
-              console.log(response);
-
+              
               // Check if response data is not empty
               if (response && response.length > 0) {
                   const regulacaoData = response[0]; // Assuming the JSON response contains only one object
@@ -466,59 +652,22 @@
     </script>
 
 
-    <!-- LISTA DE PACIENTES EM ESPERA / DEMANDAS REGISTRADAS -->
+    
     <script>
-      var complexidade = document.getElementById("complexidade").value;
-      // quando o valor do select mudar, atualiza a variável
-      document.getElementById("complexidade").addEventListener("change", function() {
-        atualizarComplexidade()
-      });
-      atualizarComplexidade()
-      function atualizarComplexidade() {
-        complexidade = document.getElementById("complexidade").value;
-        
-        api.encaminhamentos.consultarFiltro({complexidade}).then((data) => {
-          // data é um array de objetos com demanda e nome
-          // for para percorer o array e adicionar na tabela
-          for (let i = 0; i < data.length; i++) {
-            var tabelaPacientes = document.getElementById("tablePacientes");
-            const newRow = tablePacientes.insertRow(-1);
-            newRow.className = "ui-state-default ui-th-column ui-th-ltr";
-
-            const idDemandaCell = newRow.insertCell(0);
-            idDemandaCell.textContent = data[i].id_demanda;
-            idDemandaCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
-            const radioCell = newRow.insertCell(1);
-            radioCell.innerHTML = `<input type="radio" name="pacienteRadio" value='${JSON.stringify(data[i])}'>`;
-            radioCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
-            const pacienteNomeCell = newRow.insertCell(2);
-            pacienteNomeCell.textContent = data[i].CPF;
-            pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-            
-            const demandaDescricaoCell = newRow.insertCell(3);
-            demandaDescricaoCell.textContent = data[i].Demanda;
-            demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";                
-          }
-
-      });
-      }
-    </script>
-
-    <script>
-      
       // função vincular que pega o aluno e demanda selecionados e vincula
       function vincular() {
         const matriculaAluno = document.getElementById("matriculaAluno").value;
         const pacienteSelecionado = JSON.parse(document.querySelector("#tablePacientes input[type='radio']:checked").getAttribute("value"));
         const turma_id = document.getElementById("id_turma").value;
+        const id_regulacao = document.getElementById("id_regulacao").value;
+        
+        
 
         // Assuming you have alunoSelecionado stored somewhere in your code
         const alunoSelecionado = {
             matricula: matriculaAluno,
             turma_id: turma_id,
-            
+            id_regulacao: id_regulacao
         };
 
         const dadosCombinados = Object.assign({}, alunoSelecionado, pacienteSelecionado);
@@ -549,11 +698,6 @@
         }
 
       
-      function desvincular(id_vinculo) {
-        api.alunos.desvincularRegulacao({id_vinculo}).then((data) => {
-          console.log(data);
-        });
-      }
 
       function devolver() {
         api.encaminhamentos.devolverRegulacao({id_regulacao}).then((data) => {
@@ -563,4 +707,3 @@
     </script>
   </body>
 </html>
-

@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $Especialidade = $data['Especialidade'];
     $Descricao = $data['Demanda'];
     $inicioVinculo = date('Y-m-d');
+    $id_regulacao = $data['id_regulacao'];
 
     $existingVinculo = db("SELECT * FROM vinculo_aluno_paciente WHERE CPF_paciente = '$CPF_paciente' AND Matricula_aluno = '$Matricula_aluno'");
 
@@ -30,8 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             db($insertQuery);
 
             // Perform the SQL UPDATE operation
-            $updateQuery = "UPDATE `encaminhamentos` SET `Status`='Em atendimento' WHERE `id` = '$id_demanda'";
+            $updateQuery = "UPDATE `encaminhamentos` SET `Status`='Em atendimento', `tramitado` = 'Sim', `data_tramite` = CURRENT_DATE WHERE `id` = '$id_demanda';";
             db($updateQuery);
+
+            // Perform the SQL UPDATE2 operation
+            $updateQuery2 = "UPDATE `regulacaointerna` SET `status_regulacao`='Tramitado',`data_tramite`= CURRENT_DATE WHERE `id_regulacao` = '$id_regulacao'";
+            db($updateQuery2);
 
             $lastInsertedId = db("SELECT id FROM vinculo_aluno_paciente ORDER BY id DESC LIMIT 1");
             echo json_encode(array("vinculoCriado" => true, "message" => "Vínculo criado com sucesso", "id_vinculo" => $lastInsertedId[0]['id']));

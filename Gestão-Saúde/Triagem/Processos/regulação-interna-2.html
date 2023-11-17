@@ -255,7 +255,7 @@
                   if (data.length > 0) {
                       const gridData = data.map((item) => ({
                           id: item.vinculo.id,
-                          selec: `<input type="checkbox" data-id="${item.vinculo.id}">`,
+                          selec: `<input type="radio" name="vinculoRadio" data-id="${item.vinculo.id}">`,
                           paciente_nome: item.pacientes && item.pacientes.length > 0 ? item.pacientes[0].Nome : '',
                           cpf: item.vinculo.CPF_paciente,
                           atividade: item.disciplinas && item.disciplinas.length > 0 ? item.disciplinas[0].atividade : '',
@@ -283,128 +283,52 @@
           <label style="width: 185px; height: 30px; font-size: 12px;font-weight: bold;margin-top: 25px;margin-left: 5%;">Alterar status do paciente para:</label>
           <select class="ui-state-default ui-corner-all" style="width: 255px; height: 30px; margin-left: 1px;margin-top: 25px;" name="novoStatus" id="novoStatus">
             <option value="Escolher">Escolher</option>
-            <option value="emEspera">Em espera</option>
-            <option value="altaPaciente">Alta</option>
-            <option value="continuaTratamento">Continua em tratamento na especialidade</option>
-            <option value="abandonoPaciente">Abandono/Desistência</option>
+            <option value="Em espera">Em espera</option>
+            <option value="Alta">Alta</option>
+            <option value="Continua em tratamento na especialidade">Continua em tratamento na especialidade</option>
+            <option value="Abandono/Desistência">Abandono/Desistência</option>
           </select>
 
           <button id="btnAlterarVinculo" onclick="desvincular()" value="AlterarVinculo" class="button" style="margin-left: 20px; padding: 4px;">Tramitar regulação</button>
           
-          <p></p><br>
-            
-            </div>
-            <h2 style="color: red; margin-left: 25px;">API:</h2><br>
-            <h2 style="color: red; margin-left: 25px;">1) DESVINCULAR O ALUNO SELECIONADO DO PACIENTE/DISCIPLINA NO BANCO DE DADOS</h2><br>
-            <h2 style="color: red; margin-left: 25px;">2) Atualiza o status da 'id_regulacao' para 'Tramitado'</h2><br>
-            <h2 style="color: red; margin-left: 25PX;">3) Atualiza status da demanda => EM CASO DE 'continuaTratamento' O PACIENTE VOLTA PRA LISTA DE ESPERA DA MESMA ESPECIALIDADE COM MAIOR PRIORIDADE</h2><BR>
-            </div>
-          <br>
-
           <script>
+            function desvincular() {
+                const motivoDesvinculacao = document.getElementById("solicitacaoDescricao").value;
+                const novoStatus = document.getElementById("novoStatus").value;
+                const radioButtons = document.querySelectorAll("#gridVinculados input[type='radio']:checked");
 
-            
-          function desvincular() {
-              const novoStatus = document.getElementById("novoStatus").value;
-              const checkboxes = document.querySelectorAll("#gridVinculados input[type='checkbox']:checked");
-              
-              if (checkboxes.length === 0) {
-                  showCustomAlert("Por favor, selecione pelo menos uma linha para desvincular.");
-                  return;
-              }
+                if (radioButtons.length === 0) {
+                    showCustomAlert("Por favor, selecione uma linha para desvincular.");
+                    return;
+                }
 
-              const id_vinculos = [];
-              checkboxes.forEach((checkbox) => {
-                  const id = checkbox.getAttribute("data-id");
-                  if (id) {
-                      id_vinculos.push(id);
-                  }
-              });
+                const id_vinculo = radioButtons[0].getAttribute("data-id");
 
-              if (id_vinculos.length === 0) {
-                  showCustomAlert("Não foi possível encontrar os IDs dos vínculos selecionados.");
-                  return;
-              }
+                if (!id_vinculo) {
+                    showCustomAlert("Não foi possível encontrar o ID do vínculo selecionado.");
+                    return;
+                }
 
-              const combinedData = {
-                  id_vinculos: id_vinculos,
-                  novoStatus: novoStatus
-              };
+                const combinedData = {
+                    id_vinculo: id_vinculo,
+                    novoStatus: novoStatus,
+                    motivoDesvinculacao: motivoDesvinculacao
+                };
 
-              api.alunos.desvincularPaciente(combinedData).then((data) => {
-                  if (data.vinculoDesfeito === true) {
-                      showCustomAlert("Pacientes desvinculados com sucesso!");
-                      consultarVinculos(id_turma);
-                      // Assuming id_regulacao is defined somewhere in your code
-                      // homologarRegulacaoDesv(id_regulacao);
-                  } else {
-                      showCustomAlert("Alguns vínculos podem não existir.");
-                  }
-              });
-          }
-
-
-
-            // function homologarRegulacaoDesv(id_regulacao) {
-            //   api.encaminhamentos.homologarRegulacao({ id_regulacao })
-            //     .then((data) => {
-            //       console.log(data);
-            //     })
-            //     .catch((error) => {
-            //       console.error("Error homologarRegulacao:", error);
-            //     });
-            // }
-
+                api.alunos.desvincularRegulacao(combinedData).then((data) => {
+                    if (data.vinculoExcluido === true) {
+                        showCustomAlert("Paciente desvinculado com sucesso!");
+                        consultarVinculos(id_turma);
+                    } else {
+                        showCustomAlert("O vínculo pode não existir.");
+                    }
+                });
+            }
 
           </script>
-
-
-
           </div>
         </div>
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       
-
-
-
-
-
-
-
-
-
-
-
         <!-- DIV VÍNCULO NOVO-->
         <div id="vinculoNovoTab" class="tabs">
           <div id="encaminhar-0" class="ui-widget encaminhar encaminhar-0">
@@ -493,14 +417,10 @@
                   }
                 });
           </script>
-          
-          </div>
+        </div>
       </div>
     </div>
 
-
-    
-    
     <script>
       var complexidade = document.getElementById("complexidade").value;
       var especialidade = document.getElementById("especialidade").value;
@@ -584,38 +504,35 @@
 
     </script>
             
-   
     <script>
-        
-    
-        function consultarAlunoRegulacao() {
-          // Send a JSON request with the request object as the body
-          api.encaminhamentos.consultarRegulacaoID(requestData).then(function (response) {
-              
-              // Check if response data is not empty
-              if (response && response.length > 0) {
-                  const regulacaoData = response[0]; // Assuming the JSON response contains only one object
+      function consultarAlunoRegulacao() {
+        // Send a JSON request with the request object as the body
+        api.encaminhamentos.consultarRegulacaoID(requestData).then(function (response) {
+            
+            // Check if response data is not empty
+            if (response && response.length > 0) {
+                const regulacaoData = response[0]; // Assuming the JSON response contains only one object
 
-                  document.getElementById('id_regulacao').value = regulacaoData.id_regulacao;
-                  document.getElementById('id_turma').value = regulacaoData.id_turma;
-                  document.getElementById('matriculaAluno').value = regulacaoData.id_matricula;
-                  document.getElementById('nomeAluno').value = regulacaoData.nomeAluno;
-                  document.getElementById('cod_atividade').value = regulacaoData.disciplinas.cod_atividade;
-                  document.getElementById('atividade').value = regulacaoData.disciplinas.atividade;
-                  document.getElementById('cod_turma').value = regulacaoData.disciplinas.cod_turma;
-                  document.getElementById('solicitacaoDescricao').value = regulacaoData.solicitacaoDescricao;
-                  document.getElementById('tipoTramite').value = regulacaoData.tipo_regulacao;
-                  document.getElementById('solicitaçãoData').value = formatDate(regulacaoData.data_pedido); // DD/MM/YYYY
-                  document.getElementById('consultaPrevista').value = formatDate(regulacaoData.consultaPrevista); // DD/MM/YYYY
+                document.getElementById('id_regulacao').value = regulacaoData.id_regulacao;
+                document.getElementById('id_turma').value = regulacaoData.id_turma;
+                document.getElementById('matriculaAluno').value = regulacaoData.id_matricula;
+                document.getElementById('nomeAluno').value = regulacaoData.nomeAluno;
+                document.getElementById('cod_atividade').value = regulacaoData.disciplinas.cod_atividade;
+                document.getElementById('atividade').value = regulacaoData.disciplinas.atividade;
+                document.getElementById('cod_turma').value = regulacaoData.disciplinas.cod_turma;
+                document.getElementById('solicitacaoDescricao').value = regulacaoData.solicitacaoDescricao;
+                document.getElementById('tipoTramite').value = regulacaoData.tipo_regulacao;
+                document.getElementById('solicitaçãoData').value = formatDate(regulacaoData.data_pedido); // DD/MM/YYYY
+                document.getElementById('consultaPrevista').value = formatDate(regulacaoData.consultaPrevista); // DD/MM/YYYY
 
-                  // Call the function to hide/display the tabs after getting the tipoTramite value from the API response
-                  initializePage();
-              } else {
-                  showCustomAlert("Não foi possível encontrar a regulação interna com o ID informado.");
-              }
-          }).catch(function (error) {
-              console.error('Error fetching data:', error);
-          });
+                // Call the function to hide/display the tabs after getting the tipoTramite value from the API response
+                initializePage();
+            } else {
+                showCustomAlert("Não foi possível encontrar a regulação interna com o ID informado.");
+            }
+        }).catch(function (error) {
+            console.error('Error fetching data:', error);
+        });
       }
 
       function formatDate(dateString) {
@@ -650,7 +567,6 @@
         tipoTramiteInput.addEventListener('change', updateTabs);
       }
     </script>
-
 
     
     <script>
@@ -697,13 +613,26 @@
             });
         }
 
-      
-
       function devolver() {
-        api.encaminhamentos.devolverRegulacao({id_regulacao}).then((data) => {
-          console.log(data);
+        const id_regulacao = document.getElementById("id_regulacao").value;
+        const solicitacaoDescricao = document.getElementById("solicitacaoDescricao").value;
+        const statusPendencia = 'Devolvido ao usuário'
+
+        const combinedData = {
+            id_regulacao: id_regulacao,
+            solicitacaoDescricao: solicitacaoDescricao,
+            statusPendencia: statusPendencia
+        };
+
+        api.encaminhamentos.devolverRegulacao(combinedData).then((data) => {
+            if (data.updated === true) {
+                showCustomAlert("Dados atualizados com sucesso!");
+                // Perform any additional actions upon successful update
+            } else {
+                showCustomAlert("Erro ao atualizar os dados.");
+            }
         });
-      }
+    }
     </script>
   </body>
 </html>

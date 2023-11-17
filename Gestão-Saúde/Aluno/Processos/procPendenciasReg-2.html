@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regulação interna com pendências</title>
+    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+        var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+        var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+        var PATH_COOKIE = '/';
+        var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+        var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+    </script>
+    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+
+    <!--ALERT MESSAGES-->
+    <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+    <script src="../../../scripts/alertMessage.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var okButton = document.getElementById('okButton');
+    
+        okButton.addEventListener('click', function() {
+            window.history.back(); // This line performs the action of going back to the previous page
+        });
+        });
+    </script>
+
+    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+    <div id="customAlert" class="modal">
+        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+            <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+            </button>
+        </div>
+        <p></p>
+        <br>
+        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+            <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+            <p id="alertMessage"></p>
+        </div>
+        <p> </p><br>
+        <p> </p><br>
+        <p> </p><br>
+        <div><button id="okButton" class="centered-button">OK</button></div>
+        </div>
+    </div>
+</head>
+
+<body>
+    <div id="content-center" class="ui-layout-center ui-widget-content" style="background: none !important; overflow: hidden !important">
+        
+        <!-- CONTEÚDO SUPERIOR -->
+        <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
+                <li>Gestão Saúde</li>
+                <li>Aluno</li>    
+                <li>Processos</li>
+                <li>Regulação interna com pendência</li>
+            </ul>
+        </div>
+        <div style="clear: both;"></div>
+      
+        <!-- CONTEÚDO BOTÕES -->
+        <div class="ui-widget-content ui-corner-all toolbar">
+            <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+            <!-- <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button> -->
+            <button id="devolver" class="devolver" title="Devolver" onclick="devolver()" style="float: left;">Devolver pedido</button>
+            <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+            <span style="clear: both; display: block"></span>
+        </div>
+
+        <!-- INÍCIO DIVISÃO EM TABS-->
+        <div id="tab" class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+          <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all" role="tablist">
+            <li class="labeltab ui-state-default ui-tabs-active ui-state-active" role="tab" tabindex="0" aria-controls="tab-0" aria-labelledby="ui-id-2" aria-selected="true"><a href="#tab-0" accesskey="tab-0" class="ui-tabs-anchor" role="presentation" tabindex="-1" id="ui-id-2">Resolver pendências</a></li>
+            </ul>
+
+            <div style="margin-left: 20px;margin-top: 20px;">
+                <p></p><br>
+                
+                <label style="width: 50px;">Matrícula</label>
+                <input type="text" id="matriculaAluno" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 70px;" readonly="readonly"/>
+                <label style="width: 45px;margin-left: 20px;">Aluno</label>
+                <input type="text" id="nomeAluno" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;" readonly="readonly"/>
+                <p></p><br>
+                
+                <label style="width: 50px;">Cód.</label>
+                <input type="text" id="cod_atividade" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 70px;" readonly="readonly"/>
+                
+                <label style="width: 45px;margin-left: 20px;">Disciplina</label>
+                <input type="text" id="atividade" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 350px;" readonly="readonly"/>
+                
+                <label style="width: 35px;margin-left: 20px;">Turma</label>
+                <input type="text" id="cod_turma" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 35px;" readonly="readonly"/>
+                <br>
+
+                <label style="width: 120px;margin-top: 5px;">Tipo de tramitação:</label>
+                <input type="text" id="tipoTramite" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 120px; margin-top: 5px;" readonly="readonly"/>
+                <p></p><br>
+
+                <label style="width: 120px;margin-top: 5px;">Data da solicitação</label>
+                <input type="text" id="solicitaçãoData" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap" style=" width: 100px;;margin-top: 5px;" readonly>
+                <br>
+
+                <label style="width: 140px;margin-top: 5px;">Data prevista de consulta:</label>
+                <input type="text" id="consultaPrevista" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap" style=" width: 100px;;margin-top: 5px;" readonly>
+                <br>
+
+                <label style="width: 450px;margin-top: 5px;">Descrição da solicitação:</label><br>
+                <textarea style="width: 40%; height: 100px;margin-top: 5px;" id="solicitacaoDescricao" rows="10" maxlength="1000" class="ui-state-default ui-corner-all" placeholder="DESCREVER A SOLICITAÇÃO DE REGULAÇÃO INTERNA. EX: PACIENTE NOVO, DESVINCULAR PACIENTE POR DESISTÊNCIA OU JUSTIFICATIVA, ETC."></textarea>
+                <br>
+
+                <!-- ID_REGULAÇÃO APENAS PARA CONFERÊNCIA -->
+                <input type="hidden" id="id_regulacao" readonly="readonly"/>
+
+                <!-- 'id_turma' PARA ENVIO NA API -->
+                <input type="hidden" id="id_turma" readonly="readonly"/>
+            </div>
+        </div>
+    </div>
+</body>
+
+    <script src="/API/API.js"></script>
+
+    <script>
+        // Function to extract URL parameters by name
+        function getParameterByName(name, url) {
+                  if (!url) url = window.location.href;
+                  name = name.replace(/[\[\]]/g, "\\$&");
+                  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                      results = regex.exec(url);
+                  if (!results) return null;
+                  if (!results[2]) return '';
+                  return decodeURIComponent(results[2].replace(/\+/g, " "));
+              }
+          
+              var matricula = getParameterByName('Matricula');
+              var id_regulacao = getParameterByName('id_regulacao');
+          
+              var requestData = {
+                  Matricula: matricula,
+                  id_regulacao: id_regulacao
+              };
+          
+        function consultarAlunoRegulacao() {
+          // Send a JSON request with the request object as the body
+          api.encaminhamentos.consultarRegulacaoID(requestData).then(function (response) {
+              
+              // Check if response data is not empty
+              if (response && response.length > 0) {
+                  const regulacaoData = response[0]; // Assuming the JSON response contains only one object
+  
+                  document.getElementById('id_regulacao').value = regulacaoData.id_regulacao;
+                  document.getElementById('id_turma').value = regulacaoData.id_turma;
+                  document.getElementById('matriculaAluno').value = regulacaoData.id_matricula;
+                  document.getElementById('nomeAluno').value = regulacaoData.nomeAluno;
+                  document.getElementById('cod_atividade').value = regulacaoData.disciplinas.cod_atividade;
+                  document.getElementById('atividade').value = regulacaoData.disciplinas.atividade;
+                  document.getElementById('cod_turma').value = regulacaoData.disciplinas.cod_turma;
+                  document.getElementById('solicitacaoDescricao').value = regulacaoData.solicitacaoDescricao;
+                  document.getElementById('tipoTramite').value = regulacaoData.tipo_regulacao;
+                  document.getElementById('solicitaçãoData').value = formatDate(regulacaoData.data_pedido); // DD/MM/YYYY
+                  document.getElementById('consultaPrevista').value = formatDate(regulacaoData.consultaPrevista); // DD/MM/YYYY
+  
+                  // Call the function to hide/display the tabs after getting the tipoTramite value from the API response
+                  initializePage();
+              } else {
+                  showCustomAlert("Não foi possível encontrar a regulação interna com o ID informado.");
+              }
+          }).catch(function (error) {
+              console.error('Error fetching data:', error);
+          });
+        }
+  
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+            return formattedDate;
+        }
+  
+        consultarAlunoRegulacao();
+    </script>
+
+    <script>
+        function devolver() {
+            const id_regulacao = document.getElementById("id_regulacao").value;
+            const solicitacaoDescricao = document.getElementById("solicitacaoDescricao").value;
+            const statusPendencia = 'Solicitado'
+
+            const combinedData = {
+                id_regulacao: id_regulacao,
+                solicitacaoDescricao: solicitacaoDescricao,
+                statusPendencia: statusPendencia
+            };
+
+            api.encaminhamentos.devolverRegulacao(combinedData).then((data) => {
+                if (data.updated === true) {
+                    showCustomAlert("Dados atualizados com sucesso!");
+                    // Perform any additional actions upon successful update
+                } else {
+                    showCustomAlert("Erro ao atualizar os dados.");
+                }
+            });
+        }
+    </script>
+</html>

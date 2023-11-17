@@ -108,7 +108,7 @@ criar: async (data) => {
   return sendRequest(url, 'POST', data);
   },
 consultar: async (data) => {
-  const url = `${getApiUrl()}/cobalto/usuarios/consultar.php`;
+  const url = `${getApiUrl()}/cobalto/usuarios/consultarUsuarios.php`;
   return sendRequest(url, 'POST', data);
   },
 consultarResponsavel: async (data) => {
@@ -136,6 +136,10 @@ const alunos = {
   },
   consultarVinculos: async (data) => {
     const url = `${getApiUrl()}/alunos/vinculos.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  vinculosPorMatricula: async (data) => {
+    const url = `${getApiUrl()}/alunos/vinculosPorMatricula.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarMatriculaAluno: async (data) => {

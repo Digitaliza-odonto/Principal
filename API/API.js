@@ -56,6 +56,10 @@ const encaminhamentos = {
     const url = `${getApiUrl()}/encaminhamentos/consultarEncaminhamentoResp.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultarEncaminhamentosHomologados: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/consultarEncaminhamentosHomologados.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarEncaminhamentoID: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/consultarEncaminhamentoID.php`;
     return sendRequest(url, 'POST', data);
@@ -86,6 +90,14 @@ const encaminhamentos = {
   },
   consultarRegulacaoID: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/consultarRegulacaoID.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  pendenciasRegulacao: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/pendenciasRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  pendenciasRegulacaoUsuario: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/pendenciasRegulacaoUsuario.php`;
     return sendRequest(url, 'POST', data);
   },
   homologarRegulacao: async (data) => {
@@ -136,6 +148,10 @@ const alunos = {
   },
   consultarVinculos: async (data) => {
     const url = `${getApiUrl()}/alunos/vinculos.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  consultarVinculoAluno: async (data) => {
+    const url = `${getApiUrl()}/alunos/vinculosAluno.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarMatriculaAluno: async (data) => {

@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tramitar regulação interna</title>
+        <title>Regulação interna com pendência</title>
         <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
             var BASE_URL = 'https://cobalto.ufpel.edu.br/';
             var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
@@ -49,9 +49,9 @@
       <!-- CONTEÚDO SUPERIOR -->
       <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
             <li>Gestão Saúde</li>
-            <li>Triagem/Almoxarifado</li>    
+            <li>Aluno</li>    
             <li>Processos</li>
-            <li>Regulação interna</li>
+            <li>Regulação interna com pendência</li>
           </ul>
           
       <div style="clear: both;"></div></div><div style="clear: both;"></div>
@@ -84,8 +84,8 @@
               
     <script>
       var gridId = 'gridDisciplinas';
-      var headerColumns = ["ID", "Data solicitação", "Nome", "Matrícula", "Disciplina", "Tipo de pedido", "Status"];
-      var columnNames = ["id_regulacao", "data_pedido", "nomeAluno", "id_matricula", "atividadeDisciplina", "tipo_regulacao", "status_regulacao"];
+      var headerColumns = ["ID", "Data solicitação", "Nome", "Matrícula","Disciplina", "Tipo de pedido", "Status"];
+      var columnNames = ["id_regulacao", "data_pedido", "nome_aluno", "id_matricula", "atividade_disciplina", "tipo_regulacao", "status_regulacao"];
       var columnWidths = [0, 100, 100, 100, 100, 100, 100];
       var rowHeight = 30; // Set the height of each row in pixels
 
@@ -109,7 +109,6 @@
                 { "sortable": true, "name": columnNames[4], "index": columnNames[4], "width": columnWidths[4], "align": "center" },
                 { "sortable": true, "name": columnNames[5], "index": columnNames[5], "width": columnWidths[5], "align": "center" },
                 { "sortable": true, "name": columnNames[6], "index": columnNames[6], "width": columnWidths[6], "align": "center" }
-                
               ],
             "rowHeight": rowHeight
         });
@@ -149,21 +148,23 @@
                 const novaLinha = `
                     <tr id="${item.id_regulacao}">
                         <td style="display: none;">${item.id_regulacao}</td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${formatDate(item.data_pedido)}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.aluno_nome}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.id_matricula}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.atividade}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.tipo_regulacao}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="regulação-interna-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.status_regulacao}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="procPendenciasReg-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${formatDate(item.data_pedido)}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="procPendenciasReg-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.nome_aluno}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="procPendenciasReg-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.id_matricula}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="procPendenciasReg-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.atividade_disciplina}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="procPendenciasReg-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.tipo_regulacao}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="procPendenciasReg-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.status_regulacao}</a></td>
                     </tr>
                 `;
                 tbody.append(novaLinha);
             });
         }
 
+        const aluno = JSON.parse(localStorage.getItem('usuario'));
+
         function loadRegulacao() {
             // Call the API and populate the grid
-            api.encaminhamentos.consultarRegulacao().then(function (data) {
+            api.encaminhamentos.pendenciasRegulacaoUsuario({ Matricula: aluno.Matricula }).then(function (data) {
                 console.log(data);
                 adicionarNovaLinha(data);
             }).catch(function (error) {

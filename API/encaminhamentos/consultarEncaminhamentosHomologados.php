@@ -9,7 +9,7 @@ require_once '../db.php';   // Importa o arquivo de conexão com o banco de dado
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
-    $query = "SELECT * FROM `encaminhamentos` WHERE `Status` = 'Aguardando homologação da alta' OR `Status` = 'Aguardando homologação do encaminhamento'";
+    $query = "SELECT * FROM `encaminhamentos` WHERE `homologado` = 'Sim' AND `tramitado`IS NULL";
 
     $result = db($query);
 
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $row['nomeAluno'] = count($resultAlunos) > 0 ? $resultAlunos[0]['nome'] : 'Aluno não encontrado';
             $row['atividadeDisciplina'] = count($resultDisciplinas) > 0 ? $resultDisciplinas[0]['atividade'] : 'Atividade não encontrada';
 
-            $finalResult[] = $row;
+            $finalResult[] = $row;  
         }
         echo json_encode($finalResult);
     }

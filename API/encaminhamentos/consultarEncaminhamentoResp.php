@@ -11,8 +11,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $id = $data['id'];  // Use lowercase 'id' to match the JSON key
 
-    $query = "SELECT * FROM `encaminhamentos` WHERE `responsavelEncaminhamento` = '$id' AND `homologado` != 'Sim'";
-    
+    $query = "SELECT * FROM `encaminhamentos` WHERE `responsavelEncaminhamento` = '$id' AND `homologado` IS NULL";
+
     $result = db($query);
 
     if (count($result) === 0) {

@@ -100,12 +100,24 @@ const encaminhamentos = {
     const url = `${getApiUrl()}/encaminhamentos/pendenciasRegulacaoUsuario.php`;
     return sendRequest(url, 'POST', data);
   },
+  pendenciasEncaminhamentoUsuario: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/pendenciasEncaminhamentoUsuario.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  pendenciasEncaminhamento: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/pendenciasEncaminhamento.php`;
+    return sendRequest(url, 'POST', data);
+  },
   homologarRegulacao: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/homologarRegulacao.php`;
     return sendRequest(url, 'POST', data);
   },
   devolverRegulacao: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/devolverRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  devolverEncaminhamento: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/devolverEncaminhamento.php`;
     return sendRequest(url, 'POST', data);
   },
 };
@@ -146,12 +158,20 @@ const alunos = {
     const url = `${getApiUrl()}/alunos/desvincularRegulacao.php`;
     return sendRequest(url, 'POST', data);
   },
+  desvincularEncaminhamento: async (data) => {
+    const url = `${getApiUrl()}/alunos/desvincularEncaminhamento.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarVinculos: async (data) => {
     const url = `${getApiUrl()}/alunos/vinculos.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarVinculoAluno: async (data) => {
     const url = `${getApiUrl()}/alunos/vinculosAluno.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  vinculoPorDemanda: async (data) => {
+    const url = `${getApiUrl()}/alunos/vinculoPorDemanda.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarMatriculaAluno: async (data) => {

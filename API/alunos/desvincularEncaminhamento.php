@@ -14,10 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $motivoDesvinculacao = $data['motivoDesvinculacao'];
     $fimVinculo = date('Y-m-d');
 
+    // DADOS PARA CRIAR NOVA DEMANDA
+    $CPF = $data['CPF'];
+    $Especialidade = $data['Especialidade'];
+    $Complexidade = $data['Complexidade'];
+    $Demanda = $data['encaminhamentoDemanda'];
+
     $existingVinculo = db("SELECT * FROM vinculo_aluno_paciente WHERE id = '$id_vinculo'");
 
     if (count($existingVinculo) > 0) {
-        // Assuming 'id_demanda' is returned from the first query
         $id_demanda = $existingVinculo[0]['id_demanda'];
 
         $updateQuery = "UPDATE `vinculo_aluno_paciente` SET StatusVinculo='Inativo', `fimVinculo`='$fimVinculo', `motivoDesvinculacao`='$motivoDesvinculacao' WHERE id = '$id_vinculo'";
@@ -26,18 +31,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             db($updateQuery);
             echo json_encode(array("vinculoExcluido" => true, "message" => "Vínculo marcado como inativo com sucesso para o ID: $id_vinculo e a demanda ID: $id_demanda"));
 
-            // Perform the additional queries using 'id_demanda'
-            $updateRegulacaoQuery = "UPDATE regulacaointerna SET status_regulacao='Tramitado', data_tramite='$fimVinculo' WHERE id_regulacao = '$id_demanda'";
-            $updateEncaminhamentosQuery = "UPDATE `encaminhamentos` SET `Status`='$novoStatus',`data_tramite`='$fimVinculo' WHERE id = '$id_demanda'";
+            if ($novoStatus === 'Em espera') {
+                $updateEncaminhamentosQuery = "UPDATE `encaminhamentos` SET `Status`='Encaminhado', `tramitado`='Sim',`data_tramite`='$fimVinculo' WHERE `id` = '$id_demanda'";
 
-            // Execute the additional queries
-            try {
-                db($updateRegulacaoQuery);
-                db($updateEncaminhamentosQuery);
-            } catch (PDOException $e) {
-                echo json_encode(array("message" => "Erro ao executar as consultas adicionais para o ID: $id_demanda - " . $e->getMessage()));
+                try {
+                    db($updateEncaminhamentosQuery);
+
+                    // Insert new demanda
+                    $insertNewDemanda = "INSERT INTO `encaminhamentos`(`CPF`, `Data`, `Especialidade`, `Complexidade`, `Demanda`, `Status`) VALUES ('$CPF', '$fimVinculo', '$Especialidade', '$Complexidade', '$Demanda', '$novoStatus')";
+
+                    db($insertNewDemanda);
+                } catch (PDOException $e) {
+                    echo json_encode(array("message" => "Erro ao executar as consultas adicionais para o ID: $id_demanda - " . $e->getMessage()));
+                }
+            } else {
+                $updateEncaminhamentosQuery = "UPDATE `encaminhamentos` SET `Status`='$novoStatus',`tramitado`='Sim', `data_tramite`='$fimVinculo' WHERE id = '$id_demanda'";
+                  
+
+                try {
+                    db($updateEncaminhamentosQuery);
+                } catch (PDOException $e) {
+                    echo json_encode(array("message" => "Erro ao executar as consultas adicionais para o ID: $id_demanda - " . $e->getMessage()));
+                }
             }
-
         } catch (PDOException $e) {
             echo json_encode(array("message" => "Erro ao marcar vínculo como inativo para o ID: $id_vinculo - " . $e->getMessage()));
         }
@@ -47,5 +63,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo json_encode(array("message" => "Método inválido"));
 }
-
 ?>

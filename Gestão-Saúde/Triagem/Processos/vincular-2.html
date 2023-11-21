@@ -102,13 +102,13 @@
             <table id="tableAlunos" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 85%; font-size: 14px; margin: 20px;">
               <thead>
                 <tr class="ui-jqgrid-labels" role="rowheader">
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">
+                  <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 10%;">
                       Selec.
                   </th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 35%;">
+                  <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 25%;">
                       Matrícula
                   </th>
-                  <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 55%;">
+                  <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 65%;">
                       Aluno
                   </th>
                 </tr>
@@ -192,13 +192,16 @@
           <table id="tablePacientes" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 85%; font-size: 14px; margin: 20px;">
             <thead>
               <tr class="ui-jqgrid-labels" role="rowheader">
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">
+                <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 10%;">
                   Selec.
                 </th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 30%;">
+                <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 30%;">
                   Paciente
                 </th>
-                <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 60%;">
+                <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 20%;">
+                  CPF
+                </th>
+                <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 50%;">
                   Demanda
                 </th>
                 </tr>
@@ -249,10 +252,14 @@
             radioCell.className = "ui-state-default ui-th-column ui-th-ltr";
 
             const pacienteNomeCell = newRow.insertCell(1);
-            pacienteNomeCell.textContent = data[i].CPF;
+            pacienteNomeCell.textContent = data[i].Nome;
             pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
+
+            const pacienteCPFCell = newRow.insertCell(2);
+            pacienteCPFCell.textContent = data[i].CPF;
+            pacienteCPFCell.className = "ui-state-default ui-th-column ui-th-ltr";
             
-            const demandaDescricaoCell = newRow.insertCell(2);
+            const demandaDescricaoCell = newRow.insertCell(3);
             demandaDescricaoCell.textContent = data[i].Demanda;
             demandaDescricaoCell.className = "ui-state-default ui-th-column ui-th-ltr";                
           }
@@ -302,14 +309,14 @@
       <table id="selectedTable" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 95%; font-size: 14px; margin: 15px;">
       <thead>
         <tr class="ui-jqgrid-labels" role="rowheader">
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">Desvincular</th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 20%;">Aluno (matrícula)</th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 20%;">Paciente</th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">Área da Saúde</th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 10%;">Especialidade</th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 20%;">Descrição da demanda</th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">Complexidade</th>
-        <th class="ui-jqgrid-titlebar ui-widget-header ui-corner-top ui-helper-clearfix" style="width: 5%;">Data da demanda</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 5%;">Desvincular</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 20%;">Aluno</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 20%;">Matrícula</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 20%;">Paciente</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 10%;">Especialidade</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 20%;">Descrição da demanda</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 5%;">Complexidade</th>
+        <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 5%;">Data da demanda</th>
         </tr>
       </thead>
       </table>
@@ -374,17 +381,17 @@
         checkBoxCell.appendChild(button);
 
         const alunoMatriculaCell = newRow.insertCell(1);
-        alunoMatriculaCell.textContent = data.Matricula_aluno;
+        alunoMatriculaCell.textContent = data.nome_aluno;
         alunoMatriculaCell.className = "ui-state-default ui-th-column ui-th-ltr";
+        
+        const alunoNomeCell = newRow.insertCell(2);
+        alunoNomeCell.textContent = data.Matricula_aluno;
+        alunoNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
 
-        const pacienteNomeCell = newRow.insertCell(2);
+        const pacienteNomeCell = newRow.insertCell(3);
         pacienteNomeCell.textContent = data.CPF_paciente;
         pacienteNomeCell.className = "ui-state-default ui-th-column ui-th-ltr";
                         
-        const areaSaúdeCell = newRow.insertCell(3);
-       // areaSaúdeCell.textContent = dadosCombinados.Curso;
-        areaSaúdeCell.className = "ui-state-default ui-th-column ui-th-ltr";
-
         const especAreaSaúdeCell = newRow.insertCell(4);
         especAreaSaúdeCell.textContent = data.Especialidade;
         especAreaSaúdeCell.className = "ui-state-default ui-th-column ui-th-ltr";

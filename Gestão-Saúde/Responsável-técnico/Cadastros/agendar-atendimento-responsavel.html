@@ -20,6 +20,17 @@
     <!--ALERT MESSAGES-->
     <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
     <script src="../../../scripts/alertMessage.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var okButton = document.getElementById('okButton');
+      
+          okButton.addEventListener('click', function() {
+            window.location.reload(); // This line reloads the current page
+          });
+        });
+      </script>
+
   
     <!-- HIDDEN DIV FOR ALERT MESSAGE -->
     <div id="customAlert" class="modal">
@@ -90,7 +101,15 @@
                     
                     <!-- Add hidden fields for 'id_agendamento' and 'agendado_por' -->
                     <input type="hidden" id="id_agendamento" name="id_agendamento" value="" />
-                    <input type="hidden" id="agendado_por" name="agendado_por" value="agendado-por-value-from-url-here" />
+                    <input type="hidden" id="agendado_por" name="agendado_por"/>
+
+                    <script>
+                        // Get the current user's name and set the value of the 'agendado_por' field
+                        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                        const agendadoPorField = document.getElementById('agendado_por');
+                        agendadoPorField.value = currentUser.nome;
+                        
+                    </script>
 
                     <label style="width: 200px; margin: 5px;">Paciente</label>
                     <input type="text" id="pacienteAgendamento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style=" width: 50%;" placeholder="Selecione algum paciente" readonly>
@@ -203,7 +222,7 @@
                     <div style="margin: 20px; margin-left: 10%;">
                         <button type="submit" id="btnAdicionar" onclick="agendarAtendimento()" class="button">Cadastrar agendamento</button>
                         <button name="deleteButton" id="deleteButton" onclick="deleteAgendamento()" value="deleteButton" class="button">Excluir agendamento</button>
-                        <button name="btnCancelar" onClick="limparCampos()" id="btnCancelar" value="Cancelar" class="button">Apagar campos</button>
+                        <!-- <button name="btnCancelar" onClick="limparCampos()" id="btnCancelar" value="Cancelar" class="button">Apagar campos</button> -->
                     </div>
                 </form>
                 <br>
@@ -674,13 +693,34 @@
                 return; // Stop execution if any required field is empty
             }
 
-            // Extract 'agendado_por' value from the logged-in user's Matricula
-            const aluno = JSON.parse(localStorage.getItem('usuario'));
-            const agendadoPor = aluno.Matricula;
+            // Get the value of 'local'
+            const localValue = $('#local').val();
 
-            // Set 'agendado_por' value in the hidden field
-            $('#agendado_por').val(agendadoPor);
+            // Check if 'local' is 'Escolher'
+            if (localValue === 'Escolher') {
+                showCustomAlert('Por favor, selecione um local válido.');
+                return; // Stop execution if 'local' is 'Escolher'
+            }
 
+            // Get the value of 'data_agendamento'
+            const dataAgendamentoValue = $('#data_agendamento').val();
+
+            // Split 'data_agendamento' to extract day, month, and year
+            const [day, month, year] = dataAgendamentoValue.split('/');
+            
+            // Create a new Date object in 'YYYY-MM-DD' format
+            const dataAgendamento = new Date(`${year}-${month}-${day}`);
+
+            // Get the current date
+            const currentDate = new Date();
+
+            // Compare 'data_agendamento' with the current date
+            if (dataAgendamento < currentDate) {
+                showCustomAlert('Não é permitido agendamento em datas anteriores ao dia atual.');
+                return; // Stop execution if 'data_agendamento' is lower than the current date
+            }
+
+            // Create the request data as an object
             var formData = {
                 cpf_paciente: $('#cpf_paciente').val(),
                 descricao: $('#descricao').val(),
@@ -689,60 +729,53 @@
                 minuto_agendamento: $('#horario_agendamento_2').val(),
                 local: $('#local').val(),
                 atividade_curricular: $('#atividade_curricular').val(),
-                agendado_por: agendadoPor
+                agendado_por: $('#agendado_por').val()
             };
 
-            // Perform an API request
+            // Perform an API request if 'data_agendamento' is valid
             api.agenda.criar(formData)
                 .then(function(response) {
                     // Check if the response contains a `message` property
                     const message = response.message || 'Agendamento realizado com sucesso.';
                     console.log(message);
                     showCustomAlert(message);
-                    limparCampos();
                 })
                 .catch(function(error) {
                     // Extract error message from the response or use a default error message
                     const errorMessage = error.message || 'Erro ao processar a solicitação.';
                     console.error(error);
                 });
-
-            loadTableData(matricula);
         }
-
                 
         // Delete agendamento
-        function deleteAgendamento () {
+        function deleteAgendamento() {
             const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
-                // Get the value (ID) from the second column of the table in the same row
-                return $(this).closest('tr').find('td:eq(1)').text();
+                // Get the value (ID) from the checkbox
+                return $(this).val(); // Assuming the value attribute holds the ID
             }).get();
-    
+
             if (selectedIds.length === 0) {
                 showCustomAlert("Por favor, selecione ao menos um agendamento para excluir.");
                 return;
             }
-    
+
             // Create the request data as an object
             const requestData = { selectedId: selectedIds };
-    
+
             // Log the requestData for debugging
             console.log("Request Data:", requestData);
-    
-            //Perform an API request for deletion
-            api.agenda.deletar(requestData).then(function(response) {
-                const message = response.message || 'Agendamento excluído com sucesso.';
-                showCustomAlert(message);
-                
-                limparCampos();
-            
-            }).catch(function(error) {
-                // Extract error message from the response or use a default error message
-                const errorMessage = error.message || 'Erro ao processar a solicitação de exclusão.';
-                console.error(error);
-            });
-            
-            loadTableData(matricula);
+
+            // Perform an API request for deletion
+            api.agenda.deletar(requestData)
+                .then(function (response) {
+                    const message = response.message || 'Agendamento excluído com sucesso.';
+                    showCustomAlert(message);
+                })
+                .catch(function (error) {
+                    // Extract error message from the response or use a default error message
+                    const errorMessage = error.message || 'Erro ao processar a solicitação de exclusão.';
+                    console.error(error);
+                });
         }
     </script>
   </body>

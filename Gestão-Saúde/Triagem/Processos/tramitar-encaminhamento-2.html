@@ -324,6 +324,12 @@
           const statusWords = document.getElementById("tipoTramite").value.split(' ');
           const firstWord = statusWords[0];
 
+           // Check if novoStatus is equal to "Escolher"
+          if (novoStatus === "Escolher") {
+              showCustomAlert("Por favor, escolha um status antes de prosseguir com a desvinculação.");
+              return;
+          }
+
           if (radioButtons.length === 0) {
               showCustomAlert("Por favor, selecione uma linha para desvincular.");
               return;

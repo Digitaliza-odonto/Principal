@@ -132,7 +132,7 @@ criar: async (data) => {
   return sendRequest(url, 'POST', data);
   },
 consultar: async (data) => {
-  const url = `${getApiUrl()}/cobalto/usuarios/consultar.php`;
+  const url = `${getApiUrl()}/cobalto/usuarios/consultarUsuarios.php`;
   return sendRequest(url, 'POST', data);
   },
 consultarResponsavel: async (data) => {
@@ -268,6 +268,14 @@ const disciplinas = {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultar.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultarProjetos: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultarProjetos.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  criarAtualizarProjeto: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/criarAtualizarProjeto.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarDisciplinasProjetos: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultarDisciplinasProjetos.php`;
     return sendRequest(url, 'POST', data);
@@ -324,6 +332,10 @@ const agenda = {
   },
   deletar: async (data) => {
     const url = `${getApiUrl()}/agenda/deleteAgendamento.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  deleteAgendamentoAluno: async (data) => {
+    const url = `${getApiUrl()}/agenda/deleteAgendamentoAluno.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarGeral: async (data) => {

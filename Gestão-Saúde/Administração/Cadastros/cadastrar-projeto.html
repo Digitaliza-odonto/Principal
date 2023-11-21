@@ -1,0 +1,301 @@
+a
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Cadastrar projetos/atividades clínicas</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+      var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+      var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+      var PATH_COOKIE = '/';
+      var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+      var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+      </script>
+      <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+      <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+      <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
+      <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
+
+  <!--ALERT MESSAGES-->
+  <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
+  <script src="../../../scripts/alertMessage.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var okButton = document.getElementById('okButton');
+  
+      okButton.addEventListener('click', function() {
+        window.location.reload(); // This line reloads the current page
+      });
+    });
+  </script>
+
+    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+    <div id="customAlert" class="modal">
+        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
+        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+            <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
+            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
+            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
+            </button>
+        </div>
+        <p></p>
+        <br>
+        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
+            <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
+            <p id="alertMessage"></p>
+        </div>
+        <p> </p><br>
+        <p> </p><br>
+        <p> </p><br>
+        <div><button id="okButton" class="centered-button">OK</button></div>
+        </div>
+    </div>
+    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
+  <!--ALERT MESSAGES-->
+  </head>
+ 
+  <!-- Include API.js -->
+  <script src="/API/API.js"></script>
+
+  <!-- Your submitForm function -->
+  <script>
+    function submitForm() {
+      // Serialize the form data as JSON
+      var formData = {
+        id_projeto: $('#id_projeto').val(),
+        cod_atividade: $('#cod_atividade').val(),
+        atividade: $('#atividade').val(),
+        tipoProjeto: $('#tipoProjeto').val(),
+        statusProjeto: $('#statusProjeto').val()
+      };
+  
+      // Perform API request
+      api.disciplinas.criarAtualizarProjeto(formData)
+        .then(function(response) {
+          if (response.message) {
+            console.log(response.message);
+            showCustomAlert(response.message);
+            limparCampos();
+          } else {
+            console.log(response);
+          }
+        })
+        .catch(function(error) {
+          // Handle errors if needed
+          showCustomAlert(error);
+        });
+    }
+
+    function limparCampos() {
+      // Get references to the input elements by their IDs
+      var cod_atividadeInput = document.getElementById("cod_atividade");
+      var atividadeInput = document.getElementById("atividade");
+      var tipoProjetoSelect = document.getElementById("tipoProjeto");
+      var statusProjetoSelect = document.getElementById("statusProjeto");      
+
+      // Check if the elements are found in the DOM
+      if (cod_atividadeInput && atividadeInput && tipoProjetoSelect) {
+        // Clear the input values and reset the select to its default option
+        cod_atividadeInput.value = "";
+        atividadeInput.value = "";
+        tipoProjetoSelect.value = "Escolher"; // Assuming "Escolher" is the default option value
+        statusProjetoSelect.value = "Ativo"; // Assuming "Ativo" is the default option value
+      } else {
+        console.error("One or more elements not found in the DOM.");
+      }
+    }
+  </script>
+
+  <body>
+    <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+    <div id="content-center" class="ui-layout-center ui-widget-content"
+        style="background: none !important; overflow: hidden !important">
+        
+        <div class="breadCrumb module">
+            <ul>
+              <li>Administração</li>    
+              <li>Cadastros</li>
+              <li>Cadastrar projetos/atividades clínicas</li>
+            </ul>
+            <div style="clear: both;"></div></div><div style="clear: both;"></div>
+            
+            <div class="ui-widget-content ui-corner-all toolbar">
+            <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+            <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
+            <span style="clear: both; display: block"></span>
+            </div>
+         
+      <div style="clear: both;"></div></div><div style="clear: both;"></div>
+  
+    <!-- CONTEÚDO TAB E BOTÕES DA FUNCIONALIDADE -->
+    <div id="listaProjetos" class="tabs" style="height: auto;">
+      <div id="listaProjetos-0" class="ui-widget listaProjetos-0">
+        <ul>
+          <li class="listaProjetos"><a href="#listaProjetos-0" accessKey="listaProjetos-0">Lista de projetos/atividades clínicas</a></li>
+        </ul>
+      </div>
+        
+      <form method="post" id="susForm">
+                      
+        <div style="margin: 10px;">
+          <button type="submit" id="btnAdicionar" onclick="submitForm()" class="button">Adicionar/Atualizar</button>
+          <button name="btnCancelar" id="btnCancelar" onclick="limparCampos()" class="button">Cancelar</button>
+
+        </div>
+
+        <div>
+        <p></p>
+        <br>
+
+        <input type="hidden" name="id_projeto" id="id_projeto" value="">
+
+        <label style="width: 120px; margin: 5px;">Cód. COCEPE</label>
+        <input type="text" name="cod_atividade" id="cod_atividade" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;" placeholder="Digitar o código">
+        <br>
+
+        <label style="width: 120px; margin: 5px;">Projeto/Atividade</label>
+        <input type="text" name="atividade" id="atividade" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;" placeholder="Inserir nome do material" required>
+        <br>
+
+        <label style="width: 120px; margin: 5px;">Tipo de projeto/atividade</label>
+        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="tipoProjeto" id="tipoProjeto">
+          <option id="Escolher" value="Escolher">Escolher</option>
+          <option id="Ensino" value="Ensino">Ensino</option>
+          <option id="Pesquisa" value="Pesquisa">Pesquisa</option>
+          <option id="Extensão" value="Extensão">Extensão</option>
+        </select>
+        <br>
+
+        <label style="width: 120px; margin: 5px;">Tipo de projeto/atividade</label>
+        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="statusProjeto" id="statusProjeto">
+          <option id="Ativo" value="Ativo">Ativo</option>
+          <option id="Inativo" value="Inativo">Inativo</option>
+        </select>
+        <br>
+      </form>
+    
+      <hr class="ui-state-default">
+      
+      <table id="listaProjetos" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 50%; font-size: 14px; margin: 50px;">
+          <thead>
+            <tr class="ui-jqgrid-labels" role="rowheader">
+              <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 10%;">Selec.</th>
+              <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 10%;">Cód.</th>
+              <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 50%;">Descrição</th>
+              <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 15%;">Tipo</th>
+              <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 15%;">Status</th>
+            </tr>
+          </thead>
+          <tbody id="table-body">
+              <!-- Table body rows will be populated here -->
+          </tbody>
+            <tr>
+            <td colspan="6" style="text-align: center;">
+              <div id="pagination" class="ui-state-default">
+                  <button id="prev-page">Previous</button>
+                  <span id="page-info">Pág. 1</span>
+                  <button id="next-page">Next</button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      
+      <script>
+        // DADOS DO BANCO PREENCHEM DA TABELA
+        $(document).ready(function () {
+            var currentPage = 1;
+            var rowsPerPage = 30;
+            var totalRows = 0;
+            var tableRows = [];
+    
+            function loadTableData() {
+                api.disciplinas.consultarProjetos().then(function(data) {
+                    totalRows = data.length;
+                    tableRows = data;
+                    showPage(currentPage);
+                    updateButtons();
+                }).catch(function(error) {
+                    console.log('Error fetching data');
+                });
+            }
+    
+            function showPage(page) {
+                var startIndex = (page - 1) * rowsPerPage;
+                var endIndex = Math.min(startIndex + rowsPerPage, totalRows);
+                var tableBody = $('#table-body');
+    
+                tableBody.empty(); // Clear the table body
+    
+                for (var i = startIndex; i < endIndex; i++) {
+                    var item = tableRows[i];
+                    var row = '<tr>';
+                    row += '<td class="ui-state-default ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="' + item.id_projeto + '"></td>';
+                    row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.cod_atividade + '</td>';
+                    row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.atividade + '</td>';
+                    row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.tipoProjeto + '</td>';
+                    row += '<td class="ui-state-default ui-th-column ui-th-ltr">' + item.statusProjeto + '</td>';
+                    row += '</tr>';
+                    tableBody.append(row);
+                }
+    
+                $('#page-info').text('Pág. ' + page);
+            }
+    
+            function updateButtons() {
+                if (currentPage === 1) {
+                    $('#prev-page').prop('disabled', true);
+                } else {
+                    $('#prev-page').prop('disabled', false);
+                }
+    
+                if (currentPage * rowsPerPage >= totalRows) {
+                    $('#next-page').prop('disabled', true);
+                } else {
+                    $('#next-page').prop('disabled', false);
+                }
+            }
+    
+            // Initial load of table data
+            loadTableData();
+    
+            // Previous page button click event
+            $('#prev-page').click(function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    showPage(currentPage);
+                    updateButtons();
+                }
+            });
+    
+            // Next page button click event
+            $('#next-page').click(function () {
+                if (currentPage * rowsPerPage < totalRows) {
+                    currentPage++;
+                    showPage(currentPage);
+                    updateButtons();
+                }
+            });
+
+            // Event listener for table rows using event delegation
+                $('#table-body').on('click', 'tr', function() {
+                    var rowIndex = $(this).index();
+                    var selectedRow = tableRows[(currentPage - 1) * rowsPerPage + rowIndex];
+
+                    // Populate the inputs with the selected row data using correct keys
+                    $('#id_projeto').val(selectedRow.id_projeto);
+                    $('#cod_atividade').val(selectedRow.cod_atividade); // Use the correct key for cod_atividade
+                    $('#atividade').val(selectedRow.atividade); // Use the correct key for atividade
+                    $('#tipoProjeto').val(selectedRow.tipoProjeto); // Use the correct key for tipoProjeto
+                    $('#statusProjeto').val(selectedRow.statusProjeto); // Use the correct key for statusProjeto
+                });
+            });
+        </script>
+      </body>
+</html>

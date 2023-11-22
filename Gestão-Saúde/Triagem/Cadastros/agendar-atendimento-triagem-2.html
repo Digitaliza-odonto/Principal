@@ -80,7 +80,7 @@
     </div>
     <div style="clear: both;"></div>
     
-    <div class="ui-widget-content ui-corner-all toolbar">
+    <div class="ui-widget-content ui-corner-all">
     <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
     <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
     <span style="clear: both; display: block"></span>
@@ -409,7 +409,7 @@
             
                 <hr class="ui-state-default">
             
-                <div style="margin-left: 10px; margin-top: 30px;  width: 90%;">
+                <div style="margin-left: 10px; margin-top: 30px;  width: 70%;">
                     <table id="gridAgendados"></table>
                     <div id="gridAgendadosPager" style="margin-bottom: 5px;"></div>
                 </div>
@@ -603,6 +603,8 @@
                             return 'atendido-ui';
                         case 'Faltou':
                             return 'faltou-ui';
+                        case 'Desmarcado pelo aluno':
+                            return 'desmarcado-aluno-ui';
                         default:
                             return '';
                     }

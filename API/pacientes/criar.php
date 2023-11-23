@@ -9,7 +9,7 @@ require_once '../db.php';   // Importa o arquivo de conexão com o banco de dado
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
-    $CPF = $data['Cpf'];
+    $CPF = $data['CPF'];
     $informacoesImportantes = $data['informacoesImportantes'];
     $CNS = $data['CNS'];
     $Nome = $data['Nome'];
@@ -34,12 +34,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $Bairro = $data['Bairro'];
     $Cidade = $data['Cidade'];
 
+    // Convert DataNasc from DD/MM/YYYY to YYYY-MM-DD
+    $DataNasc = DateTime::createFromFormat('d/m/Y', $data['DataNasc']);
+    if ($DataNasc !== false) {
+        $DataNasc = $DataNasc->format('Y-m-d');
+    } else {
+        // Handle invalid date format
+        echo json_encode(array("error" => true, "message" => "DataNasc format is invalid. Use DD/MM/YYYY."));
+        exit();
+    }
+
     $existingPatient = db("SELECT * FROM pacientes WHERE CPF = '$CPF'");
 
     if (count($existingPatient) > 0) {
         echo json_encode(array("pacienteCriado" => false, "message" => "Paciente com esse CPF já existe"));
     } else {
-        $insertQuery = "INSERT INTO pacientes (CPF, informacoesImportantes, CNS, Nome, nomeSocial, Rg, DataNasc, Email, Tel, Tel2, Tel3, EstadoCivil, Sexo, NomeMae, NomePai, CorRaca, PNE, EnderecoTipo, Cep, Rua, EndNumero, EndComplemento, Bairro, Cidade) VALUES ('$CPF', '$Nome', '$Rg', '$DataNasc', '$Email', '$Tel', '$EstadoCivil', '$Sexo', '$NomeMae', '$NomePai', '$CorRaca', '$PNE', '$EnderecoTipo', '$Cep', '$Rua', '$EndNumero', '$EndComplemento', '$Bairro', '$Cidade')";
+        $insertQuery = "INSERT INTO `pacientes`(`CPF`, `informacoesImportantes`, `CNS`, `Nome`, `nomeSocial`, `Rg`, `DataNasc`, `Tel`, `Tel2`, `Tel3`, `Email`, `EstadoCivil`, `Sexo`, `NomeMae`, `NomePai`, `CorRaca`, `PNE`, `EnderecoTipo`, `Cep`, `Rua`, `EndNumero`, `EndComplemento`, `Bairro`, `Cidade`)
+                            VALUES ('$CPF', '$informacoesImportantes', '$CNS', '$Nome', '$nomeSocial', '$Rg', '$DataNasc', '$Tel', '$Tel2', '$Tel3', '$Email', '$EstadoCivil', '$Sexo', '$NomeMae', '$NomePai', '$CorRaca', '$PNE', '$EnderecoTipo', '$Cep', '$Rua', '$EndNumero', '$EndComplemento', '$Bairro', '$Cidade')";
 
         db($insertQuery);
 

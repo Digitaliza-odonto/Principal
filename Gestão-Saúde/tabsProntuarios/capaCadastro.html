@@ -44,7 +44,7 @@
     <br>
   
     <label style="width: 120px; ;margin: 5px;">CPF</label>
-    <input type="text" name="Cpf" id="Cpf" maxlength="" class="ui-state-default ui-corner-all mousetrap cpf" onblur="pesquisaPessoa()" style="width: 100px;" readonly>
+    <input type="text" name="CPF" id="CPF" maxlength="" class="ui-state-default ui-corner-all mousetrap CPF" onblur="pesquisaPessoa()" style="width: 100px;">
     <br>
   
     <label style="width: 120px; ;margin: 5px;">Nome</label>
@@ -107,6 +107,7 @@
       <option value="Amarelo">Amarelo</option>
       <option value="Branca">Branca</option>
       <option value="Indígena">Indígena</option>
+      <option value="Negra">Negra</option>
       <option value="Parda">Parda</option>
       <option value="Não quis declarar">Não quis declarar</option>
     </select> 
@@ -141,9 +142,10 @@
     <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="EnderecoTipo" id="EnderecoTipo">
       <option value="Comercial">Comercial</option>
       <option value="Família">Família</option>
-      <option value="Residencial">Residencial</option>
+      <option value="Residencial" selected>Residencial</option>
     </select> 
     <br>
+    <p></p><br>
 
      <label style="width: 120px;">CEP</label>
     <input type="text" name="Cep" id="Cep" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap cep" style="width: 100px;">
@@ -175,7 +177,7 @@
         // Função para preencher o formulário com os dados do perfil
         function preencherFormulario(dados) {
           console.log(dados)
-          document.getElementById("Cpf").value = dados.CPF;
+          document.getElementById("CPF").value = dados.CPF;
           document.getElementById("informacoesImportantes").value = dados.informacoesImportantes;
           document.getElementById("CNS").value = dados.CNS;
           document.getElementById("Nome").value = dados.Nome;
@@ -204,9 +206,9 @@
     
         // Função para buscar o perfil usando a API
         function buscarPerfil() {
-          const cpf = getUrlVars()['cpf'];
-          if (cpf) {
-            api.pacientes.consultar({ CPF: cpf })
+          const CPF = getUrlVars()['CPF'];
+          if (CPF) {
+            api.pacientes.consultar({ CPF: CPF })
               .then((pacientes) => {
                 if (pacientes.length === 0) {
                   console.log('Nenhum paciente encontrado');

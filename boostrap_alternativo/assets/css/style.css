@@ -281,7 +281,7 @@ h6 {
   color: #fff;
   padding-bottom: 4px;
   letter-spacing: 1px;
-  border-bottom: 3px solid #149ddd;
+  border-bottom: 3px solid rgb(197, 2, 2);
 }
 
 @media (min-width: 1024px) {
@@ -344,39 +344,238 @@ section {
 }
 
 /*--------------------------------------------------------------
-# About
+# consultas
 --------------------------------------------------------------*/
-.about .content h3 {
+.consultas {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+ }
+ 
+ .consultas:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../img/search.svg');
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-blend-mode: overlay;
+  opacity: 0.25;
+  z-index: -1;
+ }
+ 
+ .consultas .content h3 {
   font-weight: 700;
   font-size: 26px;
   color: #173b6c;
-}
-
-.about .content ul {
+ }
+ 
+ .consultas .content ul {
   list-style: none;
   padding: 0;
-}
-
-.about .content ul li {
+ }
+ 
+ .consultas .content ul li {
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-}
-
-.about .content ul strong {
+ }
+ 
+ .consultas .content ul strong {
   margin-right: 10px;
-}
-
-.about .content ul i {
+ }
+ 
+ .consultas .content ul i {
   font-size: 16px;
   margin-right: 5px;
   color: #149ddd;
   line-height: 0;
-}
-
-.about .content p:last-child {
+ }
+ 
+ .consultas .content p:last-child {
   margin-bottom: 0;
-}
+ }
+
+ /*--------------------------------------------------------------
+# Cadastros
+--------------------------------------------------------------*/
+.Cadastros {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+ }
+ 
+ .Cadastros:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../img/cadastro.svg');
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-blend-mode: overlay;
+  opacity: 0.25;
+  z-index: -1;
+ }
+ 
+ .Cadastros .content h3 {
+  font-weight: 700;
+  font-size: 26px;
+  color: #173b6c;
+ }
+ 
+ .Cadastros .content ul {
+  list-style: none;
+  padding: 0;
+ }
+ 
+ .Cadastros .content ul li {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+ }
+ 
+ .Cadastros .content ul strong {
+  margin-right: 10px;
+ }
+ 
+ .Cadastros .content ul i {
+  font-size: 16px;
+  margin-right: 5px;
+  color: #149ddd;
+  line-height: 0;
+ }
+ 
+ .Cadastros .content p:last-child {
+  margin-bottom: 0;
+ }
+
+
+ 
+ /*--------------------------------------------------------------
+# Processos
+--------------------------------------------------------------*/
+.Processos {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+ }
+ 
+ .Processos:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../img/processos.svg');
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-blend-mode: overlay;
+  opacity: 0.25;
+  z-index: -1;
+ }
+ 
+ .Processos .content h3 {
+  font-weight: 700;
+  font-size: 26px;
+  color: #173b6c;
+ }
+ 
+ .Processos .content ul {
+  list-style: none;
+  padding: 0;
+ }
+ 
+ .Processos .content ul li {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+ }
+ 
+ .Processos .content ul strong {
+  margin-right: 10px;
+ }
+ 
+ .Processos .content ul i {
+  font-size: 16px;
+  margin-right: 5px;
+  color: #149ddd;
+  line-height: 0;
+ }
+ 
+ .Processos .content p:last-child {
+  margin-bottom: 0;
+ }
+
+
+  /*--------------------------------------------------------------
+# relatorios
+--------------------------------------------------------------*/
+.relatorios {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+ }
+ 
+ .relatorios:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../img/relatorios.svg');
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: right;
+  background-blend-mode: overlay;
+  opacity: 0.25;
+  z-index: -1;
+ }
+ 
+ .relatorios .content h3 {
+  font-weight: 700;
+  font-size: 26px;
+  color: #173b6c;
+ }
+ 
+ .relatorios .content ul {
+  list-style: none;
+  padding: 0;
+ }
+ 
+ .relatorios .content ul li {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+ }
+ 
+ .relatorios .content ul strong {
+  margin-right: 10px;
+ }
+ 
+ .relatorios .content ul i {
+  font-size: 16px;
+  margin-right: 5px;
+  color: #149ddd;
+  line-height: 0;
+ }
+ 
+ .relatorios .content p:last-child {
+  margin-bottom: 0;
+ }
+
+
+ 
 
 /*--------------------------------------------------------------
 # Facts

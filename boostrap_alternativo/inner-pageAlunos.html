@@ -63,11 +63,11 @@
     <nav id="navbar" class="nav-menu navbar">
       <ul>
         <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-        <li><a href="#Consultas" class="nav-link scrollto"><i class="bx bx-user"></i> <span>Consultas</span></a></li>
+        <li><a href="#Consultas" class="nav-link scrollto"><i class="bi bi-search"></i></i> <span>Consultas</span></a></li>
         <li><a href="#Cadastros" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Cadastros</span></a></li>
-        <!-- <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li> -->
-        <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Processos</span></a></li>
-        <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Mensagens</span></a></li>
+        <li><a href="#Processos" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Processos</span></a></li>
+        <li><a href="#tutoriais" class="nav-link scrollto"><i class="bi bi-youtube"></i></i><span>Tutoriais</span></a></li>
+        <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Sugestões/Reportar erros</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
     </div>
@@ -90,29 +90,18 @@
       </div>
     </section><!-- End Breadcrumbs -->
 
-    <section class="inner-page">
-      <div class="container">
-                
-               
-               
-        <div class="portlet-header ui-widget-header ui-corner-all" style="font-size: 14px; margin-left:20px">Processos</div>
-        <p style="margin:20px; font-size: 16px;"><button onclick="location.href='/Gestão-Saúde/Aluno/Processos/procPendenciasReg-1.html'" style="font-size: 12px;">Regulação interna com pendência</button></p>
-        <p style="margin:20px; font-size: 16px;"><button onclick="location.href='/Gestão-Saúde/Aluno/Processos/procPendenciasEncaminhamentos-1.html'" style="font-size: 12px;">Encaminhamentos/Altas com pendência</button></p>
-      </div>
-    </section>
-    
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
       <div class="hero-container" data-aos="fade-in" style="background-color: #00000057">
         <h1 style="color: rgb(197, 2, 2);">Oxigênio</h1>
-        <p style="font-weight: bolder;">Sistema de Gestão de  <span class="typed" data-typed-items="prontuários, ensino em Odontologia, materiais de consumo, de clínicas, fluxos administrativos" style="color: yellow;"></span></p>
+        <p style="font-weight: bolder;">Sistema de Gestão de  <span class="typed" data-typed-items="prontuários eletrônicos, ensino em Odontologia, materiais de consumo, agendamentos clínicos, fluxos administrativos" style="color: yellow;"></span></p>
       </div>
     </section><!-- End Hero -->
     
     <main id="main">
       
       <!-- ======= Consultas Section ======= -->
-      <section id="Consultas" class="about">
+      <section id="Consultas" class="consultas">
         <div class="container">
           
           <div class="section-title">
@@ -125,15 +114,12 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <ul>
-                      <li><i class="bi bi-chevron-right"></i> </strong><button onclick="location.href='/Gestão-Saúde/Aluno/Consultas/meus-pacientes.html'" style="font-size: 12px; border-radius: 5px; background-color: maroon; color: white;">Meus Pacientes</button></p></li>
-                      <li><i class="bi bi-chevron-right"></i> </strong><button onclick="location.href='/Gestão-Saúde/Aluno/Consultas/minhas-avaliações.html'" style="font-size: 12px; border-radius: 5px; background-color: maroon; color: white;">Minhas avaliações de atendimento</button></p></li>
-                      <li><i class="bi bi-chevron-right"></i> </strong><button onclick="location.href='/Gestão-Saúde/consulta-codSUS.html'" style="font-size: 12px; border-radius: 5px; background-color: maroon; color: white;">Lista de procedimentos SUS</button></p></li>
-                      <li><i class="bi bi-chevron-right"></i> </strong><button onclick="location.href='Gestão-Saúde/agenda-clinicas.html'" style="font-size: 12px; border-radius: 5px; background-color: maroon; color: white;">Agenda de clínica</button></p></li>
+                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Consultas/meus-pacientes.html'><spam>Meus Pacientes</spam></a></li>
+                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Consultas/minhas-avaliações.html'><spam>Minhas avaliações de atendimento</spam></a></li>
+                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/consulta-codSUS.html'><spam>Lista de procedimentos SUS</spam></a></li>
+                      <li><i class="bi bi-chevron-right"></i><a href='Gestão-Saúde/agenda-clinicas.html'><spam>Agenda de clínica</spam></a></li>
                     </ul>
                   </div>
-                                    
-                  <p style="margin-bottom: 500px;"></p><br>
-                  
                 </div>
               </div>
             </div>
@@ -142,7 +128,7 @@
 
 
         <!-- ======= Cadastros Section ======= -->
-      <section id="Cadastros" class="about">
+      <section id="Cadastros" class="Cadastros">
         <div class="container">
           
           <div class="section-title">
@@ -155,49 +141,181 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <ul>
-                        <li><i class="bi bi-chevron-right"></i> <button onclick="location.href='/Gestão-Saúde/Aluno/Cadastros/minha-agenda.html'" style="font-size: 12px; border-radius: 5px; background-color: maroon; color: white;">Agendamento / Minha agenda</button></li>
-                        <li><i class="bi bi-chevron-right"></i> <button onclick="location.href='/Gestão-Saúde/Aluno/Cadastros/cadastrar-entrevista-1.html'" style="font-size: 12px; border-radius: 5px; background-color: maroon; color: white;">Entrevista dialogada</button></li>
-                        <li><i class="bi bi-chevron-right"></i> <button onclick="location.href='/Gestão-Saúde/Aluno/Cadastros/cadastrar-plano-1.html'" style="font-size: 12px; border-radius: 5px; background-color: maroon; color: white;">Plano de tratamento</button></li>
-                        <li><i class="bi bi-chevron-right"></i> <button onclick="location.href='/Gestão-Saúde/Aluno/Cadastros/registrar-atendimento-1.html'" style="font-size: 12px; border-radius: 5px; background-color: maroon; color: white;">Registrar atendimento</button></li>
-                        <li><i class="bi bi-chevron-right"></i> <button onclick="location.href='/Gestão-Saúde/Aluno/Cadastros/encaminhamento-alta-1.html'" style="font-size: 12px; border-radius: 5px; background-color: maroon; color: white;">Encaminhamento/Alta de paciente</button></li>
-                        <li><i class="bi bi-chevron-right"></i> <button onclick="location.href='/Gestão-Saúde/Aluno/Cadastros/solicitar-regulação-interna-1.html'" style="font-size: 12px; border-radius: 5px; background-color: maroon; color: white;">Solicitar regulação interna</button></li>
+                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/minha-agenda.html'><spam>Agendamento / Minha agenda</spam></a></li>
+                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/cadastrar-entrevista-1.html'><spam>Entrevista dialogada</spam></a></li>
+                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/cadastrar-plano-1.html'><spam>Plano de tratamento</spam></a></li>
+                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/registrar-atendimento-1.html'><spam>Registrar atendimento</spam></a></li>
+                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/encaminhamento-alta-1.html'><spam>Encaminhamento/Alta de paciente</spam></a></li>
+                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/solicitar-regulação-interna-1.html'><spam>Solicitar regulação interna</spam></a></li>
 
                     </ul>
                   </div>
-                                    
-                  <p style="margin-bottom: 500px;"></p><br>
-                  
                 </div>
               </div>
             </div>
           </div>
         </section><!-- End Cadastros Section -->
 
-        
 
 
+        <!-- ======= Processos Section ======= -->
+      <section id="Processos" class="Processos">
+        <div class="container">
+          
+          <div class="section-title">
+            <h2>Processos</h2>
+            
+            <div class="row">
+              
+              <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
+                
+                <div class="row">
+                  <div class="col-lg-6">
+                    <ul>
+                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/minha-agenda.html'><spam>Agendamento / Minha agenda</spam></a></li>
+                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Processos/procPendenciasReg-1.html'><spam>Regulação interna com pendência</spam></a></li>
+                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Processos/procPendenciasEncaminhamentos-1.html'><spam>Encaminhamentos/Altas com pendência</spam></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section><!-- End Processos Section -->
+    </main>
 
 
+        <!-- ======= Tutoriais Section ======= -->
+    <section id="tutoriais" class="portfolio section-bg">
+      <div class="container">
+
+        <div class="section-title">
+          <h2>Tutoriais</h2>
+          
+        </div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-lg-12 d-flex justify-content-center">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">Todos</li>
+              <li data-filter=".filter-alunos">Alunos</li>
+              <li data-filter=".filter-triagem">Triagem</li>
+              <li data-filter=".filter-enfermagem">Enfermagem</li>
+              <li data-filter=".filter-respTecn">Responsável-técnico</li>
+              <li data-filter=".filter-adm">Administração</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-alunos filter-triagem filter-enfermagem filter-respTecn filter-adm">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-1.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 1"></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-triagem">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-2.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="assets/img/portfolio/portfolio-2.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-alunos filter-triagem filter-enfermagem filter-respTecn filter-adm">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-3.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="assets/img/portfolio/portfolio-3.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 2"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-triagem">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-4.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="assets/img/portfolio/portfolio-4.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 2"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-triagem">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-5.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="assets/img/portfolio/portfolio-5.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 2"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-triagem">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-6.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="assets/img/portfolio/portfolio-6.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="App 3"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-alunos filter-triagem filter-respTecn">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-7.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="assets/img/portfolio/portfolio-7.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 1"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-enfermagem">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-8.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="assets/img/portfolio/portfolio-8.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Card 3"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-alunos filter-triagem filter-respTecn">
+            <div class="portfolio-wrap">
+              <img src="assets/img/portfolio/portfolio-9.jpg" class="img-fluid" alt="">
+              <div class="portfolio-links">
+                <a href="assets/img/portfolio/portfolio-9.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="Web 3"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Portfolio Section -->
+  
+    
 
 
+      <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container">
 
+        <div class="section-title">
+          <h2>Sugestões/Reportar erros</h2>
+          <p>Descreva de forma clara possíveis erros e/ou sugestões para o sistema.</p>
+        </div>
 
+        <div class="row" data-aos="fade-in">
 
+          <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeVa1eOqhR70LjQqon7qCcWFPvmJHygGf7nTqRap8N1j9Jtlw/viewform?embedded=true" width="640" height="595" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
+            
+          </div>
 
+        </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+      </div>
+    </section><!-- End Contact Section -->
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
@@ -206,13 +324,6 @@
       <div class="copyright">
         &copy; Copyright <strong><span>FO-UFPel</span></strong>
       </div>
-      <!-- <div class="credits"> -->
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/iportfolio-bootstrap-portfolio-websites-template/ -->
-        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-      <!-- </div> -->
     </div>
   </footer><!-- End  Footer -->
 

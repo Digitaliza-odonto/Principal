@@ -79,7 +79,9 @@
         
         <!-- LOGIN FUNCTION -->
         <script src="../API/API.js"></script>
-        <script>
+        
+        <!-- <script>
+          //LOGIN MULTIPLE PAGES
         function login() {
           console.log('login'); 
               api.usuarios.login({
@@ -88,7 +90,8 @@
                 const usuario = data[0];
                 console.log(usuario);
                   if (data.length > 0) {
-                    localStorage.setItem('usuario', JSON.stringify(usuario));        
+                    localStorage.setItem('usuario', JSON.stringify(usuario));
+                            
                   if (usuario.Tipo == "Aluno") {
                     window.open("/boostrap_alternativo/inner-pageAlunos.html", '_blank');
                   } else if (usuario.Tipo == "Administrador") {
@@ -108,7 +111,31 @@
                 }
               });
           }
-        </script>
+        </script> -->
+
+        <script>
+          //LOGIN UNIFICADO
+          function login() {
+            console.log('login'); 
+                api.usuarios.login({
+                    Matricula: document.getElementById('txtEmail').value
+                  }).then(function (data) {
+                  const usuario = data[0];
+                  console.log(usuario);
+                    if (data.length > 0) {
+                      localStorage.setItem('usuario', JSON.stringify(usuario));
+                  
+                      window.open("/boostrap_alternativo/innerPage.html", '_self');
+                    } else {
+                        alert("Usuario não encontrado")
+                    }
+                });
+            }
+          </script>
+
+
+
+
       </nav><!-- .nav-menu -->
     </div>
   </header><!-- End Header -->

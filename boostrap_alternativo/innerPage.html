@@ -54,18 +54,12 @@
       <div class="profile">
         <img src="../Gestão-Saúde/src/Unknown_Member.jpg" alt="" class="img-fluid rounded-circle">
         <h1 class="text-light"><span id="Nome_usuario"></span></h1>
-
+        
         <script>
           var Nome_usuario = document.getElementById("Nome_usuario");
           var usuario = JSON.parse(localStorage.getItem("usuario"));
           Nome_usuario.innerHTML = usuario.Nome;
         </script>
-
-        <br>
-        <p class="text-light" style="text-align: center;"><span id="tipoUsuarioMenu"></span></p>
-
-        <button type="button" style="display: block; margin: 0 auto; width: 30%; color: maroon; border-radius: 2px; padding: auto;" onclick="window.location.href='index.html'">Logout</button>
- 
       </div>
     </div>
 
@@ -78,8 +72,11 @@
         <li data-permission="Administrador"><a href="#Relatorios" class="nav-link scrollto"><i class="bi bi-file-earmark-bar-graph"></i></i><span>Relatórios</span></a></li>
         <li><a href="#tutoriais" class="nav-link scrollto"><i class="bi bi-youtube"></i></i><span>Tutoriais</span></a></li>
         <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Sugestões/Reportar erros</span></a></li>
+        <br>
       </ul>
     </nav><!-- .nav-menu -->
+    
+    <button type="button" style="display: block; margin: 0 auto; width: 30%; color: maroon; border-radius: 2px; padding: auto;" onclick="window.location.href='index.html'">Logout</button>
     </div>
   </header><!-- End Header -->
 
@@ -95,15 +92,12 @@
               <li><a href="innerPage.html">Home</a></li>
               <li><span id="tipo_usuarioHome"></span></li>
             </ol>
-            
-            
+                        
             <script>
-                var tipo_usuario = document.getElementById("tipoUsuarioMenu");
                 var tipo_usuarioHome = document.getElementById("tipo_usuarioHome");
                 var nomeOla = document.getElementById("nomeOla");
-                            
                 var usuario = JSON.parse(localStorage.getItem("usuario"));
-                tipo_usuario.innerHTML = usuario.Tipo;
+
                 tipo_usuarioHome.innerHTML = usuario.Tipo;
                 nomeOla.innerHTML = usuario.Nome;
             </script>

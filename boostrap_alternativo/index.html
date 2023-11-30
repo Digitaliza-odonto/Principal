@@ -48,7 +48,6 @@
       <div class="profile">
         <img src="../Gestão-Saúde/src/logo_mini.jpg" alt="" class="img-fluid rounded-circle">
         <h1 class="text-light">Oxigênio</h1>
-        <br>
         <p class="text-light" style="text-align: center;">Gestão de Informações em Odontologia</p>
         <div class="social-links mt-3 text-center">
           
@@ -64,9 +63,8 @@
         <span  style="font-weight: bold; color: white; margin-top: 15px;">Senha</span><br>
         <input type="password" placeholder="Digite a sua senha" name="psw" id="psw" style="width: 55%; margin-top: 10px; border-radius: 5px;" required></i>
         
-        <button onclick="login()" style="color: maroon; width: 30%; margin-top: 20px; margin-left: 30%; border-radius: 2px; padding: auto;">Login</button>
-        <br>
-        
+        <button onclick="login()" style="color: maroon; width: 30%; margin-top: 15px; margin-left: 30%; border-radius: 2px; padding: auto;">Login</button>
+                
         <nav id="navbar" class="nav-menu navbar">
         <ul>
           <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
@@ -75,44 +73,12 @@
           <li><a href="#Tutoriais" class="nav-link scrollto"><i class="bi bi-youtube"></i></i><span>Tutoriais</span></a></li>
           <!-- <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Portfolio</span></a></li> -->
           <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Sugestões/Reportar erros</span></a></li>
+          <br style="margin-top: 40px;">
         </ul>
         
         <!-- LOGIN FUNCTION -->
         <script src="../API/API.js"></script>
         
-        <!-- <script>
-          //LOGIN MULTIPLE PAGES
-        function login() {
-          console.log('login'); 
-              api.usuarios.login({
-                  Matricula: document.getElementById('txtEmail').value
-                }).then(function (data) {
-                const usuario = data[0];
-                console.log(usuario);
-                  if (data.length > 0) {
-                    localStorage.setItem('usuario', JSON.stringify(usuario));
-                            
-                  if (usuario.Tipo == "Aluno") {
-                    window.open("/boostrap_alternativo/inner-pageAlunos.html", '_blank');
-                  } else if (usuario.Tipo == "Administrador") {
-                    window.open("/boostrap_alternativo/inner-pageAdm.html", '_blank');
-                  } else if (usuario.Tipo == "Triagem") {
-                    window.open("/boostrap_alternativo/inner-pageTriagem.html", '_blank');
-                  } else if (usuario.Tipo == "Responsavel") {
-                    window.open("/boostrap_alternativo/inner-pageRespTec.html", '_blank');
-                  } else if (usuario.Tipo == "Enfermagem") {
-                    window.open("/boostrap_alternativo/inner-pageEnf.html", '_blank');
-                  
-                  } else {
-                      alert("Usuario não encontrado")
-                  }
-                } else {
-                  alert("Usuario não encontrado")
-                }
-              });
-          }
-        </script> -->
-
         <script>
           //LOGIN UNIFICADO
           function login() {
@@ -133,9 +99,6 @@
             }
           </script>
 
-
-
-
       </nav><!-- .nav-menu -->
     </div>
   </header><!-- End Header -->
@@ -152,7 +115,7 @@
 
     <!-- ======= Sobre Section ======= -->
     <section id="Sobre" class="about">
-      <div class="container">
+      <div class="container" style="margin-left: 100px; width: 90%;">
 
         <div class="section-title">
           <h2>Sobre o sistema</h2>
@@ -202,7 +165,7 @@
 
     <!-- ======= Funcionalidades Section ======= -->
     <section id="Funcionalidades" class="facts">
-      <div class="container">
+      <div class="container" style="margin-left: 100px; width: 90%;">
 
         <div class="section-title">
           <h2>Funcionalidades</h2>
@@ -240,7 +203,7 @@
 
     <!-- ======= Linguagens Section ======= -->
     <section id="Linguagens" class="skills section-bg">
-      <div class="container">
+      <div class="container" style="margin-left: 100px; width: 90%;">
 
         <div class="section-title">
           <h2>Linguagens de programação utilizadas e percentual em relação ao todo</h2>
@@ -294,7 +257,7 @@
     
     <!-- ======= Tutoriais Section ======= -->
     <section id="Tutoriais" class="portfolio section-bg">
-      <div class="container">
+      <div class="container" style="margin-left: 100px; width: 90%;">
 
         <div class="section-title">
           <h2>Tutoriais</h2>
@@ -402,7 +365,7 @@
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
-      <div class="container">
+      <div class="container" style="margin-left: 100px; width: 90%;">
 
         <div class="section-title">
           <h2>Sugestões/Reportar erros</h2>
@@ -441,9 +404,9 @@
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <!-- <script src="assets/vendor/swiper/swiper-bundle.min.js"></script> -->
   <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <!-- <script src="assets/vendor/waypoints/noframework.waypoints.js"></script> -->
   
 
   <!-- Template Main JS File -->

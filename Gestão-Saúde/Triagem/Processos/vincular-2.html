@@ -82,8 +82,8 @@
           
           <br>
           <p></p>
-          <label style="width: 100px;"  >Ano/Período</label>
-          <input type="text" name="periodo" id="periodo" maxlength="255" class="ui-state-default ui-corner-all mousetrap ano_base_periodo_origem" style="width: 246px;" readonly="readonly"/>
+          <!-- <label style="width: 100px;"  >Ano/Período</label>
+          <input type="text" name="periodo" id="periodo" maxlength="255" class="ui-state-default ui-corner-all mousetrap ano_base_periodo_origem" style="width: 246px;" readonly="readonly"/> -->
 
           <br>
           <p></p>
@@ -95,31 +95,32 @@
           <p></p>
           <label style="width: 100px;">Turma</label>
           <input type="text" id="turma" maxlength="255" class="ui-state-default ui-corner-all mousetrap atividade_curricular_origem"
-          style="width: 246px;" readonly="readonly"/>
-            
+          style="width: 40px;" readonly="readonly"/>
+          
           <br>
           <div class="table-container">
             <table id="tableAlunos" class="ui-jqgrid ui-widget ui-widget-content ui-corner-all" cellspacing="0" cellpadding="0" border="0" role="grid" aria-multiselectable="false" style="width: 85%; font-size: 14px; margin: 20px;">
               <thead>
                 <tr class="ui-jqgrid-labels" role="rowheader">
                   <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 10%;">
-                      Selec.
+                    Selec.
                   </th>
                   <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 25%;">
-                      Matrícula
+                    Matrícula
                   </th>
                   <th class="ui-jqgrid-titlebar ui-widget-header" style="width: 65%;">
-                      Aluno
+                    Aluno
                   </th>
                 </tr>
               </thead>
-              </table>
-            </div>
+            </table>
           </div>
+        </div>
       </div>
     </div>
     
-    <script src="/API/API.js"></script>
+      <script src="/API/API.js"></script>
+
       <script>
         const turma_id = getUrlVars()["turma_id"];
         api.disciplinas.consultarMatriculados({turma_id}).then((data) => {
@@ -151,6 +152,16 @@
           });
           return vars;
         }
+
+        function preencherDadosDisciplina () {
+              api.disciplinas.consultarID({turma_id}).then((data) => {
+                //document.getElementById("periodo").value = data[0].periodo;
+                document.getElementById("Nome").value = data[0].atividade;
+                document.getElementById("turma").value = data[0].cod_turma;
+              });
+            }
+
+            preencherDadosDisciplina();
       </script>
 
     <!-- CONTEÚDO COLUNA DA DIREITA -->
@@ -292,7 +303,6 @@
     </script>
 
 
-
     <!-- CONTEÚDO TAB-3 (ABAIXO) -->
     <br>
       
@@ -330,8 +340,6 @@
 
         const dadosCombinados = Object.assign({}, alunoSelecionado, pacienteSelecionado);
 
-        console.log(dadosCombinados);
-
         api.alunos.vincularPaciente(dadosCombinados).then((data) => {
           console.log(data);
           if (data.vinculoCriado == true) {
@@ -347,7 +355,7 @@
       atualizartabela(turma_id);
       function atualizartabela(turma_id){
         api.alunos.consultarVinculos({turma_id}).then((data) => {
-          console.log(data);
+          //console.log(data);
           // limpar tabela
           var tabelaPacientes = document.getElementById("selectedTable");
           var linhas = tabelaPacientes.getElementsByTagName("tr");

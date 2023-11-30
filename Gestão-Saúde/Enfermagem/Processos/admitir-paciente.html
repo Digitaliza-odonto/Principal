@@ -278,19 +278,21 @@
         });
 
         function getStatusClass(status) {
-            switch (status) {
-                case 'Agendado':
-                    return 'ui-state-default';
-                case 'No local':
-                    return 'agendamento-ui';
-                case 'Atendido':
-                    return 'atendido-ui';
-                case 'Faltou':
-                    return 'faltou-ui';
-                default:
-                    return '';
-            }
-        }
+                    switch (status) {
+                        case 'Agendado':
+                            return 'ui-state-default';
+                        case 'No local':
+                            return 'agendamento-ui';
+                        case 'Atendido':
+                            return 'atendido-ui';
+                        case 'Faltou':
+                            return 'faltou-ui';
+                        case 'Desmarcado pelo aluno':
+                            return 'desmarcado-aluno-ui';
+                        default:
+                            return '';
+                    }
+                }
 
         // Event listener for clearFilters button
         $('#clearFilters').click(function () {

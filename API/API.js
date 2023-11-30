@@ -281,7 +281,7 @@ const disciplinas = {
     return sendRequest(url, 'POST', data);
   },
   consultarID: async (data) => {
-    const url = `${getApiUrl()}/cobalto/disciplinas/consultarID.php`;
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultar_IDturma.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarMatriculados: async (data) => {

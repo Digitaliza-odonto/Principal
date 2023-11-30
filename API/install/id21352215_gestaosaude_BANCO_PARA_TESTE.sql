@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2023 at 04:41 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Tempo de geração: 30/11/2023 às 15:50
+-- Versão do servidor: 10.4.28-MariaDB
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `id21352215_gestaosaude`
+-- Banco de dados: `id21352215_gestaosaude`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `agenda-clinicas`
+-- Estrutura para tabela `agenda-clinicas`
 --
 
 CREATE TABLE `agenda-clinicas` (
@@ -41,7 +41,7 @@ CREATE TABLE `agenda-clinicas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `agenda-clinicas`
+-- Despejando dados para a tabela `agenda-clinicas`
 --
 
 INSERT INTO `agenda-clinicas` (`id_agendamento`, `agendado_por`, `cpf_paciente`, `data_agendamento`, `horario_agendamento`, `minuto_agendamento`, `atividade_curricular`, `local`, `descricao`, `status_agendamento`) VALUES
@@ -78,7 +78,7 @@ INSERT INTO `agenda-clinicas` (`id_agendamento`, `agendado_por`, `cpf_paciente`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `alunos`
+-- Estrutura para tabela `alunos`
 --
 
 CREATE TABLE `alunos` (
@@ -92,7 +92,7 @@ CREATE TABLE `alunos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `alunos`
+-- Despejando dados para a tabela `alunos`
 --
 
 INSERT INTO `alunos` (`id`, `matricula`, `nome`, `curso`, `especial`, `situação`, `vacina`) VALUES
@@ -289,7 +289,7 @@ INSERT INTO `alunos` (`id`, `matricula`, `nome`, `curso`, `especial`, `situaçã
 -- --------------------------------------------------------
 
 --
--- Table structure for table `arquivos`
+-- Estrutura para tabela `arquivos`
 --
 
 CREATE TABLE `arquivos` (
@@ -302,7 +302,7 @@ CREATE TABLE `arquivos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `arquivos`
+-- Despejando dados para a tabela `arquivos`
 --
 
 INSERT INTO `arquivos` (`id`, `CPF`, `Descricao`, `Tipo`, `Data`, `Link`) VALUES
@@ -313,7 +313,7 @@ INSERT INTO `arquivos` (`id`, `CPF`, `Descricao`, `Tipo`, `Data`, `Link`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `avaliacoesatendimento`
+-- Estrutura para tabela `avaliacoesatendimento`
 --
 
 CREATE TABLE `avaliacoesatendimento` (
@@ -337,7 +337,7 @@ CREATE TABLE `avaliacoesatendimento` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `avaliacoesatendimento`
+-- Despejando dados para a tabela `avaliacoesatendimento`
 --
 
 INSERT INTO `avaliacoesatendimento` (`id_avaliacao`, `data_avaliacao`, `matricula`, `id_responsavel`, `responsavel`, `cod_disciplina`, `disciplina`, `periodo`, `pontualidade`, `comportamento`, `materiais`, `conhecimento`, `cuidado`, `adversidades`, `dupla`, `autoavaliacao`, `obs`) VALUES
@@ -366,7 +366,7 @@ INSERT INTO `avaliacoesatendimento` (`id_avaliacao`, `data_avaliacao`, `matricul
 -- --------------------------------------------------------
 
 --
--- Table structure for table `disciplinas`
+-- Estrutura para tabela `disciplinas`
 --
 
 CREATE TABLE `disciplinas` (
@@ -381,7 +381,7 @@ CREATE TABLE `disciplinas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `disciplinas`
+-- Despejando dados para a tabela `disciplinas`
 --
 
 INSERT INTO `disciplinas` (`id`, `cod_atividade`, `atividade`, `cod_turma`, `matriculas_vagas`, `nr_matricula_especial`, `nr_total_matricula`, `nr_total_vagas`) VALUES
@@ -416,7 +416,7 @@ INSERT INTO `disciplinas` (`id`, `cod_atividade`, `atividade`, `cod_turma`, `mat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `encaminhamentos`
+-- Estrutura para tabela `encaminhamentos`
 --
 
 CREATE TABLE `encaminhamentos` (
@@ -443,7 +443,7 @@ CREATE TABLE `encaminhamentos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `encaminhamentos`
+-- Despejando dados para a tabela `encaminhamentos`
 --
 
 INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Especialidade`, `Complexidade`, `Demanda`, `origemID`, `encaminhamentoOrigem`, `alunoEncaminhamento`, `responsavelEncaminhamento`, `Status`, `Observacoes`, `homologado`, `data_homolog`, `tramitado`, `data_tramite`, `contato1`, `contato2`, `contato3`, `obsContato`) VALUES
@@ -462,12 +462,36 @@ INSERT INTO `encaminhamentos` (`id`, `CPF`, `Data`, `Especialidade`, `Complexida
 (35, '112.289.390-63', '2023-11-20', 'Prótese Dentária', 'Média', 'TESTE DEVOLVER', '308403', 'UNIDADE DE CIRURGIA BMF III', '14200737', 'Carlos Santana', 'Devolvido ao usuário', NULL, 'Sim', '2023-11-20', NULL, NULL, NULL, NULL, NULL, NULL),
 (37, '112.289.390-63', '2023-11-20', 'Prótese Dentária', 'Média', 'Teste 20/11', '', '', '', '', 'Em espera', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (38, '112.289.390-63', '2023-11-20', 'Prótese Dentária', 'Média', 'Teste 20/11', '', '', '', '', 'Em espera', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(39, '112.289.390-63', '2023-11-20', 'Prótese Dentária', 'Média', 'Teste 20/11', '', '', '', '', 'Em espera', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(39, '112.289.390-63', '2023-11-20', 'Prótese Dentária', 'Média', 'Teste 20/11', '', '', '', '', 'Em espera', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(40, '999.888.777-66', '2023-11-30', 'Prótese Dentária', 'Baixa', 'Prótese adesivo no dente 11', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(41, '999.888.777-66', '2023-11-30', 'Periodontia', 'Baixa', 'Avaliação periodontal', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(42, '999.888.777-66', '2023-11-30', 'Dentística', 'Baixa', 'Troca de restaurações', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(43, '999.888.777-66', '2023-11-30', 'Cirurgia', 'Baixa', 'Remoção dos sisos', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(44, '111.222.333-44', '2023-11-30', 'Prótese Dentária', 'Alta', 'Correção de dentes desgastados', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(45, '111.222.333-44', '2023-11-30', 'Endodontia', 'Baixa', 'Tratamento de canal no 21', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(46, '111.222.333-44', '2023-11-30', 'Dentística', 'Média', 'Tratamento de cárie cervical', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(47, '964.940.820-76', '2023-11-30', 'Prótese Dentária', 'Baixa', 'Tratamento de feridas bucais causadas por próteses', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(48, '964.940.820-76', '2023-11-30', 'Dentística', 'Baixa', 'Procedimentos de restauração dental', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(49, '964.940.820-76', '2023-11-30', 'Cirurgia', 'Baixa', 'Tratamento de biópsias orais', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(50, '777.888.999-11', '2023-11-30', 'Dentística', 'Média', 'Tratamento de fraturas dentárias', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(51, '777.888.999-11', '2023-11-30', 'Cirurgia', 'Alta', 'Correção de problemas de alinhamento maxilofacial', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(52, '777.888.999-11', '2023-11-30', 'Endodontia', 'Média', 'Tratamento de lesões periapicais', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(53, '111.222.333-55', '2023-11-30', 'Cirurgia', 'Urgência', 'Tratamento de sensibilidade pós-operatória', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(54, '111.222.333-55', '2023-11-30', 'Periodontia', 'Alta', 'Correção de sorriso gengival', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(55, '012.345.678-78', '2023-11-30', 'Odontopediatria', 'Média', 'Tratamento de cárie de mamadeira', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(56, '333.222.111-00', '2023-11-30', 'Dentística', 'Média', 'Restauração estética', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(57, '333.222.111-00', '2023-11-30', 'Periodontia', 'Média', 'Remoção de tártaro subgengival', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(58, '333.222.111-00', '2023-11-30', 'Cirurgia', 'Média', 'Tratamento de feridas pós-extração dentária', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(59, '222.111.333-55', '2023-11-30', 'Prótese Dentária', 'Baixa', 'Ajuste de próteses dentárias', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(60, '222.111.333-55', '2023-11-30', 'Endodontia', 'Média', 'Tratamento de abscesso dentário', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(61, '222.111.333-55', '2023-11-30', 'Periodontia', 'Média', 'Remoção de tártaro', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(62, '444.333.222-11', '2023-11-30', 'Dentística', 'Baixa', 'Clareamento dental', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL),
+(63, '444.333.222-11', '2023-11-30', 'Periodontia', 'Baixa', 'Limpeza dental de rotina', '', 'Triagem', '', 'Triagem', 'Em espera', '', NULL, NULL, 'Sim', '2023-11-30', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `entrevista`
+-- Estrutura para tabela `entrevista`
 --
 
 CREATE TABLE `entrevista` (
@@ -511,7 +535,7 @@ CREATE TABLE `entrevista` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `entrevista`
+-- Despejando dados para a tabela `entrevista`
 --
 
 INSERT INTO `entrevista` (`id_entrevista`, `id_aluno`, `id_disciplina`, `data`, `CPF`, `queixa`, `doenca_YN`, `doenca`, `tto_medico_YN`, `tto_medico`, `medicacao_YN`, `medicacao`, `alergia_YN`, `alergia`, `fumante_YN`, `fumante`, `etilista_YN`, `etilista`, `ultimaConsulta`, `ultimoTTO`, `freq_Higiene`, `instr_Higiene`, `fluor`, `operado_YN`, `operado`, `cicatrizacao_YN`, `cicatrizacao`, `anestesia_YN`, `anestesia`, `hemorragia_YN`, `hemorragia`, `gravidez_YN`, `gravidez`, `historicoFamiliar`, `obs`, `medico`, `medicoTEL`) VALUES
@@ -529,7 +553,7 @@ INSERT INTO `entrevista` (`id_entrevista`, `id_aluno`, `id_disciplina`, `data`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `entrevistaped`
+-- Estrutura para tabela `entrevistaped`
 --
 
 CREATE TABLE `entrevistaped` (
@@ -566,7 +590,7 @@ CREATE TABLE `entrevistaped` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `entrevistaped`
+-- Despejando dados para a tabela `entrevistaped`
 --
 
 INSERT INTO `entrevistaped` (`id_entrevista`, `id_aluno`, `id_disciplinaPed`, `data`, `CPF`, `queixaPed`, `probGravidez_YN`, `probGravidez`, `tipoParto`, `doencaInfancia_YN`, `doencaInfancia`, `internacao_YN`, `internacao`, `historicoMedicacao_YN`, `historicoMedicacao`, `alergia_YN_Ped`, `alergia_Ped`, `respiratorio_YN`, `respiratorio`, `cardiaco_YN`, `cardiaco`, `sanguineo_YN`, `sanguineo`, `diabetes_YN`, `diabetes`, `medicacao_YN_Ped`, `medicacao_Ped`, `pediatra`, `telPediatra`, `obs_ped`) VALUES
@@ -577,7 +601,7 @@ INSERT INTO `entrevistaped` (`id_entrevista`, `id_aluno`, `id_disciplinaPed`, `d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `especialidades`
+-- Estrutura para tabela `especialidades`
 --
 
 CREATE TABLE `especialidades` (
@@ -586,7 +610,7 @@ CREATE TABLE `especialidades` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `especialidades`
+-- Despejando dados para a tabela `especialidades`
 --
 
 INSERT INTO `especialidades` (`id_especialidade`, `especialidade`) VALUES
@@ -601,7 +625,7 @@ INSERT INTO `especialidades` (`id_especialidade`, `especialidade`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `historicoatendimentos`
+-- Estrutura para tabela `historicoatendimentos`
 --
 
 CREATE TABLE `historicoatendimentos` (
@@ -621,7 +645,7 @@ CREATE TABLE `historicoatendimentos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `historicoatendimentos`
+-- Despejando dados para a tabela `historicoatendimentos`
 --
 
 INSERT INTO `historicoatendimentos` (`id_atendimentos`, `id_aluno`, `cpf`, `data`, `especialidade`, `descricao`, `responsavel`, `componente_curricular`, `periodo`, `codSus`, `descricao_SUS`, `homologado`, `data_homolog`) VALUES
@@ -648,7 +672,7 @@ INSERT INTO `historicoatendimentos` (`id_atendimentos`, `id_aluno`, `cpf`, `data
 -- --------------------------------------------------------
 
 --
--- Table structure for table `materiais`
+-- Estrutura para tabela `materiais`
 --
 
 CREATE TABLE `materiais` (
@@ -660,7 +684,7 @@ CREATE TABLE `materiais` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `materiais`
+-- Despejando dados para a tabela `materiais`
 --
 
 INSERT INTO `materiais` (`id`, `nome`, `quantidade`, `tipo_material`, `apresentacao`) VALUES
@@ -700,7 +724,7 @@ INSERT INTO `materiais` (`id`, `nome`, `quantidade`, `tipo_material`, `apresenta
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pacientes`
+-- Estrutura para tabela `pacientes`
 --
 
 CREATE TABLE `pacientes` (
@@ -732,7 +756,7 @@ CREATE TABLE `pacientes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pacientes`
+-- Despejando dados para a tabela `pacientes`
 --
 
 INSERT INTO `pacientes` (`id`, `CPF`, `informacoesImportantes`, `CNS`, `Nome`, `nomeSocial`, `Rg`, `DataNasc`, `Tel`, `Tel2`, `Tel3`, `Email`, `EstadoCivil`, `Sexo`, `NomeMae`, `NomePai`, `CorRaca`, `PNE`, `EnderecoTipo`, `Cep`, `Rua`, `EndNumero`, `EndComplemento`, `Bairro`, `Cidade`) VALUES
@@ -834,7 +858,7 @@ INSERT INTO `pacientes` (`id`, `CPF`, `informacoesImportantes`, `CNS`, `Nome`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `plano_tto`
+-- Estrutura para tabela `plano_tto`
 --
 
 CREATE TABLE `plano_tto` (
@@ -851,7 +875,7 @@ CREATE TABLE `plano_tto` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `plano_tto`
+-- Despejando dados para a tabela `plano_tto`
 --
 
 INSERT INTO `plano_tto` (`id`, `CPF`, `data`, `queixa`, `aspectoRelevante`, `especialidade`, `descricao`, `aluno_id`, `responsavel`, `componente_curricular`) VALUES
@@ -867,7 +891,7 @@ INSERT INTO `plano_tto` (`id`, `CPF`, `data`, `queixa`, `aspectoRelevante`, `esp
 -- --------------------------------------------------------
 
 --
--- Table structure for table `procedimentos_sus`
+-- Estrutura para tabela `procedimentos_sus`
 --
 
 CREATE TABLE `procedimentos_sus` (
@@ -877,7 +901,7 @@ CREATE TABLE `procedimentos_sus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `procedimentos_sus`
+-- Despejando dados para a tabela `procedimentos_sus`
 --
 
 INSERT INTO `procedimentos_sus` (`cod_sus`, `nome`, `tipo`) VALUES
@@ -957,7 +981,7 @@ INSERT INTO `procedimentos_sus` (`cod_sus`, `nome`, `tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `projetos`
+-- Estrutura para tabela `projetos`
 --
 
 CREATE TABLE `projetos` (
@@ -969,7 +993,7 @@ CREATE TABLE `projetos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `projetos`
+-- Despejando dados para a tabela `projetos`
 --
 
 INSERT INTO `projetos` (`id_projeto`, `cod_atividade`, `atividade`, `tipoProjeto`, `statusProjeto`) VALUES
@@ -980,7 +1004,7 @@ INSERT INTO `projetos` (`id_projeto`, `cod_atividade`, `atividade`, `tipoProjeto
 -- --------------------------------------------------------
 
 --
--- Table structure for table `regulacaointerna`
+-- Estrutura para tabela `regulacaointerna`
 --
 
 CREATE TABLE `regulacaointerna` (
@@ -996,7 +1020,7 @@ CREATE TABLE `regulacaointerna` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `regulacaointerna`
+-- Despejando dados para a tabela `regulacaointerna`
 --
 
 INSERT INTO `regulacaointerna` (`id_regulacao`, `id_turma`, `id_matricula`, `data_pedido`, `tipo_regulacao`, `solicitacaoDescricao`, `consultaPrevista`, `status_regulacao`, `data_tramite`) VALUES
@@ -1009,7 +1033,7 @@ INSERT INTO `regulacaointerna` (`id_regulacao`, `id_turma`, `id_matricula`, `dat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `relação_alunos_disciplinas`
+-- Estrutura para tabela `relação_alunos_disciplinas`
 --
 
 CREATE TABLE `relação_alunos_disciplinas` (
@@ -1021,7 +1045,7 @@ CREATE TABLE `relação_alunos_disciplinas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `relação_alunos_disciplinas`
+-- Despejando dados para a tabela `relação_alunos_disciplinas`
 --
 
 INSERT INTO `relação_alunos_disciplinas` (`id`, `matricula`, `nome`, `turma_id`, `periodo`) VALUES
@@ -1504,7 +1528,7 @@ INSERT INTO `relação_alunos_disciplinas` (`id`, `matricula`, `nome`, `turma_id
 -- --------------------------------------------------------
 
 --
--- Table structure for table `servidores`
+-- Estrutura para tabela `servidores`
 --
 
 CREATE TABLE `servidores` (
@@ -1517,7 +1541,7 @@ CREATE TABLE `servidores` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `solicitacao_materiais`
+-- Estrutura para tabela `solicitacao_materiais`
 --
 
 CREATE TABLE `solicitacao_materiais` (
@@ -1537,7 +1561,7 @@ CREATE TABLE `solicitacao_materiais` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `solicitacao_materiais`
+-- Despejando dados para a tabela `solicitacao_materiais`
 --
 
 INSERT INTO `solicitacao_materiais` (`id_solicitacao`, `setor`, `nome_solicitante`, `id_solicitante`, `data_pedido`, `data_tramite`, `lista_ids`, `lista_materiais`, `lista_qtd`, `statusSolicitacao`, `ids_atendidos`, `qtd_atendida`, `obs_tramite`) VALUES
@@ -1556,7 +1580,7 @@ INSERT INTO `solicitacao_materiais` (`id_solicitacao`, `setor`, `nome_solicitant
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estrutura para tabela `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -1567,7 +1591,7 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Despejando dados para a tabela `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `Matricula`, `Nome`, `Tipo`) VALUES
@@ -1787,7 +1811,7 @@ INSERT INTO `usuarios` (`id`, `Matricula`, `Nome`, `Tipo`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vinculo_aluno_paciente`
+-- Estrutura para tabela `vinculo_aluno_paciente`
 --
 
 CREATE TABLE `vinculo_aluno_paciente` (
@@ -1806,7 +1830,7 @@ CREATE TABLE `vinculo_aluno_paciente` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `vinculo_aluno_paciente`
+-- Despejando dados para a tabela `vinculo_aluno_paciente`
 --
 
 INSERT INTO `vinculo_aluno_paciente` (`id`, `id_demanda`, `CPF_paciente`, `Matricula_aluno`, `Turma`, `Complexidade`, `Especialidade`, `Descrição`, `StatusVinculo`, `inicioVinculo`, `fimVinculo`, `motivoDesvinculacao`) VALUES
@@ -1820,250 +1844,250 @@ INSERT INTO `vinculo_aluno_paciente` (`id`, `id_demanda`, `CPF_paciente`, `Matri
 (59, '12', '555.666.777-88', '20102917', '309203', 'Média', 'Cirurgia', 'Dados atualizados de novo', 'Ativo', '2023-11-21', NULL, NULL);
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `agenda-clinicas`
+-- Índices de tabela `agenda-clinicas`
 --
 ALTER TABLE `agenda-clinicas`
   ADD PRIMARY KEY (`id_agendamento`);
 
 --
--- Indexes for table `alunos`
+-- Índices de tabela `alunos`
 --
 ALTER TABLE `alunos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `arquivos`
+-- Índices de tabela `arquivos`
 --
 ALTER TABLE `arquivos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `avaliacoesatendimento`
+-- Índices de tabela `avaliacoesatendimento`
 --
 ALTER TABLE `avaliacoesatendimento`
   ADD PRIMARY KEY (`id_avaliacao`);
 
 --
--- Indexes for table `disciplinas`
+-- Índices de tabela `disciplinas`
 --
 ALTER TABLE `disciplinas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `encaminhamentos`
+-- Índices de tabela `encaminhamentos`
 --
 ALTER TABLE `encaminhamentos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `entrevista`
+-- Índices de tabela `entrevista`
 --
 ALTER TABLE `entrevista`
   ADD PRIMARY KEY (`id_entrevista`);
 
 --
--- Indexes for table `entrevistaped`
+-- Índices de tabela `entrevistaped`
 --
 ALTER TABLE `entrevistaped`
   ADD PRIMARY KEY (`id_entrevista`);
 
 --
--- Indexes for table `especialidades`
+-- Índices de tabela `especialidades`
 --
 ALTER TABLE `especialidades`
   ADD PRIMARY KEY (`id_especialidade`);
 
 --
--- Indexes for table `historicoatendimentos`
+-- Índices de tabela `historicoatendimentos`
 --
 ALTER TABLE `historicoatendimentos`
   ADD PRIMARY KEY (`id_atendimentos`);
 
 --
--- Indexes for table `materiais`
+-- Índices de tabela `materiais`
 --
 ALTER TABLE `materiais`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pacientes`
+-- Índices de tabela `pacientes`
 --
 ALTER TABLE `pacientes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `plano_tto`
+-- Índices de tabela `plano_tto`
 --
 ALTER TABLE `plano_tto`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `procedimentos_sus`
+-- Índices de tabela `procedimentos_sus`
 --
 ALTER TABLE `procedimentos_sus`
   ADD PRIMARY KEY (`cod_sus`);
 
 --
--- Indexes for table `projetos`
+-- Índices de tabela `projetos`
 --
 ALTER TABLE `projetos`
   ADD PRIMARY KEY (`id_projeto`);
 
 --
--- Indexes for table `regulacaointerna`
+-- Índices de tabela `regulacaointerna`
 --
 ALTER TABLE `regulacaointerna`
   ADD PRIMARY KEY (`id_regulacao`);
 
 --
--- Indexes for table `relação_alunos_disciplinas`
+-- Índices de tabela `relação_alunos_disciplinas`
 --
 ALTER TABLE `relação_alunos_disciplinas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `servidores`
+-- Índices de tabela `servidores`
 --
 ALTER TABLE `servidores`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `solicitacao_materiais`
+-- Índices de tabela `solicitacao_materiais`
 --
 ALTER TABLE `solicitacao_materiais`
   ADD PRIMARY KEY (`id_solicitacao`);
 
 --
--- Indexes for table `usuarios`
+-- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `vinculo_aluno_paciente`
+-- Índices de tabela `vinculo_aluno_paciente`
 --
 ALTER TABLE `vinculo_aluno_paciente`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT para tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `agenda-clinicas`
+-- AUTO_INCREMENT de tabela `agenda-clinicas`
 --
 ALTER TABLE `agenda-clinicas`
   MODIFY `id_agendamento` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
--- AUTO_INCREMENT for table `arquivos`
+-- AUTO_INCREMENT de tabela `arquivos`
 --
 ALTER TABLE `arquivos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
--- AUTO_INCREMENT for table `avaliacoesatendimento`
+-- AUTO_INCREMENT de tabela `avaliacoesatendimento`
 --
 ALTER TABLE `avaliacoesatendimento`
   MODIFY `id_avaliacao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
--- AUTO_INCREMENT for table `encaminhamentos`
+-- AUTO_INCREMENT de tabela `encaminhamentos`
 --
 ALTER TABLE `encaminhamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
--- AUTO_INCREMENT for table `entrevista`
+-- AUTO_INCREMENT de tabela `entrevista`
 --
 ALTER TABLE `entrevista`
   MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `entrevistaped`
+-- AUTO_INCREMENT de tabela `entrevistaped`
 --
 ALTER TABLE `entrevistaped`
   MODIFY `id_entrevista` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `especialidades`
+-- AUTO_INCREMENT de tabela `especialidades`
 --
 ALTER TABLE `especialidades`
   MODIFY `id_especialidade` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `historicoatendimentos`
+-- AUTO_INCREMENT de tabela `historicoatendimentos`
 --
 ALTER TABLE `historicoatendimentos`
   MODIFY `id_atendimentos` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
 
 --
--- AUTO_INCREMENT for table `materiais`
+-- AUTO_INCREMENT de tabela `materiais`
 --
 ALTER TABLE `materiais`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
--- AUTO_INCREMENT for table `pacientes`
+-- AUTO_INCREMENT de tabela `pacientes`
 --
 ALTER TABLE `pacientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
--- AUTO_INCREMENT for table `plano_tto`
+-- AUTO_INCREMENT de tabela `plano_tto`
 --
 ALTER TABLE `plano_tto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT for table `projetos`
+-- AUTO_INCREMENT de tabela `projetos`
 --
 ALTER TABLE `projetos`
   MODIFY `id_projeto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `regulacaointerna`
+-- AUTO_INCREMENT de tabela `regulacaointerna`
 --
 ALTER TABLE `regulacaointerna`
   MODIFY `id_regulacao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT for table `relação_alunos_disciplinas`
+-- AUTO_INCREMENT de tabela `relação_alunos_disciplinas`
 --
 ALTER TABLE `relação_alunos_disciplinas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=483;
 
 --
--- AUTO_INCREMENT for table `servidores`
+-- AUTO_INCREMENT de tabela `servidores`
 --
 ALTER TABLE `servidores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `solicitacao_materiais`
+-- AUTO_INCREMENT de tabela `solicitacao_materiais`
 --
 ALTER TABLE `solicitacao_materiais`
   MODIFY `id_solicitacao` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
--- AUTO_INCREMENT for table `usuarios`
+-- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=213;
 
 --
--- AUTO_INCREMENT for table `vinculo_aluno_paciente`
+-- AUTO_INCREMENT de tabela `vinculo_aluno_paciente`
 --
 ALTER TABLE `vinculo_aluno_paciente`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 DELIMITER $$
 --
--- Events
+-- Eventos
 --
 CREATE DEFINER=`root`@`localhost` EVENT `update_falta` ON SCHEDULE EVERY 1 DAY STARTS '2023-10-12 00:01:00' ON COMPLETION NOT PRESERVE ENABLE DO UPDATE `agenda-clinicas` SET status_agendamento = 'Faltou' WHERE status_agendamento = 'Agendado' AND data_agendamento < CURDATE()$$
 

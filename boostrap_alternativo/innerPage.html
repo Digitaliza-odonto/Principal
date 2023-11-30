@@ -34,6 +34,12 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  <style>
+    .hidden {
+    display: none;
+  }
+  </style>
 </head>
 
 <body>
@@ -57,19 +63,20 @@
 
         <br>
         <p class="text-light" style="text-align: center;"><span id="tipoUsuarioMenu"></span></p>
+
+        <button type="button" style="display: block; margin: 0 auto; width: 30%; color: maroon; border-radius: 2px; padding: auto;" onclick="window.location.href='index.html'">Logout</button>
  
       </div>
     </div>
 
     <nav id="navbar" class="nav-menu navbar">
       <ul>
-        <li class="filtro.Triagem"><a href="#Test" class="nav-link scrollto"><i class="bi bi-gear"></i> <span>Test</span></a></li>
         <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
         <li><a href="#Consultas" class="nav-link scrollto"><i class="bi bi-search"></i></i> <span>Consultas</span></a></li>
         <li><a href="#Cadastros" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Cadastros</span></a></li>
         <li><a href="#Processos" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Processos</span></a></li>
-        <li class="filtro.Admin"><a href="#Relatorios" class="nav-link scrollto"><i class="bi bi-file-earmark-bar-graph"></i></i><span>Relatórios</span></a></li>
-        <li class="filtro.Triagem"><a href="#tutoriais" class="nav-link scrollto"><i class="bi bi-youtube"></i></i><span>Tutoriais</span></a></li>
+        <li data-permission="Administrador"><a href="#Relatorios" class="nav-link scrollto"><i class="bi bi-file-earmark-bar-graph"></i></i><span>Relatórios</span></a></li>
+        <li><a href="#tutoriais" class="nav-link scrollto"><i class="bi bi-youtube"></i></i><span>Tutoriais</span></a></li>
         <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Sugestões/Reportar erros</span></a></li>
       </ul>
     </nav><!-- .nav-menu -->
@@ -77,25 +84,28 @@
   </header><!-- End Header -->
 
   <main id="main">
-
+  
     <!-- ======= Breadcrumbs ======= -->
     <section class="breadcrumbs">
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-            <h2>Bem vindo!</h2>
+            <h2 style="margin-left: 100px;">Bem vindo, <span id="nomeOla" style="color: maroon; font-weight: bold;"></span>!</h2>
             <ol>
-                <li><a href="index.html">Home</a></li>
-                <li><span id="tipo_usuarioHome"></span></li>
+              <li><a href="innerPage.html">Home</a></li>
+              <li><span id="tipo_usuarioHome"></span></li>
             </ol>
-
+            
+            
             <script>
                 var tipo_usuario = document.getElementById("tipoUsuarioMenu");
                 var tipo_usuarioHome = document.getElementById("tipo_usuarioHome");
+                var nomeOla = document.getElementById("nomeOla");
                             
                 var usuario = JSON.parse(localStorage.getItem("usuario"));
                 tipo_usuario.innerHTML = usuario.Tipo;
                 tipo_usuarioHome.innerHTML = usuario.Tipo;
+                nomeOla.innerHTML = usuario.Nome;
             </script>
 
         </div>
@@ -126,24 +136,41 @@
                 
                 <div class="row">
                   <div class="col-lg-6">
+
                     <ul>
-                       <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Consultas/Pacientes.html'><spam>Consultar paciente</spam></a></li>
-                       <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Administração/Consultas/avaliacao-alunos-1.html'><spam>Avaliação do aluno por disciplina</spam></a></li>
-                       <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Administração/Consultas/avaliação-geral-alunos-1.html'><spam>Avaliação geral do aluno</spam></a></li>
-                       <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Enfermagem/Consultas/consulta-pedido-material.html'><spam>Acompanhamento de pedido de material de consumo</spam></a></li>
-                       <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/consulta-codSUS.html'><spam>Lista de procedimentos SUS</spam></a></li>
-                       <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/agenda-clinicas.html'><spam>Agenda de clínica</spam></a></li>
-                       <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Consultas/agenda-paciente.html'><spam>Agenda do paciente</spam></a></li>
-                       <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/agenda-completa.html'><spam>Agenda completa de atendimentos</spam></a></li>
+                      <!-- Consultas Admin -->
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Consultas/Pacientes.html'><spam>Consultar paciente</spam></a></li>
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Administração/Consultas/avaliacao-alunos-1.html'><spam>Avaliação do aluno por disciplina</spam></a></li>
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Administração/Consultas/avaliação-geral-alunos-1.html'><spam>Avaliação geral do aluno</spam></a></li>
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Enfermagem/Consultas/consulta-pedido-material.html'><spam>Acompanhamento de pedido de material de consumo</spam></a></li>
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/consulta-codSUS.html'><spam>Lista de procedimentos SUS</spam></a></li>
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/agenda-clinicas.html'><spam>Agenda de clínica</spam></a></li>
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Consultas/agenda-paciente.html'><spam>Agenda do paciente</spam></a></li>
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/agenda-completa.html'><spam>Agenda completa de atendimentos</spam></a></li>
+                       
+                      <!-- Consultas Alunos -->
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Consultas/meus-pacientes.html'><spam>Meus Pacientes</spam></a></li>
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Consultas/minhas-avaliações.html'><spam>Minhas avaliações de atendimento</spam></a></li>
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/consulta-codSUS.html'><spam>Lista de procedimentos SUS</spam></a></li>
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='Gestão-Saúde/agenda-clinicas.html'><spam>Agenda de clínica</spam></a></li>
 
+                      <!-- Consultas Triagem -->
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Consultas/Pacientes.html'><spam>Consultar paciente</spam></a></li>
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/consulta-codSUS.html'><spam>Lista de procedimentos SUS</spam></a></li>
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/agenda-clinicas.html'><spam>Agenda de clínica</spam></a></li>
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Consultas/agenda-paciente.html'><spam>Agenda do paciente</spam></a></li>
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/agenda-completa.html'><spam>Agenda completa de atendimentos</spam></a></li>
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Consultas/pendenciasRegulacao.html'><spam>Pendências de regulação</spam></a></li>
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Consultas/pendenciasEncaminhamentos.html'><spam>Pendências de encaminhamentos/altas</spam></a></li>
 
+                      <!-- Consultas Enfermagem -->
+                      <li data-permission="Enfermagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Enfermagem/Consultas/consulta-pedido-material.html'><spam>Acompanhamento de pedido de material de consumo</spam></a></li>
+                      <li data-permission="Enfermagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/consulta-codSUS.html'><spam>Lista de procedimentos SUS</spam></a></li>
 
-                       <br>
-                       <p>consultas alunos</p>
-                       <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Consultas/meus-pacientes.html'><spam>Meus Pacientes</spam></a></li>
-                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Consultas/minhas-avaliações.html'><spam>Minhas avaliações de atendimento</spam></a></li>
-                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/consulta-codSUS.html'><spam>Lista de procedimentos SUS</spam></a></li>
-                      <li><i class="bi bi-chevron-right"></i><a href='Gestão-Saúde/agenda-clinicas.html'><spam>Agenda de clínica</spam></a></li>
+                      <!-- Consultas Responsável Técnico -->
+                      <li data-permission="Responsavel"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Consultas/Pacientes.html'><spam>Consultar paciente</spam></a></li>
+                      <li data-permission="Responsavel"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/consulta-codSUS.html'><spam>Lista de procedimentos SUS</spam></a></li>
+                      <li data-permission="Responsavel"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/agenda-clinicas.html'><spam>Agenda de clínica</spam></a></li>
                     </ul>
                   </div>
                 </div>
@@ -167,18 +194,33 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <ul>
-                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Administração/Cadastros/cadastrar-material.html'><spam>Cadastrar material de estoque</spam></a></li>
-                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Administração/Cadastros/cadastrar-procedimentos.html'><spam>Cadastro/Alteração de código SUS</spam></a></li>
-                      <li><i class="bi bi-chevron-right"></i><a href='Gestão-Saúde/Administração/Cadastros/cadastrar-projeto.html'><spam>Cadastrar projeto/atividade clínica</spam></a></li>
+                      <!-- Cadastros Administrador -->
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Administração/Cadastros/cadastrar-material.html'><spam>Cadastrar material de estoque</spam></a></li>
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Administração/Cadastros/cadastrar-procedimentos.html'><spam>Cadastro/Alteração de código SUS</spam></a></li>
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='Gestão-Saúde/Administração/Cadastros/cadastrar-projeto.html'><spam>Cadastrar projeto/atividade clínica</spam></a></li>
 
+                      <!-- Cadastros alunos -->
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/minha-agenda.html'><spam>Agendamento / Minha agenda</spam></a></li>
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/cadastrar-entrevista-1.html'><spam>Entrevista dialogada</spam></a></li>
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/cadastrar-plano-1.html'><spam>Plano de tratamento</spam></a></li>
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/registrar-atendimento-1.html'><spam>Registrar atendimento</spam></a></li>
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/encaminhamento-alta-1.html'><spam>Encaminhamento/Alta de paciente</spam></a></li>
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/solicitar-regulação-interna-1.html'><spam>Solicitar regulação interna</spam></a></li>
 
-                      <p>cadastros alunos</p>
-                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/minha-agenda.html'><spam>Agendamento / Minha agenda</spam></a></li>
-                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/cadastrar-entrevista-1.html'><spam>Entrevista dialogada</spam></a></li>
-                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/cadastrar-plano-1.html'><spam>Plano de tratamento</spam></a></li>
-                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/registrar-atendimento-1.html'><spam>Registrar atendimento</spam></a></li>
-                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/encaminhamento-alta-1.html'><spam>Encaminhamento/Alta de paciente</spam></a></li>
-                        <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/solicitar-regulação-interna-1.html'><spam>Solicitar regulação interna</spam></a></li>
+                      <!-- Cadastros Triagem -->
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Cadastros/paciente-novo.html'><spam>Paciente novo</spam></a></li>
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Cadastros/agendar-atendimento-triagem.html'><spam>Agendamento pela triagem</spam></a></li>
+
+                      <!-- Cadastros Enfermagem -->
+                      <li data-permission="Enfermagem"></i><a href='/Gestão-Saúde/Enfermagem/Cadastros/requisitar-material.html'><spam>Requisição de materiais</spam></a></li>
+                      <li data-permission="Enfermagem"></i><a href='/Gestão-Saúde/Enfermagem/Cadastros/incluir-exame-1.html'><spam>Serviço de Radiologia - Incluir exame</spam></a></li>
+
+                      <!-- Cadastros responsável técnico -->
+                      <li data-permission="Responsavel"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Responsável-técnico/Cadastros/agendar-atendimento-responsavel.html'><spam>Agendar paciente</spam></a></li>
+                      <li data-permission="Responsavel"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Responsável-técnico/Cadastros/cadastrar-entrevista-1.html'><spam>Entrevista dialogada</spam></a></li>
+                      <li data-permission="Responsavel"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Responsável-técnico/Cadastros/cadastrar-plano-1.html'><spam>Plano de tratamento</spam></a></li>
+                      <li data-permission="Responsavel"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Responsável-técnico/Cadastros/registrar-atendimento-1.html'><spam>Registrar atendimento</spam></a></li>
+                      <li data-permission="Responsavel"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Responsável-técnico/Cadastros/encaminhamento-alta-1.html'><spam>Encaminhamento/Alta de paciente</spam></a></li>
                     </ul>
                   </div>
                 </div>
@@ -203,19 +245,26 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <ul>
-                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Administração/Processos/tramitar-material-1.html'><spam>Tramitar requisição de material</spam></a></li>
+                      <!-- Processos Administrador -->
+                      <li data-permission="Administrador"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Administração/Processos/tramitar-material-1.html'><spam>Tramitar requisição de material</spam></a></li>
 
+                      <!-- Processos Alunos -->
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/minha-agenda.html'><spam>Agendamento / Minha agenda</spam></a></li>
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Processos/procPendenciasReg-1.html'><spam>Regulação interna com pendência</spam></a></li>
+                      <li data-permission="Aluno"><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Processos/procPendenciasEncaminhamentos-1.html'><spam>Encaminhamentos/Altas com pendência</spam></a></li>
 
-                      <p>processos alunos</p>
-                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Cadastros/minha-agenda.html'><spam>Agendamento / Minha agenda</spam></a></li>
-                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Processos/procPendenciasReg-1.html'><spam>Regulação interna com pendência</spam></a></li>
-                      <li><i class="bi bi-chevron-right"></i><a href='/Gestão-Saúde/Aluno/Processos/procPendenciasEncaminhamentos-1.html'><spam>Encaminhamentos/Altas com pendência</spam></a></li>
-                
-                       
+                      <!-- Processos Triagem -->
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Processos/atualizar-cadastro-registrar-demanda.html'><spam>Atualizar cadastro e/ou registrar demanda</spam></a></li>
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Processos/vincular-1.html'><spam>Vincular paciente à aluno e disciplina/estágio</spam></a></li>
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Processos/tramitar-encaminhamento-1.html'><spam>Tramitar encaminhamento/Alta de paciente</spam></a></li>
+                      <li data-permission="Triagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Triagem/Processos/regulação-interna-1.html'><spam>Regulação interna</spam></a></li>
 
-
-
-                      <li><i class="bi bi-chevron-right"></i><a href='/Relatorios/relatorios.html'><spam>Relatórios</spam></a></li>
+                      <!-- Processos Enfermagem -->
+                      <li data-permission="Enfermagem"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Enfermagem/Processos/admitir-paciente.html'><spam>Admitir paciente na portaria</spam></a></li>
+                      
+                      <!-- Processos Responsável Técnico -->
+                      <li data-permission="Responsavel"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Responsável-técnico/Processos/homologar-atendimento-1.html'><spam>Homologar atendimento</spam></a></li>
+                      <li data-permission="Responsavel"><i class="bi-chevron-right"></i><a href='/Gestão-Saúde/Responsável-técnico/Processos/aprovar-encaminhamento-1.html'><spam>Aprovar encaminhamento/Alta de paciente</spam></a></li>
                     </ul>
                   </div>
                 </div>
@@ -225,7 +274,7 @@
         </section><!-- End Processos Section -->
 
         <!-- ======= Relatorios Section ======= -->
-      <section id="Relatorios" class="relatorios">
+      <section id="Relatorios" class="relatorios" data-permission="Administrador">
         <div class="container">
           
           <div class="section-title">
@@ -251,7 +300,7 @@
 
         <!-- ======= Tutoriais Section ======= -->
     <section id="tutoriais" class="portfolio section-bg">
-      <div class="container">
+      <div class="container" style="margin-left: 100px;">
 
         <div class="section-title">
           <h2>Tutoriais</h2>
@@ -361,7 +410,7 @@
 
       <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
-      <div class="container">
+      <div class="container" style="margin-left: 100px;">
 
         <div class="section-title">
           <h2>Sugestões/Reportar erros</h2>
@@ -410,56 +459,23 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var usuario = JSON.parse(localStorage.getItem("usuario"));
-      var permission = usuario.Tipo; // Assuming Tipo contains the permission type
-  
-      console.log("User Permission:", permission);
-  
-      var filtroElements = document.querySelectorAll('.filtro');
-  
-      // Hide all elements by default
-      filtroElements.forEach(function(element) {
-        element.style.display = 'none';
-      });
-  
-      // Show elements based on specific permissions
-      var showElementsForPermission = function(permissionType) {
-        var elements = document.querySelectorAll('.filtro.' + permissionType);
-        elements.forEach(function(element) {
-          element.style.display = 'block';
-        });
-      };
-  
-      switch (permission) {
-        case 'Administrador':
-          showElementsForPermission('Admin');
-          break;
-        case 'Aluno':
-          // No specific elements for 'Aluno'
-          break;
-        case 'Triagem':
-          showElementsForPermission('Triagem');
-          break;
-        case 'Responsavel':
-          // No specific elements for 'Responsavel'
-          break;
-        case 'Enfermagem':
-          // No specific elements for 'Enfermagem'
-          break;
-        default:
-          // Default behavior: Show all elements
-          filtroElements.forEach(function(element) {
-            element.style.display = 'block';
-          });
-          break;
+  //Filtra conteúdo por permissão do usuário
+  function filterElementsByPermission() {
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    const tipo = usuario ? usuario.Tipo : ''; // Get the user's permission type
+
+    const elements = document.querySelectorAll('[data-permission]');
+    elements.forEach(element => {
+      const permission = element.getAttribute('data-permission');
+      if (permission === tipo) {
+        element.style.display = 'block'; // Display elements matching the user's permission
+      } else {
+        element.style.display = 'none'; // Hide elements not matching the user's permission
       }
     });
-  </script>
-  
-  
-  
-  
-  
+  }
 
+  // Call the function to filter elements on page load
+  filterElementsByPermission();
+</script>
 </html>

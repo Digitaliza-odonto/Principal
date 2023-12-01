@@ -260,3 +260,22 @@
   new PureCounter();
 
 })()
+
+
+/**
+ * Change the tab content
+ */
+function changeTab(event, tabId) {
+  const tabContents = document.querySelectorAll(".tab-content");
+  tabContents.forEach(tabContent => {
+    tabContent.style.display = "none";
+  });
+
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(tab => {
+    tab.classList.remove("tab-active");
+  });
+
+  document.getElementById(tabId).style.display = "block";
+  event.currentTarget.classList.add("tab-active");
+}

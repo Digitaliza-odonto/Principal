@@ -35,6 +35,9 @@
 
   <!-- DataTables JS -->
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+  <!-- Mains JS -->
+  <script src="../assets/js/main.js"></script>
 </head>
 
 <body>
@@ -84,13 +87,21 @@
     <section class="breadcrumbs">
       <div class="container">
 
-        <div class="d-flex justify-content-between align-items-center">
-            <h2 style="margin-left: 100px;"><span id="pacienteHeader" style="color: maroon; font-weight: bold;"></span></h2>
+        <div class="d-flex justify-content-between align-items-center" style="position: fixed;top: 0; left: 350; right: 0; z-index: 1000; width: auto">
+            <h2><span id="pacienteHeader" style="color: maroon; font-weight: bold;"></span></h2>
+            
+            <div class="tab-container">
+              <div class="tab tab-active" onclick="changeTab(event, 'tab1')">Tab 1</div>
+              <div class="tab" onclick="changeTab(event, 'tab2')">Tab 2</div>
+              <div class="tab" onclick="changeTab(event, 'tab3')">Tab 3</div>
+             </div>
+
             <ol>
               <li><spam style="color: maroon;">Prontuário do paciente</spam></li>
               <li><span id="tipo_usuarioHome"></span></li>
             </ol>
-                        
+            
+            
             <script>
                 var tipo_usuarioHome = document.getElementById("tipo_usuarioHome");
                 var Nome_usuario = document.getElementById("Nome_usuario");
@@ -105,10 +116,10 @@
     </section><!-- End Breadcrumbs -->
 
     <main id="main">
-      
+
       <!-- ======= Dados Section ======= -->
       <section id="Dados" class="O2Pages">
-        <div class="container" style="margin-left: -30px; margin-top: -50px;">
+        <div class="container tab-content tab-content-active" style="margin-top: -50px;" id="tab1">
           
           <div class="section-title">
             <h2>Dados Pessoais</h2>
@@ -211,7 +222,7 @@
 
             <!-- ======= Endereco Section ======= -->
             <section id="Endereco" class="O2Pages">
-              <div class="container" style="margin-left: -30px; margin-top: -50px;">
+              <div class="container tab-content" style="margin-left: -30px; margin-top: -50px;" id="tab2">
                 
                 <div class="section-title">
                   <h2>Endereço</h2>

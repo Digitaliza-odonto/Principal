@@ -1434,3 +1434,35 @@ CSS OXIGENIO: TABELAS
 #tabelaPacientes.dataTable tbody td {
   padding: 0.3rem; /* Adjust the padding to make the table more compact */
 }
+
+
+/*--------------------------------------------------------------
+TABS - ABAS
+--------------------------------------------------------------*/
+.tab-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-around;
+  border-bottom: 1px solid #ddd;
+ }
+ 
+ .tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+ }
+ 
+ .tab-active {
+  border-bottom: 2px solid #007BFF;
+ }
+ 
+ .tab-content {
+  display: none;
+  padding: 20px;
+ }
+ 
+ .tab-content-active {
+  display: block;
+ }

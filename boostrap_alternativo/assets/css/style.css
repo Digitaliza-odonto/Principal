@@ -1402,6 +1402,13 @@ CSS OXIGENIO: INPUTS, BOTÕES, TABELAS, ETC
   width: 100%;
 }
 
+.breakLine2 {
+  height: 2px;
+  background: maroon;
+  margin: 5px 0 5px 0;
+  width: 100%;
+}
+
 /* Changing the color of linked text */
 a {
   color: rgb(62, 0, 0); /* Define the color you want for linked text */
@@ -1448,11 +1455,14 @@ TABS - ABAS
  }
  
  .tab {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   flex: 1;
   text-align: center;
   padding: 10px;
   cursor: pointer;
- }
+}
  
  .tab-active {
   border-bottom: 2px solid #007BFF;

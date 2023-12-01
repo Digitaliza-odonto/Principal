@@ -2,21 +2,10 @@
 
 ## Descrição do Projeto
 
-Este projeto tem como objetivo desenvolver um Prontuário Odontológico Digital para a Universidade Federal de Pelotas (UFPel). O prontuário digital será uma ferramenta moderna e eficiente para os profissionais de odontologia acompanharem e registrarem informações sobre os pacientes atendidos na UFPel.
+Este projeto tem como objetivo desenvolver um Sistema de Gestão de Informações para o Curso de Odontologia da Universidade Federal de Pelotas (UFPel). O sistema será uma ferramenta moderna e eficiente para os alunos e servidores acompanharem e registrarem informações sobre os processos envolvidos na FO-UFPel.
 
-O sistema permitirá que os dentistas e outros profissionais de saúde registrem as informações de saúde bucal dos pacientes, incluindo histórico médico, tratamentos realizados, prescrições, exames de imagem, e quaisquer outras informações relevantes para o acompanhamento dos cuidados odontológicos.
+O sistema permitirá que os alunos, professores e servidores técnico-administrativos da FO-UFPel registrem as informações relacionadas ao atendimentos odontológicos, uso de materiais de consumo, agendamento de clínicas e regulação dos pacientes nas diferentes disciplinas/especialidades.
 
-## Como Contribuir
-
-Se você deseja contribuir para o desenvolvimento do Prontuário Odontológico Digital, siga os passos abaixo:
-
-1. Faça um *fork* deste repositório e clone-o para o seu ambiente de desenvolvimento.
-2. Crie uma *branch* para a sua contribuição: `git checkout -b minha-contribuicao`.
-3. Realize as alterações e melhorias desejadas no código.
-4. Certifique-se de seguir as boas práticas de programação e padrões do projeto.
-5. Faça *commits* das suas alterações: `git commit -m "Minha contribuição: resumo das alterações"`.
-6. Envie as alterações para o seu repositório remoto: `git push origin minha-contribuicao`.
-7. Abra um *pull request* neste repositório, descrevendo detalhadamente as alterações realizadas.
 
 ## Equipe
 
@@ -24,5 +13,4 @@ Se você deseja contribuir para o desenvolvimento do Prontuário Odontológico D
 - Pedro Afonso M. Nunes (@pedroaf0)
 
 ## Licença
-
 Este projeto está licenciado sob a Licença [MIT](https://opensource.org/licenses/MIT)

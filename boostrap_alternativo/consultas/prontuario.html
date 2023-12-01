@@ -1,17 +1,17 @@
+<!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Prontuário do paciente</title>
+  <title>Consultar paciente</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="../assets/img/apple-touch-icon.png" rel="icon">
   <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
@@ -21,7 +21,7 @@
   <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <!-- <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"> -->
+  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
@@ -29,15 +29,21 @@
 
   <!-- DataTables CSS -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
-            
+              
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <!-- DataTables JS -->
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 
-  <!-- Mains JS -->
+  <!-- Template Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  <style>
+    .hidden {
+    display: none;
+  }
+  </style>
 </head>
 
 <body>
@@ -52,56 +58,46 @@
       <div class="profile">
         <img src="../assets/img/logo_mini.jpg" alt="" class="img-fluid rounded-circle">
         <h1 class="text-light"><span id="Nome_usuario"></span></h1>
+        
+        <script>
+          var Nome_usuario = document.getElementById("Nome_usuario");
+          var usuario = JSON.parse(localStorage.getItem("usuario"));
+          Nome_usuario.innerHTML = usuario.Nome;
+        </script>
       </div>
     </div>
 
     <nav id="navbar" class="nav-menu navbar">
       <ul>
-        <li><a onclick="goBack()" class="nav-link scrollto active"><i class="bi bi-arrow-left-square-fill"></i></i><span>Voltar</span></a></li>
-        <li><a href="#Dados" class="nav-link scrollto"><i class="bi bi-search"></i></i> <span>Dados Pessoais</span></a></li>
-        <li><a href="#Endereco" class="nav-link scrollto"><i class="bi bi-search"></i></i> <span>Endereço</span></a></li>
-        <li><a href="#Demandas" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Demandas</span></a></li>
-        <li><a href="#Entrevistas" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Entrevista(s) Dialogada(s)</span></a></li>
-        <li><a href="#Planos" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Plano(s) de tratamento</span></a></li>
-        <li><a href="#Historico" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Histórico</span></a></li>
-        <li><a href="#Documentos" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Documentos/Exames complementares</span></a></li>
-        <li><a href="#Faltas" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Falta(s) registrada(s)</span></a></li>
+        <li><a href="../innerPage.html#hero" class="nav-link active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+        <li><a href="../innerPage.html#Consultas" class="nav-link"><i class="bi bi-search"></i> <span>Consultas</span></a></li>
+        <li><a href="../innerPage.html#Cadastros" class="nav-link"><i class="bx bx-file-blank"></i> <span>Cadastros</span></a></li>
+        <li><a href="../innerPage.html#Processos" class="nav-link"><i class="bx bx-server"></i> <span>Processos</span></a></li>
+        <li data-permission="Administrador"><a href="../innerPage.html#Relatorios" class="nav-link"><i class="bi bi-file-earmark-bar-graph"></i><span>Relatórios</span></a></li>
+        <li><a href="#../innerPage.htmltutoriais" class="nav-link"><i class="bi bi-youtube"></i><span>Tutoriais</span></a></li>
+        <li><a href="#../innerPage.htmlcontact" class="nav-link"><i class="bx bx-envelope"></i> <span>Sugestões/Reportar erros</span></a></li>
         <br>
-
-        <script>
-          function goBack() {
-            window.history.back(); // This function will navigate to the previous page in history
-          }
-        </script>
-        
       </ul>
     </nav><!-- .nav-menu -->
     
-    <button type="button" class="buttonO2" style="display: block; margin: 0 auto; width: 30%;" onclick="window.location.href='index.html'">Logout</button>
-    </div>
+    <button type="button" style="display: block; margin: 0 auto; width: 30%; color: maroon; border-radius: 2px; padding: auto;" onclick="window.location.href='index.html'">Logout</button>
+    
   </header><!-- End Header -->
 
-  <main id="main">
-  
-    <!-- ======= Breadcrumbs ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
+<main id="main">
 
-        <div class="d-flex justify-content-between align-items-center" style="position: fixed;top: 0; left: 350; right: 0; z-index: 1000; width: auto">
-            <h2><span id="pacienteHeader" style="color: maroon; font-weight: bold;"></span></h2>
-            
-            <div class="tab-container">
-              <div class="tab tab-active" onclick="changeTab(event, 'tab1')">Tab 1</div>
-              <div class="tab" onclick="changeTab(event, 'tab2')">Tab 2</div>
-              <div class="tab" onclick="changeTab(event, 'tab3')">Tab 3</div>
-             </div>
+<!-- ======= Breadcrumbs ======= -->
+<section class="breadcrumbs">
+    <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center" style="margin-left: 75px; width: 75vw">
+            <h2>Paciente: <span id="pacienteHeader" style="color: maroon; font-weight: bold;"></span></h2>
 
             <ol>
-              <li><spam style="color: maroon;">Prontuário do paciente</spam></li>
-              <li><span id="tipo_usuarioHome"></span></li>
+                <li><spam style="color: maroon;">Prontuário do paciente</spam></li>
+                <li><span id="tipo_usuarioHome"></span></li>
             </ol>
-            
-            
+                     
             <script>
                 var tipo_usuarioHome = document.getElementById("tipo_usuarioHome");
                 var Nome_usuario = document.getElementById("Nome_usuario");
@@ -111,415 +107,91 @@
                 tipo_usuarioHome.innerHTML = usuario.Tipo;
             </script>
         </div>
+        
+        <div class="breakLine2"></div>
 
-      </div>
-    </section><!-- End Breadcrumbs -->
+        <div class="d-flex justify-content-between align-items-center" style="margin-left: 80px; z-index: 1000; width: auto;">
+            <div class="tab-container">
+                <div class="tab tab-active" onclick="changeTab(event, 'tab1')">Dados pessoais</div>
+                <div class="tab" onclick="changeTab(event, 'tab2')">Demandas / Encaminhamentos</div>
+                <div class="tab" onclick="changeTab(event, 'tab3')">Entrevistas dialogadas</div>
+                <div class="tab" onclick="changeTab(event, 'tab4')">Planos de tratamento</div>
+                <div class="tab" onclick="changeTab(event, 'tab5')">Histórico de atendimentos</div>
+                <div class="tab" onclick="changeTab(event, 'tab6')">Exames complementares</div>
+                <div class="tab" onclick="changeTab(event, 'tab7')">Faltas registradas</div>
+            </div>
+        </div>
 
-    <main id="main">
+    </div>
+  </section><!-- End Breadcrumbs -->
 
       <!-- ======= Dados Section ======= -->
-      <section id="Dados" class="O2Pages">
-        <div class="container tab-content tab-content-active" style="margin-top: -50px;" id="tab1">
-          
-          <div class="section-title">
-            <h2>Dados Pessoais</h2>
-
-              <div>
-                <label style="width: 240px; margin: 5px; font-weight: bold; color: red; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
-                <input type="text" id="informacoesImportantes" class="inputO2" style="width: 400px; margin-top: 5px;" readonly="readonly"><br>
-                <span style="margin-left: 5px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, ETC.)</span>
+    <section id="Dados" class="O2Pages" style="margin-top: -50px; margin-left: -100px;">
+        <div class="container tab-content tab-content-active" id="tab1">
+            
+            <div id="capaContent">
+                <?php include('../tabs/capaConsulta.html'); ?>
               </div>
-
-              <div class="breakLine"></div>
-            
-              <label class="inputLabelO2" style="width: 120px; margin: 5px;">Nome</label>
-              <input type="text" class="inputO2" id="Nome" maxlength="255" style="width: 400px;" readonly="readonly">
-              <br>
-              
-              <label class="inputLabelO2" style="width: 120px; margin: 5px;">Nome social</label>
-              <input type="text" class="inputO2" id="nomeSocial" maxlength="255" style="width: 400px;" readonly="readonly">
-              <br>
-              
-              <label class="inputLabelO2" style="width: 120px; margin: 5px;">CPF</label>
-              <input type="text" id="Cpf" class="inputO2" style="width: 150px;" readonly="readonly">
-            
-              <label class="inputLabelO2" style="width: 30px; margin-left: 40px;">RG</label>
-              <input type="text" class="inputO2" id="Rg" style="width: 160px;" readonly="readonly">
-              
-              <label class="inputLabelO2" style="width: 140px; margin-left: 30px;">Cartão SUS (CNS)</label>
-              <input type="text" class="inputO2" id="CNS" style="width: 150px;" readonly="readonly">
-              <br>
-              
-              <label class="inputLabelO2" style="width: 120px; margin: 5px;"  >Dt. nascimento</label>
-              <input class="inputO2" type="text" name="DataNasc" id="DataNasc" style="width: 120px;" readonly="readonly">
-              <br>
-            
-              <label class="inputLabelO2" style="width: 120px; margin: 5px;">E-mail</label>
-              <input class="inputO2" type="text" id="Email" style="width: 400px;" readonly="readonly">
-              <br>
-            
-              <label class="inputLabelO2" style="width: 120px; margin: 5px;">Telefone</label>
-              <input class="inputO2" type="text" id="Tel" style="width: 150px;" readonly="readonly">
-                          
-              <label class="inputLabelO2" style="width: 80px; margin-left: 45px;">Telefone 2</label>
-              <input class="inputO2" type="text" name="Tel2" id="Tel2" style="width: 150px;" readonly="readonly">
-                          
-              <label class="inputLabelO2" style="width: 80px; margin-left: 45px;">Telefone 3</label>
-              <input class="inputO2" type="text" name="Tel3" id="Tel3" style="width: 150px;" readonly="readonly">
-              <br>
-              
-              <label class="inputLabelO2" style="width: 120px; margin: 5px;">Estado civil</label>
-              <select class="inputO2" style="width: 180px; height: 30px;" id="EstadoCivil" disabled>
-                  <option value="CASADO">CASADO</option>
-                  <option value="DIVORCIADO">DIVORCIADO</option>
-                  <option value="OUTROS">OUTROS</option>
-                  <option value="SEPARADO">SEPARADO JUDICIALMENTE</option>
-                  <option value="SOLTEIRO">SOLTEIRO</option>
-                  <option value="VIUVO">VIUVO</option>
-              </select>
-                        
-              <label class="inputLabelO2" style="width: 75px; margin-left: 20px;">Sexo</label>
-              <select class="inputO2" style="width: 150px; height: 30px;" id="Sexo" disabled>
-                <option value="Masculino">Masculino</option>
-                <option value="Feminino">Feminino</option>
-              </select> 
-                        
-              <label class="inputLabelO2" style="width: 80px; margin-left: 45px;">Cor/Raça</label>
-              <select class="inputO2" style="width: 150px; height: 30px;" id="CorRaca" disabled>
-                <option value="Amarelo">Amarelo</option>
-                <option value="Branca">Branca</option>
-                <option value="Indígena">Indígena</option>
-                <option value="Negra">Negra</option>
-                <option value="Parda">Parda</option>
-                <option value="Não quis declarar">Não quis declarar</option>
-              </select>
-
-              <div class="breakLine"></div>
-          
-              <label style="font-weight:bold;width: 120px;" readonly="readonly">Filiação</label>
-              <br>
-          
-              <label style="width: 120px; margin: 5px;">Nome da mãe</label>
-              <input type="text" name="NomeMae" id="NomeMae" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;" readonly="readonly">
-          
-              <br>
-              <label style="width: 120px;margin: 5px;">Nome do pai</label>
-              <input type="text" name="NomePai" id="NomePai" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;" readonly="readonly">
-              
-              <br>
-              <hr class="ui-state-default">
-              <label style="width: 600px;">Condição sistêmica/Necessidade especial: (Segurar control para fazer seleçoes múltiplas)</label><br>
-              <select class="ui-state-default ui-corner-all" style="width: 100px;margin: 5px;" name="PNE" id="PNE" multiple disabled>
-                <option value="Hipertensão">Hipertensão</option>
-                <option value="Diabetes">Diabetes</option>
-                <option value="Hepatite B">Hepatite B</option>
-                <option value="Hepatite C">Hepatite C</option>
-                <option value="Soropositivo">Soropositivo</option>
-              </select> 
-            </div>
-          </div>
-      </section><!-- End Section -->
-
-            <!-- ======= Endereco Section ======= -->
-            <section id="Endereco" class="O2Pages">
-              <div class="container tab-content" style="margin-left: -30px; margin-top: -50px;" id="tab2">
-                
-                <div class="section-title">
-                  <h2>Endereço</h2>
-      
-                    <label style="font-weight:bold;width: 120px;">Endereço:</label>
-                    <br>
-                  
-                    <label style="width: 120px;">Tipo de endereço</label>
-                    <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="EnderecoTipo" id="EnderecoTipo" disabled>
-                      <option value="Comercial">Comercial</option>
-                      <option value="Família">Família</option>
-                      <option value="Residencial">Residencial</option>
-                    </select> 
-                    <br>
-                
-                     <label style="width: 120px;">CEP</label>
-                    <input type="text" name="Cep" id="Cep" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap cep" style="width: 100px;" readonly="readonly">
-                    <br>
-                
-                    <label style="width: 120px;">Endereço</label>
-                    <input type="text" name="Rua" id="Rua" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-                    <br>
-                
-                    <label style="width: 120px;">Número</label>
-                    <input type="text" name="EndNumero" id="EndNumero" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;" readonly="readonly">
-                    <br>
-                
-                    <label style="width: 120px;">Complemento</label>
-                    <input type="text" name="EndComplemento" id="EndComplemento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-                    <br>
-                
-                    <label style="width: 120px;">Bairro</label>
-                    <input type="text" name="Bairro" id="Bairro" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-                    <br>
-                
-                    <label style="width: 120px;">Cidade</label>
-                    <input type="text" name="Cidade" id="Cidade" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
-                    <br>
-                  </div>
-                </div>
-            </section><!-- End Section -->
-              
-              <script src="/API/API.js"></script>
-          
-              <script type="text/javascript">
-          
-                 // CONVERTER DATA EM DD/MM/YYYY
-                function formatDate(dateString) {
-                    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-                    const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
-                    return formattedDate;
-                }
-          
-                // Função para preencher o formulário com os dados do perfil
-                  function preencherFormulario(dados) {
-                    document.getElementById("informacoesImportantes").value = dados.informacoesImportantes;
-                    document.getElementById("Cpf").value = dados.CPF;
-                    document.getElementById("Nome").value = dados.Nome;
-                    document.getElementById("pacienteHeader").innerText = dados.Nome;
-                    document.getElementById("nomeSocial").value = dados.nomeSocial;
-                    document.getElementById("Nometab").innerText = dados.Nome;
-                    document.getElementById("Rg").value = dados.Rg;
-                    document.getElementById("CNS").value = dados.CNS;
-                    document.getElementById('DataNasc').value = formatDate(dados.DataNasc);
-                    document.getElementById("Email").value = dados.Email;
-                    document.getElementById("Tel").value = dados.Tel;
-                    document.getElementById("Tel2").value = dados.Tel2;
-                    document.getElementById("Tel3").value = dados.Tel3;
-                    document.getElementById("EstadoCivil").value = dados.EstadoCivil;
-                    document.getElementById("Sexo").value = dados.Sexo;
-                    document.getElementById("CorRaca").value = dados.CorRaca;
-                    document.getElementById("NomeMae").value = dados.NomeMae;
-                    document.getElementById("NomePai").value = dados.NomePai;
-                    document.getElementById("PNE").value = dados.PNE;
-                    document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
-                    document.getElementById("Cep").value = dados.Cep;
-                    document.getElementById("Rua").value = dados.Rua;
-                    document.getElementById("EndNumero").value = dados.EndNumero;
-                    document.getElementById("EndComplemento").value = dados.EndComplemento;
-                    document.getElementById("Bairro").value = dados.Bairro;
-                    document.getElementById("Cidade").value = dados.Cidade;
-                  }
-              
-                  // Função para obter parâmetros da URL excluindo a parte após #
-                  function getUrlVars() {
-                      var vars = {};
-                      var url = window.location.href.split('#')[0]; // Exclude the portion after #
-                      var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-                          vars[key] = decodeURIComponent(value); // Decode URI component to handle special characters
-                      });
-                      return vars;
-                  }
-
-                  // Obter o CPF da URL
-                  var urlParams = getUrlVars();
-                  var cpfFromUrl = urlParams['cpf'];
-                  
-          
-                  // Função para buscar o perfil usando a API
-                  function buscarPerfil() {
-                      const params = getUrlVars();
-                      const cpf = params['cpf'];
-                      const id = params['id'];
-          
-                      if (cpf) {
-                          api.pacientes.consultar({ CPF: cpf, ID: id }) // Ensure that your API supports both 'cpf' and 'id' parameters
-                              .then((pacientes) => {
-                                  if (pacientes.length === 0) {
-                                      console.log('Nenhum paciente encontrado');
-                                  } else {
-                                      preencherFormulario(pacientes[0]);
-                                  }
-                              })
-                              .catch((error) => {
-                                  console.error('Erro ao consultar perfil:', error);
-                              });
-                      } else {
-                          console.log('CPF não encontrado na URL.');
-                      }
-                  }
-          
-                  // Chamar a função para buscar o perfil
-                  buscarPerfil();
-              </script>
-
-
-
-    <!-- ======= Demandas Section ======= -->
-    <section id="Demandas" class="O2Pages">
-      <div class="container" style="margin-left: -30px; margin-top: -50px;">
-        
-        <div class="section-title">
-          <h2>Dados Pessoais</h2>
-    
-
-          <div class="breakLine"></div>
-
-          <div class="container" style="margin-left: -30px;">
-            <h3>Lista de pacientes</h3>
-            <table id="tabelaPacientes" class="display">
-              <thead>
-                <tr>
-                  <th>Nome</th>
-                  <th>CPF</th>
-                  <th>Telefone</th>
-                  <th>Telefone 2</th>
-                  <th>E-mail</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Adicione linhas conforme função -->
-              </tbody>
-            </table>
-          </div>
-          
-          <script>
-            $(document).ready(function () {
-              $('#tabelaPacientes').DataTable({
-                "stripeClasses": ['striped', ''],
-                "language": {
-                  "sEmptyTable": "Nenhum registro encontrado",
-                  "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                  "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                  "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                  "sInfoPostFix": "",
-                  "sInfoThousands": ".",
-                  "sLengthMenu": "_MENU_ resultados por página",
-                  "sLoadingRecords": "Carregando...",
-                  "sProcessing": "Processando...",
-                  "sZeroRecords": "Nenhum registro encontrado",
-                  "sSearch": "Pesquisar",
-                  "oPaginate": {
-                    "sNext": "Próximo",
-                    "sPrevious": "Anterior",
-                    "sFirst": "Primeiro",
-                    "sLast": "Último"
-                  },
-                  "oAria": {
-                    "sSortAscending": ": Ordenar colunas de forma ascendente",
-                    "sSortDescending": ": Ordenar colunas de forma descendente"
-                  },
-                  "select": {
-                    "rows": {
-                      "_": "Selecionado %d linhas",
-                      "0": "Nenhuma linha selecionada",
-                      "1": "Selecionado 1 linha"
-                    }
-                  },
-                  "buttons": {
-                    "copy": "Copiar para a área de transferência",
-                    "copyTitle": "Cópia bem sucedida",
-                    "copySuccess": {
-                      "1": "Uma linha copiada com sucesso",
-                      "_": "%d linhas copiadas com sucesso"
-                    }
-                  }
-                }
-              });
-            });
-          </script>
-
-          <script>
-            function limparTabela() {
-              const table = $('#tabelaPacientes').DataTable();
-              table.clear().draw(); // Clear DataTables table
-            }
-
-            function adicionarNovaLinha(nome, cpf, Tel, Tel2, Email) {
-              const table = $('#tabelaPacientes').DataTable();
-              table.row.add([
-                `<a href="prontuario.html?cpf=${cpf}">${nome}</a>`,
-                `<a href="prontuario.html?cpf=${cpf}">${cpf}</a>`,
-                `<a href="prontuario.html?cpf=${cpf}">${Tel}</a>`,
-                `<a href="prontuario.html?cpf=${cpf}">${Tel2}</a>`,
-                `<a href="prontuario.html?cpf=${cpf}">${Email}</a>`
-              ]).draw(false); // Add a new row to DataTables and redraw
-            }
-
-            // Função de busca que determina qual função de consulta chamar com base nos campos de nome e CPF
-            function buscar() {
-              const nome = document.getElementById('txtNome').value;
-              const cpf = document.getElementById('txtCpf').value;
-
-              if (nome.trim() !== '') {
-                consultarPacientesPorNome(nome);
-              } else if (cpf.trim() !== '') {
-                consultarPacientesPorCPF(cpf);
-              } else {
-                alert("Preencha o campo nome ou CPF para realizar a busca.");
-              }
-            }
-
-            // Função para consultar pacientes por nome usando a API
-            function consultarPacientesPorNome(nome) {
-              api.pacientes.consultar({ Nome: nome })
-                .then((pacientes) => {
-                  limparTabela(); // Clear DataTables table
-
-                  if (pacientes.length === 0) {
-                    alert("Nenhum paciente encontrado");
-                  } else {
-                    pacientes.forEach(paciente => {
-                      adicionarNovaLinha(
-                        paciente.Nome,
-                        paciente.CPF,
-                        paciente.Tel,
-                        paciente.Tel2,
-                        paciente.Email
-                      );
-                    });
-                  }
-                })
-                .catch((error) => {
-                  console.error('Erro ao consultar pacientes:', error);
-                });
-            }
-
-            function consultarPacientesPorCPF(cpf) {
-              api.pacientes.consultar({ CPF: cpf })
-                .then((pacientes) => {
-                  limparTabela(); // Clear DataTables table
-
-                  if (pacientes.length === 0) {
-                    alert("Nenhum paciente encontrado");
-                  } else {
-                    pacientes.forEach(paciente => {
-                      adicionarNovaLinha(
-                        paciente.Nome,
-                        paciente.CPF,
-                        paciente.Tel,
-                        paciente.Tel2,
-                        paciente.Email
-                      );
-                    });
-                  }
-                })
-                .catch((error) => {
-                  console.error('Erro ao consultar pacientes:', error);
-                });
-            }
-            
-            // Adicionar eventos de busca nos campos de entrada
-            document.getElementById('txtCpf').onkeydown = function (e) {
-              if (e.key === 'Enter') {
-                consultarPacientesPorCPF(document.getElementById('txtCpf').value);
-              }
-            }
-
-            document.getElementById('txtNome').onkeydown = function (e) {
-              if (e.key === 'Enter') {
-                consultarPacientesPorNome(document.getElementById('txtNome').value);
-              }
-            }
-          </script>
         </div>
-      </div>
-  </section><!-- End Section -->
+    </section><!-- End Section -->
+
+    <!-- ======= Endereco Section ======= -->
+    <section id="Demandas" class="O2Pages">
+        <div class="container tab-content" style="margin-left: -30px; margin-top: -50px;" id="tab2">
+
+
+              
+        </div>
+    </section><!-- End Section -->
+
+    <!-- ======= Entrevistas Section ======= -->
+    <section id="Entrevistas" class="O2Pages">
+        <div class="container tab-content" style="margin-left: -30px; margin-top: -50px;" id="tab3">
+
+
+              
+        </div>
+    </section><!-- End Section -->
+
+        <!-- ======= Planos Section ======= -->
+        <section id="Planos" class="O2Pages">
+            <div class="container tab-content" style="margin-left: -30px; margin-top: -50px;" id="tab4">
+    
+    
+                  
+        </div>
+    </section><!-- End Section -->
+
+    <!-- ======= Historico Section ======= -->
+    <section id="Historico" class="O2Pages">
+        <div class="container tab-content" style="margin-left: -30px; margin-top: -50px;" id="tab5">
+
+
+                
+        </div>
+    </section><!-- End Section -->
+
+    <!-- ======= Exames Section ======= -->
+    <section id="Exames" class="O2Pages">
+        <div class="container tab-content" style="margin-left: -30px; margin-top: -50px;" id="tab6">
+
+
+                
+        </div>
+    </section><!-- End Section -->
+
+     <!-- ======= Faltas Section ======= -->
+     <section id="Faltas" class="O2Pages">
+        <div class="container tab-content" style="margin-left: -30px; margin-top: -50px;" id="tab7">
+
+
+                
+        </div>
+    </section><!-- End Section -->
+            
+            
+
+
 
 
 
@@ -541,6 +213,125 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <!-- Vendor JS Files -->
+  <script src="../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="../assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
 
 </body>
+
+<script src="/API/API.js"></script>
+
+<!-- SCRIPT CAPA -->
+<script type="text/javascript">
+
+    // CONVERTER DATA EM DD/MM/YYYY
+    function formatDate(dateString) {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+        return formattedDate;
+    }
+
+    // Função para preencher o formulário com os dados do perfil
+    function preencherFormulario(dados) {
+        document.getElementById("informacoesImportantes").value = dados.informacoesImportantes;
+        document.getElementById("Cpf").value = dados.CPF;
+        document.getElementById("Nome").value = dados.Nome;
+        document.getElementById("pacienteHeader").innerText = dados.Nome;
+        document.getElementById("nomeSocial").value = dados.nomeSocial;
+        document.getElementById("Nometab").innerText = dados.Nome;
+        document.getElementById("Rg").value = dados.Rg;
+        document.getElementById("CNS").value = dados.CNS;
+        document.getElementById('DataNasc').value = formatDate(dados.DataNasc);
+        document.getElementById("Email").value = dados.Email;
+        document.getElementById("Tel").value = dados.Tel;
+        document.getElementById("Tel2").value = dados.Tel2;
+        document.getElementById("Tel3").value = dados.Tel3;
+        document.getElementById("EstadoCivil").value = dados.EstadoCivil;
+        document.getElementById("Sexo").value = dados.Sexo;
+        document.getElementById("CorRaca").value = dados.CorRaca;
+        document.getElementById("NomeMae").value = dados.NomeMae;
+        document.getElementById("NomePai").value = dados.NomePai;
+        document.getElementById("PNE").value = dados.PNE;
+        document.getElementById("EnderecoTipo").value = dados.EnderecoTipo;
+        document.getElementById("Cep").value = dados.Cep;
+        document.getElementById("Rua").value = dados.Rua;
+        document.getElementById("EndNumero").value = dados.EndNumero;
+        document.getElementById("EndComplemento").value = dados.EndComplemento;
+        document.getElementById("Bairro").value = dados.Bairro;
+        document.getElementById("Cidade").value = dados.Cidade;
+    }
+
+    // Função para obter parâmetros da URL excluindo a parte após #
+    function getUrlVars() {
+        var vars = {};
+        var url = window.location.href.split('#')[0]; // Exclude the portion after #
+        var parts = url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = decodeURIComponent(value); // Decode URI component to handle special characters
+        });
+        return vars;
+    }
+
+    // Obter o CPF da URL
+    var urlParams = getUrlVars();
+    var cpfFromUrl = urlParams['cpf'];
+    
+
+    // Função para buscar o perfil usando a API
+    function buscarPerfil() {
+        const params = getUrlVars();
+        const cpf = params['cpf'];
+        const id = params['id'];
+
+        if (cpf) {
+            api.pacientes.consultar({ CPF: cpf, ID: id }) // Ensure that your API supports both 'cpf' and 'id' parameters
+                .then((pacientes) => {
+                    if (pacientes.length === 0) {
+                        console.log('Nenhum paciente encontrado');
+                    } else {
+                        preencherFormulario(pacientes[0]);
+                    }
+                })
+                .catch((error) => {
+                    console.error('Erro ao consultar perfil:', error);
+                });
+        } else {
+            console.log('CPF não encontrado na URL.');
+        }
+    }
+
+    // Chamar a função para buscar o perfil
+    buscarPerfil();
+</script>
+
+
+<script>
+  //Filtra conteúdo por permissão do usuário
+  function filterElementsByPermission() {
+    const usuario = JSON.parse(localStorage.getItem('usuario'));
+    const tipo = usuario ? usuario.Tipo : ''; // Get the user's permission type
+
+    const elements = document.querySelectorAll('[data-permission]');
+    elements.forEach(element => {
+      const permission = element.getAttribute('data-permission');
+      if (permission === tipo) {
+        element.style.display = 'block'; // Display elements matching the user's permission
+      } else {
+        element.style.display = 'none'; // Hide elements not matching the user's permission
+      }
+    });
+  }
+
+  // Call the function to filter elements on page load
+  filterElementsByPermission();
+</script>
 </html>

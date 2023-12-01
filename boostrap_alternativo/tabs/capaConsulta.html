@@ -1,0 +1,133 @@
+<div class="section-title">
+    <h2>Dados Pessoais</h2>
+
+        <div>
+        <label style="width: 240px; margin: 5px; font-weight: bold; color: red; font-weight: bold;">INFORMAÇÕES IMPORTANTES</label>
+        <input type="text" id="informacoesImportantes" class="inputO2" style="width: 400px; margin-top: 5px;" readonly="readonly"><br>
+        <span style="margin-left: 5px;">Descrever informações imprescindíveis ao profissional de saúde (ALERGIAS, ETC.)</span>
+        </div>
+
+        <div class="breakLine"></div>
+    
+        <label class="inputLabelO2" style="width: 120px; margin: 5px;">Nome</label>
+        <input type="text" class="inputO2" id="Nome" maxlength="255" style="width: 400px;" readonly="readonly">
+        <br>
+        
+        <label class="inputLabelO2" style="width: 120px; margin: 5px;">Nome social</label>
+        <input type="text" class="inputO2" id="nomeSocial" maxlength="255" style="width: 400px;" readonly="readonly">
+        <br>
+        
+        <label class="inputLabelO2" style="width: 120px; margin: 5px;">CPF</label>
+        <input type="text" id="Cpf" class="inputO2" style="width: 150px;" readonly="readonly">
+    
+        <label class="inputLabelO2" style="width: 30px; margin-left: 40px;">RG</label>
+        <input type="text" class="inputO2" id="Rg" style="width: 160px;" readonly="readonly">
+        
+        <label class="inputLabelO2" style="width: 140px; margin-left: 30px;">Cartão SUS (CNS)</label>
+        <input type="text" class="inputO2" id="CNS" style="width: 150px;" readonly="readonly">
+        <br>
+        
+        <label class="inputLabelO2" style="width: 120px; margin: 5px;"  >Dt. nascimento</label>
+        <input class="inputO2" type="text" name="DataNasc" id="DataNasc" style="width: 120px;" readonly="readonly">
+        <br>
+    
+        <label class="inputLabelO2" style="width: 120px; margin: 5px;">E-mail</label>
+        <input class="inputO2" type="text" id="Email" style="width: 400px;" readonly="readonly">
+        <br>
+    
+        <label class="inputLabelO2" style="width: 120px; margin: 5px;">Telefone</label>
+        <input class="inputO2" type="text" id="Tel" style="width: 150px;" readonly="readonly">
+                    
+        <label class="inputLabelO2" style="width: 80px; margin-left: 45px;">Telefone 2</label>
+        <input class="inputO2" type="text" name="Tel2" id="Tel2" style="width: 150px;" readonly="readonly">
+                    
+        <label class="inputLabelO2" style="width: 80px; margin-left: 45px;">Telefone 3</label>
+        <input class="inputO2" type="text" name="Tel3" id="Tel3" style="width: 150px;" readonly="readonly">
+        <br>
+        
+        <label class="inputLabelO2" style="width: 120px; margin: 5px;">Estado civil</label>
+        <select class="inputO2" style="width: 180px; height: 30px;" id="EstadoCivil" disabled>
+            <option value="CASADO">CASADO</option>
+            <option value="DIVORCIADO">DIVORCIADO</option>
+            <option value="OUTROS">OUTROS</option>
+            <option value="SEPARADO">SEPARADO JUDICIALMENTE</option>
+            <option value="SOLTEIRO">SOLTEIRO</option>
+            <option value="VIUVO">VIUVO</option>
+        </select>
+                
+        <label class="inputLabelO2" style="width: 75px; margin-left: 20px;">Sexo</label>
+        <select class="inputO2" style="width: 150px; height: 30px;" id="Sexo" disabled>
+        <option value="Masculino">Masculino</option>
+        <option value="Feminino">Feminino</option>
+        </select> 
+                
+        <label class="inputLabelO2" style="width: 80px; margin-left: 45px;">Cor/Raça</label>
+        <select class="inputO2" style="width: 150px; height: 30px;" id="CorRaca" disabled>
+        <option value="Amarelo">Amarelo</option>
+        <option value="Branca">Branca</option>
+        <option value="Indígena">Indígena</option>
+        <option value="Negra">Negra</option>
+        <option value="Parda">Parda</option>
+        <option value="Não quis declarar">Não quis declarar</option>
+        </select>
+
+        <div class="breakLine"></div>
+    
+        <label style="font-weight:bold;width: 120px;" readonly="readonly">Filiação</label>
+        <br>
+    
+        <label style="width: 120px; margin: 5px;">Nome da mãe</label>
+        <input type="text" name="NomeMae" id="NomeMae" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;" readonly="readonly">
+    
+        <br>
+        <label style="width: 120px;margin: 5px;">Nome do pai</label>
+        <input type="text" name="NomePai" id="NomePai" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 400px;" readonly="readonly">
+        
+        <br>
+        <hr class="ui-state-default">
+        <label style="width: 600px;">Condição sistêmica/Necessidade especial: (Segurar control para fazer seleçoes múltiplas)</label><br>
+        <select class="ui-state-default ui-corner-all" style="width: 100px;margin: 5px;" name="PNE" id="PNE" multiple disabled>
+        <option value="Hipertensão">Hipertensão</option>
+        <option value="Diabetes">Diabetes</option>
+        <option value="Hepatite B">Hepatite B</option>
+        <option value="Hepatite C">Hepatite C</option>
+        <option value="Soropositivo">Soropositivo</option>
+        </select> 
+
+        <h2>Endereço</h2>
+
+        <label style="font-weight:bold;width: 120px;">Endereço:</label>
+        <br>
+            
+        <label style="width: 120px;">Tipo de endereço</label>
+        <select class="ui-state-default ui-corner-all" style="width: 180px; height: 20px;" name="EnderecoTipo" id="EnderecoTipo" disabled>
+        <option value="Comercial">Comercial</option>
+        <option value="Família">Família</option>
+        <option value="Residencial">Residencial</option>
+        </select> 
+        <br>
+    
+        <label style="width: 120px;">CEP</label>
+        <input type="text" name="Cep" id="Cep" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap cep" style="width: 100px;" readonly="readonly">
+        <br>
+    
+        <label style="width: 120px;">Endereço</label>
+        <input type="text" name="Rua" id="Rua" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
+        <br>
+    
+        <label style="width: 120px;">Número</label>
+        <input type="text" name="EndNumero" id="EndNumero" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 100px;" readonly="readonly">
+        <br>
+    
+        <label style="width: 120px;">Complemento</label>
+        <input type="text" name="EndComplemento" id="EndComplemento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
+        <br>
+    
+        <label style="width: 120px;">Bairro</label>
+        <input type="text" name="Bairro" id="Bairro" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
+        <br>
+    
+        <label style="width: 120px;">Cidade</label>
+        <input type="text" name="Cidade" id="Cidade" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap" style="width: 300px;" readonly="readonly">
+        <br>
+    </div>

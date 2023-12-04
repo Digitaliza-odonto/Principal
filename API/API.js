@@ -100,12 +100,24 @@ const encaminhamentos = {
     const url = `${getApiUrl()}/encaminhamentos/pendenciasRegulacaoUsuario.php`;
     return sendRequest(url, 'POST', data);
   },
+  pendenciasEncaminhamentoUsuario: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/pendenciasEncaminhamentoUsuario.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  pendenciasEncaminhamento: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/pendenciasEncaminhamento.php`;
+    return sendRequest(url, 'POST', data);
+  },
   homologarRegulacao: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/homologarRegulacao.php`;
     return sendRequest(url, 'POST', data);
   },
   devolverRegulacao: async (data) => {
     const url = `${getApiUrl()}/encaminhamentos/devolverRegulacao.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  devolverEncaminhamento: async (data) => {
+    const url = `${getApiUrl()}/encaminhamentos/devolverEncaminhamento.php`;
     return sendRequest(url, 'POST', data);
   },
 };
@@ -120,7 +132,7 @@ criar: async (data) => {
   return sendRequest(url, 'POST', data);
   },
 consultar: async (data) => {
-  const url = `${getApiUrl()}/cobalto/usuarios/consultar.php`;
+  const url = `${getApiUrl()}/cobalto/usuarios/consultarUsuarios.php`;
   return sendRequest(url, 'POST', data);
   },
 consultarResponsavel: async (data) => {
@@ -146,12 +158,20 @@ const alunos = {
     const url = `${getApiUrl()}/alunos/desvincularRegulacao.php`;
     return sendRequest(url, 'POST', data);
   },
+  desvincularEncaminhamento: async (data) => {
+    const url = `${getApiUrl()}/alunos/desvincularEncaminhamento.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarVinculos: async (data) => {
     const url = `${getApiUrl()}/alunos/vinculos.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarVinculoAluno: async (data) => {
     const url = `${getApiUrl()}/alunos/vinculosAluno.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  vinculoPorDemanda: async (data) => {
+    const url = `${getApiUrl()}/alunos/vinculoPorDemanda.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarMatriculaAluno: async (data) => {
@@ -248,12 +268,20 @@ const disciplinas = {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultar.php`;
     return sendRequest(url, 'POST', data);
   },
+  consultarProjetos: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultarProjetos.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  criarAtualizarProjeto: async (data) => {
+    const url = `${getApiUrl()}/cobalto/disciplinas/criarAtualizarProjeto.php`;
+    return sendRequest(url, 'POST', data);
+  },
   consultarDisciplinasProjetos: async (data) => {
     const url = `${getApiUrl()}/cobalto/disciplinas/consultarDisciplinasProjetos.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarID: async (data) => {
-    const url = `${getApiUrl()}/cobalto/disciplinas/consultarID.php`;
+    const url = `${getApiUrl()}/cobalto/disciplinas/consultar_IDturma.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarMatriculados: async (data) => {
@@ -304,6 +332,10 @@ const agenda = {
   },
   deletar: async (data) => {
     const url = `${getApiUrl()}/agenda/deleteAgendamento.php`;
+    return sendRequest(url, 'POST', data);
+  },
+  deleteAgendamentoAluno: async (data) => {
+    const url = `${getApiUrl()}/agenda/deleteAgendamentoAluno.php`;
     return sendRequest(url, 'POST', data);
   },
   consultarGeral: async (data) => {

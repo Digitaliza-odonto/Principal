@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Tramitar encaminhamento</title>
+        <title>Encaminhamentos/Altas com pendência</title>
         <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
             var BASE_URL = 'https://cobalto.ufpel.edu.br/';
             var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
@@ -59,9 +59,9 @@
       <!-- CONTEÚDO SUPERIOR -->
       <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
             <li>Gestão Saúde</li>
-            <li>Triagem/Almoxarifado</li>    
+            <li>Aluno</li>    
             <li>Processos</li>
-            <li>Tramitar encaminhamento</li>
+            <li>Encaminhamentos/Altas com pendência</li>
           </ul>
           
       <div style="clear: both;"></div></div><div style="clear: both;"></div>
@@ -70,7 +70,7 @@
       <div class="ui-widget-content ui-corner-all toolbar">
           <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
           <!-- <button id="pesquisar" class="pesquisar" style="float: left;">Pesquisar</button> -->
-          <button id="devolver" class="devolver" title="Devolver" onclick="devolver()" style="float: left;">Devolver pedido</button>
+          <button id="devolver" class="devolver" title="Devolver" onclick="devolver()" style="float: left;">Re-enviar pedido</button>
           <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
           <span style="clear: both; display: block"></span>
       </div>
@@ -100,7 +100,7 @@
         
 
         <!-- CONTEÚDO COLUNA DA ESQUERDA -->
-        <div id="labeltabencaminhamentoAlta" class="tabs" style="width: 35%; float: left; box-sizing: border-box;margin-top: 20px;">
+        <div id="labeltabencaminhamentoAlta" class="tabs" style="width: 100%; float: left; box-sizing: border-box;margin-top: 20px;">
           
           <div id="labeltabencaminhamentoAlta-0" class="ui-widget labeltabencaminhamentoAlta labeltabencaminhamentoAlta-0">
             <ul>
@@ -146,130 +146,10 @@
             </div>
         </div>    
 
-        <!-- COLUNA DA DIREITA DESVINCULAR-->
-        <div id="desvincularTab" class="tabs" style="width: 65%; float: left; box-sizing: border-box;margin-top: 20px;">
-          <div id="desvincular-0" class="ui-widget desvincular desvincular-0">
-            <ul>
-              <li class="labeltabdesvincular"><a href="#desvincular-0" accessKey="desvincular-0">Tramitar encaminhamento/alta</a></li>
-            </ul>
-            <br>
-            <p></p>
-
-            <br>
-            <p>Vínculo atual do paciente com a demanda:</p>
-            <p></p>
-
-            <div style="margin: 30px; width: 80%;">
-              <table id="gridVinculos"></table>
-              <div id="gridVinculosPager" style="margin-bottom: 5px;"></div>
-            </div>
-            
-            <script src="/API/API.js"></script>
-            
-            <script>
-              var gridId = 'gridVinculos';
-              var headerColumns = ["Selec.", "Aluno", "Matrícula", "Disciplina", "Especialidade"];
-              var columnNames = ["radio", "nomeAluno", "id_matricula", "atividadeDisciplina", "Especialidade"];
-              var columnWidths = [30, 150, 50, 120, 80];
-              var rowHeight = 30; // Set the height of each row in pixels
-            
-              $(document).ready(function () {
-                $('#' + gridId).jqGrid({
-                  "sortname": columnNames[1],
-                  "autoload": false,
-                  "autowidth": true,
-                  "pager": "#" + gridId + "Pager",
-                  "rowNum": 25,
-                  "toppager": false,
-                  "caption": "Lista de vinculos do paciente",
-                  "height": "auto",
-                  "jsonReader": { "repeatitems": false, "id": 0 },
-                  "datatype": "local", // Set datatype to 'local' initially
-                  "colNames": headerColumns,
-                  "colModel": [
-                    { "sortable": false, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "center" },
-                    { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "center" },
-                    { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" },
-                    { "sortable": true, "name": columnNames[3], "index": columnNames[3], "width": columnWidths[3], "align": "center" },
-                    { "sortable": true, "name": columnNames[4], "index": columnNames[4], "width": columnWidths[4], "align": "center" }
-
-                  ],
-                  "rowHeight": rowHeight,
-                  "pager": "#" + gridId + "Pager",
-                  "jsonReader": { "repeatitems": false, "id": 0 }
-                });
-            
-                function loadVinculosToGrid(vinculos) {
-                  var data = [];
-                  vinculos.forEach((vinculo) => {
-                    var row = {
-                      id: vinculo.id,
-                      nomeAluno: vinculo.nome_aluno,
-                      id_matricula: vinculo.Matricula_aluno,
-                      atividadeDisciplina: vinculo.atividade_turma,
-                      Especialidade: vinculo.Especialidade
-                    };
-                    data.push(row);
-                  });
-
-                  adicionarNovaLinha(data);
-                }
-
-                function adicionarNovaLinha(data) {
-                  // Select the table body using jQuery
-                  const tbody = $('#' + gridId + ' tbody');
-                  
-                  // Clear existing rows in the table
-                  tbody.empty();
-
-                  // Iterate through the data array and add rows to the table
-                  data.forEach(function (item) {
-                    const novaLinha = `
-                      <tr id="${item.id}">
-                        <td style="display: none;">${item.id}</td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[0]}px;"><input type="radio" name="radioButton" value="${item.id}"></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[1]}px;">${item.nomeAluno}</td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[2]}px;">${item.id_matricula}</td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[3]}px;">${item.atividadeDisciplina}</td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[4]}px;">${item.Especialidade}</td>
-                      </tr>
-                    `;
-                    tbody.append(novaLinha);
-                  });
-                }
-
-            
-                function loadVinculosPaciente() {
-                  const CPF = document.getElementById("pacienteCPF").value;
-                  const id_demanda = document.getElementById("id_demanda").value; 
-                 
-            
-                  api.alunos.vinculoPorDemanda({ CPF, id_demanda }).then((vinculos) => {
-                    loadVinculosToGrid(vinculos);
-                  });
-                }
-            
-                loadVinculosPaciente();
-              });
-            </script>
-                
-            <br>
-                
-            <label style="width: 185px; height: 30px; font-size: 12px;font-weight: bold;margin-top: 25px;margin-left: 5%;">Alterar status do paciente para:</label>
-            <select class="ui-state-default ui-corner-all" style="width: 255px; height: 30px; margin-left: 1px;margin-top: 25px;" name="novoStatus" id="novoStatus">
-              <option value="Escolher">Escolher</option>
-              <option value="Em espera">Encaminhar para lista da especialidade</option>
-              <option value="Alta">Alta</option>
-              <option value="Continua em tratamento">Continuar em tratamento na especialidade</option>
-            </select>
-
-            <button id="btnAlterarVinculo" onclick="desvincular()" value="AlterarVinculo" class="button" style="margin-left: 20px; padding: 4px;">Tramitar regulação</button>
-                              
-            <p></p><br>
-          </div>
         </div>
-      </div>
+</div>
 
+    <script src="/API/API.js"></script>
     <script>
       // CONVERTER DATA EM DD/MM/YYYY
       function formatDate(dateString) {
@@ -324,12 +204,6 @@
           const statusWords = document.getElementById("tipoTramite").value.split(' ');
           const firstWord = statusWords[0];
 
-           // Check if novoStatus is equal to "Escolher"
-          if (novoStatus === "Escolher") {
-              showCustomAlert("Por favor, escolha um status antes de prosseguir com a desvinculação.");
-              return;
-          }
-
           if (radioButtons.length === 0) {
               showCustomAlert("Por favor, selecione uma linha para desvincular.");
               return;
@@ -368,7 +242,7 @@
 
         const id = document.getElementById("id_demanda").value;
         const encaminhamentoDemanda = document.getElementById("encaminhamentoDemanda").value;
-        const statusPendencia = 'Devolvido ao usuário'
+        const statusPendencia = 'Solicitado'
         
         const combinedData = {
             id: id,

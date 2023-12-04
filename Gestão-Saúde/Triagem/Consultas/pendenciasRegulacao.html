@@ -86,7 +86,7 @@
       var gridId = 'gridDisciplinas';
       var headerColumns = ["ID", "Data solicitação", "Nome", "Matrícula","Disciplina", "Tipo de pedido", "Status"];
       var columnNames = ["id_regulacao", "data_pedido", "nome_aluno", "id_matricula", "atividade_disciplina", "tipo_regulacao", "status_regulacao"];
-      var columnWidths = [0, 100, 100, 100, 100, 100, 100];
+      var columnWidths = [0, 45, 100, 40, 100, 60, 60];
       var rowHeight = 30; // Set the height of each row in pixels
 
       $(document).ready(function () {
@@ -148,12 +148,12 @@
                 const novaLinha = `
                     <tr id="${item.id_regulacao}">
                         <td style="display: none;">${item.id_regulacao}</td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr">${formatDate(item.data_pedido)}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr">${item.nome_aluno}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr">${item.id_matricula}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr">${item.atividade_disciplina}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr">${item.tipo_regulacao}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr">${item.status_regulacao}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[1]}px;">${formatDate(item.data_pedido)}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[2]}px;">${item.nome_aluno}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[3]}px;">${item.id_matricula}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[4]}px;">${item.atividade_disciplina}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[5]}px;">${item.tipo_regulacao}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[6]}px;">${item.status_regulacao}</a></td>
                     </tr>
                 `;
                 tbody.append(novaLinha);

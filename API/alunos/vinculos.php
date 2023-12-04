@@ -12,6 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $turma_id = $data['turma_id'];
 
     $vinculos = db("SELECT * FROM vinculo_aluno_paciente WHERE Turma = '$turma_id'");
+    
+    // Loop through the fetched vinculos to perform additional SQL operation
+    foreach ($vinculos as &$vinculo) {
+        $matricula_aluno = $vinculo['Matricula_aluno'];
+        
+        // Perform SQL operation to get 'nome' from 'alunos' table based on 'Matricula_aluno'
+        $aluno_info = db("SELECT nome FROM alunos WHERE matricula = '$matricula_aluno'");
+        
+        // Add 'nome' to each JSON object in the $vinculos array
+        $vinculo['nome_aluno'] = $aluno_info[0]['nome']; // Assuming one result is expected
+    }
 
     echo json_encode($vinculos);
 } else {

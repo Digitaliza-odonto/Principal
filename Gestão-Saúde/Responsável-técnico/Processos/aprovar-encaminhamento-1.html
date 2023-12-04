@@ -55,7 +55,7 @@
           var gridId = 'pacienteLocal';
           var headerColumns = ["ID", "Data", "Paciente", "CPF", "Aluno", "Origem", "Especialidade"];
           var columnNames = ["id", "data", "NomePaciente", "cpf_paciente", "NomeAluno", "encaminhamentoOrigem", "especialidade"];
-          var columnWidths = [0, 100, 100, 100, 100, 100, 100];
+          var columnWidths = [0, 30, 100, 50, 100, 100, 100];
           var rowHeight = 30; // Set the height of each row in pixels
     
           $(document).ready(function () {
@@ -142,12 +142,12 @@
     
                                         var row = '<tr>';
                     row += `<td style="display: none;">${item.id_atendimentos}</td>`;
-                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${formatDate(item.Data)}</td>`;
-                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.NomePaciente}</td>`;
-                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.CPF}</td>`;
-                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.NomeAluno}</td>`;
-                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.encaminhamentoOrigem}</td>`;
-                    row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.Especialidade}</td>`;
+                    row += `<td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[1]}px;"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${formatDate(item.Data)}</td>`;
+                    row += `<td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[2]}px;"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.NomePaciente}</td>`;
+                    row += `<td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[3]}px;"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.CPF}</td>`;
+                    row += `<td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[4]}px;"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.NomeAluno}</td>`;
+                    row += `<td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[5]}px;"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.encaminhamentoOrigem}</td>`;
+                    row += `<td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[6]}px;"><a href="aprovar-encaminhamento-2.html?cpf=${item.CPF}&id=${item.id}">${item.Especialidade}</td>`;
                     row += '</tr>';
     
                     tableBody.append(row);

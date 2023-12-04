@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $data['id'];
 
     // Fetch vinculos
-    $query = db("SELECT * FROM `agenda-clinicas` WHERE `agendado_por` = '$id' AND (`status_agendamento` = 'Agendado' OR `status_agendamento` = 'No local')");
+    $query = db("SELECT * FROM `agenda-clinicas` WHERE `agendado_por` = '$id' AND (`status_agendamento` = 'Agendado' OR `status_agendamento` = 'No local' OR `status_agendamento` = 'Desmarcado pelo aluno')");
 
     // Check if there are vinculos
     if (!empty($query)) {

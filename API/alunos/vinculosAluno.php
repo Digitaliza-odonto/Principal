@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents('php://input'), true);
     $matricula = $data['matricula'];
 
-    $vinculos = db("SELECT * FROM `vinculo_aluno_paciente` WHERE `Matricula_aluno` = '14200737' AND `StatusVinculo` = 'Ativo'; ");
+    $vinculos = db("SELECT * FROM `vinculo_aluno_paciente` WHERE `Matricula_aluno` = '$matricula' AND `StatusVinculo` = 'Ativo'; ");
 
     $result = array();
 

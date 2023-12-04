@@ -1,748 +1,210 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agendamento pela triagem</title>
-    <!-- jQuery library -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendar atendimento pela triagem</title>
+  <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
+    var BASE_URL = 'https://cobalto.ufpel.edu.br/';
+    var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
+    var PATH_COOKIE = '/';
+    var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
+    var JS = 'https://cobalto.ufpel.edu.br/static/_js';
+  </script>
+  <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
+  <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
+  <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
 
-    <!-- jQuery UI CSS -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-
-    <!-- jQuery UI JavaScript -->
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-
-    <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
-        var BASE_URL = 'https://cobalto.ufpel.edu.br/';
-        var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
-        var PATH_COOKIE = '/';
-        var IMG = 'https://cobalto.ufpel.edu.br/static/_img';
-        var JS = 'https://cobalto.ufpel.edu.br/static/_js';
-    </script>
-    <link rel="shortcut icon" href="https://cobalto.ufpel.edu.br/static/_img/favicon.ico" type="image/ico">
-    <link href='https://cobalto.ufpel.edu.br/static/_css/redmond/all.css.jquery-ui.06102023101234850017.css' type='text/css' rel='stylesheet'/>
-    <script type='text/javascript' src='https://cobalto.ufpel.edu.br/static/_js/all.javascript.06102023101234850017.js'></script>
-    <link href="../../../stylecobalto.css" type="text/css" rel="stylesheet">
-    <link href="../../../stylecobaltomodificado.css" type="text/css" rel="stylesheet">
-
-    <!--ALERT MESSAGES-->
-    <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
-    <script src="../../../scripts/alertMessage.js"></script>
-  
-    <!-- HIDDEN DIV FOR ALERT MESSAGE -->
-    <div id="customAlert" class="modal">
-        <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
-        <div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
-            <span id="ui-id-12" class="ui-dialog-title">Atenção</span>
-            <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only ui-dialog-titlebar-close" role="button">
-            <span class="close ui-button-icon-primary ui-icon ui-icon-closethick" style="display: flex;  float:right; margin-right: -8px; margin-top: -8px;"></span>
-            </button>
-        </div>
-        <p></p>
-        <br>
-        <div id="dialog-message-info" style="width: auto; min-height: 0px; max-height: none; height: auto;" class="ui-dialog-content ui-widget-content">
-            <span class="ui-icon ui-icon-info" style="float:left; margin:12px 0 0 0;"></span>
-            <p id="alertMessage"></p>
-        </div>
-        <p> </p><br>
-        <p> </p><br>
-        <p> </p><br>
-        <div><button id="okButton" class="centered-button">OK</button></div>
-        </div>
-    </div>
-  </head>
-  
   <body>
-    <!-- CONTEÚDO SUPERIOR -->
-    <div class="breadCrumb module"><ul><li><a href="https://cobalto.ufpel.edu.br/dashboard"></a>
-        <li>Triagem</li>    
-        <li>Cadastros</li>
-        <li>Agendamento pela triagem</li>
-      </ul>
-          
+    <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
+    <div id="content-center" class="ui-layout-center ui-widget-content"
+        style="background: none !important; overflow: hidden !important">
+        
+      <div class="breadCrumb module">
+        <ul>
+          <li><a href="index.html"></a></li><li>Gestão Saúde</li>
+          <li>Cadastro</li>
+          <li>Agendar atendimento pela triagem</li>
+        </ul>
+        <div style="clear: both;"></div>
+      </div>
       <div style="clear: both;"></div>
-    </div>
-    <div style="clear: both;"></div>
-      
-    <!-- CONTEÚDO BOTÕES -->
-    <div class="ui-widget-content ui-corner-all toolbar">
-        <button id="voltar-pagina" class="voltar-pagina ui-button ui-widget ui-state-default ui-corner-all ui-button-icon-only" style="float: left;" role="button" aria-disabled="false" title="Voltar página"><span class="ui-button-icon-primary ui-icon ui-icon-circle-arrow-w"></span></button>
+        
+      <div class="ui-widget-content ui-corner-all toolbar">
+        <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
+        <button id="pesquisar" class="pesquisar" title="Enter" style="float: left;" onclick="buscar()">Pesquisar</button>
         <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
         <span style="clear: both; display: block"></span>
-    </div>
- 
-    <!-- COLUNA DA ESQUERDA -->
-    <div style="width: 40%; height: 850px; float: left; box-sizing: border-box;">
-        <div id="agendarAtendimento" class="tabs" style="width: 100%; height: 20%px; float: left; box-sizing: border-box;">
-            <div id="agendarAtendimento-0" class="ui-widget agendarAtendimento-0">
-                <ul>
-                    <li class="agendarAtendimento"><a href="#agendarAtendimento-0" accessKey="agendarAtendimento-0">Cadastrar novo agendamento</a></li>
-                </ul>
-            </div>
+      </div>
 
-            <div style="margin: 20px;">
-                <p></p>
-
-                <form id="agendamentoForm">
-                    
-                    <div>
-                    <p></p>
-                    <br>
-                    
-                    <!-- Add hidden fields for 'id_agendamento' and 'agendado_por' -->
-                    <input type="hidden" id="id_agendamento" name="id_agendamento" value="" />
-                    <input type="hidden" id="agendado_por" name="agendado_por" value="agendado-por-value-from-url-here" />
-
-                    <label style="width: 200px; margin: 5px;">Paciente</label>
-                    <input type="text" id="pacienteAgendamento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style=" width: 50%;" placeholder="Selecione algum paciente" readonly>
-                    <br>
-
-                    <label style="width: 200px; margin: 5px;">CPF paciente</label>
-                    <input type="text" name="cpf_paciente" id="cpf_paciente" maxlength="11" class="ui-state-default ui-corner-all" style="width: 20%;" placeholder="Selecione algum paciente" readonly>
-                    <br>
-
-                    <br>
-                    <label style="width: 200px; margin: 5px;">Descrição do procedimento</label>
-                    <input type="text" id="descricao" maxlength="" class="ui-state-default ui-corner-all mousetrap" style="width: 50%;" placeholder="Descrição do procedimento">
-
-                    <br>
-                    <label style="width: 200px; margin: 5px;">Data do agendamento</label>
-                        <input type="date" id="data_agendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 15%; height: 15px;" />
-                    <br>
-
-                    <label style="width: 200px; margin: 5px;">Horário</label>
-                    <select class="ui-state-default ui-corner-all" style="width: 9%; height: 20px;" id="horario_agendamento_1">
-                        <option value="HH">HH</option>
-                        <option value="08">08</option>
-                        <option value="09">09</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                        <option value="16">16</option>
-                        <option value="17">17</option>
-                        <option value="18">18</option>
-                        <option value="19">19</option>
-                    </select>
-                    <select class="ui-state-default ui-corner-all" style="width: 9%; height: 20px;" id="horario_agendamento_2">
-                        <option value="MM">MM</option>
-                        <option value="00">00</option>
-                        <option value="15">15</option>
-                        <option value="30">30</option>
-                        <option value="45">45</option>
-                    </select>
-                    <br>
-
-                    <label style="width: 200px; margin: 5px;">Local que será realizado o atendimento</label>
-                    <select class="ui-state-default ui-corner-all" style="width: 20%; height: 20px;" name="local" id="local">
-                        <option value="Escolher">Escolher</option>
-                        <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
-                        <option value="Clínica Oeste">Clínica Oeste</option>
-                        <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
-                        <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
-                        <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
-                        <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
-                        <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
-                        <option value="Clínica 4º Andar">Clínica 4º Andar</option>
-                        <option value="Radiologia">Clínica de Radiologia</option>
-                    </select>
-                    <p></p>
-                    <br>
-                
-                    <label style="width: 200px; margin: 5px;">Disciplina</label>
-                    <input type="text" id="atividade_curricular" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style=" width: 50%;" placeholder="Selecione algum paciente" readonly>
-                    <br>
-                    <p></p>
-
-                    <div style="margin: 20px; margin-left: 10%;">
-                        <button type="submit" id="btnAdicionar" onclick="agendarAtendimento()" class="button">Cadastrar agendamento</button>
-                        <button name="deleteButton" id="deleteButton" onclick="deleteAgendamento()" value="deleteButton" class="button">Excluir agendamento</button>
-                        <button name="btnCancelar" onClick="limparCampos()" id="btnCancelar" value="Cancelar" class="button">Apagar campos</button>
-                    </div>
-                </form>
-                <br>
-            </div>
+      <!-- SCRIPT PARA BUSCA - PESQUISA ALTERAR/REFAZER -->
+      <script>var tabFiltroCurso = 'tabFiltroCurso';</script>
+      <div id="tabFiltroCurso" class="tabs">
+        <div id="tabFiltroCurso-0" class="ui-widget tabFiltroCurso tabFiltroCurso-0 tabFiltroCurso-0">
+          <ul>
+            <li class="labeltabFiltroCurso"><a href="#tabFiltroCurso-0" accessKey="tabFiltroCurso-0">Filtro</a></li>
+          </ul>
+          <br>
+          <p></p>
+          <br>
+          
+          <label style="width: 80px;">Matrícula</label>
+          <input type="text" name="matricula" id="matricula" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap matricula" style="width: 100px;"  />
+          <br>
+          <label style="width: 80px;"  >Nome</label>
+          <input type="text" name="nomeAluno" id="nomeAluno" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style="width: 350px;"  />
+          <br>
+                        
+          
+          <div style="margin: 30px; width: 50%;">
+            <table id="gridPaciente"></table>
+            <div id="gridPacientePager" style="margin-bottom: 5px;"></div>  
         </div>
-            
-        <!-- COLUNA DA ESQUERDA / MEUS PACIENTES-->
-        <div id="MeusPacientes" class="tabs" style="width: 100%; height: 475px; float: left; box-sizing: border-box;">
-            <div id="MeusPacientes-0" class="ui-widget MeusPacientes-0">
-                <ul>
-                    <li class="MeusPacientes"><a href="#MeusPacientes-0" accessKey="MeusPacientes-0">Meus pacientes</a></li>
-                </ul>
-            </div>
-
-
-            <!-- Include API.js -->
-            <script src="/API/API.js"></script>
-
-            <!-- Add this script after your existing code -->
-            <script>
-                $(document).ready(function () {
-                    // Fetch users and initialize autocomplete
-                    getUsuarios().then(function (usuarios) {
-                        var autocompleteData = usuarios.map(function (user) {
-                            return {
-                                value: user.Nome, // Value to be displayed in the input field
-                                matricula: user.Matricula // Additional data associated with the selection
-                            };
-                        });
-
-                        // Initialize autocomplete
-                        $('#buscarAluno').autocomplete({
-                            source: autocompleteData,
-                            minLength: 1,
-                            select: function (event, ui) {
-                                // Handle selection
-                                $('#idAluno').val(ui.item.matricula); // Set matricula value to idAluno input
-                                console.log('Selected:', ui.item);
-                            }
-                        });
-                    }).catch(function (error) {
-                        console.error('Erro ao consultar usuários:', error);
-                    });
-
-                    function getUsuarios() {
-                        // Fetch users from API
-                        return api.usuarios.consultar()
-                            .then(function (usuarios) {
-                                console.log(usuarios);
-                                return usuarios;
-                            })
-                            .catch(function (error) {
-                                console.error('Erro ao consultar usuários:', error);
-                                throw error; // Re-throw the error to propagate it further if needed
-                            });
-                    }
-                });
-            </script>
-
-            <div style="margin-left: 25px;">
-                <label style="width: 50px; margin: 5px;">Aluno</label>
-                <input type="text" id="buscarAluno" value="" maxlength="30" class="ui-state-default ui-corner-all mousetrap " style=" width: 60%; margin: 5px;" placeholder="Buscar aluno"><button id="buscar">Buscar</button>
-                <input type="hidden" id="idAluno" value="" maxlength="30" class="ui-state-default ui-corner-all mousetrap " style=" width: 60%; margin: 5px;" placeholder="idAluno">
-                <br>
-                <p></p>
-
-                <table id="gridPaciente" class="ui-jqgrid-htable ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin: 50px;">
-                    <thead>
-                        <tr class="ui-jqgrid-labels" role="rowheader">
-                            <th class="ui-jqgrid-titlebar ui-widget-header">Nome.</th>
-                            <th class="ui-jqgrid-titlebar ui-widget-header">CPF</th>
-                            <th class="ui-jqgrid-titlebar ui-widget-header">Disciplina</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                        <!-- Table body rows will be populated here -->
-                    </tbody>
-                    <tr>
-                        <td colspan="3" style="text-align: center;">
-                            <div id="pagination" class="ui-state-default">
-                                <button id="prev-page">&lt;</button>
-                                <span id="page-info">Pág. 1</span>
-                                <button id="next-page">&gt;</button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-                
-                <script>
-                    // Define adicionarNovaLinha function
-                    function adicionarNovaLinha(nome, CPF, disciplina) {
-                        // Seleciona o corpo da tabela usando o ID do tbody
-                        const tbody = document.getElementById('table-body');
-                
-                        // Cria um novo elemento de linha (<tr>)
-                        const novaLinha = document.createElement('tr');
-                
-                        // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
-                        novaLinha.innerHTML = `
-                            <td style="display: none;">ID</td>
-                            <td class="ui-state-default ui-th-column ui-th-ltr">${nome}</td>
-                            <td class="ui-state-default ui-th-column ui-th-ltr">${CPF}</td>
-                            <td class="ui-state-default ui-th-column ui-th-ltr">${disciplina}</td>
-                        `;
-                
-                        // Adiciona a nova linha ao corpo da tabela
-                        tbody.appendChild(novaLinha);
-                    }
-
-                    // Function to populate input fields when a table row is clicked
-                    function populateInputFields(nome, CPF, disciplina) {
-                        document.getElementById('pacienteAgendamento').value = nome;
-                        document.getElementById('cpf_paciente').value = CPF;
-                        document.getElementById('atividade_curricular').value = disciplina;
-                    }
-                
-                    // Define limparTabela function
-                    function limparTabela(tbody) {
-                        tbody.innerHTML = '';
-                    }
-                
-                    document.getElementById('buscar').addEventListener('click', function() {
-                        buscar($('#idAluno').val()); // Pass the Matricula value to the buscar function
-                    });
-                
-                    function buscar(matricula) {
-                        if (matricula.trim() !== '') {
-                            consultarPacientesPorMatricula(matricula);
-                            loadTableData(matricula);
-
-                        } else {
-                            alert("Preencha o campo Matricula para realizar a busca.");
-                        }
-                    }
-                
-                    function consultarPacientesPorMatricula(matricula) {
-                        api.alunos.vinculosPorMatricula({ id: matricula })
-                            .then((pacientes) => {
-                                const tbody = document.getElementById('table-body');
-                                limparTabela(tbody);
-                
-                                if (pacientes.length === 0) {
-                                    alert("Nenhum paciente encontrado");
-                                } else {
-                                    pacientes.forEach(paciente => {
-                                        adicionarNovaLinha(
-                                            paciente.Nome,
-                                            paciente.CPF,
-                                            paciente.Demanda
-                                        );
-                                    });
-                                }
-                            })
-                            .catch((error) => {
-                                console.error('Erro ao consultar pacientes:', error);
-                            });
-                    }
-
-                    // Function to populate input fields when a table row is clicked
-                    function populateInputFields(nome, CPF, disciplina) {
-                            document.getElementById('pacienteAgendamento').value = nome;
-                            document.getElementById('cpf_paciente').value = CPF;
-                            document.getElementById('atividade_curricular').value = disciplina;
-                        }
-
-                        // Add event listener to the table rows
-                        const tableBody = document.getElementById('table-body');
-                        tableBody.addEventListener('click', function(event) {
-                            const clickedRow = event.target.closest('tr');
-                            if (clickedRow) {
-                                const cells = clickedRow.querySelectorAll('td');
-                                const nome = cells[1].textContent;
-                                const CPF = cells[2].textContent;
-                                const disciplina = cells[0].textContent;
-                                populateInputFields(nome, CPF, disciplina);
-                            }
-                        });
-
-
-
-
-                </script>
-                
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- COLUNA DA DIREITA -->
-    <div id="agendaClinicas" class="tabs" class="tabs" style="width: 60%; height: 850px; float: left; box-sizing: border-box;">
-        <div id="agendaClinicas-0" class="ui-widget agendaClinicas-0">
-            <ul>
-                <li class="agendaClinicas"><a href="#agendaClinicas-0" accessKey="agendaClinicas-0">Minha agenda</a></li>
-            </ul>
-        </div>
-
-        <div style="margin: 20px;">
-            <p></p>
-
-            <br>
-            <label style="width: 200px; margin: 5px;">Filtrar por data</label>
-            <input type="date" id="filtroDataAgendamento" value="" maxlength="10" class="ui-state-default ui-corner-all mousetrap " style="width: 15%; height: 15px;">
-                
-            <br>
-            <label style="width: 200px; margin: 5px;">Filtrar por turno</label>
-            <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px;" id="filtroTurnoAgendamento">
-                <option value="Todos">Todos</option>
-                <option value="Manhã">Manhã</option>
-                <option value="Tarde">Tarde</option>
-                <option value="Noite">Noite</option>
-            </select>
-            <br>
-
-            <label style="width: 195px; margin: 5px;">Filtrar tabela pelo Local o atendimento</label>
-            <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px; margin: 5px;" id="filtroLocalAgendamento">
-                <option value="Todos">Todos</option>
-                <option value="Clínica Sul - 1º Andar">Clínica Sul -1º Andar</option>
-                <option value="Clínica Oeste">Clínica Oeste</option>
-                <option value="Clínica Sul - 2º Andar">Clínica Sul - 2º Andar</option>
-                <option value="Clínica Norte - 2º Andar">Clínica Norte - 2º Andar</option>
-                <option value="Bloco - 3º Andar">Bloco - 3º Andar</option>
-                <option value="Ambulatório - 3º Andar">Ambulatório - 3º Andar</option>
-                <option value="Consultório individualizado - 3º Andar">Consultório individualizado - 3º Andar</option>
-                <option value="Clínica 4º Andar">Clínica 4º Andar</option>
-                <option value="Radiologia">Clínica de Radiologia</option>
-            </select>
-            <br>
-
-            <label style="width: 195px; margin: 5px;">Filtrar tabela pela atividade clínica</label>
-            <select class="ui-state-default ui-corner-all" style="width: 15%; height: 20px; margin: 5px;" id="filtroDisciplina">
-                <option value="Todos">Todos</option>
-                <option value="ESTÁGIO EM PRONTO ATENDIMENTO (EPA)">ESTÁGIO EM PRONTO ATENDIMENTO (EPA)</option>
-                <option value="ODONTOPEDIATRIA">ODONTOPEDIATRIA</option>
-                <option value="PERIODONTIA CLÍNICA">PERIODONTIA CLÍNICA</option>
-                <option value="PRÓTESE DENTÁRIA PARCIAL III">PRÓTESE DENTÁRIA PARCIAL III</option>
-                <option value="CIRURGIA BUCO-MAXILAR III">CIRURGIA BUCO-MAXILAR III</option>
-                <option value="RADIOLOGIA E IMAGINOLOGIA">RADIOLOGIA E IMAGINOLOGIA</option>
-            </select>
-            <br>
-        
-            <div style="margin: 5px;"></div>
-            <button id="clear" style="margin: 10px;">Limpar filtros</button>
-                
-        
-            <hr class="ui-state-default">
-
-            <table id="gridAgenda" class="ui-jqgrid ui-widget ui-widget-content" cellspacing="0" cellpadding="0" role="grid" aria-multiselectable="false" style="width: 70%; font-size: 14px; margin-left: 50px; margin-top: 25px; margin-bottom: 15px;">
-                <thead>
-                    <tr class="ui-jqgrid-labels" role="rowheader">
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Selec.</th>    
-                        <th style="display: none;">ID</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Data</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">CPF Paciente</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Local</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Horário</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Atividade</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Descrição</th>
-                        <th class="ui-jqgrid-titlebar ui-widget-header">Status</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body2">
-                    <!-- Table body rows will be populated here -->
-                </tbody>
-                <tr>
-                    <td colspan="9" style="text-align: center;">
-                        <div id="pagination" class="ui-state-default">
-                            <button id="prev-page">Previous</button>
-                            <span id="page-info">Pág. 1</span>
-                            <button id="next-page">Next</button>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+      </div>
     </div>
     
     <script>
-    
-        var currentPage = 1;
-        var rowsPerPage = 25;
-        var tableRows = [];
-        var totalRows = 0;
-                
-        //NEW FILTERS TEST!!
-        var filtroDataAgendamento = '';
-        var filtroTurnoAgendamento = '';
-        var filtroLocalAgendamento = '';
-        var filtroDisciplina = '';
-                                
-        // Extract 'agendado_por' value from the logged-in user's Matricula
-        const aluno = JSON.parse(localStorage.getItem('usuario'));
-
-        // Event listener for the "Buscar" button
-        document.getElementById('buscar').addEventListener('click', function() {
-            buscar($('#idAluno').val()); // Pass the Matricula value to the buscar function
-        });
-
-        function buscar(matricula) {
-            if (matricula.trim() !== '') {
-                loadTableData(matricula); // Pass the Matricula value to the loadTableData function
-            } else {
-                alert("Preencha o campo Matricula para realizar a busca.");
-            }
-        }
-
-        function loadTableData(matricula) {
-            api.agenda.consultarAgendadosUsuario({ id: matricula })
-                .then((data) => {
-                    // verifica se o retorno é um erro
-                    if (data.erro) {
-                        showCustomAlert(data.erro);
-                        return;
-                    }
-
-                    console.log(data);
-                    totalRows = data.length;
-                    tableRows = data;
-                    applyFilters();
-                    updateButtons();
-                })
-                .catch((error) => {
-                    showCustomAlert('Error fetching data');
-                });
-        }
-
-        loadTableData();
-
-        // RECALL THE API TO UPDATE THE LIST OF PATIENTS
-        document.getElementById("okButton").addEventListener("click", function() {
-        loadTableData();
-        });
-
-    
-        function applyFilters() {
-            var filteredRows = tableRows;
-
-            // Apply the filtroDataAgendamento filter
-            if (filtroDataAgendamento !== '') {
-                filteredRows = filteredRows.filter(function (item) {
-                    return item.data_agendamento === filtroDataAgendamento;
-                });
-            }
-
-            // Apply the filtroTurnoAgendamento filter
-            if (filtroTurnoAgendamento !== '') {
-                filteredRows = filteredRows.filter(function (item) {
-                    if (filtroTurnoAgendamento === 'Manhã') {
-                        return parseInt(item.horario_agendamento) < 12;
-                    } else if (filtroTurnoAgendamento === 'Tarde') {
-                        return parseInt(item.horario_agendamento) >= 12 && parseInt(item.horario_agendamento) < 18;
-                    } else if (filtroTurnoAgendamento === 'Noite') {
-                        return parseInt(item.horario_agendamento) >= 18;
-                    }
-                    return true; // If 'Todos' selected, no filtering based on time
-                });
-            }
-
-            // Apply the filtroLocalAgendamento filter
-            if (filtroLocalAgendamento !== '') {
-                filteredRows = filteredRows.filter(function (item) {
-                    return item.local === filtroLocalAgendamento;
-                });
-            }
-
-            // Apply the filtroDisciplina filter
-            if (filtroDisciplina !== '') {
-                filteredRows = filteredRows.filter(function (item) {
-                    return item.atividade_curricular === filtroDisciplina;
-                });
-            }
-
-            showPage(currentPage, filteredRows);
-        }
-
-        function getStatusClass(status) {
-            switch (status) {
-                case 'Agendado':
-                    return 'ui-state-default';
-                case 'No local':
-                    return 'agendamento-ui';
-                case 'Atendido':
-                    return 'atendido-ui';
-                default:
-                    return '';
-            }
-        }
-    
-        function showPage(page, data) {
-            var startIndex = (page - 1) * rowsPerPage;
-            var endIndex = Math.min(startIndex + rowsPerPage, data.length);
-            var tableBody = $('#table-body2');
-    
-            tableBody.empty(); // Clear the table body
-    
-            for (var i = startIndex; i < endIndex; i++) {
-                var item = data[i];
-                var row = '<tr>';
-                
-                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr"><input type="checkbox" name="selectedId[]" value="' + item.id_agendamento + '"></td>';
-                row += '<td style="display: none;">' + item.id_agendamento + '</td>';
-                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.data_agendamento + '</td>';
-                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.cpf_paciente + '</td>';
-                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.local + '</td>';
-                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.horario_agendamento + ':' + item.minuto_agendamento + '</td>';
-                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.atividade_curricular + '</td>';
-                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.descricao + '</td>';
-                row += '<td class="' + getStatusClass(item.status_agendamento) + ' ui-th-column ui-th-ltr">' + item.status_agendamento + '</td>';
-                row += '</tr>';
-                tableBody.append(row);
-            }
-    
-            $('#page-info').text('Pág. ' + page);
-        }
-    
-        function updateButtons() {
-            if (currentPage === 1) {
-                $('#prev-page').prop('disabled', true);
-            } else {
-                $('#prev-page').prop('disabled', false);
-            }
-    
-            if (currentPage * rowsPerPage >= totalRows) {
-                $('#next-page').prop('disabled', true);
-            } else {
-                $('#next-page').prop('disabled', false);
-            }
-        }
-    
-        // Initial load of table data
-        loadTableData();
-    
-        // Listen for changes to filtroDataAgendamento filter
-        $('#filtroDataAgendamento').change(function () {
-            filtroDataAgendamento = $(this).val();
-            currentPage = 1; // Reset to the first page when the filter changes
-            applyFilters();
-            updateButtons();
-        });
-
-        // Listen for changes to filtroTurnoAgendamento filter
-        $('#filtroTurnoAgendamento').change(function () {
-            filtroTurnoAgendamento = $(this).val();
-            currentPage = 1; // Reset to the first page when the filter changes
-            applyFilters();
-            updateButtons();
-        });
-
-        // Listen for changes to filtroLocalAgendamento filter
-        $('#filtroLocalAgendamento').change(function () {
-            filtroLocalAgendamento = $(this).val();
-            currentPage = 1; // Reset to the first page when the filter changes
-            applyFilters();
-            updateButtons();
-        });
-
-        // Listen for changes to filtroDisciplina filter
-        $('#filtroDisciplina').change(function () {
-            filtroDisciplina = $(this).val();
-            currentPage = 1; // Reset to the first page when the filter changes
-            applyFilters();
-            updateButtons();
-        });
-
-            // Clear button click event
-            $('#clear').click(function () {
-            $('#filtroDataAgendamento').val('');
-            $('#filtroTurnoAgendamento').val('');
-            $('#filtroLocalAgendamento').val('');
-            $('#filtroDisciplina').val('');
-            
-            filtroDataAgendamento = '';
-            filtroTurnoAgendamento = '';
-            filtroLocalAgendamento = '';
-            filtroDisciplina = '';
-            currentPage = 1; // Reset to the first page when clearing filters
-            applyFilters();
-            updateButtons();
-        });
-    
-        $('#prev-page').click(function () {
-            if (currentPage > 1) {
-                currentPage--;
-                applyFilters();
-                updateButtons();
-            }
-        });
-    
-        $('#next-page').click(function () {
-            if (currentPage * rowsPerPage < totalRows) {
-                currentPage++;
-                applyFilters();
-                updateButtons();
-            }
-        });
-
+      var gridId = 'gridPaciente';
+      var headerColumns = ["ID", "Nome", "matricula"];
+      var columnNames = ["id", "nome", "matricula"];
+      var columnWidths = [0, 20, 100, ];
+      var rowHeight = 30; // Set the height of each row in pixels
+  
+      $(document).ready(function () {
+          $('#' + gridId).jqGrid({
+              "sortname": columnNames[1],
+              "autoload": false,
+              "autowidth": true,
+              "pager": "#" + gridId + "Pager",
+              "rowNum": 25,
+              "toppager": false,
+              "caption": "Lista de alunos",
+              "height": "auto",
+              "jsonReader": { "repeatitems": false, "id": 0 },
+              "colNames": headerColumns,
+              "colModel": [
+                  { "sortable": true, "hidden": true, "name": columnNames[0], "index": columnNames[0], "width": columnWidths[0], "align": "right" },
+                  { "sortable": true, "name": columnNames[1], "index": columnNames[1], "width": columnWidths[1], "align": "left" },
+                  { "sortable": true, "name": columnNames[2], "index": columnNames[2], "width": columnWidths[2], "align": "center" }
+              ],
+              "rowHeight": rowHeight
+          });
+  
+          $('#' + gridId).setGridParam({ datatype: 'json' });
+          $('#' + gridId).setGridParam({ autoload: true });
+  
+          function gridResize() {
+              $('#' + gridId).setGridWidth($('#gbox_' + gridId).width());
+          }
+  
+          $(window).bind('resize', gridResize);
+          $('#tabFiltroCurso').bind('tabsshow', gridResize);
+      });
     </script>
-
+  
+  
+     
+    <script src="/API/API.js"></script>
 
     <script>
-        function agendarAtendimento() {
-            // Extract 'agendado_por' value from the logged-in user's Matricula
-            const aluno = JSON.parse(localStorage.getItem('usuario'));
-            const agendadoPor = aluno.Matricula;
+      // Função para adicionar uma nova linha à tabela usando XPath
+      function adicionarNovaLinha(nome, matricula, Tel, Tel2, Email) {
+        // Seleciona o corpo da tabela usando o XPath
+        const tbody = document.querySelector('.ui-jqgrid-htable');
 
-            // Set 'agendado_por' value in the hidden field
-            $('#agendado_por').val(agendadoPor);
+        // Cria um novo elemento de linha (<tr>)
+        const novaLinha = document.createElement('tr'); 
 
-            var formData = {
-                cpf_paciente: $('#cpf_paciente').val(),
-                descricao: $('#descricao').val(),
-                data_agendamento: $('#data_agendamento').val(),
-                horario_agendamento: $('#horario_agendamento_1').val(),
-                minuto_agendamento: $('#horario_agendamento_2').val(),
-                local: $('#local').val(),
-                atividade_curricular: $('#atividade_curricular').val(),
-                agendado_por: agendadoPor
-            };
+        // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
+        novaLinha.innerHTML = `
+          <td style="display: none;">ID</td>
+          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="agendar-atendimento-triagem-2.html?matricula=${matricula}">${matricula}</a></td>
+          <td class="ui-state-default ui-th-column ui-th-ltr"><a href="agendar-atendimento-triagem-2.html?matricula=${matricula}">${nome}</td>
+        `; 
 
-            // Perform an API request
-            api.agenda.criar(formData).then(function(response) {
-                //Check if the response contains a `message` property
-                const message = response.message || 'Agendamento realizado com sucesso.';
-                console.log(message);
-                showCustomAlert(message);
-        
-                limparCampos();
-                
-                }).catch(function(error) {
-                // Extract error message from the response or use a default error message
-                const errorMessage = error.message || 'Erro ao processar a solicitação.';
-                console.error(error);
-            });
+        // Adiciona a nova linha ao corpo da tabela
+        tbody.appendChild(novaLinha);
+      }
 
-            loadTableData(matricula);
+      // Função de busca que determina qual função de consulta chamar com base nos campos de nome e matricula
+      function buscar() {
+        const nome = document.getElementById('nomeAluno').value;
+        const matricula = document.getElementById('matricula').value;
+
+        if (nome.trim() !== '') {
+            consultarAlunosPorNome(nome);
+        } else if (matricula.trim() !== '') {
+          consultarAlunoPormatricula(matricula);
+        } else {
+          alert("Preencha o campo nome ou matricula para realizar a busca.");
         }
-                
-        // Delete agendamento
-        function deleteAgendamento () {
-            const selectedIds = $("input[name='selectedId[]']:checked").map(function () {
-                // Get the value (ID) from the second column of the table in the same row
-                return $(this).closest('tr').find('td:eq(1)').text();
-            }).get();
-    
-            if (selectedIds.length === 0) {
-                showCustomAlert("Por favor, selecione ao menos um agendamento para excluir.");
-                return;
+      }
+
+      // Função para consultar alunos por nome usando a API
+      function consultarAlunosPorNome(nome) {
+        api.alunos.buscarAlunoNomeMatricula({ Nome: nome })
+          .then((alunos) => {
+            const tbody = document.querySelector('.ui-jqgrid-htable');
+            limparTabela(tbody);
+            
+            if (alunos.length === 0) {
+              alert("Nenhum aluno encontrado");
+            } else {
+              alunos.forEach(aluno => {
+                adicionarNovaLinha(
+                  aluno.nome,
+                  aluno.matricula,
+                );
+              });
             }
-    
-            // Create the request data as an object
-            const requestData = { selectedId: selectedIds };
-    
-            // Log the requestData for debugging
-            console.log("Request Data:", requestData);
-    
-            //Perform an API request for deletion
-            api.agenda.deletar(requestData).then(function(response) {
-                const message = response.message || 'Agendamento excluído com sucesso.';
-                showCustomAlert(message);
-                
-                limparCampos();
-            
-            }).catch(function(error) {
-                // Extract error message from the response or use a default error message
-                const errorMessage = error.message || 'Erro ao processar a solicitação de exclusão.';
-                console.error(error);
-            });
-            
-            loadTableData(matricula);
-        }
+          })
+          .catch((error) => {
+            console.error('Erro ao consultar alunos:', error);
+          });
+      }
 
-        // FUNÇÃO PARA APAGAR CAMPOS DA PÁGINA
-        function limparCampos() {
-            document.getElementById("pacienteAgendamento").value = "";
-            document.getElementById("cpf_paciente").value = "";
-            document.getElementById("descricao").value = "";
-            document.getElementById("data_agendamento").value = "";
-            document.getElementById("horario_agendamento_1").value = "HH";
-            document.getElementById("horario_agendamento_2").value = "MM";
-            document.getElementById("local").value = "Escolher";
-            document.getElementById("atividade_curricular").value = "";
+      // Função para consultar alunos por matricula usando a API
+      function consultarAlunoPormatricula(matricula) {
+        api.alunos.buscarAlunoNomeMatricula({ matricula: matricula })
+          .then((alunos) => {
+            const tbody = document.querySelector('.ui-jqgrid-htable');
+            limparTabela(tbody);
+
+            if (alunos.length === 0) {
+              alert("Nenhum aluno encontrado");
+            } else {
+              alunos.forEach(aluno => {
+                adicionarNovaLinha(
+                  aluno.nome,
+                  aluno.matricula,
+                );
+              });
+            }
+          })
+          .catch((error) => {
+            console.error('Erro ao consultar alunos:', error);
+          });
+      }
+
+      // Função para limpar a tabela
+      function limparTabela(tbody) {
+        while (tbody.children.length > 1) {
+          tbody.removeChild(tbody.lastChild);
         }
+      }
+
+      // Adicionar eventos de busca nos campos de entrada
+      document.getElementById('matricula').onkeydown = function (e) {
+        if (e.key === 'Enter') {
+          consultarAlunoPormatricula(document.getElementById('matricula').value);
+        }
+      }
+
+      document.getElementById('nomeAluno').onkeydown = function (e) {
+        if (e.key === 'Enter') {
+          consultarAlunosPorNome(document.getElementById('nomeAluno').value);
+        }
+      }
     </script>
-
   </body>
 </html>

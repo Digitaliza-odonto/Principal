@@ -79,6 +79,7 @@
       <option value="Amarelo">Amarelo</option>
       <option value="Branca">Branca</option>
       <option value="Indígena">Indígena</option>
+      <option value="Negra">Negra</option>
       <option value="Parda">Parda</option>
       <option value="Não quis declarar">Não quis declarar</option>
     </select> 
@@ -152,8 +153,7 @@
           return formattedDate;
       }
 
-      console.log('capaConsulta.html');
-        // Função para preencher o formulário com os dados do perfil
+      // Função para preencher o formulário com os dados do perfil
         function preencherFormulario(dados) {
           console.log(dados)
           document.getElementById("informacoesImportantes").value = dados.informacoesImportantes;

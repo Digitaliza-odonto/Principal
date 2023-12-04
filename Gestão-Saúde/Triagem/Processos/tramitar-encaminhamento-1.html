@@ -63,8 +63,7 @@
           <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
           <span style="clear: both; display: block"></span>
       </div>
-
-
+      
       <div id="tabMinhasDisciplinas" class="tabs">
         <div id="tabMinhasDisciplinas-0" class="ui-widget tabMinhasDisciplinas tabMinhasDisciplinas-0 tabMinhasDisciplinas-0">
           <ul>
@@ -86,7 +85,7 @@
       var gridId = 'gridDisciplinas';
       var headerColumns = ["ID", "Data solicitação", "Aluno", "Matrícula", "Disciplina", "Status"];
       var columnNames = ["id_regulacao", "data_pedido", "nomeAluno", "id_matricula", "atividadeDisciplina", "Status"];
-      var columnWidths = [0, 100, 100, 100, 100, 150];
+      var columnWidths = [0, 30, 90, 30, 70, 100];
       var rowHeight = 30; // Set the height of each row in pixels
 
       $(document).ready(function () {
@@ -147,11 +146,11 @@
                 const novaLinha = `
                     <tr id="${item.id}">
                         <td style="display: none;">${item.id}</td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="tramitar-encaminhamento-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${formatDate(item.Data)}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="tramitar-encaminhamento-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.nomeAluno}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="tramitar-encaminhamento-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.alunoEncaminhamento}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="tramitar-encaminhamento-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.atividadeDisciplina}</a></td>
-                        <td class="ui-state-default ui-th-column ui-th-ltr"><a href="tramitar-encaminhamento-2.html?Matricula=${item.id_matricula}&id_regulacao=${item.id_regulacao}">${item.Status}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[1]}px;"><a href="tramitar-encaminhamento-2.html?id=${item.id}">${formatDate(item.Data)}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[2]}px;"><a href="tramitar-encaminhamento-2.html?id=${item.id}">${item.nomeAluno}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[3]}px;"><a href="tramitar-encaminhamento-2.html?id=${item.id}">${item.alunoEncaminhamento}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[4]}px;"><a href="tramitar-encaminhamento-2.html?id=${item.id}">${item.encaminhamentoOrigem}</a></td>
+                        <td class="ui-state-default ui-th-column ui-th-ltr" style="width: ${columnWidths[5]}px;"><a href="tramitar-encaminhamento-2.html?id=${item.id}">${item.Status}</a></td>
                     </tr>
                 `;
                 tbody.append(novaLinha);

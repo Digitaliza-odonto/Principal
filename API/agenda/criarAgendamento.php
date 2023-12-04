@@ -34,14 +34,6 @@ if (
     $atividade_curricular = $input_data['atividade_curricular'];
     $local = $input_data['local'];
 
-    // Ensure 'data_agendamento' is greater than the current date
-    $currentDate = date('Y-m-d');
-    if ($data_agendamento <= $currentDate) {
-        // Return error message as JSON
-        echo json_encode("Data do agendamento deve ser maior que a data atual.");
-        exit;
-    }
-
     // Perform the database insertion with the auto-incremented ID
     $sql = "INSERT INTO `agenda-clinicas`(`agendado_por`, `cpf_paciente`, `data_agendamento`, `horario_agendamento`, `minuto_agendamento`, `atividade_curricular`, `descricao`, `local`, `status_agendamento`)
      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Agendado')";

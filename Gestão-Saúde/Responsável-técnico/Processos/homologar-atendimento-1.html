@@ -75,7 +75,7 @@
           </ul>
           <br>
           
-          <div style="margin: 30px; width: 80%;">
+          <div style="margin: 30px; width: 70%;">
             <table id="pacienteLocal"></table>
             <div id="gridPacientePager" style="margin-bottom: 5px;"></div>  
           </div>
@@ -87,7 +87,7 @@
         var gridId = 'pacienteLocal';
         var headerColumns = ["ID", "Data", "Paciente", "CPF", "Aluno", "Disciplina"];
         var columnNames = ["id", "data", "nome", "cpf_paciente", "aluno", "atividade"];
-        var columnWidths = [0, 40, 100, 40, 100, 100];
+        var columnWidths = [0, 30, 80, 40, 80, 80];
         var rowHeight = 30; // Set the height of each row in pixels
   
         $(document).ready(function () {
@@ -132,6 +132,13 @@
     <script src="/API/API.js"></script>
 
     <script>
+      // CONVERTER DATA EM DD/MM/YYYY
+      function formatDate(dateString) {
+              const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+              const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+              return formattedDate;
+      }
+
       $(document).ready(function () {
         var tableRows = [];
         var totalRows = 0;
@@ -171,11 +178,11 @@
                 // Create table row with the link
                 var row = '<tr>';
                 row += `<td style="display: none;">${item.id_atendimentos}</td>`;
-                row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="homologar-atendimento-2.html?cpf=${item.cpf}&id=${id_atendimentos}">${item.data}</td>`;
-                row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="homologar-atendimento-2.html?cpf=${item.cpf}&id=${id_atendimentos}">${item.nome_paciente}</td>`;
-                row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="homologar-atendimento-2.html?cpf=${item.cpf}&id=${id_atendimentos}">${item.cpf}</td>`;
-                row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="homologar-atendimento-2.html?cpf=${item.cpf}&id=${id_atendimentos}">${item.nome_aluno}</td>`;
-                row += `<td class="ui-state-default ui-th-column ui-th-ltr"><a href="homologar-atendimento-2.html?cpf=${item.cpf}&id=${id_atendimentos}">${item.componente_curricular}</td>`;
+                row += `<td class="ui-state-default ui-th-column ui-th-ltr"style="width: ${columnWidths[1]}px;"><a href="homologar-atendimento-2.html?cpf=${item.cpf}&id=${id_atendimentos}">${formatDate(item.data)}</td>`;
+                row += `<td class="ui-state-default ui-th-column ui-th-ltr"style="width: ${columnWidths[2]}px;"><a href="homologar-atendimento-2.html?cpf=${item.cpf}&id=${id_atendimentos}">${item.nome_paciente}</td>`;
+                row += `<td class="ui-state-default ui-th-column ui-th-ltr"style="width: ${columnWidths[3]}px;"><a href="homologar-atendimento-2.html?cpf=${item.cpf}&id=${id_atendimentos}">${item.cpf}</td>`;
+                row += `<td class="ui-state-default ui-th-column ui-th-ltr"style="width: ${columnWidths[4]}px;"><a href="homologar-atendimento-2.html?cpf=${item.cpf}&id=${id_atendimentos}">${item.nome_aluno}</td>`;
+                row += `<td class="ui-state-default ui-th-column ui-th-ltr"style="width: ${columnWidths[5]}px;"><a href="homologar-atendimento-2.html?cpf=${item.cpf}&id=${id_atendimentos}">${item.componente_curricular}</td>`;
                 
                 row += '</tr>';
                 

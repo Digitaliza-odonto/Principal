@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha agenda de atendimento</title>
+    <title>Agendamento pela triagem</title>
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+    <!-- jQuery UI JavaScript -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
     <script type="text/javascript" async="" defer="" src="https://stats.ufpel.edu.br/piwik.js"></script><script type="text/javascript">
         var BASE_URL = 'https://cobalto.ufpel.edu.br/';
         var WIKI = 'http://wikicobalto.ufpel.edu.br/doku.php?';
@@ -30,8 +39,7 @@
           });
         });
       </script>
-
-  
+      
     <!-- HIDDEN DIV FOR ALERT MESSAGE -->
     <div id="customAlert" class="modal">
         <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
@@ -53,9 +61,9 @@
         <div><button id="okButton" class="centered-button">OK</button></div>
         </div>
     </div>
-  </head>
-  
-  <body>
+    </head>
+    
+    <body>
     <!-- CONTEÚDO DA PÁGINA/TELA DO COBALTO COMEÇA AQUI -->
     <div id="content-center" class="ui-layout-center ui-widget-content"
     style="background: none !important; overflow: hidden !important">
@@ -64,22 +72,22 @@
     <ul>
         <li><a href="index.html"></a></li>
         <li>Gestão Saúde</li>
-        <li>Aluno</li>    
+        <li>Triagem</li>    
         <li>Cadastros</li>
-        <li>Minha agenda de atendimentos</li>
+        <li>Agendamento pela triagem</li>
     </ul>
     <div style="clear: both;"></div>
     </div>
     <div style="clear: both;"></div>
     
-    <div class="ui-widget-content ui-corner-all toolbar">
+    <div class="ui-widget-content ui-corner-all">
     <button id="voltar-pagina" class="voltar-pagina" style="float: left;">Voltar página</button>
     <button id="ajuda" class="ajuda" title="F1" style="float: right;">Ajuda</button>
     <span style="clear: both; display: block"></span>
     </div>
 
     </div>
- 
+    
     <!-- COLUNA DA ESQUERDA -->
     <div style="width: 40%; height: 850px; float: left; box-sizing: border-box;">
         <div id="agendarAtendimento" class="tabs" style="width: 100%; height: 20%px; float: left; box-sizing: border-box;">
@@ -99,16 +107,22 @@
                     <br>
                     
                     <!-- Add hidden fields for 'id_agendamento' and 'agendado_por' -->
-                    <input type="hidden" id="id_agendamento" name="id_agendamento" value="" />
+                    <input type="hidden" id="id_agendamento" name="id_agendamento"/>
                     <input type="hidden" id="agendado_por" name="agendado_por"/>
 
                     <script>
-                        // Get the 'agendado_por' from the localStorage
-                        const usuario = JSON.parse(localStorage.getItem('usuario'));
-                        document.getElementById('agendado_por').value = usuario.Matricula;
+                        function getUrlVars() {
+                            var vars = {};
+                            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                                vars[key] = decodeURIComponent(value); // Decode URI component to handle special characters
+                            });
+                            return vars;
+                        }
+                        const urlParams = getUrlVars();
+                        const alunoMatricula = urlParams.matricula; // Assuming 'matricula' is the parameter name in the URL
+
+                        document.getElementById('agendado_por').value = alunoMatricula;
                     </script>
-
-
 
                     <label style="width: 200px; margin: 5px;">Paciente</label>
                     <input type="text" id="pacienteAgendamento" value="" maxlength="255" class="ui-state-default ui-corner-all mousetrap " style=" width: 50%;" placeholder="Selecione algum paciente" readonly>
@@ -179,6 +193,7 @@
                         <!-- <button name="btnCancelar" onClick="limparCampos()" id="btnCancelar" value="Cancelar" class="button">Apagar campos</button> -->
                     </div>
                 </form>
+
                 <br>
             </div>
         </div>
@@ -194,19 +209,19 @@
             <div style="margin: 10px; width: 97%;">
                 <table id="gridPaciente"></table>
                 <div id="gridPacientePager" style="margin-bottom: 5px;"></div>  
-              </div>
+                </div>
             </div>
-          </div>
+            </div>
         </div>
     
         <script>
-          var gridId = 'gridPaciente';
-          var headerColumns = ["ID", "Nome", "CPF", "Telefone", "Telefone 2", "Disciplina"];
-          var columnNames = ["id", "paciente_nome", "cpf", "Tel", "Tel2", "atividade"];
-          var columnWidths = [0, 50, 50, 50, 50, 100];
-          var rowHeight = 30; // Set the height of each row in pixels
+            var gridId = 'gridPaciente';
+            var headerColumns = ["ID", "Nome", "CPF", "Telefone", "Telefone 2", "Disciplina"];
+            var columnNames = ["id", "paciente_nome", "cpf", "Tel", "Tel2", "atividade"];
+            var columnWidths = [0, 50, 50, 50, 50, 100];
+            var rowHeight = 30; // Set the height of each row in pixels
     
-          $(document).ready(function () {
+            $(document).ready(function () {
             $('#' + gridId).jqGrid({
                 "sortname": columnNames[1],
                 "autoload": false,
@@ -238,39 +253,54 @@
     
             $(window).bind('resize', gridResize);
             $('#tabFiltroCurso').bind('tabsshow', gridResize);
-          });
+            });
         </script>
     
-         <script src="/API/API.js"></script>
+            <script src="/API/API.js"></script>
     
-         <script>
-            // buscar pacientes do aluno logado
-            $(document).ready(function () {
-              const aluno = JSON.parse(localStorage.getItem('usuario'));
-          
-              api.alunos.pacientes({ Matricula: aluno.Matricula })
-                .then((data) => {
-                  const vinculos = data.vinculos;
-                  const pacienteInfoList = data.pacienteInfoList;
-          
-                  // Loop through each vinculo and corresponding pacienteInfo
-                  vinculos.forEach((vinculo, index) => {
-                    const pacienteInfo = pacienteInfoList[index][0]; // Assuming that there is only one pacienteInfo for each vinculo
-                    const atividadeInfo = pacienteInfoList[index].TurmaInfo[0].atividade;
-          
-                        adicionarNovaLinha(
-                        pacienteInfo.Nome,
-                        pacienteInfo.CPF,
-                        pacienteInfo.Tel,
-                        pacienteInfo.Tel2,
-                        atividadeInfo
-                        );
-                    });
-                    })
-                    .catch((error) => {
-                    console.error('Erro ao consultar pacientes:', error);
+            <script>
+                $(document).ready(function () {
+                    // Função para obter parâmetros da URL
+                    function getUrlVars() {
+                        var vars = {};
+                        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                            vars[key] = decodeURIComponent(value); // Decode URI component to handle special characters
+                        });
+                        return vars;
+                    }
+
+                    const urlParams = getUrlVars();
+                    const alunoMatricula = urlParams.matricula; // Assuming 'matricula' is the parameter name in the URL
+
+                    if (alunoMatricula) {
+                        api.alunos.pacientes({ Matricula: alunoMatricula })
+                            .then((data) => {
+                                const vinculos = data.vinculos;
+                                const pacienteInfoList = data.pacienteInfoList;
+
+                                // Loop through each vinculo and corresponding pacienteInfo
+                                vinculos.forEach((vinculo, index) => {
+                                    const pacienteInfo = pacienteInfoList[index][0]; // Assuming that there is only one pacienteInfo for each vinculo
+                                    const atividadeInfo = pacienteInfoList[index].TurmaInfo[0].atividade;
+
+                                    adicionarNovaLinha(
+                                        pacienteInfo.Nome,
+                                        pacienteInfo.CPF,
+                                        pacienteInfo.Tel,
+                                        pacienteInfo.Tel2,
+                                        atividadeInfo
+                                    );
+                                });
+                            })
+                            .catch((error) => {
+                                console.error('Erro ao consultar pacientes:', error);
+                            });
+                    } else {
+                        console.error('Matrícula do aluno não encontrada na URL.');
+                    }
                 });
-          
+
+            
                 function adicionarNovaLinha(nome, cpf, Tel, Tel2, atividade) {
                     const tbody = document.querySelector('.ui-jqgrid-btable');
 
@@ -301,9 +331,9 @@
                         document.getElementById('atividade_curricular').value = this.getAttribute('data-atividade');
                     });
                 }
-            });
-          </script>
-          
+            
+            </script>
+            
             </div>
         </div>
     </div>
@@ -316,9 +346,6 @@
                 <li class="agendaClinicas"><a href="#agendaClinicas-0" accessKey="agendaClinicas-0">Minha agenda</a></li>
             </ul>
         </div>
-
-
-        
 
         <div style="margin: 20px;">
             <p></p>
@@ -382,7 +409,7 @@
             
                 <hr class="ui-state-default">
             
-                <div style="margin-left: 10px; margin-top: 30px;  width: 80%;">
+                <div style="margin-left: 10px; margin-top: 30px;  width: 70%;">
                     <table id="gridAgendados"></table>
                     <div id="gridAgendadosPager" style="margin-bottom: 5px;"></div>
                 </div>
@@ -393,7 +420,7 @@
                 var gridAgendadosPagerId = 'gridAgendadosPager';
                 var historicoHeaderColumns = ["ID", "Selec.", "Data", "Nome", "CPF", "Local", "Horário", "Atividade", "Descrição", "Status"];
                 var historicoColumnNames = ["id", "selecionado", "data", "nome", "cpf_paciente", "local", "horario", "atividade", "descricao", "status"];
-                var historicoColumnWidths = [0, 40, 60, 130, 80, 130, 50, 175, 125, 130];
+                var historicoColumnWidths = [0, 40, 60, 130, 80, 130, 60, 175, 175, 100];
                 var historicoRowHeight = 300; // Set the height of each row in pixels
             
                 $(document).ready(function () {
@@ -442,6 +469,7 @@
             </div>
         </div>
 
+        
         <script>
             $(document).ready(function () {
                 var originalData; // Store the original data from the API response
@@ -529,9 +557,20 @@
 
                 // Function to load data from the API and populate the gridAgenda
                 function loadDataAndPopulateGrid() {
-                    const aluno = JSON.parse(localStorage.getItem('usuario'));
 
-                    api.agenda.consultarAgendadosUsuario({ id: aluno.Matricula }).then(function (data) {
+                    // Função para obter parâmetros da URL
+                    function getUrlVars() {
+                        var vars = {};
+                        var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                            vars[key] = decodeURIComponent(value); // Decode URI component to handle special characters
+                        });
+                        return vars;
+                    }
+
+                    const urlParams = getUrlVars();
+                    const alunoMatricula = urlParams.matricula; // Assuming 'matricula' is the parameter name in the URL
+
+                    api.agenda.consultarAgendadosUsuario({ id: alunoMatricula }).then(function (data) {
                         // Extract relevant data from the API response
                         const vinculos = data.vinculos || [];
                         const pacienteInfoList = data.pacienteInfoList || [];
@@ -625,9 +664,9 @@
                 const currentDate = new Date();
 
                 // Compare 'data_agendamento' with the current date
-                if (dataAgendamento <= currentDate) {
-                    showCustomAlert('Agendamentos devem ser realizados com mais de 24h de antecedência.');
-                    return;
+                if (dataAgendamento < currentDate) {
+                    showCustomAlert('Não é permitido agendamento em datas anteriores ao dia atual.');
+                    return; // Stop execution if 'data_agendamento' is lower than the current date
                 }
 
                 // Create the request data as an object
@@ -665,7 +704,7 @@
                 }).get();
 
                 if (selectedIds.length === 0) {
-                    showCustomAlert("Por favor, selecione ao menos um agendamento para desmarcar.");
+                    showCustomAlert("Por favor, selecione ao menos um agendamento para excluir.");
                     return;
                 }
 
@@ -676,9 +715,9 @@
                 console.log("Request Data:", requestData);
 
                 // Perform an API request for deletion
-                api.agenda.deleteAgendamentoAluno(requestData)
+                api.agenda.deletar(requestData)
                     .then(function (response) {
-                        const message = response.message || 'Agendamento desmarcado com sucesso.';
+                        const message = response.message || 'Agendamento excluído com sucesso.';
                         showCustomAlert(message);
                     })
                     .catch(function (error) {
@@ -688,5 +727,5 @@
                     });
             }
         </script>
-  </body>
+    </body>
 </html>

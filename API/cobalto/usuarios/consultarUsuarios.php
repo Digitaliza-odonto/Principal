@@ -1,30 +1,33 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, PATCH, DELETE");
+header("Access-Control-Allow-Headers: X-Requested-With, Content-Type");
+header("Access-Control-Allow-Credentials: true");
 
-include_once('../../config.php');
+require_once '../db.php';   // Importa o arquivo de conexão com o banco de dados
 
-// Initialize an array to store the data
-$data = array();
+    $data = json_decode(file_get_contents('php://input'), true);
+    $Matricula = $data['Matricula'];
+    $Nome = $data['Nome'];
 
-// Fetch data from the database
-$consulta = mysqli_query($connection, "SELECT * FROM usuarios");
+    if ($CPF) {
+        $result = db("SELECT * FROM `alunos` WHERE `matricula` = '$Matricula'");
 
-if ($consulta) {
-    while ($linha = mysqli_fetch_assoc($consulta)) {
-        $data[] = $linha;
+        if (count($result) === 0) {
+            echo json_encode(array("error" => "Paciente não encontrado."));
+        } else {
+            echo json_encode($result);
+        }
+    } elseif ($Nome) {
+        $result = db("SELECT * FROM `alunos` WHERE `nome` LIKE '%$Nome%'");
+
+        if (count($result) === 0) {
+            echo json_encode(array("error" => "Aluno não encontrado."));
+        } else {
+            echo json_encode($result);
+        }
+    } else {
+        echo json_encode(array("error" => "Informe Matrícula ou Nome para consulta."));
     }
 
-    // Output the data as JSON
-    echo json_encode($data);
-} else {
-    // Handle the error gracefully and return an error JSON response
-    $error = array("error" => "Database query error: " . mysqli_error($connection));
-    echo json_encode($error);
-}
-
-// Close the database connection
-mysqli_close($connection);
 ?>

@@ -21,6 +21,16 @@
       <link href="../../../scripts/alert-message.css" type="text/css" rel="stylesheet">
       <script src="../../../scripts/alertMessage.js"></script>
 
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          var okButton = document.getElementById('okButton');
+      
+          okButton.addEventListener('click', function() {
+            window.history.back(); // This line performs the action of going back to the previous page
+          });
+        });
+      </script>
+
       <!-- HIDDEN DIV FOR ALERT MESSAGE -->
       <div id="customAlert" class="modal">
           <div class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-front ui-dialog-buttons ui-draggable ui-resizable centered-modal">
@@ -202,7 +212,7 @@
             const dados = dadosFicticios[indice];
             
             document.getElementById("informacoesImportantes").value = dados.informacoesImportantes;
-            document.getElementById("CPF").value = dados.cpf;
+            document.getElementById("CPF").value = dados.CPF;
             document.getElementById("Nome").value = dados.nome;
             document.getElementById("Rg").value = dados.rg;
             document.getElementById("CNS").value = dados.CNS;

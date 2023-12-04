@@ -132,6 +132,7 @@
             <option value="Odontopediatria">Odontopediatria</option>
             <option value="Periodontia">Periodontia</option>
             <option value="Dentística">Dentística</option>
+            <option value="Endodontia">Endodontia</option>
             <option value="Cirurgia">Cirurgia</option>
           </select>
           
@@ -183,6 +184,14 @@
       
         <!--Script DEMANDAS-->
         <script>
+          //Format DATE
+          function formatDate(dateString) {
+          const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+          const formattedDate = new Date(dateString).toLocaleDateString('en-GB', options);
+          return formattedDate;
+          }
+
+
           function adicionarNovaLinha(data) {
             console.log(data)
           // Seleciona o corpo da tabela usando o XPath
@@ -194,7 +203,7 @@
 
           // Adiciona o conteúdo da nova linha criando células de dados (<td>) e inserindo os valores
           novaLinha.innerHTML = `
-            <td role="gridcell" style="text-align:center;">${data.Data}</td>
+            <td role="gridcell" style="text-align:center;">${formatDate(data.Data)}</td>
             
             <td role="gridcell" style="text-align:center;">${data.Especialidade}</td>
             <td role="gridcell" style="text-align:center;">${data.Demanda}</td>
